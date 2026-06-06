@@ -107,7 +107,7 @@ SeeDS is one of five tools from Omega Mu Gamma Studio, a student-built suite of 
 |------|------|
 | [@albertofelix08](https://github.com/albertofelix08) | Architecture, 3D engine, project lead |
 | [@aaronmcgeo](https://github.com/aaronmcgeo) | Structures, animations, co-lead |
-| [@ashikabrigid] | Logic verifier, Domain & correctness expert |
+| [@ashikhabrigid] | Logic verifier, Domain & correctness expert |
 
 *A project by [Omega Mu Gamma Studio](https://github.com/Omega-Mu-Gamma-Studio) — a multipurpose creative studio building games, interactive experiences, and developer tools.*
 
