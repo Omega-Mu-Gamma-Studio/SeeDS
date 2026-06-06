@@ -1,109 +1,118 @@
-<div align="center">
+# SeeDS
 
-# 🌱 SeeDS
+**A 3D interactive data structures visualizer for CS22302 — Data Structures**
 
-**See** your **D**ata **S**tructures — a 3D C code visualizer for students
+Built by [Omega Mu Gamma Studio](https://github.com/Omega-Mu-Gamma-Studio) · the team behind [KMapX](https://kmapx.vercel.app), [EG Suite](https://eg-suite.vercel.app), [GateLab](https://gatelab.vercel.app), and [Java-chan](https://github.com/Omega-Mu-Gamma-Studio/Java-Chan)
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-see--ds.vercel.app-5b8ff7?style=for-the-badge&logo=googlechrome&logoColor=white)](https://see-ds.vercel.app)
-[![License: MIT](https://img.shields.io/badge/License-MIT-4fc97e?style=for-the-badge)](LICENSE)
-
-*Paste your C code. Watch your data structure come alive in 3D. Catch bugs before your professor does.*
-
-</div>
+🔗 **[Live App](https://see-ds.vercel.app)**
 
 ---
 
-SeeDS is a browser-based tool for students taking Data Structures in C. Paste a `.c` file and SeeDS parses it, identifies the data structure, flags common pointer bugs with line numbers and suggested fixes, then renders an interactive 3D scene with step-by-step playback. No install, no account, no backend.
+## What is SeeDS?
 
-**[Open SeeDS →](https://see-ds.vercel.app)**
+SeeDS is a browser-based 3D visualizer for data structures, built to cover the full CS22302 syllabus. It turns abstract pointer diagrams and traversal pseudocode into animated, interactive 3D scenes — structures you can manipulate, break, and explore in real time.
 
----
+Every module is built around the same principle as the rest of the Omega Mu Gamma Studio:
 
-## How it works
+> **The broken structure is the explanation.**
 
-1. **Paste or drag-drop** your `.c` file into the editor — or pick one of the built-in templates
-2. Hit **▶ Analyze & Visualize**
-3. SeeDS detects the data structure automatically (with a confidence score) and builds the 3D scene
-4. **Rotate** the view by clicking and dragging; scroll to zoom
-5. **Step through** pointer traversal with the playback bar at the bottom
-6. **Click any error** in the results panel to highlight the buggy node directly in 3D
+A dangling pointer glowing red teaches memory management better than any footnote. A cycle lighting up teaches linked list failure modes better than any paragraph. SeeDS builds the failure first, then the fix.
 
 ---
 
-## Bug detection
+## What It Covers
 
-SeeDS scans for the pointer and memory bugs C students hit most:
+SeeDS maps directly to the CS22302 syllabus across all five units.
 
-| Bug | What it catches |
-|-----|-----------------|
-| Dangling Pointer | `free()` called but pointer still in use |
-| Memory Leak | `malloc()`'d block that never gets freed |
-| Cycle / Loop | A `next` pointer that creates an infinite loop |
-| Missing NULL Terminator | List tail doesn't end with `NULL` |
-| NULL Dereference | Pointer dereferenced before a NULL check |
-| Double Free | `free()` called twice on the same block |
-| BST Violation | Left child > parent, or right child < parent |
-| Out of Bounds | Array access past declared length |
-| Buffer Overflow | Write past the end of an allocated block |
-
-Every finding includes the line number, a plain-English explanation, and a suggested fix.
+| Unit | Topic | Status |
+|------|-------|--------|
+| I | Lists — Singly, Doubly, Circular, Polynomial ADT, Radix Sort | ✅ Live |
+| II | Stacks and Queues — Operations, Circular Queue, DeQueue | ✅ Live |
+| III | Trees — BST, AVL, Heaps, Expression Trees, B-Tree | 🔧 In Progress |
+| IV | Graphs — BFS, DFS, Dijkstra, Prim, Kruskal | 🔧 In Progress |
+| V | Searching, Sorting, and Hashing | 🔧 Planned |
 
 ---
 
-## Template library
+## Modes
 
-No C file handy? Load a built-in example:
+### Standard Mode
+The full visualizer. Code editor on the left, 3D scene on the right. Step through operations, trigger animations, and explore error states like dangling pointers, memory leaks, and cycles.
 
-Singly Linked List · Doubly Linked List · Circular Linked List · Stack · Queue · Circular Queue · Deque · Binary Search Tree · AVL Tree · Max Heap · Hash Table · Graph · Array Operations · Sorting Race
+### Playground Mode *(Phase 3 — In Development)*
+A Lego-style block-based code construction interface. Students assemble a data structure by snapping together pre-written function "bricks." As each brick is placed, the 3D scene updates live — the structure builds itself in front of them.
 
----
-
-## Tech stack
-
-- **Vanilla JavaScript (ES Modules)** — no framework, no bundler
-- **Three.js** — 3D rendering and orbit controls
-- **Custom C tokenizer + parser** — full analysis pipeline, runs entirely client-side
-- **Vercel** — hosting
-
----
-
-## Roadmap
-
-- [x] Linked List (singly, doubly, circular)
-- [x] Stack, Queue, Deque
-- [x] Binary Search Tree + AVL Tree
-- [x] Graph, Hash Table, Max Heap
-- [x] Sorting race visualization
-- [x] 9 bug detection patterns
-- [x] Syntax-highlighted C editor with drag-and-drop
-- [x] Light / dark theme + fullscreen mode
-- [ ] Red-Black Tree
-- [ ] Trie
-- [ ] Export visualization as image / GIF
-- [ ] Share a visualization via URL
+- Every brick is a real C function from the SeeDS codebase — nothing is fabricated
+- No typing required — click or drag to place, the code writes itself
+- Hover any brick before placing to see a plain-English explanation, the C code, dependencies, and what changes in the 3D scene
+- Wrong brick order shows *why* it broke, not a silent failure
+- Once complete, the brick panel collapses into a full syntax-highlighted C implementation
+- "Open in Visualizer" hands the assembled structure off to Standard Mode for deeper exploration
 
 ---
 
-## Contributing
+## Key Features
 
-Active development is on the `lol` branch. PRs are welcome — especially new structure visualizations (Red-Black Tree, Trie, Skip List) and additional bug detection patterns.
+- **3D visualizations** built with Three.js — nodes, arrows, pointers, and traversal animations
+- **Error states as content** — dangling pointers, cycles, and memory leaks are first-class visual events
+- **Step-by-step playback** — walk through operations one step at a time
+- **Live code panel** — see the C implementation alongside the 3D scene
+- **Playground Mode** *(in development)* — brick-based structure assembly with live 3D feedback
 
-1. Fork the repo
-2. Branch off `lol`
-3. Open a pull request
+---
+
+## Tech Stack
+
+- Vanilla JavaScript + Three.js
+- No build step — runs directly in the browser
+- Deployed on Vercel
+
+---
+
+## CS22302 Syllabus Coverage
+
+| Topic | Coverage |
+|-------|----------|
+| Singly, Doubly, Circular Linked Lists | ✅ |
+| Polynomial ADT, Radix Sort, Multi Lists | ✅ |
+| Stack and Queue ADT, Applications | ✅ |
+| Circular Queue, DeQueue | ✅ |
+| Binary Tree, BST, AVL, Expression Trees | 🔧 In Progress |
+| Heaps, B-Tree, Threaded Trees | 🔧 In Progress |
+| Graphs — BFS, DFS, Topological Sort | 🔧 In Progress |
+| Dijkstra, Prim, Kruskal | 🔧 In Progress |
+| Searching — Linear, Binary | 🔧 Planned |
+| Sorting — Bubble, Selection, Insertion, Shell, Merge | 🔧 Planned |
+| Hashing — Separate Chaining, Open Addressing | 🔧 Planned |
+
+---
+
+## Part of the Omega Mu Gamma Studio
+
+SeeDS is one of five tools from Omega Mu Gamma Studio, a student-built suite of open-source engineering and CS education tools.
+
+| Tool | What it does |
+|------|-------------|
+| SeeDS | 3D data structure visualizer (CS22302) — *this repo* |
+| [KMapX](https://kmapx.vercel.app) | Karnaugh map simplifier with don't-care support |
+| [EG Suite](https://eg-suite.vercel.app) | 3D Engineering Graphics simulator (ME22201) |
+| [GateLab](https://gatelab.vercel.app) | 3D digital logic playground (CS22303) |
+| [Java-chan](https://github.com/Omega-Mu-Gamma-Studio/Java-Chan) | Anime-guided Java tutor (CS22301) |
+
+---
+
+## Team
+
+| Name | Role |
+|------|------|
+| [@albertofelix08](https://github.com/albertofelix08) | Architecture, 3D engine, project lead |
+| [@aaronmcgeo](https://github.com/aaronmcgeo) | Structures, animations, co-lead |
+| Ashkiha Brigid | Logic verifier, Domain & correctness expert |
+
+*A project by [Omega Mu Gamma Studio](https://github.com/Omega-Mu-Gamma-Studio) — a multipurpose creative studio building games, interactive experiences, and developer tools.*
 
 ---
 
 ## License
 
-[MIT](LICENSE) — free to use, study, modify, and share.
-
----
-
-<div align="center">
-
-Built by [@albertofelix08](https://github.com/albertofelix08) & [@aaronmcgeo](https://github.com/aaronmcgeo)
-
-*If SeeDS helped you understand pointers, a ⭐ goes a long way*
-
-</div>
+MIT License · © 2026 Omega Mu Gamma Studio
