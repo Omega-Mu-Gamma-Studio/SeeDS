@@ -1,0 +1,35 @@
+/* playground/styles/bricks.css
+   Brick button styles: default, hover, locked, placed states.
+   DS selector buttons at the top of the brick panel.
+   --------------------------------------------------------
+   TODO: Implement per spec Section 07.
+*/
+
+.brick-btn {
+  /* TODO */
+}
+
+.brick-btn:hover {
+  /* TODO */
+}
+
+.brick-btn--locked {
+  /* TODO: opacity 0.4, cursor not-allowed, dashed border */
+}
+
+.brick-btn--placed {
+  /* TODO: green tint, checkmark ::after */
+}
+
+.brick-btn--placed::after {
+  /* TODO: content " ✓" */
+}
+
+/* DS selector buttons */
+.ds-btn {
+  /* TODO */
+}
+
+.ds-btn--active {
+  /* TODO */
+}
