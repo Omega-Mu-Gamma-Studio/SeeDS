@@ -368,6 +368,52 @@
   letter-spacing: 0.06em;
 }
 
+/* Two-button row */
+.splash-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Playground Mode — outlined ghost button */
+.splash-playground-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: #5b8ff7;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  padding: 16px 40px;
+  border-radius: 8px;
+  border: 1px solid rgba(91,142,247,0.4);
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 200ms ease, border-color 200ms ease,
+              transform 150ms ease, box-shadow 200ms ease;
+}
+
+.splash-playground-btn:hover {
+  background: rgba(91,142,247,0.08);
+  border-color: rgba(91,142,247,0.7);
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(91,142,247,0.15);
+}
+
+.splash-playground-btn:active {
+  transform: translateY(0px) scale(0.97);
+}
+
+.splash-playground-btn__icon {
+  font-size: 16px;
+}
+
 /* ---------------------------------------------------------------
    KEYFRAMES
 ---------------------------------------------------------------- */

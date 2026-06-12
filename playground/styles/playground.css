@@ -4,7 +4,34 @@
    TODO: Implement per spec Section 07.
 */
 
-*, *::before, *::after {
+/* ---- Back nav ---- */
+#pg-back {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4a4f6a;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+#pg-back:hover {
+  color: #5b8ff7;
+  border-color: rgba(91,142,247,0.35);
+  background: rgba(91,142,247,0.06);
+}
+
+
   box-sizing: border-box;
   margin: 0;
   padding: 0;
