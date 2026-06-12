@@ -1,35 +1,104 @@
 // playground/src/core/PlaygroundApp.js
-// ─────────────────────────────────────────────────────────────────────────────
-// Main controller. Runs when playground/index.html loads.
-// Boots Three.js scene, loads brick JSON, wires all components together.
-// Think of it as the conductor — it doesn't play instruments, it cues everyone.
-//
-// Read spec Section 08 before implementing.
-// ─────────────────────────────────────────────────────────────────────────────
 
-import SceneManager     from "../renderer/SceneManager.js";
+import SceneManager      from "../renderer/SceneManager.js";
 import StructureRenderer from "../renderer/StructureRenderer.js";
-import PlaygroundState  from "../state/PlaygroundState.js";
-import { evaluate }     from "../state/DependencyEngine.js";
-import BrickPanel       from "../ui/BrickPanel.js";
-import CodePanel        from "../ui/CodePanel.js";
-import HoverCard        from "../ui/HoverCard.js";
+import PlaygroundState   from "../state/PlaygroundState.js";
+import { evaluate }      from "../state/DependencyEngine.js";
+import BrickPanel        from "../ui/BrickPanel.js";
+import BuildCanvas       from "../ui/BuildCanvas.js";
+import CodePanel         from "../ui/CodePanel.js";
+import HoverCard         from "../ui/HoverCard.js";
 
 const DEFAULT_DS = "linked_list";
 
 async function init() {
-  // TODO Step 1 — Boot the Three.js scene via SceneManager.
-  // TODO Step 2 — Load default brick JSON via loadBricks(DEFAULT_DS).
-  // TODO Step 3 — Instantiate PlaygroundState with dsType + brickDefs.
-  // TODO Step 4 — Instantiate HoverCard, BrickPanel, CodePanel, StructureRenderer.
-  // TODO Step 5 — Render initial (empty) state snapshot.
-  // TODO Step 6 — Wire "brick:placed" custom event → state → all three panels.
-  // TODO Step 7 — Wire "ds:changed" custom event → reload bricks → reset state → re-render.
+  // 1. Three.js scene
+  const canvas   = document.getElementById("pg-canvas");
+  const sceneMgr = new SceneManager(canvas);
+  sceneMgr.start();
+
+  // 2. Brick data
+  let brickDefs = await loadBricks(DEFAULT_DS);
+
+  // 3. State
+  const state = new PlaygroundState(DEFAULT_DS, brickDefs);
+
+  // 4. UI
+  const hoverCard    = new HoverCard();
+  const brickPanel   = new BrickPanel(document.getElementById("brick-panel"), hoverCard);
+  const buildCanvas  = new BuildCanvas();
+  const codePanel    = new CodePanel(document.getElementById("code-panel"));
+  const structRender = new StructureRenderer(sceneMgr.scene, sceneMgr.camera);
+  structRender.setDSType(DEFAULT_DS);
+
+  // 5. Tab switching
+  document.querySelectorAll(".work-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".work-tab").forEach(t => t.classList.remove("work-tab--active"));
+      document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("tab-pane--active"));
+      tab.classList.add("work-tab--active");
+      document.getElementById(`tab-${tab.dataset.tab}`).classList.add("tab-pane--active");
+    });
+  });
+
+  // 6. Reset button
+  document.getElementById("reset-btn").addEventListener("click", () => {
+    state.reset();
+    structRender.setDSType(state.dsType); // clears 3D scene
+    const snap = state.snapshot();
+    const deps = evaluate(snap);
+    brickPanel.render(snap, deps);
+    buildCanvas.render(snap, deps);
+    codePanel.render(snap);
+  });
+
+  // 7. Initial render
+  const snap = state.snapshot();
+  const deps = evaluate(snap);
+  brickPanel.render(snap, deps);
+  buildCanvas.render(snap, deps);
+  codePanel.render(snap);
+
+  // 8. Brick placed (fired by BuildCanvas on drop)
+  document.addEventListener("brick:placed", (e) => {
+    const { brickId } = e.detail;
+    const newSnap = state.placeBrick(brickId);
+    const newDeps = evaluate(newSnap);
+
+    brickPanel.render(newSnap, newDeps);
+    buildCanvas.render(newSnap, newDeps);
+    codePanel.render(newSnap);
+
+    const brick = brickDefs.find(b => b.id === brickId);
+    if (brick) structRender.handleEvent(brick.scene_event, newSnap);
+
+    // Auto-scroll build canvas to bottom so new brick is visible
+    const bc = document.getElementById("build-canvas");
+    bc.scrollTop = bc.scrollHeight;
+  });
+
+  // 9. DS switching
+  document.addEventListener("ds:changed", async (e) => {
+    const { dsType } = e.detail;
+    brickDefs = await loadBricks(dsType);
+    state.reset();
+    state.dsType    = dsType;
+    state.brickDefs = brickDefs;
+    structRender.setDSType(dsType);
+    const freshSnap = state.snapshot();
+    const freshDeps = evaluate(freshSnap);
+    brickPanel.render(freshSnap, freshDeps);
+    buildCanvas.render(freshSnap, freshDeps);
+    codePanel.render(freshSnap);
+  });
 }
 
 async function loadBricks(dsType) {
-  // TODO: fetch `../../bricks/${dsType.replace("_", "-")}.json`
-  // Return json.bricks array.
+  const filename = dsType.replace(/_/g, "-");
+  const res = await fetch(`/playground/bricks/${filename}.json`);
+  if (!res.ok) throw new Error(`Could not load bricks/${filename}.json`);
+  const json = await res.json();
+  return json.bricks;
 }
 
-init();
+init().catch(err => console.error("PlaygroundApp init failed:", err));

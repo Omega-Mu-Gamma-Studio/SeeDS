@@ -1,42 +1,79 @@
-/* playground/styles/hovercard.css
-   The popup card that appears when hovering a brick.
-   Singleton element — positioned via JS in HoverCard.js.
-   --------------------------------------------------------
-   TODO: Implement per spec Section 07.
-*/
+/* playground/styles/hovercard.css */
 
 .hover-card {
-  /* TODO: position fixed, z-index 9999, hidden by default (opacity 0) */
+  position: fixed;
+  z-index: 9999;
+  width: 300px;
+  background: #1e1e2e;
+  border: 1px solid #4f8ef7;
+  border-radius: 8px;
+  padding: 14px 16px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
 }
 
 .hover-card--visible {
-  /* TODO: opacity 1, transition in */
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .hc__title {
-  /* TODO: monospace, blue accent colour */
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  color: #4f8ef7;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
 .hc__body {
-  /* TODO: readable prose, muted colour */
+  font-size: 11px;
+  color: #9999bb;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  font-family: 'Space Mono', monospace;
 }
 
 .hc__code {
-  /* TODO: dark inset background */
+  background: #13131f;
+  border-radius: 4px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  overflow-x: auto;
 }
 
 .hc__code pre {
-  /* TODO: monospace, light colour */
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: #cdd6f4;
+  white-space: pre;
+  line-height: 1.5;
 }
 
 .hc__deps {
-  /* TODO: small, muted */
+  font-size: 10px;
+  color: #5555aa;
+  margin-bottom: 5px;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.02em;
 }
 
 .hc__deps--warning {
-  /* TODO: amber, bold — shown when deps not yet placed */
+  color: #f59e0b;
+  font-weight: bold;
 }
 
 .hc__scene {
-  /* TODO: green accent — scene impact description */
+  font-size: 10px;
+  color: #4fc97e;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.02em;
+}
+
+.hc__divider {
+  border: none;
+  border-top: 1px solid #2a2a3a;
+  margin: 8px 0;
 }

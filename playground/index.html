@@ -11,27 +11,41 @@
 </head>
 <body>
 
-  <!-- Back nav -->
-  <a id="pg-back" href="../index.html" title="Back to SeeDS">
-    <span>←</span> SeeDS
-  </a>
+  <a id="pg-back" href="../index.html" title="Back to SeeDS">← SeeDS</a>
 
-  <!-- THE THREE-PANEL LAYOUT -->
   <div id="pg-shell">
 
-    <!-- 20% — Brick Library -->
+    <!-- 20% — Brick palette -->
     <div id="brick-panel">
-      <div id="ds-selector">
-        <!-- DS picker buttons rendered by BrickPanel.js -->
-      </div>
-      <div id="brick-list">
-        <!-- Individual brick buttons rendered by BrickPanel.js -->
-      </div>
+      <div id="ds-selector"></div>
+      <div id="brick-list"></div>
     </div>
 
-    <!-- 30% — Live Code Panel -->
-    <div id="code-panel">
-      <!-- Code blocks rendered by CodePanel.js -->
+    <!-- 30% — Work panel (Build tab + Code tab) -->
+    <div id="work-panel">
+
+      <!-- Tab bar -->
+      <div id="work-tabs">
+        <button class="work-tab work-tab--active" data-tab="build" type="button">Build</button>
+        <button class="work-tab" data-tab="code" type="button">Code</button>
+        <button id="reset-btn" type="button" title="Clear chain">↺ Reset</button>
+      </div>
+
+      <!-- Build tab -->
+      <div id="tab-build" class="tab-pane tab-pane--active">
+        <div id="build-canvas">
+          <div id="chain-list"></div>
+          <div id="drop-zone" class="drop-zone">
+            <span class="drop-zone__hint">drag a brick here</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code tab -->
+      <div id="tab-code" class="tab-pane">
+        <div id="code-panel"></div>
+      </div>
+
     </div>
 
     <!-- 50% — 3D Canvas -->
@@ -39,13 +53,14 @@
       <canvas id="pg-canvas"></canvas>
     </div>
 
-  </div><!-- /pg-shell -->
+  </div>
 
-  <!-- Hover card — singleton, hidden by default -->
+  <!-- Hover card -->
   <div id="hover-card" class="hover-card">
     <div class="hc__title"></div>
     <div class="hc__body"></div>
     <div class="hc__code"><pre></pre></div>
+    <hr class="hc__divider">
     <div class="hc__deps"></div>
     <div class="hc__scene"></div>
   </div>

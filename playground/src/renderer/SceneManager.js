@@ -1,41 +1,74 @@
 // playground/src/renderer/SceneManager.js
-// ─────────────────────────────────────────────────────────────────────────────
-// Sets up the Three.js scene, camera, lights, and render loop for the 50% panel.
-// Written fresh for playground — only shares vendor/three with standard mode.
-//
-// Reference the existing src/renderer/ files for style guidance, but do NOT
-// import from them. Keep playground self-contained.
-//
-// THREE.js import path — 3 levels up to repo root, then into vendor:
-//   "../../../vendor/three/three.module.js"
-// ─────────────────────────────────────────────────────────────────────────────
 
 import * as THREE from "../../../vendor/three/three.module.js";
+import { OrbitControls } from "../../../vendor/three/jsm/controls/OrbitControls.js";
 
 class SceneManager {
-  /**
-   * @param {HTMLCanvasElement} canvas - the #pg-canvas element
-   */
   constructor(canvas) {
-    // TODO: store canvas ref
-    // TODO: create THREE.WebGLRenderer, THREE.Scene, THREE.PerspectiveCamera
-    // TODO: set up ambient + directional lights
-    // TODO: set up OrbitControls if desired (import from vendor/three/jsm/)
-    // TODO: handle window resize
+    this.canvas = canvas;
+    this._rafId = null;
+
+    // Renderer
+    this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setClearColor(0x0f0f13, 1);
+    this._resize();
+
+    // Scene
+    this.scene = new THREE.Scene();
+
+    // Camera
+    this.camera = new THREE.PerspectiveCamera(50, this._aspect(), 0.1, 1000);
+    this.camera.position.set(0, 2, 14);
+
+    // Lights
+    const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+    this.scene.add(ambient);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
+    dirLight.position.set(5, 10, 7);
+    this.scene.add(dirLight);
+
+    const fillLight = new THREE.DirectionalLight(0x5b8ff7, 0.3);
+    fillLight.position.set(-5, -3, -5);
+    this.scene.add(fillLight);
+
+    // OrbitControls
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.enableDamping  = true;
+    this.controls.dampingFactor  = 0.08;
+    this.controls.minDistance    = 3;
+    this.controls.maxDistance    = 60;
+
+    // Resize handler
+    window.addEventListener("resize", () => this._resize());
   }
 
-  /**
-   * Starts the animation loop.
-   */
   start() {
-    // TODO: requestAnimationFrame loop → renderer.render(scene, camera)
+    const loop = () => {
+      this._rafId = requestAnimationFrame(loop);
+      this.controls.update();
+      this.renderer.render(this.scene, this.camera);
+    };
+    loop();
   }
 
-  /**
-   * Stops the animation loop.
-   */
   stop() {
-    // TODO: cancel animation frame
+    if (this._rafId) cancelAnimationFrame(this._rafId);
+  }
+
+  _aspect() {
+    return this.canvas.clientWidth / this.canvas.clientHeight || 1;
+  }
+
+  _resize() {
+    const w = this.canvas.clientWidth;
+    const h = this.canvas.clientHeight;
+    this.renderer.setSize(w, h, false);
+    if (this.camera) {
+      this.camera.aspect = w / h;
+      this.camera.updateProjectionMatrix();
+    }
   }
 }
 
