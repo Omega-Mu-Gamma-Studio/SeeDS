@@ -1,0 +1,42 @@
+/* playground/styles/hovercard.css
+   The popup card that appears when hovering a brick.
+   Singleton element — positioned via JS in HoverCard.js.
+   --------------------------------------------------------
+   TODO: Implement per spec Section 07.
+*/
+
+.hover-card {
+  /* TODO: position fixed, z-index 9999, hidden by default (opacity 0) */
+}
+
+.hover-card--visible {
+  /* TODO: opacity 1, transition in */
+}
+
+.hc__title {
+  /* TODO: monospace, blue accent colour */
+}
+
+.hc__body {
+  /* TODO: readable prose, muted colour */
+}
+
+.hc__code {
+  /* TODO: dark inset background */
+}
+
+.hc__code pre {
+  /* TODO: monospace, light colour */
+}
+
+.hc__deps {
+  /* TODO: small, muted */
+}
+
+.hc__deps--warning {
+  /* TODO: amber, bold — shown when deps not yet placed */
+}
+
+.hc__scene {
+  /* TODO: green accent — scene impact description */
+}

@@ -1,0 +1,57 @@
+/* playground/styles/playground.css
+   Main layout: the 20/30/50 split and panel base styles.
+   --------------------------------------------------------
+   TODO: Implement per spec Section 07.
+*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* TODO */
+}
+
+#pg-shell {
+  /* TODO: CSS Grid — grid-template-columns: 20% 30% 50% */
+}
+
+#brick-panel {
+  /* TODO */
+}
+
+#code-panel {
+  /* TODO */
+}
+
+#canvas-area {
+  /* TODO */
+}
+
+#pg-canvas {
+  /* TODO */
+}
+
+/* ---- Code block styles (rendered by CodePanel.js) ---- */
+
+.code-block {
+  /* TODO */
+}
+
+.code-block--error {
+  /* TODO */
+}
+
+.code-block__label {
+  /* TODO */
+}
+
+.code-block__error-msg {
+  /* TODO */
+}
+
+.code-block pre {
+  /* TODO */
+}
