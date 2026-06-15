@@ -256,7 +256,8 @@ class AlgoPanel {
     this._buildDemoSection(this._activeType);
     const defaultGroup = GROUPS.flatMap(g => g.items).find(i => i.type === this._activeType);
     if (defaultGroup?.demos?.length) {
-      this._loadDemo(this._activeType, defaultGroup.demos[0].file);
+      const firstDemo = defaultGroup.demos[0];
+      this._loadDemo(this._activeType, firstDemo.file, firstDemo.templateId ?? null);
     }
   }
 
@@ -300,7 +301,8 @@ class AlgoPanel {
     this._buildDemoSection(item.type, item.demos ?? []);
 
     if (item.demos?.length) {
-      this._loadDemo(item.type, item.demos[0].file);
+      // Load first demo — pass any templateId override so code panel also syncs
+      this._loadDemo(item.type, item.demos[0].file, item.demos[0].templateId ?? null);
     }
   }
 
@@ -333,7 +335,7 @@ class AlgoPanel {
       btn.addEventListener('click', () => {
         this._demoButtons.forEach(b => b.classList.remove('ap__demo-btn--active'));
         btn.classList.add('ap__demo-btn--active');
-        this._loadDemo(type, demo.file);
+        this._loadDemo(type, demo.file, demo.templateId ?? null);
       });
       this._demoSection.appendChild(btn);
       this._demoButtons.push(btn);
@@ -346,12 +348,12 @@ class AlgoPanel {
   // -----------------------------------------------------------
   //  Load a demo JSON
   // -----------------------------------------------------------
-  async _loadDemo(dsType, file) {
+  async _loadDemo(dsType, file, templateId = null) {
     try {
       const res  = await fetch(`${APP.DATA_PATH}${file}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      eventBus.emit(EVENTS.DS_LOADED, { type: dsType, data, source: 'algo-panel' });
+      eventBus.emit(EVENTS.DS_LOADED, { type: dsType, data, source: 'algo-panel', templateId });
     } catch (err) {
       console.error(`[AlgoPanel] Failed to load demo "${file}":`, err);
     }

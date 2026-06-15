@@ -423,10 +423,10 @@ class CodePanel {
     }
   }
 
-  _loadTemplateForType(dsType) {
-    const templateId = DS_TO_TEMPLATE[dsType];
+  _loadTemplateForType(dsType, explicitTemplateId = null) {
+    const templateId = explicitTemplateId || DS_TO_TEMPLATE[dsType];
     if (!templateId) return;
-    if (this._templateSelect.value === templateId) return;
+    if (this._templateSelect.value === templateId && !explicitTemplateId) return;
     const tpl = getTemplates().find(t => t.id === templateId);
     if (tpl) {
       this._templateSelect.value = templateId;
@@ -600,8 +600,8 @@ class CodePanel {
   //  Events
   // -----------------------------------------------------------
   _bindEvents() {
-    eventBus.on(EVENTS.DS_LOADED, ({ type, source }) => {
-      if (source === 'toolbar') this._loadTemplateForType(type);
+    eventBus.on(EVENTS.DS_LOADED, ({ type, source, templateId }) => {
+      if (source === 'toolbar' || source === 'algo-panel') this._loadTemplateForType(type, templateId || null);
     });
   }
 
