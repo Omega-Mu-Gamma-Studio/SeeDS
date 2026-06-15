@@ -1,4 +1,6 @@
 // playground/src/renderer/StructureRenderer.js
+// Updated to support ThemeEngine color injection.
+// Each sub-renderer receives colors via setColors(palette) before events.
 
 import LinkedListRenderer from "../structures/LinkedList.js";
 import BinaryTreeRenderer from "../structures/BinaryTree.js";
@@ -14,6 +16,15 @@ class StructureRenderer {
     this.scene    = scene;
     this.camera   = camera;
     this.renderer = null;
+    this._colors  = null;  // set by ThemeEngine via applyTheme()
+  }
+
+  // Called by PlaygroundApp when ThemeEngine fires onChange
+  applyTheme(colors) {
+    this._colors = colors;
+    if (this.renderer && typeof this.renderer.setColors === "function") {
+      this.renderer.setColors(colors);
+    }
   }
 
   setDSType(dsType) {
@@ -30,6 +41,11 @@ class StructureRenderer {
       default:
         console.warn(`StructureRenderer: unknown dsType "${dsType}"`);
         this.renderer = null;
+    }
+    // Inject current theme colors into newly created renderer
+    if (this.renderer && this._colors &&
+        typeof this.renderer.setColors === "function") {
+      this.renderer.setColors(this._colors);
     }
   }
 

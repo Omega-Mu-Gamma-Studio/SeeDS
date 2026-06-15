@@ -4,10 +4,10 @@
 import * as THREE from "../../../vendor/three/three.module.js";
 
 const NODE_R    = 0.48;
-const NODE_COL  = 0x4f8ef7;
-const SWAP_COL  = 0xf59e0b;
-const MIN_COL   = 0x2d9e6b;
-const SIFT_COL  = 0xa78bfa;
+let   NODE_COL = 0x4f8ef7;
+let   SWAP_COL = 0xf59e0b;
+let   MIN_COL = 0x2d9e6b;
+let   SIFT_COL = 0xa78bfa;
 
 // Complete binary tree layout for 7 nodes (indices 0-6)
 // Index i → left child: 2i+1, right child: 2i+2
@@ -44,6 +44,13 @@ class HeapRenderer {
       case "heap_sort_defined":    this._onHeapSort(scene);    break;
       default: console.warn(`HeapRenderer: unknown event "${event}"`);
     }
+  }
+
+  setColors(p) {
+    NODE_COL = p.node;
+    SWAP_COL = p.nodeTraverse;
+    MIN_COL  = p.nodePlaced;
+    SIFT_COL = p.edgeAlt;
   }
 
   clear(scene) {

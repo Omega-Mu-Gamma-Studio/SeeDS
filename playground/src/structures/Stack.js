@@ -9,11 +9,11 @@ const BOX_D      = 0.7;
 const STACK_X    = 0;
 const BASE_Y     = -3.0;
 const SLOT_COUNT = 6;
-const BOX_COLOR  = 0x1e1e2e;
-const FILL_COLOR = 0x4f8ef7;
-const TOP_COLOR  = 0x2d9e6b;
-const EMPTY_COL  = 0x2a2a3a;
-const ERROR_COL  = 0xff3333;
+let   BOX_COLOR  = 0x1e1e2e;
+let   FILL_COLOR = 0x4f8ef7;
+let   TOP_COLOR  = 0x2d9e6b;
+let   EMPTY_COL  = 0x2a2a3a;
+let   ERROR_COL  = 0xff3333;
 
 class StackRenderer {
   constructor() {
@@ -36,6 +36,15 @@ class StackRenderer {
       case "display_defined":  this._onDisplay(scene);   break;
       default: console.warn(`StackRenderer: unknown event "${event}"`);
     }
+  }
+
+  setColors(p) {
+    BOX_COLOR  = p.boxBg;
+    FILL_COLOR = p.boxFill;
+    TOP_COLOR  = p.nodePlaced;
+    EMPTY_COL  = p.boxEmpty;
+    ERROR_COL  = p.nodeError;
+    this.fillMeshes.forEach(m => m.material && m.material.color.setHex(FILL_COLOR));
   }
 
   clear(scene) {

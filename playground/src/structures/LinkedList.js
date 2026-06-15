@@ -3,16 +3,18 @@
 
 import * as THREE from "../../../vendor/three/three.module.js";
 
-// ── Visual constants ──────────────────────────────────────────────────────────
+// ── Visual constants (defaults — overridden by ThemeEngine via setColors) ─────
 const NODE_RADIUS   = 0.55;
 const NODE_SPACING  = 2.8;
-const NODE_COLOR    = 0x4f8ef7;
-const NULL_COLOR    = 0x2a2a3a;
-const ARROW_COLOR   = 0x4f8ef7;
-const ERROR_COLOR   = 0xff3333;
-const PLACED_COLOR  = 0x2d9e6b;
-const TRAVERSE_CLR  = 0xf5c518;
-const SEARCH_HIT    = 0x4fc97e;
+
+// Mutable palette — updated by setColors()
+let NODE_COLOR    = 0x4f8ef7;
+let NULL_COLOR    = 0x2a2a3a;
+let ARROW_COLOR   = 0x4f8ef7;
+let ERROR_COLOR   = 0xff3333;
+let PLACED_COLOR  = 0x2d9e6b;
+let TRAVERSE_CLR  = 0xf5c518;
+let SEARCH_HIT    = 0x4fc97e;
 
 class LinkedListRenderer {
   constructor() {
@@ -36,6 +38,21 @@ class LinkedListRenderer {
       default:
         console.warn(`LinkedListRenderer: unknown event "${event}"`);
     }
+  }
+
+  setColors(p) {
+    NODE_COLOR   = p.node;
+    NULL_COLOR   = p.nodeNull;
+    ARROW_COLOR  = p.edge;
+    ERROR_COLOR  = p.nodeError;
+    PLACED_COLOR = p.nodePlaced;
+    TRAVERSE_CLR = p.nodeTraverse;
+    SEARCH_HIT   = p.nodeHit;
+    this.meshes.forEach(m => {
+      if (m._seedsRole === "node")  m.material.color.setHex(NODE_COLOR);
+      if (m._seedsRole === "null")  m.material.color.setHex(NULL_COLOR);
+      if (m._seedsRole === "arrow") m.material.color.setHex(ARROW_COLOR);
+    });
   }
 
   clear(scene) {

@@ -14,11 +14,11 @@ const VERTICES = [
 ];
 const EDGES = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,3],[1,4]];
 
-const V_COLOR    = 0x4f8ef7;
-const V_VISITED  = 0x2d9e6b;
-const V_ACTIVE   = 0xf5c518;
-const EDGE_COLOR = 0x2a3a5a;
-const EDGE_ACTIVE= 0x4f8ef7;
+let   V_COLOR = 0x4f8ef7;
+let   V_VISITED = 0x2d9e6b;
+let   V_ACTIVE = 0xf5c518;
+let   EDGE_COLOR = 0x2a3a5a;
+let   EDGE_ACTIVE = 0x4f8ef7;
 
 class GraphRenderer {
   constructor() {
@@ -40,6 +40,14 @@ class GraphRenderer {
       case "print_graph_defined":     this._onPrint(scene);        break;
       default: console.warn(`GraphRenderer: unknown event "${event}"`);
     }
+  }
+
+  setColors(p) {
+    V_COLOR     = p.node;
+    V_VISITED   = p.nodePlaced;
+    V_ACTIVE    = p.nodeTraverse;
+    EDGE_COLOR  = p.edge;
+    EDGE_ACTIVE = p.nodeHit;
   }
 
   clear(scene) {

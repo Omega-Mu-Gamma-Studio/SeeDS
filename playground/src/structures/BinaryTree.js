@@ -4,12 +4,12 @@
 import * as THREE from "../../../vendor/three/three.module.js";
 
 const NODE_RADIUS  = 0.52;
-const NODE_COLOR   = 0x4f8ef7;
-const NULL_COLOR   = 0x2a2a3a;
-const PLACED_COLOR = 0x2d9e6b;
-const TRAVERSE_CLR = 0xf5c518;
-const SEARCH_HIT   = 0x4fc97e;
-const ERROR_COLOR  = 0xff3333;
+let   NODE_COLOR = 0x4f8ef7;
+let   NULL_COLOR = 0x2a2a3a;
+let   PLACED_COLOR = 0x2d9e6b;
+let   TRAVERSE_CLR = 0xf5c518;
+let   SEARCH_HIT = 0x4fc97e;
+let   ERROR_COLOR = 0xff3333;
 
 // Static demo tree layout: value → {x, y, parent}
 const DEMO_TREE = [
@@ -42,6 +42,15 @@ class BinaryTreeRenderer {
       case "height_defined":       this._onHeight(scene);         break;
       default: console.warn(`BinaryTreeRenderer: unknown event "${event}"`);
     }
+  }
+
+  setColors(p) {
+    NODE_COLOR   = p.node;
+    NULL_COLOR   = p.nodeNull;
+    PLACED_COLOR = p.nodePlaced;
+    TRAVERSE_CLR = p.nodeTraverse;
+    SEARCH_HIT   = p.nodeHit;
+    ERROR_COLOR  = p.nodeError;
   }
 
   clear(scene) {

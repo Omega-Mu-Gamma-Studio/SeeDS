@@ -10,11 +10,11 @@ const START_X   = -4.5;
 const QUEUE_Y   = 0;
 const SLOT_COUNT = 6;
 const GAP       = 0.1;
-const FILL_COL  = 0x4f8ef7;
-const EMPTY_COL = 0x2a2a3a;
-const FRONT_COL = 0x2d9e6b;
-const REAR_COL  = 0xf59e0b;
-const ERROR_COL = 0xff3333;
+let   FILL_COL = 0x4f8ef7;
+let   EMPTY_COL = 0x2a2a3a;
+let   FRONT_COL = 0x2d9e6b;
+let   REAR_COL = 0xf59e0b;
+let   ERROR_COL = 0xff3333;
 
 class QueueRenderer {
   constructor() {
@@ -39,6 +39,14 @@ class QueueRenderer {
       case "display_defined":  this._onDisplay(scene);  break;
       default: console.warn(`QueueRenderer: unknown event "${event}"`);
     }
+  }
+
+  setColors(p) {
+    FILL_COL  = p.boxFill;
+    EMPTY_COL = p.boxEmpty;
+    FRONT_COL = p.nodePlaced;
+    REAR_COL  = p.edge;
+    ERROR_COL = p.nodeError;
   }
 
   clear(scene) {

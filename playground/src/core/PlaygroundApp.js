@@ -8,6 +8,8 @@ import BrickPanel        from "../ui/BrickPanel.js";
 import BuildCanvas       from "../ui/BuildCanvas.js";
 import CodePanel         from "../ui/CodePanel.js";
 import HoverCard         from "../ui/HoverCard.js";
+import ThemeEngine        from "./ThemeEngine.js";
+import ThemePicker        from "../ui/ThemePicker.js";
 
 const DEFAULT_DS = "linked_list";
 
@@ -16,6 +18,13 @@ async function init() {
   const canvas   = document.getElementById("pg-canvas");
   const sceneMgr = new SceneManager(canvas);
   sceneMgr.start();
+
+  // ── Theme system ────────────────────────────────────────────────────────
+  const themeEngine = new ThemeEngine();
+  themeEngine.load();                    // restore saved theme from localStorage
+
+  const themePicker = new ThemePicker(themeEngine);
+  themePicker.mount();                   // renders the 🎨 button into the DOM
 
   // 2. Brick data
   let brickDefs = await loadBricks(DEFAULT_DS);
@@ -30,6 +39,14 @@ async function init() {
   const codePanel    = new CodePanel(document.getElementById("code-panel"));
   const structRender = new StructureRenderer(sceneMgr.scene, sceneMgr.camera);
   structRender.setDSType(DEFAULT_DS);
+
+  // Apply initial theme colors to Three.js scene
+  structRender.applyTheme(themeEngine.getColors());
+
+  // Re-color 3D scene whenever user picks a new theme
+  themeEngine.onChange(() => {
+    structRender.applyTheme(themeEngine.getColors());
+  });
 
   // 5. Tab switching
   document.querySelectorAll(".work-tab").forEach(tab => {

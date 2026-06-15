@@ -10,11 +10,11 @@ const BUCKET_D     = 0.6;
 const START_Y      = 2.4;
 const STEP_Y       = -(BUCKET_H + 0.15);
 const LEFT_X       = -1.0;
-const FILL_COL     = 0x4f8ef7;
-const EMPTY_COL    = 0x2a2a3a;
-const HIT_COL      = 0x2d9e6b;
-const CHAIN_COL    = 0xf59e0b;
-const ERROR_COL    = 0xff3333;
+let   FILL_COL = 0x4f8ef7;
+let   EMPTY_COL = 0x2a2a3a;
+let   HIT_COL = 0x2d9e6b;
+let   CHAIN_COL = 0xf59e0b;
+let   ERROR_COL = 0xff3333;
 
 class HashTableRenderer {
   constructor() {
@@ -36,6 +36,14 @@ class HashTableRenderer {
       case "display_defined":           this._onDisplay(scene);        break;
       default: console.warn(`HashTableRenderer: unknown event "${event}"`);
     }
+  }
+
+  setColors(p) {
+    FILL_COL  = p.node;
+    EMPTY_COL = p.boxEmpty;
+    HIT_COL   = p.nodeHit;
+    CHAIN_COL = p.edgeAlt;
+    ERROR_COL = p.nodeError;
   }
 
   clear(scene) {

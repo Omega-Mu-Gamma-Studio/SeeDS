@@ -4,11 +4,11 @@
 import * as THREE from "../../../vendor/three/three.module.js";
 
 const NODE_R     = 0.5;
-const NODE_COL   = 0x4f8ef7;
-const BAL_OK     = 0x2d9e6b;
-const BAL_BAD    = 0xff3333;
-const ROT_COL    = 0xf59e0b;
-const TRAV_COL   = 0xf5c518;
+let   NODE_COL = 0x4f8ef7;
+let   BAL_OK = 0x2d9e6b;
+let   BAL_BAD = 0xff3333;
+let   ROT_COL = 0xf59e0b;
+let   TRAV_COL = 0xf5c518;
 
 // Demo AVL tree after inserting 30,20,40,10,25,35,50
 const NODES = [
@@ -40,6 +40,14 @@ class AVLTreeRenderer {
       case "inorder_defined":         this._onInorder(scene);      break;
       default: console.warn(`AVLTreeRenderer: unknown event "${event}"`);
     }
+  }
+
+  setColors(p) {
+    NODE_COL = p.node;
+    BAL_OK   = p.nodePlaced;
+    BAL_BAD  = p.nodeError;
+    ROT_COL  = p.edgeAlt;
+    TRAV_COL = p.nodeTraverse;
   }
 
   clear(scene) {

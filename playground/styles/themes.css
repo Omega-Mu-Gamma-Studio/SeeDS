@@ -1,0 +1,433 @@
+/* ============================================================
+   SeeDS Playground — themes.css
+   Defines CSS variable overrides for each color theme,
+   plus the ThemePicker button + popover component styles.
+
+   Theme classes are applied to <body> by ThemeEngine.js:
+     .theme-forest    → Forest (deep greens)
+     .theme-synthwave → Synthwave (pink/purple neon)
+     .theme-ember     → Ember (orange/amber fire)
+     .theme-arctic    → Arctic (light, icy blues)
+     .theme-slate     → Slate (neutral grey-blue)
+
+   Default (no class) = "Void" — the existing dark blue-black.
+   ============================================================ */
+
+/* ── Playground CSS variables (Void default) ─────────────────
+   These are separate from main.css vars — playground uses
+   its own palette so standard mode is unaffected.
+   ─────────────────────────────────────────────────────────── */
+:root {
+  --pg-bg:           #0f0f13;
+  --pg-surface:      #16161e;
+  --pg-raised:       #1a1a27;
+  --pg-border:       #2a2a3a;
+  --pg-text:         #cdd6f4;
+  --pg-text-muted:   #6666aa;
+  --pg-text-dim:     #3a3a5a;
+  --pg-accent:       #4f8ef7;
+  --pg-accent-glow:  rgba(79,142,247,0.12);
+  --pg-success:      #2d9e6b;
+  --pg-success-text: #4fc97e;
+  --pg-error:        #ff3333;
+  --pg-error-text:   #ff6b6b;
+  --pg-warn:         #f5c518;
+  --pg-chain-connector: #2a3a5a;
+  --pg-drop-border:  #2a2a3a;
+  --pg-drop-hint:    #3a3a5a;
+  --pg-code-left:    #4f8ef7;
+  --pg-scrollbar:    rgba(255,255,255,0.06);
+  --pg-back-color:   #4a4f6a;
+  --pg-back-hover:   #5b8ff7;
+  --pg-transition:   180ms cubic-bezier(0.4,0,0.2,1);
+}
+
+
+/* ── Re-wire playground.css static colors → CSS variables ────
+   A few selectors in playground.css use hardcoded hex.
+   We override them here via specificity so themes take effect.
+   ─────────────────────────────────────────────────────────── */
+
+body { background: var(--pg-bg); color: var(--pg-text); }
+
+#brick-panel {
+  background: var(--pg-surface);
+  border-right: 1px solid var(--pg-border);
+}
+
+#ds-selector { border-bottom-color: var(--pg-border); }
+
+#work-panel { background: var(--pg-raised); border-right: 1px solid var(--pg-border); }
+
+#work-tabs {
+  border-bottom-color: var(--pg-border);
+  background: var(--pg-surface);
+}
+
+.work-tab { color: var(--pg-text-muted); }
+.work-tab:hover { color: var(--pg-text); }
+.work-tab--active { color: var(--pg-accent); border-bottom-color: var(--pg-accent); }
+
+#reset-btn { color: var(--pg-text-dim); border-color: var(--pg-border); }
+#reset-btn:hover { color: var(--pg-error-text); border-color: rgba(255,107,107,0.4); }
+
+.chain-brick {
+  background: var(--pg-surface);
+  border-color: var(--pg-accent);
+  color: var(--pg-text);
+}
+.chain-brick--error { border-color: var(--pg-error); color: var(--pg-error-text); }
+
+.chain-connector { background: var(--pg-chain-connector); }
+.chain-connector--error { background: rgba(255,51,51,0.4); }
+
+.drop-zone { border-color: var(--pg-drop-border); }
+.drop-zone.drag-over { border-color: var(--pg-accent); background: var(--pg-accent-glow); }
+.drop-zone__hint { color: var(--pg-drop-hint); }
+
+#drop-zone-connector { background: var(--pg-chain-connector); }
+
+#code-panel { /* inherits color from body */ }
+#code-panel-empty { color: var(--pg-text-dim); }
+.code-block { border-left-color: var(--pg-accent); }
+.code-block--error { border-left-color: var(--pg-error); }
+.code-block__label { color: var(--pg-accent); }
+.code-block--error .code-block__label { color: var(--pg-error-text); }
+.code-block__error-msg { color: var(--pg-error-text); background: rgba(255,51,51,0.12); }
+.code-block pre { color: var(--pg-text); }
+
+#canvas-area { background: var(--pg-bg); }
+
+/* Bricks */
+.brick-btn {
+  border-color: var(--pg-border);
+  background: var(--pg-surface);
+  color: var(--pg-text);
+}
+.brick-btn:hover { background: var(--pg-raised); border-color: var(--pg-accent); }
+.brick-btn--locked:hover { background: var(--pg-surface); border-color: var(--pg-border); }
+.brick-btn--placed {
+  background: color-mix(in srgb, var(--pg-success) 10%, transparent);
+  border-color: var(--pg-success);
+  color: var(--pg-success-text);
+}
+.brick-btn--placed:hover { background: color-mix(in srgb, var(--pg-success) 10%, transparent); border-color: var(--pg-success); }
+.brick-btn--placed::after { color: var(--pg-success-text); }
+
+.ds-btn { border-color: var(--pg-border); background: var(--pg-surface); color: var(--pg-text-muted); }
+.ds-btn:hover { color: var(--pg-text); border-color: var(--pg-text-dim); }
+.ds-btn--active { background: var(--pg-accent); border-color: var(--pg-accent); color: #fff; }
+.ds-btn--active:hover { filter: brightness(1.1); }
+
+/* Hover card */
+.hover-card { background: var(--pg-surface); border-color: var(--pg-accent); }
+.hc__title { color: var(--pg-accent); }
+
+/* Back link */
+#pg-back { color: var(--pg-back-color); border-color: var(--pg-border); }
+#pg-back:hover { color: var(--pg-back-hover); border-color: color-mix(in srgb, var(--pg-accent) 40%, transparent); background: var(--pg-accent-glow); }
+
+/* Scrollbars */
+#brick-panel::-webkit-scrollbar-thumb,
+#build-canvas::-webkit-scrollbar-thumb,
+#code-panel::-webkit-scrollbar-thumb { background: var(--pg-scrollbar); }
+
+
+/* ============================================================
+   THEME: FOREST 🌿
+   Deep, dark greens. Like staring at your code in a rainforest.
+   ============================================================ */
+body.theme-forest {
+  --pg-bg:           #070f0a;
+  --pg-surface:      #0d1a0f;
+  --pg-raised:       #112015;
+  --pg-border:       #1a3320;
+  --pg-text:         #c8f0d8;
+  --pg-text-muted:   #4a8a5a;
+  --pg-text-dim:     #2a4a30;
+  --pg-accent:       #3ab07a;
+  --pg-accent-glow:  rgba(58,176,122,0.12);
+  --pg-success:      #2d9e6b;
+  --pg-success-text: #80e0a0;
+  --pg-error:        #c04040;
+  --pg-error-text:   #e08080;
+  --pg-warn:         #c8b840;
+  --pg-chain-connector: #1a3a20;
+  --pg-drop-border:  #1a3320;
+  --pg-drop-hint:    #2a5a30;
+  --pg-code-left:    #3ab07a;
+  --pg-scrollbar:    rgba(58,176,122,0.08);
+  --pg-back-color:   #3a5a40;
+  --pg-back-hover:   #3ab07a;
+}
+
+
+/* ============================================================
+   THEME: SYNTHWAVE 🌸
+   Neon pinks and purples. Bladerunner meets data structures.
+   ============================================================ */
+body.theme-synthwave {
+  --pg-bg:           #0d001a;
+  --pg-surface:      #130020;
+  --pg-raised:       #1a0028;
+  --pg-border:       #3a0055;
+  --pg-text:         #f5d0fe;
+  --pg-text-muted:   #9a40bb;
+  --pg-text-dim:     #4a1065;
+  --pg-accent:       #e879f9;
+  --pg-accent-glow:  rgba(232,121,249,0.14);
+  --pg-success:      #a855f7;
+  --pg-success-text: #f0abfc;
+  --pg-error:        #ff2255;
+  --pg-error-text:   #ff6688;
+  --pg-warn:         #fbbf24;
+  --pg-chain-connector: #3a0055;
+  --pg-drop-border:  #3a0055;
+  --pg-drop-hint:    #5a1080;
+  --pg-code-left:    #e879f9;
+  --pg-scrollbar:    rgba(232,121,249,0.08);
+  --pg-back-color:   #6a2090;
+  --pg-back-hover:   #e879f9;
+}
+
+/* Synthwave scanline shimmer on canvas area — subtle flair ✨ */
+body.theme-synthwave #canvas-area::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(232,121,249,0.015) 2px,
+    rgba(232,121,249,0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+/* ============================================================
+   THEME: EMBER 🔥
+   Warm oranges and ambers. Cozy. The theme for 3am coding.
+   ============================================================ */
+body.theme-ember {
+  --pg-bg:           #100800;
+  --pg-surface:      #180e00;
+  --pg-raised:       #201400;
+  --pg-border:       #3a2000;
+  --pg-text:         #fed7aa;
+  --pg-text-muted:   #a05020;
+  --pg-text-dim:     #5a2800;
+  --pg-accent:       #f97316;
+  --pg-accent-glow:  rgba(249,115,22,0.14);
+  --pg-success:      #fbbf24;
+  --pg-success-text: #fdba74;
+  --pg-error:        #ef4444;
+  --pg-error-text:   #fca5a5;
+  --pg-warn:         #fde68a;
+  --pg-chain-connector: #3a2000;
+  --pg-drop-border:  #3a2000;
+  --pg-drop-hint:    #6a3800;
+  --pg-code-left:    #f97316;
+  --pg-scrollbar:    rgba(249,115,22,0.08);
+  --pg-back-color:   #7a3800;
+  --pg-back-hover:   #f97316;
+}
+
+
+/* ============================================================
+   THEME: ARCTIC 🧊
+   Light mode with cool icy blues. For the brave ones.
+   ============================================================ */
+body.theme-arctic {
+  --pg-bg:           #f0f7ff;
+  --pg-surface:      #ffffff;
+  --pg-raised:       #e8f2fc;
+  --pg-border:       #b8d8ee;
+  --pg-text:         #0c2a3a;
+  --pg-text-muted:   #4a7898;
+  --pg-text-dim:     #8ab0c8;
+  --pg-accent:       #0ea5e9;
+  --pg-accent-glow:  rgba(14,165,233,0.12);
+  --pg-success:      #0d9488;
+  --pg-success-text: #0d9488;
+  --pg-error:        #dc2626;
+  --pg-error-text:   #dc2626;
+  --pg-warn:         #d97706;
+  --pg-chain-connector: #90c0d8;
+  --pg-drop-border:  #b8d8ee;
+  --pg-drop-hint:    #8ab0c8;
+  --pg-code-left:    #0ea5e9;
+  --pg-scrollbar:    rgba(14,165,233,0.15);
+  --pg-back-color:   #4a7898;
+  --pg-back-hover:   #0ea5e9;
+}
+
+/* Arctic needs some extra overrides for things that assume dark ── */
+body.theme-arctic .chain-brick--error { background: rgba(220,38,38,0.06); }
+body.theme-arctic .drop-zone.drag-over { background: rgba(14,165,233,0.08); }
+body.theme-arctic #work-tabs { border-bottom-color: var(--pg-border); }
+body.theme-arctic .hover-card {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  border-color: var(--pg-accent);
+}
+
+
+/* ============================================================
+   THEME: SLATE 🩶
+   Cool grey-blues. Understated, professional. Clean.
+   ============================================================ */
+body.theme-slate {
+  --pg-bg:           #0a0d14;
+  --pg-surface:      #101520;
+  --pg-raised:       #161c2a;
+  --pg-border:       #1e2840;
+  --pg-text:         #cbd5e1;
+  --pg-text-muted:   #64748b;
+  --pg-text-dim:     #2d3a50;
+  --pg-accent:       #94a3b8;
+  --pg-accent-glow:  rgba(148,163,184,0.10);
+  --pg-success:      #3b82f6;
+  --pg-success-text: #60a5fa;
+  --pg-error:        #f87171;
+  --pg-error-text:   #fca5a5;
+  --pg-warn:         #fcd34d;
+  --pg-chain-connector: #1e2840;
+  --pg-drop-border:  #1e2840;
+  --pg-drop-hint:    #334060;
+  --pg-code-left:    #94a3b8;
+  --pg-scrollbar:    rgba(148,163,184,0.08);
+  --pg-back-color:   #475569;
+  --pg-back-hover:   #94a3b8;
+}
+
+
+/* ============================================================
+   THEME PICKER — button + popover component
+   Floats in the top-right of the canvas area (#canvas-area)
+   ============================================================ */
+
+#theme-picker-wrap {
+  position: fixed;
+  top: 10px;
+  right: 14px;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+/* ── Toggle button ─────────────────────────────────────────── */
+#theme-picker-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: var(--pg-surface);
+  border: 1px solid var(--pg-border);
+  border-radius: 6px;
+  color: var(--pg-text-muted);
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: color var(--pg-transition), border-color var(--pg-transition),
+              background var(--pg-transition), box-shadow var(--pg-transition);
+  white-space: nowrap;
+}
+
+#theme-picker-btn:hover,
+#theme-picker-btn.tp__btn--active {
+  color: var(--pg-text);
+  border-color: var(--pg-accent);
+  background: var(--pg-raised);
+  box-shadow: 0 0 12px var(--pg-accent-glow);
+}
+
+.tp__btn-icon { font-size: 13px; line-height: 1; }
+.tp__btn-label { font-size: 10px; }
+
+/* ── Popover panel ─────────────────────────────────────────── */
+#theme-picker-popover {
+  background: var(--pg-surface);
+  border: 1px solid var(--pg-border);
+  border-radius: 8px;
+  padding: 10px;
+  min-width: 170px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 24px var(--pg-accent-glow);
+  opacity: 0;
+  transform: translateY(-6px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+#theme-picker-popover.tp__popover--visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+.tp__label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pg-text-dim);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--pg-border);
+}
+
+.tp__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* Each theme option row */
+.tp__item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 7px 8px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--pg-text-muted);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 100ms ease, color 100ms ease, border-color 100ms ease;
+}
+
+.tp__item:hover {
+  background: var(--pg-raised);
+  color: var(--pg-text);
+  border-color: var(--pg-border);
+}
+
+.tp__item--active {
+  color: var(--pg-text);
+  border-color: var(--pg-accent);
+  background: var(--pg-accent-glow);
+}
+
+/* The little gradient swatch circle */
+.tp__swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.08);
+  display: block;
+}
+
+body.theme-arctic .tp__swatch {
+  border-color: rgba(0,0,0,0.10);
+}
+
+.tp__name { flex: 1; }
