@@ -1,13 +1,8 @@
 // =============================================================
 //  SeeDS — AlgoPanel.js
 //  Collapsible left sidebar (20% → slim strip).
-//  Replaces the toolbar's DS tabs + demo buttons.
-//  Houses:
-//    - Algorithm categories (grouped, with icons)
-//    - Demo scenario buttons per selected category
-//    - Theme toggle
-//    - Collapse / expand toggle
-//  Communicates via eventBus only.
+//  All templates surfaced here. Items marked comingSoon show
+//  a 🚧 badge and are non-clickable.
 // =============================================================
 
 import eventBus from '../core/eventBus.js';
@@ -15,108 +10,166 @@ import { EVENTS, DS_TYPES, APP, THEME } from '../core/constants.js';
 
 const PANEL_ID = 'algo-panel';
 
-// ── Category groups shown in the sidebar ─────────────────────
+// ── Groups + items ────────────────────────────────────────────
+// comingSoon: true  → greyed out, badge, not clickable
+// demos[]           → scenario buttons (only for working items)
 const GROUPS = [
   {
     label: 'Lists',
     icon: '🔗',
     items: [
-      { type: DS_TYPES.LINKED_LIST,   label: 'Linked List',   icon: '→' },
-      { type: DS_TYPES.DOUBLY_LIST,   label: 'Doubly List',   icon: '↔' },
-      { type: DS_TYPES.CIRCULAR_LIST, label: 'Circular List', icon: '↺' },
+      {
+        type: DS_TYPES.LINKED_LIST,
+        label: 'Linked List',
+        icon: '→',
+        demos: [
+          { label: '✓ Normal',       file: 'linked-list-ok.json'       },
+          { label: '↺ Cycle',        file: 'linked-list-cycle.json'    },
+          { label: '⚠ Dangling',     file: 'linked-list-dangling.json' },
+          { label: '⛁ Memory Leak', file: 'linked-list-leak.json'     },
+          { label: '🐛 With Bugs',   file: 'linked-list-ok.json', templateId: 'buggy_list' },
+        ],
+      },
+      {
+        type: DS_TYPES.DOUBLY_LIST,
+        label: 'Doubly List',
+        icon: '↔',
+        demos: [
+          { label: '✓ Doubly Linked', file: 'doubly-list-ok.json' },
+        ],
+      },
+      {
+        type: DS_TYPES.CIRCULAR_LIST,
+        label: 'Circular List',
+        icon: '↺',
+        demos: [
+          { label: '↻ Circular', file: 'circular-list-ok.json' },
+        ],
+      },
     ],
   },
   {
     label: 'Stack & Queue',
     icon: '📦',
     items: [
-      { type: DS_TYPES.STACK,  label: 'Stack',  icon: '⊤' },
-      { type: DS_TYPES.QUEUE,  label: 'Queue',  icon: '▷' },
+      {
+        type: DS_TYPES.STACK,
+        label: 'Stack',
+        icon: '⊤',
+        demos: [
+          { label: '✓ Stack ADT', file: 'stack-ok.json' },
+        ],
+      },
+      {
+        type: DS_TYPES.QUEUE,
+        label: 'Queue',
+        icon: '▷',
+        demos: [
+          { label: '✓ Queue ADT', file: 'queue-ok.json' },
+        ],
+      },
+      { type: 'circular_queue', label: 'Circular Queue', icon: '↺', comingSoon: true },
+      { type: 'dequeue',        label: 'DeQueue',        icon: '↔', comingSoon: true },
     ],
   },
   {
     label: 'Trees',
     icon: '🌲',
     items: [
-      { type: DS_TYPES.BINARY_TREE, label: 'Binary Tree', icon: '⬡' },
-      { type: DS_TYPES.AVL_TREE,    label: 'AVL Tree',    icon: '⬡' },
-      { type: DS_TYPES.HEAP,        label: 'Heap',        icon: '⛰' },
+      {
+        type: DS_TYPES.BINARY_TREE,
+        label: 'Binary Tree',
+        icon: '⬡',
+        demos: [
+          { label: '✓ BST Search', file: 'binary-tree-ok.json' },
+        ],
+      },
+      {
+        type: DS_TYPES.AVL_TREE,
+        label: 'AVL Tree',
+        icon: '⬡',
+        demos: [
+          { label: '✓ AVL Tree', file: 'avl-tree-ok.json' },
+        ],
+      },
+      {
+        type: DS_TYPES.HEAP,
+        label: 'Heap',
+        icon: '⛰',
+        demos: [
+          { label: '✓ Binary Heap', file: 'heap-ok.json' },
+        ],
+      },
+      { type: 'expression_tree', label: 'Expression Tree', icon: '∑', comingSoon: true },
     ],
   },
   {
     label: 'Graphs',
     icon: '🕸️',
     items: [
-      { type: DS_TYPES.GRAPH, label: 'Graph + BFS', icon: '⬡' },
+      {
+        type: DS_TYPES.GRAPH,
+        label: 'Graph + BFS',
+        icon: '⬡',
+        demos: [
+          { label: '✓ Graph + BFS', file: 'graph-ok.json' },
+        ],
+      },
+      { type: 'topological_sort', label: 'Topological Sort', icon: '→', comingSoon: true },
+      { type: 'dijkstra',         label: "Dijkstra's",        icon: '⚡', comingSoon: true },
+      { type: 'prim_mst',         label: "Prim's MST",        icon: '🌿', comingSoon: true },
+      { type: 'kruskal_mst',      label: "Kruskal's MST",     icon: '🌿', comingSoon: true },
     ],
   },
   {
     label: 'Hash & Arrays',
     icon: '#️⃣',
     items: [
-      { type: DS_TYPES.HASH_TABLE, label: 'Hash Table', icon: '#' },
-      { type: DS_TYPES.ARRAY,      label: 'Array',      icon: '[]' },
+      {
+        type: DS_TYPES.HASH_TABLE,
+        label: 'Hash Table',
+        icon: '#',
+        demos: [
+          { label: '✓ Hash Table', file: 'hash-table-ok.json' },
+        ],
+      },
+      { type: 'open_addressing', label: 'Open Addressing', icon: '#', comingSoon: true },
+      {
+        type: DS_TYPES.ARRAY,
+        label: 'Array',
+        icon: '[]',
+        demos: [
+          { label: '✓ Linear Search', file: 'array-search.json'  },
+          { label: '✓ Binary Search', file: 'binary-search.json' },
+        ],
+      },
     ],
   },
   {
     label: 'Sorting',
     icon: '🏁',
     items: [
-      { type: DS_TYPES.SORT_RACE, label: 'Sort Race', icon: '≈' },
+      {
+        type: DS_TYPES.SORT_RACE,
+        label: 'Sort Race',
+        icon: '≈',
+        demos: [
+          { label: '▶ Bubble / Merge / Quick', file: 'sort-race.json'      },
+          { label: '▶ Insertion Sort',         file: 'insertion-sort.json' },
+        ],
+      },
+      { type: 'merge_sort',  label: 'Merge Sort',  icon: '⊕', comingSoon: true },
+      { type: 'shell_sort',  label: 'Shell Sort',  icon: '≋', comingSoon: true },
+      { type: 'radix_sort',  label: 'Radix Sort',  icon: '0x', comingSoon: true },
     ],
   },
 ];
 
-// ── Demo scenarios per DS type ────────────────────────────────
-const DEMOS = {
-  [DS_TYPES.LINKED_LIST]: [
-    { label: '✓ Normal',       file: 'linked-list-ok.json'       },
-    { label: '↺ Cycle',        file: 'linked-list-cycle.json'    },
-    { label: '⚠ Dangling',     file: 'linked-list-dangling.json' },
-    { label: '⛁ Memory Leak', file: 'linked-list-leak.json'     },
-  ],
-  [DS_TYPES.CIRCULAR_LIST]: [
-    { label: '↻ Circular',    file: 'circular-list-ok.json'  },
-  ],
-  [DS_TYPES.DOUBLY_LIST]: [
-    { label: '✓ Doubly',      file: 'doubly-list-ok.json'    },
-  ],
-  [DS_TYPES.STACK]: [
-    { label: '✓ Stack ADT',   file: 'stack-ok.json'          },
-  ],
-  [DS_TYPES.QUEUE]: [
-    { label: '✓ Queue ADT',   file: 'queue-ok.json'          },
-  ],
-  [DS_TYPES.BINARY_TREE]: [
-    { label: '✓ BST Search',  file: 'binary-tree-ok.json'    },
-  ],
-  [DS_TYPES.AVL_TREE]: [
-    { label: '✓ AVL Tree',    file: 'avl-tree-ok.json'       },
-  ],
-  [DS_TYPES.HEAP]: [
-    { label: '✓ Binary Heap', file: 'heap-ok.json'           },
-  ],
-  [DS_TYPES.GRAPH]: [
-    { label: '✓ Graph + BFS', file: 'graph-ok.json'          },
-  ],
-  [DS_TYPES.HASH_TABLE]: [
-    { label: '✓ Hash Table',  file: 'hash-table-ok.json'     },
-  ],
-  [DS_TYPES.ARRAY]: [
-    { label: '✓ Linear Search',  file: 'array-search.json'   },
-    { label: '✓ Binary Search',  file: 'binary-search.json'  },
-  ],
-  [DS_TYPES.SORT_RACE]: [
-    { label: '▶ Bubble/Merge/Quick', file: 'sort-race.json'      },
-    { label: '▶ Insertion Sort',     file: 'insertion-sort.json' },
-  ],
-};
-
 
 class AlgoPanel {
   constructor() {
-    this._collapsed  = false;
-    this._activeType = APP.DEFAULT_DS;
+    this._collapsed   = false;
+    this._activeType  = APP.DEFAULT_DS;
     this._demoButtons = [];
 
     this._el = document.getElementById(PANEL_ID);
@@ -132,7 +185,7 @@ class AlgoPanel {
   _build() {
     this._el.innerHTML = '';
 
-    // ── Header row ───────────────────────────────────────────
+    // ── Header ───────────────────────────────────────────────
     const header = document.createElement('div');
     header.className = 'ap__header';
 
@@ -142,7 +195,7 @@ class AlgoPanel {
 
     this._collapseBtn = document.createElement('button');
     this._collapseBtn.className = 'ap__collapse-btn';
-    this._collapseBtn.title = 'Collapse panel';
+    this._collapseBtn.title     = 'Collapse panel';
     this._collapseBtn.innerHTML = '◀';
     this._collapseBtn.addEventListener('click', () => this._toggleCollapse());
 
@@ -155,7 +208,7 @@ class AlgoPanel {
     this._body.className = 'ap__body';
     this._el.appendChild(this._body);
 
-    // ── Demo section (shown below category buttons) ──────────
+    // ── Demo section (pinned at top of body) ─────────────────
     this._demoSection = document.createElement('div');
     this._demoSection.className = 'ap__demo-section';
     this._body.appendChild(this._demoSection);
@@ -171,13 +224,7 @@ class AlgoPanel {
       groupEl.appendChild(groupLabel);
 
       for (const item of group.items) {
-        const btn = document.createElement('button');
-        btn.className = 'ap__item';
-        btn.dataset.type = item.type;
-        btn.innerHTML = `<span class="ap__item-icon">${item.icon}</span><span class="ap__item-label">${item.label}</span>`;
-        if (item.type === this._activeType) btn.classList.add('ap__item--active');
-        btn.addEventListener('click', () => this._selectType(item.type, btn));
-        groupEl.appendChild(btn);
+        groupEl.appendChild(this._makeItem(item));
       }
 
       this._body.appendChild(groupEl);
@@ -195,7 +242,6 @@ class AlgoPanel {
       const isLight = document.body.classList.contains('light-theme');
       eventBus.emit('theme:set', { theme: isLight ? THEME.DARK : THEME.LIGHT });
     });
-
     eventBus.on('theme:set', ({ theme }) => {
       const isLight = theme === THEME.LIGHT;
       this._themeBtn.innerHTML = isLight
@@ -206,53 +252,82 @@ class AlgoPanel {
     footer.appendChild(this._themeBtn);
     this._el.appendChild(footer);
 
-    // ── Auto-load the first demo for default DS ──────────────
+    // ── Auto-load first demo for default DS ──────────────────
     this._buildDemoSection(this._activeType);
-    const firstDemos = DEMOS[this._activeType];
-    if (firstDemos?.length) {
-      this._loadDemo(this._activeType, firstDemos[0].file);
+    const defaultGroup = GROUPS.flatMap(g => g.items).find(i => i.type === this._activeType);
+    if (defaultGroup?.demos?.length) {
+      this._loadDemo(this._activeType, defaultGroup.demos[0].file);
     }
   }
 
 
   // -----------------------------------------------------------
-  //  Select a DS type
+  //  Make a single item button (working or coming soon)
   // -----------------------------------------------------------
-  _selectType(type, clickedBtn) {
-    if (type === this._activeType) return;
+  _makeItem(item) {
+    if (item.comingSoon) {
+      const el = document.createElement('div');
+      el.className = 'ap__item ap__item--soon';
+      el.title = `${item.label} — Coming Soon`;
+      el.innerHTML = `
+        <span class="ap__item-icon">${item.icon}</span>
+        <span class="ap__item-label">${item.label}</span>
+        <span class="ap__item-soon-badge">🚧</span>
+      `;
+      return el;
+    }
 
-    // Update active button styling
-    this._el.querySelectorAll('.ap__item').forEach(b => b.classList.remove('ap__item--active'));
+    const btn = document.createElement('button');
+    btn.className    = 'ap__item';
+    btn.dataset.type = item.type;
+    btn.innerHTML = `<span class="ap__item-icon">${item.icon}</span><span class="ap__item-label">${item.label}</span>`;
+    if (item.type === this._activeType) btn.classList.add('ap__item--active');
+    btn.addEventListener('click', () => this._selectType(item, btn));
+    return btn;
+  }
+
+
+  // -----------------------------------------------------------
+  //  Select a working DS type
+  // -----------------------------------------------------------
+  _selectType(item, clickedBtn) {
+    if (item.type === this._activeType) return;
+
+    this._el.querySelectorAll('.ap__item--active').forEach(b => b.classList.remove('ap__item--active'));
     clickedBtn.classList.add('ap__item--active');
-    this._activeType = type;
+    this._activeType = item.type;
 
-    // Rebuild demo section
-    this._buildDemoSection(type);
+    this._buildDemoSection(item.type, item.demos ?? []);
 
-    // Auto-load first demo
-    const demos = DEMOS[type] ?? [];
-    if (demos.length) this._loadDemo(type, demos[0].file);
+    if (item.demos?.length) {
+      this._loadDemo(item.type, item.demos[0].file);
+    }
   }
 
 
   // -----------------------------------------------------------
   //  Rebuild demo scenario buttons
   // -----------------------------------------------------------
-  _buildDemoSection(type) {
+  _buildDemoSection(type, demos) {
     this._demoSection.innerHTML = '';
     this._demoButtons = [];
 
-    const demos = DEMOS[type] ?? [];
+    // If called without demos arg, find from GROUPS
+    if (!demos) {
+      const found = GROUPS.flatMap(g => g.items).find(i => i.type === type);
+      demos = found?.demos ?? [];
+    }
+
     if (!demos.length) return;
 
-    const label = document.createElement('div');
-    label.className = 'ap__demo-label';
-    label.innerHTML = '<span class="ap__demo-label-text">Scenarios</span>';
-    this._demoSection.appendChild(label);
+    const labelEl = document.createElement('div');
+    labelEl.className = 'ap__demo-label';
+    labelEl.innerHTML = '<span class="ap__demo-label-text">Scenarios</span>';
+    this._demoSection.appendChild(labelEl);
 
     for (const demo of demos) {
       const btn = document.createElement('button');
-      btn.className = 'ap__demo-btn';
+      btn.className   = 'ap__demo-btn';
       btn.textContent = demo.label;
       btn.dataset.file = demo.file;
       btn.addEventListener('click', () => {
@@ -264,7 +339,6 @@ class AlgoPanel {
       this._demoButtons.push(btn);
     }
 
-    // Mark first button as active by default
     if (this._demoButtons[0]) this._demoButtons[0].classList.add('ap__demo-btn--active');
   }
 
@@ -290,8 +364,8 @@ class AlgoPanel {
   _toggleCollapse() {
     this._collapsed = !this._collapsed;
     this._el.classList.toggle('ap--collapsed', this._collapsed);
-    this._collapseBtn.innerHTML  = this._collapsed ? '▶' : '◀';
-    this._collapseBtn.title      = this._collapsed ? 'Expand panel' : 'Collapse panel';
+    this._collapseBtn.innerHTML = this._collapsed ? '▶' : '◀';
+    this._collapseBtn.title     = this._collapsed ? 'Expand panel' : 'Collapse panel';
     window.dispatchEvent(new Event('resize'));
   }
 

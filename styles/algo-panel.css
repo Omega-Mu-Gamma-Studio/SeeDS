@@ -350,3 +350,28 @@ body.light-theme .ap__theme-btn:hover {
 body.fullscreen-mode #algo-panel {
   display: none !important;
 }
+
+/* ── Coming Soon items ───────────────────────────────────────── */
+.ap__item--soon {
+  cursor: default;
+  opacity: 0.42;
+  pointer-events: none;  /* not clickable */
+}
+
+.ap__item--soon:hover {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: var(--text-muted) !important;
+}
+
+.ap__item-soon-badge {
+  margin-left: auto;
+  font-size: 11px;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+/* Collapsed state: hide soon badge too */
+#algo-panel.ap--collapsed .ap__item-soon-badge {
+  display: none;
+}
