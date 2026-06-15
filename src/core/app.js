@@ -19,6 +19,7 @@ import HeapStructure      from '../structures/Heap.js';
 import AVLTreeStructure   from '../structures/AVLTree.js';
 
 import Toolbar            from '../ui/Toolbar.js';
+import AlgoPanel          from '../ui/AlgoPanel.js';
 import CodePanel          from '../ui/CodePanel.js';
 import PlaybackBar        from '../ui/PlaybackBar.js';
 import InfoTooltip        from '../ui/InfoTooltip.js';
@@ -51,6 +52,7 @@ class App {
     this._controller = null;
     this._activeStructure = null;
     this._activeType      = null;
+    this._algoPanel  = null;
     this._toolbar    = null;
     this._playbar    = null;
     this._codePanel  = null;
@@ -79,6 +81,9 @@ class App {
 
     step = 'new PlaybackController()';
     this._controller = new PlaybackController();
+
+    step = 'new AlgoPanel()';
+    this._algoPanel  = new AlgoPanel();
 
     step = 'new Toolbar()';
     this._toolbar    = new Toolbar(document.getElementById('toolbar'));

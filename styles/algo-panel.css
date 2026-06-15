@@ -1,0 +1,352 @@
+/* =============================================================
+   SeeDS — algo-panel.css
+   Collapsible left sidebar: algorithm categories + demo scenarios
+   + theme toggle. Normally 20% width; collapses to 40px strip.
+   ============================================================= */
+
+/* ── Container ───────────────────────────────────────────────── */
+#algo-panel {
+  width: var(--algo-panel-w, 220px);
+  min-width: var(--algo-panel-w, 220px);
+  max-width: var(--algo-panel-w, 220px);
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: rgba(8, 8, 14, 0.98);
+  border-right: 1px solid var(--border);
+  z-index: 11;
+  overflow: hidden;
+  transition: width 220ms cubic-bezier(0.4,0,0.2,1),
+              min-width 220ms cubic-bezier(0.4,0,0.2,1),
+              max-width 220ms cubic-bezier(0.4,0,0.2,1);
+}
+
+#algo-panel.ap--collapsed {
+  width: 40px !important;
+  min-width: 40px !important;
+  max-width: 40px !important;
+}
+
+/* Hide text content when collapsed */
+#algo-panel.ap--collapsed .ap__logo-text,
+#algo-panel.ap--collapsed .ap__group-text,
+#algo-panel.ap--collapsed .ap__item-label,
+#algo-panel.ap--collapsed .ap__demo-section,
+#algo-panel.ap--collapsed .ap__theme-text,
+#algo-panel.ap--collapsed .ap__group-label {
+  display: none;
+}
+
+/* When collapsed, items become icon-only squares */
+#algo-panel.ap--collapsed .ap__item {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+#algo-panel.ap--collapsed .ap__group {
+  padding: 4px 4px;
+  gap: 4px;
+}
+
+#algo-panel.ap--collapsed .ap__logo {
+  justify-content: center;
+}
+
+#algo-panel.ap--collapsed .ap__footer {
+  padding: 6px 4px;
+}
+
+#algo-panel.ap--collapsed .ap__theme-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+
+/* ── Header ──────────────────────────────────────────────────── */
+.ap__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 10px 8px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  min-height: 42px;
+}
+
+.ap__logo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  overflow: hidden;
+}
+
+.ap__logo-icon {
+  font-size: 14px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.ap__logo-text {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.ap__collapse-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+
+.ap__collapse-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-muted);
+  border-color: var(--border-light);
+}
+
+
+/* ── Scrollable body ─────────────────────────────────────────── */
+.ap__body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 6px 0 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-light) transparent;
+}
+
+.ap__body::-webkit-scrollbar { width: 3px; }
+.ap__body::-webkit-scrollbar-track { background: transparent; }
+.ap__body::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 2px; }
+
+
+/* ── Groups ──────────────────────────────────────────────────── */
+.ap__group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 4px 6px;
+}
+
+.ap__group-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 4px 4px;
+  margin-bottom: 2px;
+}
+
+.ap__group-icon {
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.ap__group-text {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+
+/* ── Algorithm item buttons ──────────────────────────────────── */
+.ap__item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: left;
+  transition: all var(--transition);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ap__item:hover {
+  background: var(--bg-raised);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.ap__item--active {
+  background: var(--accent-dim) !important;
+  border-color: rgba(91,142,247,0.25) !important;
+  color: var(--accent-hover) !important;
+}
+
+.ap__item-icon {
+  font-size: 11px;
+  flex-shrink: 0;
+  width: 14px;
+  text-align: center;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+}
+
+.ap__item--active .ap__item-icon {
+  color: var(--accent);
+}
+
+.ap__item-label {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ── Demo scenarios section ──────────────────────────────────── */
+.ap__demo-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 6px 6px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2px;
+}
+
+.ap__demo-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 4px 4px;
+}
+
+.ap__demo-label-text {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+.ap__demo-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 5px 8px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 11px;
+  text-align: left;
+  transition: all var(--transition);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ap__demo-btn:hover {
+  background: var(--bg-raised);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.ap__demo-btn--active {
+  background: rgba(79,206,122,0.08) !important;
+  border-color: rgba(79,206,122,0.18) !important;
+  color: var(--success) !important;
+}
+
+
+/* ── Footer ──────────────────────────────────────────────────── */
+.ap__footer {
+  flex-shrink: 0;
+  padding: 6px 6px 8px;
+  border-top: 1px solid var(--border);
+}
+
+.ap__theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-raised);
+  color: var(--text-muted);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ap__theme-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+  border-color: var(--border-light);
+}
+
+.ap__theme-icon {
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+
+/* ── Light theme overrides ───────────────────────────────────── */
+body.light-theme #algo-panel {
+  background: rgba(248, 249, 252, 0.99);
+  border-right-color: rgba(0,0,0,0.08);
+}
+
+body.light-theme .ap__item:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+body.light-theme .ap__item--active {
+  background: rgba(91,142,247,0.12) !important;
+}
+
+body.light-theme .ap__demo-btn:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+body.light-theme .ap__theme-btn {
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.1);
+}
+
+body.light-theme .ap__theme-btn:hover {
+  background: rgba(0,0,0,0.08);
+}
+
+
+/* ── Fullscreen: hide algo-panel ─────────────────────────────── */
+body.fullscreen-mode #algo-panel {
+  display: none !important;
+}

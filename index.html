@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./styles/toolbar.css" />
   <link rel="stylesheet" href="./styles/panels.css" />
   <link rel="stylesheet" href="./styles/code-panel.css" />
+  <link rel="stylesheet" href="./styles/algo-panel.css" />
   <link rel="stylesheet" href="./styles/editor.css" />
   <link rel="stylesheet" href="./styles/splash.css" />
 </head>
@@ -20,10 +21,13 @@
   <!-- TOP BAR — spans full width -->
   <div id="toolbar"></div>
 
-  <!-- APP SHELL — two columns below toolbar, above playback -->
+  <!-- APP SHELL — three columns below toolbar, above playback -->
   <div id="app-shell">
 
-    <!-- LEFT: Permanent code editor panel -->
+    <!-- FAR LEFT: Algorithm / Template selector panel (collapsible 20%) -->
+    <div id="algo-panel"></div>
+
+    <!-- MIDDLE: Permanent code editor panel (30%) -->
     <div id="code-panel"></div>
 
     <!-- RIGHT: 3D canvas + overlays -->
