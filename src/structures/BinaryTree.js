@@ -7,7 +7,7 @@
 
 import * as THREE  from '../../vendor/three/three.module.js';
 import eventBus    from '../core/eventBus.js';
-import { EVENTS, LAYOUT, OP_TYPES } from '../core/constants.js';
+import { EVENTS, LAYOUT, OP_TYPES, VISUAL } from '../core/constants.js';
 import NodeMesh    from '../renderer/NodeMesh.js';
 import EdgeMesh    from '../renderer/EdgeMesh.js';
 import LabelSprite from '../renderer/LabelSprite.js';
@@ -94,9 +94,27 @@ class BinaryTree {
   // -----------------------------------------------------------
   execute(op) {
     switch (op.type) {
-      case 'highlight': this._highlight(op.nodeId); break;
-      case 'traverse':  this._traverse(op.from, op.to); break;
+      case 'highlight':  this._highlight(op.nodeId); break;
+      case 'traverse':   this._traverse(op.from, op.to); break;
+      case 'flag_error': this._flagError(op.nodeId, op.errorType); break;
       default: console.warn('[BinaryTree] Unknown op:', op.type);
+    }
+  }
+
+  _flagError(nodeId, errorType) {
+    const mesh = this._nodes.get(nodeId);
+    if (!mesh) return;
+    // NodeMesh.setError colours the sphere red and sets emissive glow
+    if (typeof mesh.setError === 'function') {
+      mesh.setError(errorType);
+    } else {
+      // Fallback: directly set material colours if setError not available
+      const m = mesh._mesh || mesh;
+      if (m && m.material) {
+        m.material.color.setHex(VISUAL.ERROR_COLOR);
+        m.material.emissive && m.material.emissive.setHex(VISUAL.ERROR_EMISSIVE);
+        m.material.emissiveIntensity = 0.6;
+      }
     }
   }
 

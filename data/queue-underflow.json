@@ -1,0 +1,27 @@
+{
+  "type": "queue",
+  "label": "Queue — Underflow",
+  "slots": [
+    { "id": "s0", "index": 0, "value": 5,  "empty": false, "error": null },
+    { "id": "s1", "index": 1, "value": 10, "empty": false, "error": null }
+  ],
+  "length": 2,
+  "front": 0,
+  "rear": 1,
+  "operations": [
+    { "type": "enqueue", "slotId": "s0", "value": 5,  "message": "Enqueue 5 — queue: [5]" },
+    { "type": "enqueue", "slotId": "s1", "value": 10, "message": "Enqueue 10 — queue: [5, 10]" },
+    { "type": "dequeue", "slotId": "s0", "message": "Dequeue → removes 5. Queue: [10]" },
+    { "type": "dequeue", "slotId": "s1", "message": "Dequeue → removes 10. Queue: [] — now EMPTY." },
+    { "type": "flag_error", "slotId": "s0", "errorType": "queue_underflow", "message": "QUEUE UNDERFLOW: Attempting to dequeue from an empty queue (front == rear). Returns garbage value or crashes depending on implementation." },
+    { "type": "highlight", "nodeId": "s0", "message": "front = rear = 0. Queue is empty. A dequeue here reads uninitialized memory — undefined behaviour in C." }
+  ],
+  "errors": [
+    {
+      "type": "queue_underflow",
+      "nodeId": "s0",
+      "message": "Queue is empty (size=0). Dequeue called on empty queue causes underflow — undefined behaviour or exception.",
+      "line": null
+    }
+  ]
+}

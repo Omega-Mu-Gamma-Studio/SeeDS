@@ -1,0 +1,32 @@
+{
+  "type": "binary_tree",
+  "label": "Binary Tree — Null Dereference",
+  "schemaVersion": "1.0.0",
+  "nodes": [
+    { "id": "n1", "value": 50, "address": "0x3a10", "left": "n2",   "right": "n3",  "error": null },
+    { "id": "n2", "value": 30, "address": "0x3a20", "left": "n4",   "right": null,  "error": null },
+    { "id": "n3", "value": 70, "address": "0x3a30", "left": null,   "right": null,  "error": null },
+    { "id": "n4", "value": 10, "address": "0x3a40", "left": null,   "right": null,  "error": null },
+    { "id": "nNull", "value": "NULL", "address": "0x0000", "left": null, "right": null, "error": "null_dereference" }
+  ],
+  "root": "n1",
+  "searchTarget": 20,
+  "operations": [
+    { "type": "highlight", "nodeId": "n1", "message": "Search for 20. At root 50. 20 < 50 → go left." },
+    { "type": "traverse",  "from": "n1",  "to": "n2" },
+    { "type": "highlight", "nodeId": "n2", "message": "At 30. 20 < 30 → go left." },
+    { "type": "traverse",  "from": "n2",  "to": "n4" },
+    { "type": "highlight", "nodeId": "n4", "message": "At 10. 20 > 10 → go right. But right is NULL!" },
+    { "type": "flag_error", "nodeId": "nNull", "errorType": "null_dereference", "message": "NULL DEREFERENCE: following right pointer of node 10 leads to 0x0000. If you call node->right->value here, the program segfaults." },
+    { "type": "traverse",  "from": "n4",  "to": "nNull" },
+    { "type": "highlight", "nodeId": "nNull", "message": "Reached NULL. Search for 20 fails — element not in tree." }
+  ],
+  "errors": [
+    {
+      "type": "null_dereference",
+      "nodeId": "n4",
+      "message": "Node 10's right child is NULL. Dereferencing it to continue the search causes a segfault.",
+      "line": null
+    }
+  ]
+}

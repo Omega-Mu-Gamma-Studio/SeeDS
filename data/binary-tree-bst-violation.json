@@ -1,0 +1,44 @@
+{
+  "type": "binary_tree",
+  "label": "Binary Tree — BST Violation",
+  "schemaVersion": "1.0.0",
+  "nodes": [
+    { "id": "n1", "value": 40, "address": "0x2a10", "left": "n2",   "right": "n3",  "error": null },
+    { "id": "n2", "value": 20, "address": "0x2a20", "left": "n4",   "right": "n5",  "error": null },
+    { "id": "n3", "value": 60, "address": "0x2a30", "left": "n6",   "right": "n7",  "error": null },
+    { "id": "n4", "value": 10, "address": "0x2a40", "left": null,   "right": null,  "error": null },
+    { "id": "n5", "value": 55, "address": "0x2a50", "left": null,   "right": null,  "error": "bst_violation" },
+    { "id": "n6", "value": 35, "address": "0x2a60", "left": null,   "right": null,  "error": "bst_violation" },
+    { "id": "n7", "value": 70, "address": "0x2a70", "left": null,   "right": null,  "error": null }
+  ],
+  "root": "n1",
+  "searchTarget": null,
+  "operations": [
+    { "type": "highlight", "nodeId": "n1", "message": "Root: 40. Let's verify BST property on every subtree." },
+    { "type": "traverse",  "from": "n1",  "to": "n2" },
+    { "type": "highlight", "nodeId": "n2", "message": "Node 20: left child 10 ✓. Now check right child…" },
+    { "type": "traverse",  "from": "n2",  "to": "n5" },
+    { "type": "highlight", "nodeId": "n5", "message": "Node 55 is a right child of 20, but 55 > 40 (root)! ❌ BST property violated — right subtree of 20 must be < 40." },
+    { "type": "flag_error", "nodeId": "n5", "errorType": "bst_violation", "message": "BST VIOLATION: node 55 > root 40 but lives in left subtree of root." },
+    { "type": "traverse",  "from": "n5",  "to": "n1" },
+    { "type": "traverse",  "from": "n1",  "to": "n3" },
+    { "type": "highlight", "nodeId": "n3", "message": "Node 60: right child 70 ✓. Now check left child…" },
+    { "type": "traverse",  "from": "n3",  "to": "n6" },
+    { "type": "highlight", "nodeId": "n6", "message": "Node 35 is a left child of 60 but 35 < 40 (root)! ❌ Should be in left subtree of root, not here." },
+    { "type": "flag_error", "nodeId": "n6", "errorType": "bst_violation", "message": "BST VIOLATION: node 35 < root 40 but lives in right subtree of root." }
+  ],
+  "errors": [
+    {
+      "type": "bst_violation",
+      "nodeId": "n5",
+      "message": "Node 55 is in the right subtree of 20, but 55 > 40 (ancestor root). Violates BST invariant.",
+      "line": null
+    },
+    {
+      "type": "bst_violation",
+      "nodeId": "n6",
+      "message": "Node 35 is in the left subtree of 60, but 35 < 40 (ancestor root). Violates BST invariant.",
+      "line": null
+    }
+  ]
+}

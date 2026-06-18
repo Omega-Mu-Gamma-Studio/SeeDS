@@ -1,0 +1,44 @@
+{
+  "type": "graph",
+  "label": "Graph — Disconnected Components",
+  "vertices": [
+    { "id": "v1", "label": "A", "visited": false },
+    { "id": "v2", "label": "B", "visited": false },
+    { "id": "v3", "label": "C", "visited": false },
+    { "id": "v4", "label": "D", "visited": false },
+    { "id": "v5", "label": "E", "visited": false }
+  ],
+  "edges": [
+    { "from": "v1", "to": "v2", "weight": 3 },
+    { "from": "v1", "to": "v3", "weight": 5 },
+    { "from": "v4", "to": "v5", "weight": 2 }
+  ],
+  "directed": false,
+  "operations": [
+    { "type": "visit_vertex",  "nodeId": "v1", "message": "BFS from A. Visit A." },
+    { "type": "traverse_edge", "from": "v1",   "to": "v2", "message": "A — B" },
+    { "type": "visit_vertex",  "nodeId": "v2", "message": "Visit B." },
+    { "type": "traverse_edge", "from": "v1",   "to": "v3", "message": "A — C" },
+    { "type": "visit_vertex",  "nodeId": "v3", "message": "Visit C. Queue empty — BFS from A done." },
+    { "type": "highlight",     "nodeId": "v4", "message": "D and E are unreachable from A! No path exists between {A,B,C} and {D,E}. This graph is DISCONNECTED." },
+    { "type": "flag_error",    "nodeId": "v4", "errorType": "disconnected", "message": "DISCONNECTED: Component {D, E} is isolated. A spanning tree or full traversal from A cannot reach D or E." },
+    { "type": "flag_error",    "nodeId": "v5", "errorType": "disconnected", "message": "DISCONNECTED: E is only reachable from D, not from the main component {A, B, C}." },
+    { "type": "visit_vertex",  "nodeId": "v4", "message": "Second BFS pass: Visit D (separate component)." },
+    { "type": "traverse_edge", "from": "v4",   "to": "v5", "message": "D — E" },
+    { "type": "visit_vertex",  "nodeId": "v5", "message": "Visit E. Graph has 2 connected components." }
+  ],
+  "errors": [
+    {
+      "type": "disconnected",
+      "nodeId": "v4",
+      "message": "Vertex D belongs to a separate component {D, E} — unreachable from A via any path.",
+      "line": null
+    },
+    {
+      "type": "disconnected",
+      "nodeId": "v5",
+      "message": "Vertex E belongs to a separate component {D, E} — unreachable from A via any path.",
+      "line": null
+    }
+  ]
+}

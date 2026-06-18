@@ -35,7 +35,8 @@ const GROUPS = [
         label: 'Doubly List',
         icon: '↔',
         demos: [
-          { label: '✓ Doubly Linked', file: 'doubly-list-ok.json' },
+          { label: '✓ Doubly Linked',   file: 'doubly-list-ok.json'         },
+          { label: '❌ Broken Prev',     file: 'doubly-list-broken-prev.json' },
         ],
       },
       {
@@ -43,7 +44,8 @@ const GROUPS = [
         label: 'Circular List',
         icon: '↺',
         demos: [
-          { label: '↻ Circular', file: 'circular-list-ok.json' },
+          { label: '↻ Circular',       file: 'circular-list-ok.json'    },
+          { label: '❌ Broken Tail',    file: 'circular-list-broken.json' },
         ],
       },
     ],
@@ -57,7 +59,8 @@ const GROUPS = [
         label: 'Stack',
         icon: '⊤',
         demos: [
-          { label: '✓ Stack ADT', file: 'stack-ok.json' },
+          { label: '✓ Stack ADT',    file: 'stack-ok.json'       },
+          { label: '⛔ Overflow',      file: 'stack-overflow.json'  },
         ],
       },
       {
@@ -65,7 +68,8 @@ const GROUPS = [
         label: 'Queue',
         icon: '▷',
         demos: [
-          { label: '✓ Queue ADT', file: 'queue-ok.json' },
+          { label: '✓ Queue ADT',   file: 'queue-ok.json'        },
+          { label: '⛔ Underflow',     file: 'queue-underflow.json' },
         ],
       },
       { type: 'circular_queue', label: 'Circular Queue', icon: '↺', comingSoon: true },
@@ -81,7 +85,9 @@ const GROUPS = [
         label: 'Binary Tree',
         icon: '⬡',
         demos: [
-          { label: '✓ BST Search', file: 'binary-tree-ok.json' },
+          { label: '✓ BST Search',    file: 'binary-tree-ok.json'          },
+          { label: '❌ BST Violation',  file: 'binary-tree-bst-violation.json' },
+          { label: '💥 Null Deref',    file: 'binary-tree-null-deref.json'    },
         ],
       },
       {
@@ -89,7 +95,9 @@ const GROUPS = [
         label: 'AVL Tree',
         icon: '⬡',
         demos: [
-          { label: '✓ AVL Tree', file: 'avl-tree-ok.json' },
+          { label: '✓ AVL Tree',      file: 'avl-tree-ok.json'          },
+          { label: '⚖ Unbalanced',     file: 'avl-tree-unbalanced.json'   },
+          { label: '↺ Right-Left Case', file: 'avl-tree-violation.json'   },
         ],
       },
       {
@@ -97,7 +105,9 @@ const GROUPS = [
         label: 'Heap',
         icon: '⛰',
         demos: [
-          { label: '✓ Binary Heap', file: 'heap-ok.json' },
+          { label: '✓ Min-Heap',      file: 'heap-ok.json'        },
+          { label: '✓ Max-Heap',      file: 'heap-max.json'       },
+          { label: '❌ Heap Violation', file: 'heap-violation.json' },
         ],
       },
       { type: 'expression_tree', label: 'Expression Tree', icon: '∑', comingSoon: true },
@@ -112,7 +122,9 @@ const GROUPS = [
         label: 'Graph + BFS',
         icon: '⬡',
         demos: [
-          { label: '✓ Graph + BFS', file: 'graph-ok.json' },
+          { label: '✓ Graph + BFS',      file: 'graph-ok.json'           },
+          { label: '→ Directed Graph',   file: 'graph-directed.json'     },
+          { label: '⚡ Disconnected',    file: 'graph-disconnected.json' },
         ],
       },
       { type: 'topological_sort', label: 'Topological Sort', icon: '→', comingSoon: true },
@@ -130,7 +142,8 @@ const GROUPS = [
         label: 'Hash Table',
         icon: '#',
         demos: [
-          { label: '✓ Hash Table', file: 'hash-table-ok.json' },
+          { label: '✓ Separate Chaining', file: 'hash-table-ok.json'        },
+          { label: '💥 Collision',        file: 'hash-table-collision.json' },
         ],
       },
       { type: 'open_addressing', label: 'Open Addressing', icon: '#', comingSoon: true },

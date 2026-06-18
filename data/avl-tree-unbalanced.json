@@ -1,0 +1,29 @@
+{
+  "type": "avl_tree",
+  "label": "AVL Tree — Unbalanced (Left-Heavy)",
+  "nodes": [
+    { "id": "n1", "value": 50, "left": "n2", "right": null, "height": 3, "balanceFactor": 2,  "error": "invalid_rotation" },
+    { "id": "n2", "value": 30, "left": "n3", "right": null, "height": 2, "balanceFactor": 1,  "error": null },
+    { "id": "n3", "value": 10, "left": null, "right": null, "height": 1, "balanceFactor": 0,  "error": null }
+  ],
+  "root": "n1",
+  "rotation": "right",
+  "operations": [
+    { "type": "highlight", "nodeId": "n1", "message": "Root: 50. Left subtree height = 2, right subtree height = 0. Balance factor = +2 ❌" },
+    { "type": "flag_error", "nodeId": "n1", "errorType": "invalid_rotation", "message": "AVL VIOLATION: balance factor of node 50 is +2. Max allowed is ±1. Right rotation needed." },
+    { "type": "traverse",  "from": "n1",  "to": "n2" },
+    { "type": "highlight", "nodeId": "n2", "message": "Node 30: bf = +1. Left-Left case confirmed → single right rotation on 50." },
+    { "type": "traverse",  "from": "n2",  "to": "n3" },
+    { "type": "highlight", "nodeId": "n3", "message": "Node 10: leaf node, bf = 0. This is the deepest node causing the imbalance." },
+    { "type": "traverse",  "from": "n3",  "to": "n1" },
+    { "type": "highlight", "nodeId": "n1", "message": "Performing RIGHT ROTATION: 30 becomes new root. 50 becomes 30's right child. Tree rebalanced." }
+  ],
+  "errors": [
+    {
+      "type": "invalid_rotation",
+      "nodeId": "n1",
+      "message": "Node 50 has balance factor +2 (left-heavy). AVL property violated: |bf| must be ≤ 1. Fix: right rotation.",
+      "line": null
+    }
+  ]
+}
