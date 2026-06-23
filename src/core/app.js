@@ -239,6 +239,11 @@ class App {
       case DS_TYPES.HEAP:           this._activeStructure = new HeapStructure(scene, camera); break;
       case DS_TYPES.AVL_TREE:         this._activeStructure = new AVLTreeStructure(scene, camera);  break;
       case DS_TYPES.EXPRESSION_TREE:  this._activeStructure = new ExpressionTree(scene, camera);    break;
+      case DS_TYPES.TOPOLOGICAL_SORT: this._activeStructure = new TopologicalSort(scene, camera);   break;
+      case DS_TYPES.DIJKSTRA:         this._activeStructure = new Dijkstra(scene, camera);          break;
+      case DS_TYPES.PRIM_MST:         this._activeStructure = new PrimMST(scene, camera);           break;
+      case DS_TYPES.KRUSKAL_MST:      this._activeStructure = new KruskalMST(scene, camera);        break;
+      case DS_TYPES.OPEN_ADDRESSING:  this._activeStructure = new OpenAddressing(scene, camera);    break;
       case DS_TYPES.DOUBLY_LIST:
       case DS_TYPES.CIRCULAR_LIST:  this._activeStructure = new LinkedList(scene, camera); break;
       default: console.warn('[App] Unknown DS type:', type); return;

@@ -33,13 +33,14 @@ export const DS_TYPES = {
   CIRCULAR_QUEUE: 'circular_queue',
   DEQUEUE:        'dequeue',
 
-  // Pending Phase 4 DS
+  // Implemented Phase 3 DS
   EXPRESSION_TREE:  'expression_tree',
   TOPOLOGICAL_SORT: 'topological_sort',
   DIJKSTRA:         'dijkstra',
   PRIM_MST:         'prim_mst',
   KRUSKAL_MST:      'kruskal_mst',
   OPEN_ADDRESSING:  'open_addressing',
+  //Pending Phase 4
   MERGE_SORT:       'merge_sort',
   SHELL_SORT:       'shell_sort',
   RADIX_SORT:       'radix_sort',

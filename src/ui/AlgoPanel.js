@@ -152,10 +152,40 @@ const GROUPS = [
           { label: '⚡ Disconnected',    file: 'graph-disconnected.json' },
         ],
       },
-      { type: 'topological_sort', label: 'Topological Sort', icon: '→', comingSoon: true },
-      { type: 'dijkstra',         label: "Dijkstra's",        icon: '⚡', comingSoon: true },
-      { type: 'prim_mst',         label: "Prim's MST",        icon: '🌿', comingSoon: true },
-      { type: 'kruskal_mst',      label: "Kruskal's MST",     icon: '🌿', comingSoon: true },
+      {
+        type: DS_TYPES.TOPOLOGICAL_SORT,
+        label: 'Topological Sort',
+        icon: '→',
+        demos: [
+          { label: '✓ DAG Sort',     file: 'topological-sort-ok.json'    },
+          { label: '↺ Cycle (error)', file: 'topological-sort-cycle.json' },
+        ],
+      },
+      {
+        type: DS_TYPES.DIJKSTRA,
+        label: "Dijkstra's",
+        icon: '⚡',
+        demos: [
+          { label: '✓ Shortest Path',    file: 'dijkstra-ok.json'       },
+          { label: '⚠ Negative Edge',   file: 'dijkstra-negative.json'  },
+        ],
+      },
+      {
+        type: DS_TYPES.PRIM_MST,
+        label: "Prim's MST",
+        icon: '🌿',
+        demos: [
+          { label: '✓ Prim MST', file: 'prim-mst-ok.json' },
+        ],
+      },
+      {
+        type: DS_TYPES.KRUSKAL_MST,
+        label: "Kruskal's MST",
+        icon: '🌿',
+        demos: [
+          { label: '✓ Kruskal MST', file: 'kruskal-mst-ok.json' },
+        ],
+      },
     ],
   },
   {
@@ -171,7 +201,16 @@ const GROUPS = [
           { label: '💥 Collision',        file: 'hash-table-collision.json' },
         ],
       },
-      { type: 'open_addressing', label: 'Open Addressing', icon: '#', comingSoon: true },
+      {
+        type: DS_TYPES.OPEN_ADDRESSING,
+        label: 'Open Addressing',
+        icon: '#',
+        demos: [
+          { label: '✓ Linear Probe',    file: 'open-addressing-ok.json'        },
+          { label: '⛔ Table Overflow',  file: 'open-addressing-overflow.json'  },
+          { label: '∿ Quadratic Probe', file: 'open-addressing-quadratic.json' },
+        ],
+      },
       {
         type: DS_TYPES.ARRAY,
         label: 'Array',
