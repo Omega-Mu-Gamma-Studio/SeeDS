@@ -72,8 +72,25 @@ const GROUPS = [
           { label: '⛔ Underflow',     file: 'queue-underflow.json' },
         ],
       },
-      { type: 'circular_queue', label: 'Circular Queue', icon: '↺', comingSoon: true },
-      { type: 'dequeue',        label: 'DeQueue',        icon: '↔', comingSoon: true },
+      {
+        type: 'circular_queue',
+        label: 'Circular Queue',
+        icon: '↺',
+        demos: [
+          { label: '✓ Circular Queue',  file: 'circular-queue-ok.json'   },
+          { label: '⛔ Queue Full',      file: 'circular-queue-full.json' },
+          { label: '↩ Wrap-Around',     file: 'circular-queue-wrap.json' },
+        ],
+      },
+      {
+        type: 'dequeue',
+        label: 'DeQueue',
+        icon: '↔',
+        demos: [
+          { label: '↔ DeQueue ADT',   file: 'dequeue-ok.json'    },
+          { label: '⇄ Mixed Ops',     file: 'dequeue-mixed.json' },
+        ],
+      },
     ],
   },
   {
@@ -110,7 +127,15 @@ const GROUPS = [
           { label: '❌ Heap Violation', file: 'heap-violation.json' },
         ],
       },
-      { type: 'expression_tree', label: 'Expression Tree', icon: '∑', comingSoon: true },
+      {
+        type: 'expression_tree',
+        label: 'Expression Tree',
+        icon: '∑',
+        demos: [
+          { label: '∑ In-Order',       file: 'expression-tree-inorder.json'   },
+          { label: '↩ Post-Order Eval', file: 'expression-tree-postorder.json' },
+        ],
+      },
     ],
   },
   {

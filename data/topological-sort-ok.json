@@ -1,0 +1,51 @@
+{
+  "type": "topological_sort",
+  "label": "Topological Sort — DFS on a DAG",
+  "directed": true,
+  "vertices": [
+    { "id": "v1", "label": "A", "inDegree": 0 },
+    { "id": "v2", "label": "B", "inDegree": 1 },
+    { "id": "v3", "label": "C", "inDegree": 1 },
+    { "id": "v4", "label": "D", "inDegree": 2 },
+    { "id": "v5", "label": "E", "inDegree": 1 },
+    { "id": "v6", "label": "F", "inDegree": 2 }
+  ],
+  "edges": [
+    { "from": "v1", "to": "v2" },
+    { "from": "v1", "to": "v3" },
+    { "from": "v2", "to": "v4" },
+    { "from": "v3", "to": "v4" },
+    { "from": "v3", "to": "v5" },
+    { "from": "v4", "to": "v6" },
+    { "from": "v5", "to": "v6" }
+  ],
+  "operations": [
+    { "type": "highlight",     "nodeId": "v1", "message": "Start DFS from vertex A (in-degree 0 — no prerequisites). DFS stack shown on the right." },
+    { "type": "dfs_push",      "nodeId": "v1", "message": "Push A onto DFS stack" },
+    { "type": "traverse_edge", "from": "v1",   "to": "v2", "message": "Explore edge A → B" },
+    { "type": "dfs_push",      "nodeId": "v2", "message": "Push B onto DFS stack" },
+    { "type": "traverse_edge", "from": "v2",   "to": "v4", "message": "Explore edge B → D" },
+    { "type": "dfs_push",      "nodeId": "v4", "message": "Push D onto DFS stack" },
+    { "type": "traverse_edge", "from": "v4",   "to": "v6", "message": "Explore edge D → F" },
+    { "type": "dfs_push",      "nodeId": "v6", "message": "Push F onto DFS stack — F has no outgoing edges" },
+    { "type": "dfs_pop",       "nodeId": "v6", "message": "F fully explored → pop and PREPEND to result" },
+    { "type": "result_append", "nodeId": "v6", "message": "F added to topological order. Result: [ F ]" },
+    { "type": "dfs_pop",       "nodeId": "v4", "message": "D fully explored → pop and prepend" },
+    { "type": "result_append", "nodeId": "v4", "message": "Result: [ D, F ]" },
+    { "type": "dfs_pop",       "nodeId": "v2", "message": "B fully explored → pop" },
+    { "type": "result_append", "nodeId": "v2", "message": "Result: [ B, D, F ]" },
+    { "type": "traverse_edge", "from": "v1",   "to": "v3", "message": "Back to A — explore edge A → C" },
+    { "type": "dfs_push",      "nodeId": "v3", "message": "Push C" },
+    { "type": "traverse_edge", "from": "v3",   "to": "v4", "message": "C → D: D already visited, skip" },
+    { "type": "traverse_edge", "from": "v3",   "to": "v5", "message": "Explore C → E" },
+    { "type": "dfs_push",      "nodeId": "v5", "message": "Push E" },
+    { "type": "traverse_edge", "from": "v5",   "to": "v6", "message": "E → F: F already visited, skip" },
+    { "type": "dfs_pop",       "nodeId": "v5", "message": "E fully explored → pop" },
+    { "type": "result_append", "nodeId": "v5", "message": "Result: [ E, B, D, F ]" },
+    { "type": "dfs_pop",       "nodeId": "v3", "message": "C fully explored → pop" },
+    { "type": "result_append", "nodeId": "v3", "message": "Result: [ C, E, B, D, F ]" },
+    { "type": "dfs_pop",       "nodeId": "v1", "message": "A fully explored → pop" },
+    { "type": "result_append", "nodeId": "v1", "message": "Final topological order: A → C → E → B → D → F ✓" }
+  ],
+  "errors": []
+}

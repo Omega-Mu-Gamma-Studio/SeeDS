@@ -1,0 +1,36 @@
+{
+  "type": "topological_sort",
+  "label": "Topological Sort — Cycle Detected!",
+  "directed": true,
+  "vertices": [
+    { "id": "v1", "label": "A", "inDegree": 0 },
+    { "id": "v2", "label": "B", "inDegree": 1 },
+    { "id": "v3", "label": "C", "inDegree": 1 },
+    { "id": "v4", "label": "D", "inDegree": 2 }
+  ],
+  "edges": [
+    { "from": "v1", "to": "v2" },
+    { "from": "v2", "to": "v3" },
+    { "from": "v3", "to": "v4" },
+    { "from": "v4", "to": "v2" }
+  ],
+  "operations": [
+    { "type": "highlight",     "nodeId": "v1", "message": "DFS from A" },
+    { "type": "dfs_push",      "nodeId": "v1", "message": "Push A" },
+    { "type": "traverse_edge", "from": "v1",   "to": "v2", "message": "A → B" },
+    { "type": "dfs_push",      "nodeId": "v2", "message": "Push B — mark as IN-PROGRESS (amber)" },
+    { "type": "traverse_edge", "from": "v2",   "to": "v3", "message": "B → C" },
+    { "type": "dfs_push",      "nodeId": "v3", "message": "Push C" },
+    { "type": "traverse_edge", "from": "v3",   "to": "v4", "message": "C → D" },
+    { "type": "dfs_push",      "nodeId": "v4", "message": "Push D" },
+    { "type": "traverse_edge", "from": "v4",   "to": "v2", "isBackEdge": true, "message": "D → B: B is still IN-PROGRESS on the stack — this is a BACK EDGE!" },
+    { "type": "flag_error",    "nodeId": "v2", "errorType": "cycle", "message": "⛔ Cycle detected: B → C → D → B. This graph is NOT a DAG — topological sort is IMPOSSIBLE." }
+  ],
+  "errors": [
+    {
+      "type": "cycle",
+      "nodeId": "v2",
+      "message": "Cycle detected: B → C → D → B. A directed graph with cycles cannot be topologically sorted."
+    }
+  ]
+}

@@ -16,7 +16,15 @@ import QueueStructure     from '../structures/Queue.js';
 import GraphStructure     from '../structures/Graph.js';
 import HashTableStructure from '../structures/HashTable.js';
 import HeapStructure      from '../structures/Heap.js';
-import AVLTreeStructure   from '../structures/AVLTree.js';
+import AVLTreeStructure          from '../structures/AVLTree.js';
+import CircularQueueStructure    from '../structures/CircularQueue.js';
+import DeQueueStructure          from '../structures/DeQueue.js';
+import ExpressionTree            from '../structures/ExpressionTree.js';
+import TopologicalSort            from '../structures/TopologicalSort.js'
+import Dijkstra            from '../structures/Dijkstra.js'
+import PrimMST            from '../structures/PrimMST.js'
+import KruskalMST            from '../structures/KruskalMST.js'
+import OpenAddressing            from '../structures/OpenAddressing.js'
 
 import Toolbar            from '../ui/Toolbar.js';
 import AlgoPanel          from '../ui/AlgoPanel.js';
@@ -223,13 +231,14 @@ class App {
       case DS_TYPES.ARRAY:          this._activeStructure = new ArrayStructure(scene, camera); break;
       case DS_TYPES.SORT_RACE:      this._activeStructure = new SortRace(scene, camera); break;
       case DS_TYPES.STACK:          this._activeStructure = new StackStructure(scene, camera); break;
-      case DS_TYPES.QUEUE:
-      case DS_TYPES.CIRCULAR_QUEUE:
-      case DS_TYPES.DEQUEUE:        this._activeStructure = new QueueStructure(scene, camera); break;
+      case DS_TYPES.QUEUE:          this._activeStructure = new QueueStructure(scene, camera);         break;
+      case DS_TYPES.CIRCULAR_QUEUE: this._activeStructure = new CircularQueueStructure(scene, camera); break;
+      case DS_TYPES.DEQUEUE:        this._activeStructure = new DeQueueStructure(scene, camera);         break;
       case DS_TYPES.GRAPH:          this._activeStructure = new GraphStructure(scene, camera); break;
       case DS_TYPES.HASH_TABLE:     this._activeStructure = new HashTableStructure(scene, camera); break;
       case DS_TYPES.HEAP:           this._activeStructure = new HeapStructure(scene, camera); break;
-      case DS_TYPES.AVL_TREE:       this._activeStructure = new AVLTreeStructure(scene, camera); break;
+      case DS_TYPES.AVL_TREE:         this._activeStructure = new AVLTreeStructure(scene, camera);  break;
+      case DS_TYPES.EXPRESSION_TREE:  this._activeStructure = new ExpressionTree(scene, camera);    break;
       case DS_TYPES.DOUBLY_LIST:
       case DS_TYPES.CIRCULAR_LIST:  this._activeStructure = new LinkedList(scene, camera); break;
       default: console.warn('[App] Unknown DS type:', type); return;

@@ -1,0 +1,48 @@
+{
+  "type": "kruskal_mst",
+  "label": "Kruskal's MST — Union-Find Edition",
+  "vertices": [
+    { "id": "v1", "label": "A" },
+    { "id": "v2", "label": "B" },
+    { "id": "v3", "label": "C" },
+    { "id": "v4", "label": "D" },
+    { "id": "v5", "label": "E" }
+  ],
+  "edges": [
+    { "id": "e1", "from": "v2", "to": "v3", "weight": 1 },
+    { "id": "e2", "from": "v1", "to": "v2", "weight": 2 },
+    { "id": "e3", "from": "v1", "to": "v3", "weight": 3 },
+    { "id": "e4", "from": "v2", "to": "v4", "weight": 4 },
+    { "id": "e5", "from": "v3", "to": "v4", "weight": 5 },
+    { "id": "e6", "from": "v3", "to": "v5", "weight": 6 },
+    { "id": "e7", "from": "v4", "to": "v5", "weight": 7 }
+  ],
+  "operations": [
+    { "type": "highlight",         "nodeId": "v1", "message": "Kruskal's: process ALL edges sorted by weight ascending. Each vertex starts in its own component — notice the different colours!" },
+    { "type": "consider_edge",     "from": "v2", "to": "v3", "message": "Consider B–C (weight 1): B and C are in different components → ACCEPT" },
+    { "type": "accept_edge",       "from": "v2", "to": "v3", "weight": 1, "message": "Accepted! Union {B} and {C}" },
+    { "type": "union_components",  "setA": ["v2"], "setB": ["v3"], "message": "B and C merge into one component (same colour now). Components: 4 → still need to reach 1." },
+    { "type": "update_cost",       "cost": 1, "message": "MST Cost: 1" },
+    { "type": "update_components", "count": 4, "message": "4 components remaining" },
+    { "type": "consider_edge",     "from": "v1", "to": "v2", "message": "Consider A–B (weight 2): A and B are in different components → ACCEPT" },
+    { "type": "accept_edge",       "from": "v1", "to": "v2", "weight": 2, "message": "Accepted! Union {A} and {B, C}" },
+    { "type": "union_components",  "setA": ["v2", "v3"], "setB": ["v1"], "message": "A joins the B–C component. All three share a colour now." },
+    { "type": "update_cost",       "cost": 3, "message": "MST Cost: 3" },
+    { "type": "update_components", "count": 3, "message": "3 components remaining" },
+    { "type": "consider_edge",     "from": "v1", "to": "v3", "message": "Consider A–C (weight 3): A and C are in the SAME component → REJECT (would create cycle!)" },
+    { "type": "reject_edge",       "from": "v1", "to": "v3", "message": "Rejected — edge flashes red. Kruskal's skips same-component edges." },
+    { "type": "consider_edge",     "from": "v2", "to": "v4", "message": "Consider B–D (weight 4): different components → ACCEPT" },
+    { "type": "accept_edge",       "from": "v2", "to": "v4", "weight": 4, "message": "Accepted! D joins the A–B–C component." },
+    { "type": "union_components",  "setA": ["v1","v2","v3"], "setB": ["v4"], "message": "D recoloured to match the main component." },
+    { "type": "update_cost",       "cost": 7, "message": "MST Cost: 7" },
+    { "type": "update_components", "count": 2, "message": "2 components remaining — just E is isolated" },
+    { "type": "consider_edge",     "from": "v3", "to": "v4", "message": "Consider C–D (weight 5): same component → REJECT" },
+    { "type": "reject_edge",       "from": "v3", "to": "v4", "message": "Rejected." },
+    { "type": "consider_edge",     "from": "v3", "to": "v5", "message": "Consider C–E (weight 6): different components → ACCEPT!" },
+    { "type": "accept_edge",       "from": "v3", "to": "v5", "weight": 6, "message": "Accepted! E joins. All 5 vertices now in one component." },
+    { "type": "union_components",  "setA": ["v1","v2","v3","v4"], "setB": ["v5"], "message": "E recoloured — entire graph is one connected component." },
+    { "type": "update_cost",       "cost": 13, "message": "✓ Kruskal's MST complete! Cost = 13. Edges accepted: B–C(1) + A–B(2) + B–D(4) + C–E(6) = 13" },
+    { "type": "update_components", "count": 1, "message": "1 component — MST spans all vertices!" }
+  ],
+  "errors": []
+}
