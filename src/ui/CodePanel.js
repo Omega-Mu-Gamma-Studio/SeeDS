@@ -32,6 +32,19 @@ const DS_TO_TEMPLATE = {
   dequeue:        'dequeue',
   array:          'array_ops',
   sort_race:      'sorting',
+
+  // Phase 3 — implemented DS, templates existed but were never wired here
+  expression_tree:  'expression_tree',
+  topological_sort: 'topological_sort',
+  dijkstra:         'dijkstra',
+  prim_mst:         'prim_mst',
+  kruskal_mst:      'kruskal_mst',
+  open_addressing:  'open_addressing',
+
+  // Phase 4 — sort race variants
+  merge_sort:       'merge_sort',
+  shell_sort:       'shell_sort',
+  radix_sort:       'radix_sort',
 };
 
 // ── C Syntax tokeniser ────────────────────────────────────────
