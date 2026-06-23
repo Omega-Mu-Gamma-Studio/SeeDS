@@ -235,9 +235,33 @@ const GROUPS = [
           { label: '▶ Insertion Sort',         file: 'insertion-sort.json' },
         ],
       },
-      { type: 'merge_sort',  label: 'Merge Sort',  icon: '⊕', comingSoon: true },
-      { type: 'shell_sort',  label: 'Shell Sort',  icon: '≋', comingSoon: true },
-      { type: 'radix_sort',  label: 'Radix Sort',  icon: '0x', comingSoon: true },
+      {
+        type: DS_TYPES.MERGE_SORT,
+        label: 'Merge Sort',
+        icon: '⊕',
+        demos: [
+          { label: '⊕ Merge Sort',        file: 'merge-sort-ok.json'           },
+          { label: '↗ Already Sorted',    file: 'merge-sort-sorted-input.json' },
+        ],
+      },
+      {
+        type: DS_TYPES.SHELL_SORT,
+        label: 'Shell Sort',
+        icon: '≋',
+        demos: [
+          { label: '≋ Shell Sort',        file: 'shell-sort-ok.json'    },
+          { label: '⬇ Reverse Sorted',   file: 'shell-sort-worst.json' },
+        ],
+      },
+      {
+        type: DS_TYPES.RADIX_SORT,
+        label: 'Radix Sort',
+        icon: '0x',
+        demos: [
+          { label: '0x LSD Radix',        file: 'radix-sort-ok.json'    },
+          { label: '0x 2-Digit Values',   file: 'radix-sort-2digit.json'},
+        ],
+      },
     ],
   },
 ];

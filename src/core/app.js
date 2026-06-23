@@ -20,6 +20,9 @@ import AVLTreeStructure          from '../structures/AVLTree.js';
 import CircularQueueStructure    from '../structures/CircularQueue.js';
 import DeQueueStructure          from '../structures/DeQueue.js';
 import ExpressionTree            from '../structures/ExpressionTree.js';
+import MergeSort                  from '../structures/MergeSort.js';
+import ShellSort                  from '../structures/ShellSort.js';
+import RadixSort                  from '../structures/RadixSort.js';
 import TopologicalSort            from '../structures/TopologicalSort.js'
 import Dijkstra            from '../structures/Dijkstra.js'
 import PrimMST            from '../structures/PrimMST.js'
@@ -239,6 +242,9 @@ class App {
       case DS_TYPES.HEAP:           this._activeStructure = new HeapStructure(scene, camera); break;
       case DS_TYPES.AVL_TREE:         this._activeStructure = new AVLTreeStructure(scene, camera);  break;
       case DS_TYPES.EXPRESSION_TREE:  this._activeStructure = new ExpressionTree(scene, camera);    break;
+      case DS_TYPES.MERGE_SORT:       this._activeStructure = new MergeSort(scene, camera);         break;
+      case DS_TYPES.SHELL_SORT:       this._activeStructure = new ShellSort(scene, camera);         break;
+      case DS_TYPES.RADIX_SORT:       this._activeStructure = new RadixSort(scene, camera);         break;
       case DS_TYPES.TOPOLOGICAL_SORT: this._activeStructure = new TopologicalSort(scene, camera);   break;
       case DS_TYPES.DIJKSTRA:         this._activeStructure = new Dijkstra(scene, camera);          break;
       case DS_TYPES.PRIM_MST:         this._activeStructure = new PrimMST(scene, camera);           break;

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "1.0.0",
+  "type": "radix_sort",
+  "label": "Radix Sort (LSD) — [170, 45, 75, 90, 802, 24, 2, 66]",
+  "initialValues": [170, 45, 75, 90, 802, 24, 2, 66],
+  "steps": [
+    { "type": "digit_pass", "digit": 1, "place": "ones" },
+
+    { "type": "distribute", "value": 170, "bucket": 0, "valueIdx": 0, "state": [170,45,75,90,802,24,2,66] },
+    { "type": "distribute", "value": 45,  "bucket": 5, "valueIdx": 1, "state": [170,45,75,90,802,24,2,66] },
+    { "type": "distribute", "value": 75,  "bucket": 5, "valueIdx": 2, "state": [170,45,75,90,802,24,2,66] },
+    { "type": "distribute", "value": 90,  "bucket": 0, "valueIdx": 3, "state": [170,45,75,90,802,24,2,66] },
+    { "type": "distribute", "value": 802, "bucket": 2, "valueIdx": 4, "state": [170,45,75,90,802,24,2,66] },
+    { "type": "distribute", "value": 24,  "bucket": 4, "valueIdx": 5, "state": [170,45,75,90,802,24,2,66] },
+    { "type": "distribute", "value": 2,   "bucket": 2, "valueIdx": 6, "state": [170,45,75,90,802,24,2,66] },
+    { "type": "distribute", "value": 66,  "bucket": 6, "valueIdx": 7, "state": [170,45,75,90,802,24,2,66] },
+
+    { "type": "collect", "collect_bucket": 0, "state": [170,90,802,2,24,45,75,66] },
+    { "type": "collect", "collect_bucket": 2, "state": [170,90,802,2,24,45,75,66] },
+    { "type": "collect", "collect_bucket": 4, "state": [170,90,802,2,24,45,75,66] },
+    { "type": "collect", "collect_bucket": 5, "state": [170,90,802,2,24,45,75,66] },
+    { "type": "collect", "collect_bucket": 6, "state": [170,90,802,2,24,45,75,66] },
+
+    { "type": "digit_pass", "digit": 2, "place": "tens" },
+
+    { "type": "distribute", "value": 170, "bucket": 7, "valueIdx": 0, "state": [170,90,802,2,24,45,75,66] },
+    { "type": "distribute", "value": 90,  "bucket": 9, "valueIdx": 1, "state": [170,90,802,2,24,45,75,66] },
+    { "type": "distribute", "value": 802, "bucket": 0, "valueIdx": 2, "state": [170,90,802,2,24,45,75,66] },
+    { "type": "distribute", "value": 2,   "bucket": 0, "valueIdx": 3, "state": [170,90,802,2,24,45,75,66] },
+    { "type": "distribute", "value": 24,  "bucket": 2, "valueIdx": 4, "state": [170,90,802,2,24,45,75,66] },
+    { "type": "distribute", "value": 45,  "bucket": 4, "valueIdx": 5, "state": [170,90,802,2,24,45,75,66] },
+    { "type": "distribute", "value": 75,  "bucket": 7, "valueIdx": 6, "state": [170,90,802,2,24,45,75,66] },
+    { "type": "distribute", "value": 66,  "bucket": 6, "valueIdx": 7, "state": [170,90,802,2,24,45,75,66] },
+
+    { "type": "collect", "collect_bucket": 0, "state": [802,2,24,45,66,170,75,90] },
+    { "type": "collect", "collect_bucket": 2, "state": [802,2,24,45,66,170,75,90] },
+    { "type": "collect", "collect_bucket": 4, "state": [802,2,24,45,66,170,75,90] },
+    { "type": "collect", "collect_bucket": 6, "state": [802,2,24,45,66,170,75,90] },
+    { "type": "collect", "collect_bucket": 7, "state": [802,2,24,45,66,170,75,90] },
+    { "type": "collect", "collect_bucket": 9, "state": [802,2,24,45,66,170,75,90] },
+
+    { "type": "digit_pass", "digit": 3, "place": "hundreds" },
+
+    { "type": "distribute", "value": 802, "bucket": 8, "valueIdx": 0, "state": [802,2,24,45,66,170,75,90] },
+    { "type": "distribute", "value": 2,   "bucket": 0, "valueIdx": 1, "state": [802,2,24,45,66,170,75,90] },
+    { "type": "distribute", "value": 24,  "bucket": 0, "valueIdx": 2, "state": [802,2,24,45,66,170,75,90] },
+    { "type": "distribute", "value": 45,  "bucket": 0, "valueIdx": 3, "state": [802,2,24,45,66,170,75,90] },
+    { "type": "distribute", "value": 66,  "bucket": 0, "valueIdx": 4, "state": [802,2,24,45,66,170,75,90] },
+    { "type": "distribute", "value": 170, "bucket": 1, "valueIdx": 5, "state": [802,2,24,45,66,170,75,90] },
+    { "type": "distribute", "value": 75,  "bucket": 0, "valueIdx": 6, "state": [802,2,24,45,66,170,75,90] },
+    { "type": "distribute", "value": 90,  "bucket": 0, "valueIdx": 7, "state": [802,2,24,45,66,170,75,90] },
+
+    { "type": "collect", "collect_bucket": 0, "state": [2,24,45,66,75,90,170,802] },
+    { "type": "collect", "collect_bucket": 1, "state": [2,24,45,66,75,90,170,802] },
+    { "type": "collect", "collect_bucket": 8, "state": [2,24,45,66,75,90,170,802] },
+
+    { "type": "sorted", "i": 0, "state": [2,24,45,66,75,90,170,802] },
+    { "type": "sorted", "i": 1, "state": [2,24,45,66,75,90,170,802] },
+    { "type": "sorted", "i": 2, "state": [2,24,45,66,75,90,170,802] },
+    { "type": "sorted", "i": 3, "state": [2,24,45,66,75,90,170,802] },
+    { "type": "sorted", "i": 4, "state": [2,24,45,66,75,90,170,802] },
+    { "type": "sorted", "i": 5, "state": [2,24,45,66,75,90,170,802] },
+    { "type": "sorted", "i": 6, "state": [2,24,45,66,75,90,170,802] },
+    { "type": "sorted", "i": 7, "state": [2,24,45,66,75,90,170,802] },
+    { "type": "done",   "state": [2,24,45,66,75,90,170,802] }
+  ],
+  "errors": []
+}

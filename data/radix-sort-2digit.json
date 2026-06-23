@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0.0",
+  "type": "radix_sort",
+  "label": "Radix Sort — 2-digit values [64, 25, 12, 22, 11]",
+  "initialValues": [64, 25, 12, 22, 11],
+  "steps": [
+    { "type": "digit_pass", "digit": 1, "place": "ones" },
+
+    { "type": "distribute", "value": 64, "bucket": 4, "valueIdx": 0, "state": [64,25,12,22,11] },
+    { "type": "distribute", "value": 25, "bucket": 5, "valueIdx": 1, "state": [64,25,12,22,11] },
+    { "type": "distribute", "value": 12, "bucket": 2, "valueIdx": 2, "state": [64,25,12,22,11] },
+    { "type": "distribute", "value": 22, "bucket": 2, "valueIdx": 3, "state": [64,25,12,22,11] },
+    { "type": "distribute", "value": 11, "bucket": 1, "valueIdx": 4, "state": [64,25,12,22,11] },
+
+    { "type": "collect", "collect_bucket": 1, "state": [11,12,22,64,25] },
+    { "type": "collect", "collect_bucket": 2, "state": [11,12,22,64,25] },
+    { "type": "collect", "collect_bucket": 4, "state": [11,12,22,64,25] },
+    { "type": "collect", "collect_bucket": 5, "state": [11,12,22,64,25] },
+
+    { "type": "digit_pass", "digit": 2, "place": "tens" },
+
+    { "type": "distribute", "value": 11, "bucket": 1, "valueIdx": 0, "state": [11,12,22,64,25] },
+    { "type": "distribute", "value": 12, "bucket": 1, "valueIdx": 1, "state": [11,12,22,64,25] },
+    { "type": "distribute", "value": 22, "bucket": 2, "valueIdx": 2, "state": [11,12,22,64,25] },
+    { "type": "distribute", "value": 64, "bucket": 6, "valueIdx": 3, "state": [11,12,22,64,25] },
+    { "type": "distribute", "value": 25, "bucket": 2, "valueIdx": 4, "state": [11,12,22,64,25] },
+
+    { "type": "collect", "collect_bucket": 1, "state": [11,12,22,25,64] },
+    { "type": "collect", "collect_bucket": 2, "state": [11,12,22,25,64] },
+    { "type": "collect", "collect_bucket": 6, "state": [11,12,22,25,64] },
+
+    { "type": "sorted", "i": 0, "state": [11,12,22,25,64] },
+    { "type": "sorted", "i": 1, "state": [11,12,22,25,64] },
+    { "type": "sorted", "i": 2, "state": [11,12,22,25,64] },
+    { "type": "sorted", "i": 3, "state": [11,12,22,25,64] },
+    { "type": "sorted", "i": 4, "state": [11,12,22,25,64] },
+    { "type": "done",   "state": [11,12,22,25,64] }
+  ],
+  "errors": []
+}
