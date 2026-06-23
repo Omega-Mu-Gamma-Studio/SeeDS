@@ -1,0 +1,31 @@
+{
+  "type": "dijkstra",
+  "label": "Dijkstra's — Negative Weight Edge Error",
+  "source": "v1",
+  "directed": true,
+  "vertices": [
+    { "id": "v1", "label": "A" },
+    { "id": "v2", "label": "B" },
+    { "id": "v3", "label": "C" }
+  ],
+  "edges": [
+    { "from": "v1", "to": "v2", "weight": 3 },
+    { "from": "v2", "to": "v3", "weight": -5 },
+    { "from": "v1", "to": "v3", "weight": 4 }
+  ],
+  "operations": [
+    { "type": "set_dist",   "nodeId": "v1", "dist": 0, "message": "Source A = 0. Initializing Dijkstra's algorithm." },
+    { "type": "settle",     "nodeId": "v1", "message": "Settle A" },
+    { "type": "relax_edge", "from": "v1", "to": "v2", "newDist": 3, "message": "Relax A→B: dist[B] = 3" },
+    { "type": "relax_edge", "from": "v1", "to": "v3", "newDist": 4, "message": "Relax A→C: dist[C] = 4" },
+    { "type": "settle",     "nodeId": "v2", "message": "Settle B (dist=3)" },
+    { "type": "flag_error", "nodeId": "v3", "errorType": "negative_weight", "message": "⛔ Edge B→C has weight -5! Dijkstra's CANNOT handle negative weights — once B is settled with dist=3, we miss the cheaper path 3 + (-5) = -2. Use Bellman-Ford instead." }
+  ],
+  "errors": [
+    {
+      "type": "negative_weight",
+      "nodeId": "v3",
+      "message": "Negative edge weight detected on B→C (w=-5). Dijkstra's greedy settlement assumption breaks: once a vertex is settled, its distance is assumed final — but negative edges can invalidate this. Use Bellman-Ford or SPFA for graphs with negative weights."
+    }
+  ]
+}

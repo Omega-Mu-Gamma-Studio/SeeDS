@@ -168,6 +168,7 @@ const GROUPS = [
         demos: [
           { label: '✓ Shortest Path',    file: 'dijkstra-ok.json'       },
           { label: '⚠ Negative Edge',   file: 'dijkstra-negative.json'  },
+          { label: '→ Directed SSSP',   file: 'dijkstra-directed.json'  },
         ],
       },
       {
@@ -209,6 +210,8 @@ const GROUPS = [
           { label: '✓ Linear Probe',    file: 'open-addressing-ok.json'        },
           { label: '⛔ Table Overflow',  file: 'open-addressing-overflow.json'  },
           { label: '∿ Quadratic Probe', file: 'open-addressing-quadratic.json' },
+          { label: '💥 Probe Collision', file: 'open-addressing-collision.json' },
+          { label: '🗑 Tombstone',       file: 'open-addressing-delete.json'    },
         ],
       },
       {

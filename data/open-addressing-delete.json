@@ -1,0 +1,43 @@
+{
+  "type": "open_addressing",
+  "label": "Open Addressing — Tombstones on Delete",
+  "tableSize": 7,
+  "probingMethod": "linear probing",
+  "hashFormula": "h(k) = k mod 7",
+  "slots": [
+    { "id": "s0", "index": 0, "key": null,  "value": null, "state": "empty" },
+    { "id": "s1", "index": 1, "key": null,  "value": null, "state": "empty" },
+    { "id": "s2", "index": 2, "key": null,  "value": null, "state": "empty" },
+    { "id": "s3", "index": 3, "key": null,  "value": null, "state": "empty" },
+    { "id": "s4", "index": 4, "key": null,  "value": null, "state": "empty" },
+    { "id": "s5", "index": 5, "key": null,  "value": null, "state": "empty" },
+    { "id": "s6", "index": 6, "key": null,  "value": null, "state": "empty" }
+  ],
+  "operations": [
+    { "type": "highlight",          "slotId": "s2", "message": "Insert key=9: h(9) = 9 mod 7 = 2 → probe slot [2]" },
+    { "type": "insert",             "slotId": "s2", "key": 9,  "message": "Slot [2] is empty — insert 9 here ✓" },
+    { "type": "update_load_factor", "occupied": 1, "total": 7, "message": "α = 1/7 ≈ 0.14" },
+    { "type": "highlight",          "slotId": "s2", "message": "Insert key=16: h(16) = 16 mod 7 = 2 → probe [2]... COLLISION! Occupied by 9." },
+    { "type": "probe_step",         "fromId": "s2", "toId": "s3", "message": "Linear probe: try [3] — empty!" },
+    { "type": "insert",             "slotId": "s3", "key": 16, "message": "Insert 16 at index 3 ✓ (1 collision)" },
+    { "type": "update_load_factor", "occupied": 2, "total": 7, "message": "α = 2/7 ≈ 0.29" },
+    { "type": "highlight",          "slotId": "s2", "message": "Insert key=23: h(23) = 23 mod 7 = 2 → probe [2]... COLLISION! Occupied by 9." },
+    { "type": "probe_step",         "fromId": "s2", "toId": "s3", "message": "Probe [3]... COLLISION! Occupied by 16." },
+    { "type": "probe_step",         "fromId": "s3", "toId": "s4", "message": "Probe [4] — empty!" },
+    { "type": "insert",             "slotId": "s4", "key": 23, "message": "Insert 23 at index 4 ✓ (2 collisions) — keys 9, 16, 23 now form a chain at [2,3,4]" },
+    { "type": "update_load_factor", "occupied": 3, "total": 7, "message": "α = 3/7 ≈ 0.43" },
+    { "type": "highlight",          "slotId": "s3", "message": "Delete key=16 (at index 3): we cannot just blank the slot, or the chain to 23 breaks for future searches." },
+    { "type": "delete",             "slotId": "s3", "message": "Slot [3] becomes a TOMBSTONE (✗ deleted) — a probe barrier that searches must pass through, not stop at." },
+    { "type": "update_load_factor", "occupied": 2, "total": 7, "message": "α = 2/7 ≈ 0.29 — note: tombstones still count toward the table being \"used\" for load-factor purposes, even though they hold no key." },
+    { "type": "highlight",          "slotId": "s2", "message": "Search key=23: h(23) = 2 → probe [2]" },
+    { "type": "probe_step",         "fromId": "s2", "toId": "s3", "message": "Probe [2]: occupied by 9, not 23 — keep going → probe [3]: TOMBSTONE — must NOT stop here, keep probing!" },
+    { "type": "probe_step",         "fromId": "s3", "toId": "s4", "message": "Probe [4]: found 23!" },
+    { "type": "search_hit",         "slotId": "s4", "message": "✓ Found key=23 at index 4. If the search had stopped at the tombstone in [3], it would have incorrectly reported 23 as missing." },
+    { "type": "highlight",          "slotId": "s2", "message": "Search key=16 (already deleted): h(16) = 2 → probe [2]" },
+    { "type": "probe_step",         "fromId": "s2", "toId": "s3", "message": "Probe [2]: occupied by 9 — keep going → probe [3]: TOMBSTONE, the very slot 16 used to live in" },
+    { "type": "probe_step",         "fromId": "s3", "toId": "s4", "message": "Probe [4]: occupied by 23, not 16 — keep going" },
+    { "type": "probe_step",         "fromId": "s4", "toId": "s5", "message": "Probe [5]: empty! An empty slot (not a tombstone) means the key is genuinely not in the table." },
+    { "type": "search_miss",        "message": "✗ Key 16 not found — search correctly terminates at the first truly empty slot, after passing through the tombstone." }
+  ],
+  "errors": []
+}
