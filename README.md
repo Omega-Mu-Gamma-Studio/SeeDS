@@ -200,7 +200,7 @@ SeeDS is one of five tools built by Omega Mu Gamma Studio, a student-run open-so
 | **SeeDS** | 3D data structure visualizer & bug detector (CS22302) — *this repo* |
 | [KMapX](https://kmapx.vercel.app) | Karnaugh map simplifier with don't-care support |
 | [EG Suite](https://eg-suite.vercel.app) | 3D Engineering Graphics simulator (ME22201) |
-| [GateLab](https://gatelab.vercel.app) | 3D digital logic playground (CS22303) |
+| [GateLab](https://gatelab.vercel.app) | 2D digital logic schematic playground (CS22303) |
 | [Java-chan](https://github.com/Omega-Mu-Gamma-Studio/Java-Chan) | Anime-guided interactive Java tutor (CS22301) |
 
 ---
