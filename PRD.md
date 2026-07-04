@@ -193,6 +193,29 @@ the fixed JSON schema in §8. No CMS/authoring tool is being built for v1 — th
 itself needs to be tight enough that hand-authoring in JSON is not error-prone,
 which is why §8 is the most heavily specified section in this document.
 
+### 6.1 The Passport / Landmarks System
+
+Discovered-in-the-wild during v1 build and now a permanent, required part of the
+product — not optional worldbuilding flavor. Units are not presented to the
+student as bare "Unit 1, Unit 2" labels; each unit is subdivided into named,
+illustrated **landmarks** (e.g. Unit 1 contains "The Chainworks" covering the
+three list lessons, and "The Stack & Queue Yard" covering Stack/Queue), and
+student progress is tracked as stamps in an in-app **Passport**, sealed with a
+wax-crest once every lesson under a landmark is completed.
+
+**This is now a required field on every unit file, not an optional flourish.**
+`lessonService.getLandmarkForLesson()` and `progressStore.completeLesson()`'s
+stamp/seal bookkeeping both depend on every unit defining its `landmarks` array
+consistently. A unit file authored without one will silently produce no passport
+stamps for that unit — no error, just a quiet gap. Treat this as load-bearing
+schema, covered formally in §8.6.
+
+**Onboarding is gated on cousin selection.** The app does not render its normal
+routes until a cousin has been chosen at least once (`cousinStore.hasSelectedAdvisor`) —
+first launch shows only the cousin picker. This refines §5.4: selection isn't
+just "available at onboarding," it's a hard gate before anything else loads.
+Changeable anytime afterward from Settings, as originally specified.
+
 ---
 
 ## 7. Rendering Architecture — Renderer Is Not One-Size-Fits-All
@@ -317,6 +340,37 @@ through. Phase 4 ("See the Break") is **optional** for sorting lessons specifica
 since a swap-based algorithm doesn't have a meaningful broken-pointer-style bug
 state the way pointer-based structures do — if a lesson has no meaningful Phase 4,
 omit it rather than manufacturing a forced bug.
+
+### 8.6 Unit Metadata Schema (Required — Landmarks/Passport)
+
+Every `data/units/unit{N}.json` file must follow this shape. `landmarks` is
+**required**, not optional — see §6.1 for why a missing one silently breaks
+passport stamping for that unit:
+
+```json
+{
+  "unit": 1,
+  "title": "The Chainworks & The Stack and Queue Yard",
+  "icon": "chain-link",
+  "landmarks": [
+    {
+      "id": "chainworks",
+      "name": "The Chainworks",
+      "sublabel": "1a",
+      "topics": ["Singly Linked List", "Doubly Linked List", "Circular Linked List"],
+      "visualHook": "A workshop strung with actual chain-link — some chains loop back on themselves (circular, calm blue), some just stop (broken pointer).",
+      "lessons": ["1.1", "1.2", "1.3"]
+    }
+  ],
+  "lessons": ["1.1", "1.2", "1.3", "1.4", "1.5"]
+}
+```
+
+Rule: every lesson ID listed in the top-level `lessons` array must appear in
+exactly one `landmarks[].lessons` array. A lesson belonging to zero landmarks
+gets no path to a passport stamp; a lesson belonging to two is ambiguous about
+which seal it contributes to. Check this by hand per §12 until it's worth
+automating.
 
 ---
 
@@ -467,8 +521,23 @@ App
 // lessonStore
 { currentLesson: '1.1', currentPhase: 1, currentStep: 0, completed: false }
 
-// progressStore
-{ completedLessons: ['1.1', '1.2'], totalXP: 150, level: 2, streak: 3 }
+// progressStore (localStorage key: seeds:progress)
+{
+  completedLessons: ['1.1', '1.2'],
+  totalXP: 150,
+  level: 2,
+  streak: 3,
+  lastActiveDate: '2026-07-04',
+  stamps: { chainworks: { lessonsDone: ['1.1', '1.2'], sealed: false } },
+  newStampsSinceOpen: 0,
+}
+
+// cousinStore (localStorage key: seeds:cousin)
+{
+  selectedCousin: 'default',
+  hasSelectedAdvisor: false,   // gates the whole app until true — see §6.1
+  unlockedCousins: ['default', 'scout', 'mei', ...],  // all unlocked by default in current build
+}
 
 // uiStore
 { theme: 'dark' | 'light', sidebarOpen: true, mascotExpression: 'teaching' }
