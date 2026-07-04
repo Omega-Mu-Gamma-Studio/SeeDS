@@ -1,22 +1,11 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import UnitPage from './pages/UnitPage'
-import LessonPage from './pages/LessonPage'
-import Settings from './pages/Settings'
-import AppLayout from './components/layout/AppLayout'
+import React from 'react'
 
 function App() {
   return (
-    <BrowserRouter>
-      <AppLayout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/unit/:unitId" element={<UnitPage />} />
-          <Route path="/unit/:unitId/lesson/:lessonId" element={<LessonPage />} />
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
-      </AppLayout>
-    </BrowserRouter>
+    <div>
+      <h1>SeeDS 2.0</h1>
+      <p>Rebuilding from scratch...</p>
+    </div>
   )
 }
 
