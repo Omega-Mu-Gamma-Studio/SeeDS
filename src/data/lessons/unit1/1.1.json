@@ -1,44 +1,15 @@
 {
   "id": "1.1",
-  "title": "Singly Linked List",
+  "title": "TODO",
   "unit": 1,
-  "topics": ["insertion", "deletion", "traversal"],
+  "topics": [],
   "xp": 10,
+  "structureVariant": "linear",
   "phases": {
-    "1": {
-      "concept": "A linked list is a chain of nodes...",
-      "analogy": "Think of it like a treasure hunt...",
-      "mascotDialogue": "Let's start at the very beginning..."
-    },
-    "2": {
-      "code": "struct node { int data; struct node* next; };",
-      "highlightLines": [1, 2, 3],
-      "mascotDialogue": "Here's how we define a node in C..."
-    },
-    "3": {
-      "code": "struct node { int data; struct node* next; };",
-      "visual": {
-        "rendererType": "node-graph",
-        "data": { "nodes": [], "edges": [] }
-      },
-      "mascotDialogue": "Now let's see what that looks like...",
-      "mapping": {}
-    },
-    "4": {
-      "brokenCode": "struct node { int data; struct node* next; };",
-      "brokenVisual": {
-        "rendererType": "node-graph",
-        "data": { "nodes": [], "edges": [] }
-      },
-      "bugDescription": "This creates a cycle...",
-      "mascotDialogue": "Uh oh, something went wrong..."
-    },
-    "5": {
-      "challengeType": "multiple-choice",
-      "question": "What does the 'next' pointer do?",
-      "answer": "Points to the next node",
-      "hints": ["It connects nodes together"],
-      "solution": "Points to the next node"
-    }
+    "1": { "concept": "", "analogy": "", "mascotDialogue": "" },
+    "2": { "code": "", "highlightLines": [], "mascotDialogue": "" },
+    "3": { "code": "", "visual": { "rendererType": "node-graph", "data": {} }, "mascotDialogue": "", "mapping": {} },
+    "4": { "brokenCode": "", "brokenVisual": { "rendererType": "node-graph", "data": {} }, "bugDescription": "", "mascotDialogue": "" },
+    "5": { "challengeType": "multiple-choice", "question": "", "answer": "", "hints": [], "solution": "" }
   }
 }

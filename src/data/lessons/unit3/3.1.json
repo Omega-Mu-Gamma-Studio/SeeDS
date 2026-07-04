@@ -1,0 +1,15 @@
+{
+  "id": "3.1",
+  "title": "TODO",
+  "unit": 3,
+  "topics": [],
+  "xp": 10,
+  "structureVariant": "linear",
+  "phases": {
+    "1": { "concept": "", "analogy": "", "mascotDialogue": "" },
+    "2": { "code": "", "highlightLines": [], "mascotDialogue": "" },
+    "3": { "code": "", "visual": { "rendererType": "node-graph", "data": {} }, "mascotDialogue": "", "mapping": {} },
+    "4": { "brokenCode": "", "brokenVisual": { "rendererType": "node-graph", "data": {} }, "bugDescription": "", "mascotDialogue": "" },
+    "5": { "challengeType": "multiple-choice", "question": "", "answer": "", "hints": [], "solution": "" }
+  }
+}
