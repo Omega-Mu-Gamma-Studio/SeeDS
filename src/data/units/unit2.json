@@ -1,6 +1,15 @@
 {
   "unit": 2,
-  "title": "TODO",
-  "lessons": [],
-  "icon": ""
+  "title": "The Grove of Rotations",
+  "icon": "topiary-tree",
+  "landmarks": [
+    {
+      "id": "grove-of-rotations",
+      "name": "The Grove of Rotations",
+      "topics": ["Binary Search Tree", "AVL Tree", "Expression Tree"],
+      "visualHook": "An orderly topiary garden, trees literally branching; one corner visibly mid-rotation, hedges caught leaning.",
+      "lessons": ["2.1", "2.2", "2.3"]
+    }
+  ],
+  "lessons": ["2.1", "2.2", "2.3"]
 }

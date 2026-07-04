@@ -1,15 +1,129 @@
 {
   "id": "4.3",
-  "title": "TODO",
+  "title": "Breadth-First Search",
   "unit": 4,
-  "topics": [],
-  "xp": 10,
+  "topics": [
+    "BFS",
+    "queue-based traversal",
+    "level order"
+  ],
+  "xp": 14,
   "structureVariant": "linear",
   "phases": {
-    "1": { "concept": "", "analogy": "", "mascotDialogue": "" },
-    "2": { "code": "", "highlightLines": [], "mascotDialogue": "" },
-    "3": { "code": "", "visual": { "rendererType": "node-graph", "data": {} }, "mascotDialogue": "", "mapping": {} },
-    "4": { "brokenCode": "", "brokenVisual": { "rendererType": "node-graph", "data": {} }, "bugDescription": "", "mascotDialogue": "" },
-    "5": { "challengeType": "multiple-choice", "question": "", "answer": "", "hints": [], "solution": "" }
+    "1": {
+      "concept": "Breadth-First Search explores a graph level by level: visit all of a node's direct neighbors before moving on to any neighbor-of-a-neighbor. It uses a queue to keep track of what to visit next, always processing the earliest-discovered node first.",
+      "analogy": "Ripples spreading outward from a stone dropped in water \u2014 everything at the current distance gets reached before anything further out even starts.",
+      "mascotDialogue": "The queue is what makes this breadth-first instead of depth-first. Whatever gets discovered first, gets explored first \u2014 that's FIFO order doing the level-by-level spreading for you."
+    },
+    "2": {
+      "code": "void bfs(Graph* g, int start) {\n    int visited[MAX_V] = {0};\n    Queue q; initQueue(&q);\n    enqueue(&q, start);\n    visited[start] = 1;\n    while (!isEmpty(&q)) {\n        int u = dequeue(&q);\n        printf(\"%d \", u);\n        for (int v = 0; v < g->numVertices; v++) {\n            if (g->adjacency[u][v] && !visited[v]) {\n                visited[v] = 1;\n                enqueue(&q, v);\n            }\n        }\n    }\n}",
+      "highlightLines": [
+        3,
+        4,
+        6,
+        7,
+        11,
+        12,
+        13
+      ],
+      "mascotDialogue": "Line 12 is the guard that keeps BFS from looping forever: mark visited the moment you enqueue, not the moment you dequeue, or you'll enqueue the same node multiple times."
+    },
+    "3": {
+      "code": "// Graph: 0-1, 0-2, 1-3, 2-3\n// bfs(g, 0) visits in order: 0, 1, 2, 3",
+      "visual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "v0",
+              "value": 0,
+              "adjacency": [
+                "v1",
+                "v2"
+              ],
+              "visited": true,
+              "visitOrder": 1
+            },
+            {
+              "id": "v1",
+              "value": 1,
+              "adjacency": [
+                "v0",
+                "v3"
+              ],
+              "visited": true,
+              "visitOrder": 2
+            },
+            {
+              "id": "v2",
+              "value": 2,
+              "adjacency": [
+                "v0",
+                "v3"
+              ],
+              "visited": true,
+              "visitOrder": 3
+            },
+            {
+              "id": "v3",
+              "value": 3,
+              "adjacency": [
+                "v1",
+                "v2"
+              ],
+              "visited": true,
+              "visitOrder": 4
+            }
+          ],
+          "edges": [
+            {
+              "from": "v0",
+              "to": "v1",
+              "type": "undirected"
+            },
+            {
+              "from": "v0",
+              "to": "v2",
+              "type": "undirected"
+            },
+            {
+              "from": "v1",
+              "to": "v3",
+              "type": "undirected"
+            },
+            {
+              "from": "v2",
+              "to": "v3",
+              "type": "undirected"
+            }
+          ],
+          "traversalOrder": [
+            "v0",
+            "v1",
+            "v2",
+            "v3"
+          ]
+        }
+      },
+      "mascotDialogue": "1 and 2 are both distance-1 from the start, so they're visited before 3, which is distance-2 from either of them \u2014 that's the level-order guarantee in action.",
+      "mapping": {
+        "line2": "v0"
+      }
+    },
+    "4": {
+      "brokenCode": "void bfs(Graph* g, int start) {\n    int visited[MAX_V] = {0};\n    Queue q; initQueue(&q);\n    enqueue(&q, start);\n    // BUG: forgot visited[start] = 1;\n    while (!isEmpty(&q)) {\n        int u = dequeue(&q);\n        for (int v = 0; v < g->numVertices; v++) {\n            if (g->adjacency[u][v] && !visited[v]) {\n                visited[v] = 1;\n                enqueue(&q, v);\n            }\n        }\n    }\n}",
+      "bugDescription": "The start vertex is never marked visited. If it has a neighbor that connects back to it (any cycle through the start node), the start vertex gets re-enqueued and re-processed, and in graphs with cycles this can loop indefinitely instead of terminating.",
+      "mascotDialogue": "One missing line, and BFS's core guarantee \u2014 visit each node exactly once \u2014 quietly stops holding for any graph that isn't a simple tree."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "What data structure gives BFS its level-by-level traversal order?",
+      "answer": "A queue (FIFO)",
+      "hints": [
+        "Compare this to DFS, which uses a stack instead.",
+        "FIFO order processes the earliest-discovered node first."
+      ],
+      "solution": "A queue. Because it's FIFO, nodes discovered earlier (closer to the start) are always processed before nodes discovered later (further from the start), producing the level-by-level order."
+    }
   }
 }

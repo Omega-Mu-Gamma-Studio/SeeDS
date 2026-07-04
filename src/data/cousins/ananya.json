@@ -1,7 +1,11 @@
 {
   "id": "ananya",
-  "name": "TODO",
-  "palette": { "primary": "", "secondary": "", "accent": "" },
-  "catchphrase": "",
+  "name": "Ananya",
+  "nickname": "Anu",
+  "origin": "Indian",
+  "vibe": "Fast talker, aggressive hand gestures, calls students \"beta.\" Warm but sharp.",
+  "teachingQuirk": "Bollywood and food metaphors — great for anything with an ensemble cast (graphs, multi-branch structures).",
+  "palette": { "primary": "#FF9933", "secondary": "#800020", "accent": "#008080" },
+  "catchphrase": "Bas! That's it. Done.",
   "spriteFolder": "/sprites/ananya"
 }

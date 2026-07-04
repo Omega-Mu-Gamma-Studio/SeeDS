@@ -1,0 +1,47 @@
+.code-block {
+  background: var(--bg-sunken);
+  border-radius: var(--radius-md);
+  padding: 1rem 0;
+  overflow-x: auto;
+  font-family: var(--font-code);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.code-block__line {
+  display: flex;
+  padding: 0 1rem;
+  transition: background-color var(--t-highlight) ease;
+  white-space: pre;
+}
+
+.code-block__line--emphasized {
+  background: color-mix(in srgb, var(--ds-highlight) 12%, transparent);
+}
+
+.code-block__line--hovered {
+  background: color-mix(in srgb, var(--accent-primary) 15%, transparent);
+}
+
+.code-block__gutter {
+  width: 2.5rem;
+  flex-shrink: 0;
+  color: var(--ink-muted);
+  user-select: none;
+  text-align: right;
+  margin-right: 1rem;
+}
+
+.code-block__content {
+  color: var(--ink);
+}
+
+.code-token--keyword { color: #C678DD; font-weight: 600; }
+.code-token--string { color: #98C379; }
+.code-token--number { color: #D19A66; }
+.code-token--comment { color: var(--ink-muted); font-style: italic; }
+.code-token--directive { color: #61AFEF; }
+.code-token--identifier { color: var(--ink); }
+.code-token--punct { color: var(--ink-muted); }
+.code-token--operator { color: #56B6C2; }

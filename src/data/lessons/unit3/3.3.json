@@ -1,15 +1,82 @@
 {
   "id": "3.3",
-  "title": "TODO",
+  "title": "Heap Sort",
   "unit": 3,
-  "topics": [],
-  "xp": 10,
+  "topics": [
+    "heapify",
+    "extract-max",
+    "in-place sorting"
+  ],
+  "xp": 14,
   "structureVariant": "linear",
   "phases": {
-    "1": { "concept": "", "analogy": "", "mascotDialogue": "" },
-    "2": { "code": "", "highlightLines": [], "mascotDialogue": "" },
-    "3": { "code": "", "visual": { "rendererType": "node-graph", "data": {} }, "mascotDialogue": "", "mapping": {} },
-    "4": { "brokenCode": "", "brokenVisual": { "rendererType": "node-graph", "data": {} }, "bugDescription": "", "mascotDialogue": "" },
-    "5": { "challengeType": "multiple-choice", "question": "", "answer": "", "hints": [], "solution": "" }
+    "1": {
+      "concept": "Heap sort builds a max heap from the input array, then repeatedly extracts the maximum (swap root with the last unsorted element, shrink the heap, siftDown) \u2014 each extraction places one more value in its final sorted position at the end of the array.",
+      "analogy": "Repeatedly picking the tallest person from a crowd and moving them to the back of a line, one at a time. Once everyone's been picked, the line is sorted shortest-to-tallest from front to back.",
+      "mascotDialogue": "Build the heap once, then just keep pulling the max off the top. Each pull is one more element locked into its correct final spot."
+    },
+    "2": {
+      "code": "void heapSort(int arr[], int n) {\n    for (int i = n/2 - 1; i >= 0; i--)\n        siftDown(arr, n, i); // build max heap\n\n    for (int end = n - 1; end > 0; end--) {\n        int tmp = arr[0]; arr[0] = arr[end]; arr[end] = tmp;\n        siftDown(arr, end, 0); // restore heap over shrinking range\n    }\n}",
+      "highlightLines": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "mascotDialogue": "Two loops: build the heap once (lines 2-3), then repeatedly swap-and-shrink (lines 5-7). The 'end' bound shrinking each time is what carves out the sorted region at the back."
+    },
+    "3": {
+      "code": "int arr[5] = {4, 10, 3, 5, 1};\n// after heapify: {10, 5, 3, 4, 1}\n// after full heapSort: {1, 3, 4, 5, 10}",
+      "visual": {
+        "rendererType": "bars",
+        "data": {
+          "values": [
+            4,
+            10,
+            3,
+            5,
+            1
+          ],
+          "comparisons": [
+            [
+              1,
+              3
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "swaps": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              4
+            ]
+          ]
+        }
+      },
+      "mascotDialogue": "Watch the tallest bar get walked to the top, then swapped to the far right \u2014 that's one value locked into its sorted home."
+    },
+    "4": {
+      "brokenCode": "for (int end = n - 1; end > 0; end--) {\n    int tmp = arr[0]; arr[0] = arr[end]; arr[end] = tmp;\n    // BUG: siftDown(arr, end, 0) call was left out entirely\n}",
+      "bugDescription": "Without calling siftDown after each swap, the shrinking region at the front never gets re-heapified. Only the very first extraction happens to be correct by luck of the initial heap; every extraction after that pulls from a broken heap and produces an incorrectly ordered result.",
+      "mascotDialogue": "This is the one step that's easy to forget because the array still *changes* each loop \u2014 it just doesn't converge into sorted order without it."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "Heap sort is generally described as which category of sorting algorithm?",
+      "answer": "Comparison-based, O(n log n), in-place, not stable",
+      "hints": [
+        "Every step compares parent vs. child values.",
+        "It sorts within the original array without extra storage proportional to n."
+      ],
+      "solution": "Heap sort is a comparison-based, in-place algorithm with O(n log n) time complexity in all cases, but it is not stable \u2014 equal elements can end up reordered relative to each other."
+    }
   }
 }

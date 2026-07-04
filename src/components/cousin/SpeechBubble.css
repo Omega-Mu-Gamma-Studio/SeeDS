@@ -1,0 +1,36 @@
+.speech-bubble {
+  position: relative;
+  background: var(--bg-elevated);
+  border: 2px solid var(--accent-primary);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  max-width: 480px;
+  box-shadow: var(--shadow-elevated);
+}
+
+.speech-bubble__text {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.speech-bubble__catchphrase {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--accent-primary);
+}
+
+.speech-bubble__tail {
+  position: absolute;
+  bottom: -10px;
+  left: 32px;
+  width: 18px;
+  height: 18px;
+  background: var(--bg-elevated);
+  border-right: 2px solid var(--accent-primary);
+  border-bottom: 2px solid var(--accent-primary);
+  transform: rotate(45deg);
+}

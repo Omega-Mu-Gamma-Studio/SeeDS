@@ -1,0 +1,25 @@
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.progress-bar__label {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+.progress-bar__track {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--bg-sunken);
+  overflow: hidden;
+}
+
+.progress-bar__fill {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}

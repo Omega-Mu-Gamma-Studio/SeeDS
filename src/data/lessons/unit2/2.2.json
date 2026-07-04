@@ -1,15 +1,135 @@
 {
   "id": "2.2",
-  "title": "TODO",
+  "title": "AVL Tree",
   "unit": 2,
-  "topics": [],
-  "xp": 10,
+  "topics": [
+    "balance factor",
+    "rotation",
+    "self-balancing"
+  ],
+  "xp": 14,
   "structureVariant": "linear",
   "phases": {
-    "1": { "concept": "", "analogy": "", "mascotDialogue": "" },
-    "2": { "code": "", "highlightLines": [], "mascotDialogue": "" },
-    "3": { "code": "", "visual": { "rendererType": "node-graph", "data": {} }, "mascotDialogue": "", "mapping": {} },
-    "4": { "brokenCode": "", "brokenVisual": { "rendererType": "node-graph", "data": {} }, "bugDescription": "", "mascotDialogue": "" },
-    "5": { "challengeType": "multiple-choice", "question": "", "answer": "", "hints": [], "solution": "" }
+    "1": {
+      "concept": "An AVL tree is a BST that automatically re-balances itself after every insertion so that the height difference between any node's left and right subtree \u2014 its balance factor \u2014 never exceeds 1. When an insertion pushes that difference too far, the tree performs a rotation to restore balance.",
+      "analogy": "A tightrope walker constantly making tiny weight shifts to stay centered. A plain BST can lean further and further to one side with every insert until it's basically a straight line; an AVL tree corrects its lean immediately, every time.",
+      "mascotDialogue": "Balance factor is just left-height minus right-height. Anything outside [-1, 1] triggers a rotation before we move on. That's the whole self-balancing trick."
+    },
+    "2": {
+      "code": "typedef struct AVLNode {\n    int value, height;\n    struct AVLNode* left;\n    struct AVLNode* right;\n} AVLNode;\n\nint balanceFactor(AVLNode* n) {\n    if (!n) return 0;\n    return height(n->left) - height(n->right);\n}\n\nAVLNode* rotateRight(AVLNode* y) {\n    AVLNode* x = y->left;\n    AVLNode* T2 = x->right;\n    x->right = y;\n    y->left = T2;\n    return x; // x is the new subtree root\n}",
+      "highlightLines": [
+        1,
+        8,
+        9,
+        11,
+        14,
+        15
+      ],
+      "mascotDialogue": "rotateRight lifts the left child up to become the new root of this subtree, and hands its old right child down to the demoted node \u2014 three pointer swaps, one operation."
+    },
+    "3": {
+      "code": "// Inserting 30, 20, 10 in order into an empty AVL tree\n// triggers a right rotation to stay balanced\nAVLNode* root = insertAVL(NULL, 30);\nroot = insertAVL(root, 20);\nroot = insertAVL(root, 10); // balance factor at 30 becomes 2 -> rotate",
+      "visual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "n20",
+              "value": 20,
+              "left": "n10",
+              "right": "n30",
+              "balanceFactor": 0
+            },
+            {
+              "id": "n10",
+              "value": 10,
+              "left": null,
+              "right": null,
+              "balanceFactor": 0
+            },
+            {
+              "id": "n30",
+              "value": 30,
+              "left": null,
+              "right": null,
+              "balanceFactor": 0
+            }
+          ],
+          "edges": [
+            {
+              "from": "n20",
+              "to": "n10",
+              "type": "left"
+            },
+            {
+              "from": "n20",
+              "to": "n30",
+              "type": "right"
+            }
+          ]
+        }
+      },
+      "mascotDialogue": "After the rotation, 20 sits on top with balance factor 0 on both sides. Without it, 30 would've had a balance factor of 2 \u2014 a straight leaning line, not a tree anymore.",
+      "mapping": {
+        "line3": "n30",
+        "line5": "n20"
+      }
+    },
+    "4": {
+      "brokenCode": "// Same inserts, but the rotation was never triggered\nAVLNode* root = insertAVL(NULL, 30);\nroot = insertAVL(root, 20);\nroot = insertAVL(root, 10); // rotation check skipped",
+      "brokenVisual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "n30",
+              "value": 30,
+              "left": "n20",
+              "right": null,
+              "balanceFactor": 2,
+              "broken": true
+            },
+            {
+              "id": "n20",
+              "value": 20,
+              "left": "n10",
+              "right": null,
+              "balanceFactor": 1
+            },
+            {
+              "id": "n10",
+              "value": 10,
+              "left": null,
+              "right": null,
+              "balanceFactor": 0
+            }
+          ],
+          "edges": [
+            {
+              "from": "n30",
+              "to": "n20",
+              "type": "left"
+            },
+            {
+              "from": "n20",
+              "to": "n10",
+              "type": "left"
+            }
+          ]
+        }
+      },
+      "bugDescription": "Balance factor at node 30 is 2 (left height 2, right height 0) \u2014 outside the allowed [-1, 1] range. Without the rotation, this AVL tree has degraded into what's structurally just a linked list, losing the whole point of logarithmic search time.",
+      "mascotDialogue": "The balance factor badge on node 30 is the tell here \u2014 2 is a hard violation, displayed plainly, not something you'd have to compute by hand to notice."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "What balance factor range is allowed at every node in a valid AVL tree?",
+      "answer": "-1, 0, or 1",
+      "hints": [
+        "Balance factor is left-height minus right-height.",
+        "Anything outside this range means a rotation is overdue."
+      ],
+      "solution": "A valid AVL tree requires every node's balance factor to be -1, 0, or 1 \u2014 any node outside that range must trigger a rotation."
+    }
   }
 }

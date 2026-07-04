@@ -1,15 +1,155 @@
 {
   "id": "2.1",
-  "title": "TODO",
+  "title": "Binary Search Tree",
   "unit": 2,
-  "topics": [],
-  "xp": 10,
+  "topics": [
+    "insertion",
+    "search",
+    "ordering property"
+  ],
+  "xp": 12,
   "structureVariant": "linear",
   "phases": {
-    "1": { "concept": "", "analogy": "", "mascotDialogue": "" },
-    "2": { "code": "", "highlightLines": [], "mascotDialogue": "" },
-    "3": { "code": "", "visual": { "rendererType": "node-graph", "data": {} }, "mascotDialogue": "", "mapping": {} },
-    "4": { "brokenCode": "", "brokenVisual": { "rendererType": "node-graph", "data": {} }, "bugDescription": "", "mascotDialogue": "" },
-    "5": { "challengeType": "multiple-choice", "question": "", "answer": "", "hints": [], "solution": "" }
+    "1": {
+      "concept": "A Binary Search Tree keeps every node's left subtree smaller and its right subtree larger. That single rule means you can search, insert, or find any value by only ever choosing left-or-right at each step \u2014 no need to check every node.",
+      "analogy": "Guessing a number between 1 and 100 by always asking 'higher or lower' and narrowing the range in half each time. A BST bakes that narrowing strategy directly into its shape.",
+      "mascotDialogue": "Left is always smaller, right is always bigger, at every single node, not just the root. Break that rule anywhere and it stops being a BST."
+    },
+    "2": {
+      "code": "typedef struct TNode {\n    int value;\n    struct TNode* left;\n    struct TNode* right;\n} TNode;\n\nTNode* insert(TNode* root, int value) {\n    if (root == NULL) {\n        TNode* n = (TNode*)malloc(sizeof(TNode));\n        n->value = value; n->left = n->right = NULL;\n        return n;\n    }\n    if (value < root->value) root->left = insert(root->left, value);\n    else if (value > root->value) root->right = insert(root->right, value);\n    return root;\n}",
+      "highlightLines": [
+        1,
+        2,
+        3,
+        12,
+        13
+      ],
+      "mascotDialogue": "Lines 12-13 are the ordering rule made literal in code: smaller goes left, bigger goes right, recursively, all the way down."
+    },
+    "3": {
+      "code": "TNode* root = NULL;\nroot = insert(root, 50);\nroot = insert(root, 30);\nroot = insert(root, 70);\nroot = insert(root, 20);",
+      "visual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "n50",
+              "value": 50,
+              "left": "n30",
+              "right": "n70",
+              "address": "0x500"
+            },
+            {
+              "id": "n30",
+              "value": 30,
+              "left": "n20",
+              "right": null,
+              "address": "0x504"
+            },
+            {
+              "id": "n70",
+              "value": 70,
+              "left": null,
+              "right": null,
+              "address": "0x508"
+            },
+            {
+              "id": "n20",
+              "value": 20,
+              "left": null,
+              "right": null,
+              "address": "0x50C"
+            }
+          ],
+          "edges": [
+            {
+              "from": "n50",
+              "to": "n30",
+              "type": "left"
+            },
+            {
+              "from": "n50",
+              "to": "n70",
+              "type": "right"
+            },
+            {
+              "from": "n30",
+              "to": "n20",
+              "type": "left"
+            }
+          ]
+        }
+      },
+      "mascotDialogue": "20 goes left of 30, which is already left of 50 \u2014 every step down, the ordering rule holds again.",
+      "mapping": {
+        "line3": "n30",
+        "line5": "n20"
+      }
+    },
+    "4": {
+      "brokenCode": "// insert(root, 60) was supposed to land right of 50, left of 70\n// BUG: comparison flipped\nif (value > root->value) root->left = insert(root->left, value);\nelse if (value < root->value) root->right = insert(root->right, value);",
+      "brokenVisual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "n50",
+              "value": 50,
+              "left": "n30",
+              "right": "n70"
+            },
+            {
+              "id": "n30",
+              "value": 30,
+              "left": null,
+              "right": "n60",
+              "broken": true
+            },
+            {
+              "id": "n70",
+              "value": 70,
+              "left": null,
+              "right": null
+            },
+            {
+              "id": "n60",
+              "value": 60,
+              "left": null,
+              "right": null,
+              "broken": true
+            }
+          ],
+          "edges": [
+            {
+              "from": "n50",
+              "to": "n30",
+              "type": "left"
+            },
+            {
+              "from": "n50",
+              "to": "n70",
+              "type": "right"
+            },
+            {
+              "from": "n30",
+              "to": "n60",
+              "type": "right-wrong"
+            }
+          ]
+        }
+      },
+      "bugDescription": "The comparison operators on lines 3-4 are swapped, so 60 (which should go right of 50) instead gets routed left, then right of 30. Now a search for 60 would incorrectly go left at the root and never find it.",
+      "mascotDialogue": "The tree still looks like a tree \u2014 that's what makes this bug sneaky. It's only wrong relative to the ordering rule, not wrong in shape."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "In a correct BST, searching for a value greater than the root should always go which direction first?",
+      "answer": "Right",
+      "hints": [
+        "Recall the ordering rule from Phase 1.",
+        "Bigger values live in the right subtree."
+      ],
+      "solution": "Right \u2014 the BST ordering property guarantees any value greater than the current node lives somewhere in its right subtree."
+    }
   }
 }

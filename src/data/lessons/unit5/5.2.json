@@ -1,15 +1,113 @@
 {
   "id": "5.2",
-  "title": "TODO",
+  "title": "Hashing \u2014 Open Addressing",
   "unit": 5,
-  "topics": [],
-  "xp": 10,
+  "topics": [
+    "probing",
+    "linear probing",
+    "collision resolution"
+  ],
+  "xp": 12,
   "structureVariant": "linear",
   "phases": {
-    "1": { "concept": "", "analogy": "", "mascotDialogue": "" },
-    "2": { "code": "", "highlightLines": [], "mascotDialogue": "" },
-    "3": { "code": "", "visual": { "rendererType": "node-graph", "data": {} }, "mascotDialogue": "", "mapping": {} },
-    "4": { "brokenCode": "", "brokenVisual": { "rendererType": "node-graph", "data": {} }, "bugDescription": "", "mascotDialogue": "" },
-    "5": { "challengeType": "multiple-choice", "question": "", "answer": "", "hints": [], "solution": "" }
+    "1": {
+      "concept": "Open addressing resolves collisions differently from chaining: instead of letting a bucket hold multiple items, every slot holds at most one item, and a colliding key probes forward (using a defined probe sequence) to find the next open slot.",
+      "analogy": "Musical chairs at a full row of seats: if your assigned seat is taken, you don't share it \u2014 you check the next seat over, and the next, until you find one that's free.",
+      "mascotDialogue": "No chains, no extra memory per bucket \u2014 just one slot each, and a clear, repeatable rule for where to look next when your first choice is occupied."
+    },
+    "2": {
+      "code": "#define SLOTS 7\nint table[SLOTS];\nint occupied[SLOTS] = {0};\n\nint hash(int key) { return key % SLOTS; }\n\nvoid insert(int key) {\n    int idx = hash(key);\n    int probes = 0;\n    while (occupied[idx] && probes < SLOTS) {\n        idx = (idx + 1) % SLOTS; // linear probing\n        probes++;\n    }\n    table[idx] = key;\n    occupied[idx] = 1;\n}",
+      "highlightLines": [
+        1,
+        7,
+        9,
+        10,
+        11,
+        13,
+        14
+      ],
+      "mascotDialogue": "Line 10's `(idx + 1) % SLOTS` is the entire probe sequence for linear probing: just check the next slot, wrapping around at the end, until an empty one turns up."
+    },
+    "3": {
+      "code": "insert(10); // hash(10) = 3, slot 3 empty -> placed at 3\ninsert(17); // hash(17) = 3, slot 3 taken -> probes to slot 4",
+      "visual": {
+        "rendererType": "node-graph",
+        "data": {
+          "slots": [
+            {
+              "slotIndex": 0,
+              "value": null
+            },
+            {
+              "slotIndex": 1,
+              "value": null
+            },
+            {
+              "slotIndex": 2,
+              "value": null
+            },
+            {
+              "slotIndex": 3,
+              "value": 10,
+              "probeSequence": [
+                3
+              ]
+            },
+            {
+              "slotIndex": 4,
+              "value": 17,
+              "probeSequence": [
+                3,
+                4
+              ]
+            },
+            {
+              "slotIndex": 5,
+              "value": null
+            },
+            {
+              "slotIndex": 6,
+              "value": null
+            }
+          ]
+        }
+      },
+      "mascotDialogue": "17's probeSequence shows the whole journey: it wanted slot 3, found it taken, and settled one slot over at 4 \u2014 that trail is exactly what the visual traces.",
+      "mapping": {
+        "line1": "slot3",
+        "line2": "slot4"
+      }
+    },
+    "4": {
+      "brokenCode": "void insert(int key) {\n    int idx = hash(key);\n    // BUG: no probing loop -- always overwrites the initial slot\n    table[idx] = key;\n    occupied[idx] = 1;\n}",
+      "brokenVisual": {
+        "rendererType": "node-graph",
+        "data": {
+          "slots": [
+            {
+              "slotIndex": 3,
+              "value": 17,
+              "probeSequence": [
+                3
+              ],
+              "broken": true
+            }
+          ],
+          "lostValue": 10
+        }
+      },
+      "bugDescription": "Without a probing loop, inserting key 17 (which also hashes to slot 3) directly overwrites slot 3, silently destroying the previously stored key 10. Open addressing depends entirely on the probe sequence to avoid overwriting occupied slots \u2014 skip it, and collisions become silent data loss instead of resolved conflicts.",
+      "mascotDialogue": "Same failure mode as chaining's lost node, different structure entirely: no probing means no collision resolution at all, just quiet overwriting."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "What is the key structural difference between separate chaining and open addressing?",
+      "answer": "Chaining lets a bucket hold multiple items via a linked list; open addressing keeps one item per slot and probes to another slot on collision",
+      "hints": [
+        "Think about what each bucket/slot is allowed to hold.",
+        "One approach adds a data structure per bucket; the other searches elsewhere in the same array."
+      ],
+      "solution": "Separate chaining allows each bucket to hold a linked list of colliding items, so a bucket can grow. Open addressing enforces exactly one item per slot and instead searches forward through a probe sequence to find an unoccupied slot elsewhere in the same fixed-size array."
+    }
   }
 }

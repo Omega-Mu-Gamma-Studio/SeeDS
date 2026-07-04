@@ -1,15 +1,74 @@
 {
   "id": "6.5",
-  "title": "TODO",
+  "title": "Radix Sort",
   "unit": 6,
-  "topics": [],
-  "xp": 10,
+  "topics": [
+    "non-comparison sort",
+    "digit buckets",
+    "stable distribution"
+  ],
+  "xp": 14,
   "structureVariant": "linear",
   "phases": {
-    "1": { "concept": "", "analogy": "", "mascotDialogue": "" },
-    "2": { "code": "", "highlightLines": [], "mascotDialogue": "" },
-    "3": { "code": "", "visual": { "rendererType": "node-graph", "data": {} }, "mascotDialogue": "", "mapping": {} },
-    "4": { "brokenCode": "", "brokenVisual": { "rendererType": "node-graph", "data": {} }, "bugDescription": "", "mascotDialogue": "" },
-    "5": { "challengeType": "multiple-choice", "question": "", "answer": "", "hints": [], "solution": "" }
+    "1": {
+      "concept": "Radix sort sorts integers without ever comparing two elements directly. Instead, it processes one digit position at a time (starting from the least significant digit), distributing numbers into 10 buckets by that digit's value, then collecting them back in bucket order \u2014 repeating for each digit position.",
+      "analogy": "Sorting mail by zip code one digit at a time: first sort every letter into 10 bins by the last digit, gather them back up in bin order, then re-sort that whole stack by the second-to-last digit, and so on \u2014 never once comparing two zip codes directly to each other.",
+      "mascotDialogue": "No comparisons anywhere in this algorithm \u2014 just repeatedly asking 'which bucket does this digit belong in' and gathering the buckets back up in order, digit by digit."
+    },
+    "2": {
+      "code": "void countingSortByDigit(int arr[], int n, int exp) {\n    int output[n];\n    int count[10] = {0};\n    for (int i = 0; i < n; i++)\n        count[(arr[i] / exp) % 10]++;\n    for (int i = 1; i < 10; i++)\n        count[i] += count[i - 1]; // running total -> final positions\n    for (int i = n - 1; i >= 0; i--) {\n        int digit = (arr[i] / exp) % 10;\n        output[--count[digit]] = arr[i]; // process from the back to stay stable\n    }\n    for (int i = 0; i < n; i++) arr[i] = output[i];\n}",
+      "highlightLines": [
+        1,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11
+      ],
+      "mascotDialogue": "Line 10's backward loop is what keeps radix sort stable \u2014 processing the original array from the end preserves the relative order of elements that share the same digit."
+    },
+    "3": {
+      "code": "int arr[4] = {170, 45, 75, 90};\n// pass exp=1 (ones digit): buckets by 0,5,5,0\n// pass exp=10 (tens digit): buckets by 7,4,7,9",
+      "visual": {
+        "rendererType": "buckets",
+        "data": {
+          "digitPosition": "ones",
+          "buckets": {
+            "0": [
+              170,
+              90
+            ],
+            "5": [
+              45,
+              75
+            ]
+          },
+          "values": [
+            170,
+            45,
+            75,
+            90
+          ]
+        }
+      },
+      "mascotDialogue": "170 and 90 both land in bucket 0 for this pass, and their relative order (170 before 90) is preserved \u2014 that's stability doing its job across passes."
+    },
+    "4": {
+      "brokenCode": "void countingSortByDigit(int arr[], int n, int exp) {\n    int output[n];\n    int count[10] = {0};\n    for (int i = 0; i < n; i++)\n        count[(arr[i] / exp) % 10]++;\n    for (int i = 1; i < 10; i++)\n        count[i] += count[i - 1];\n    for (int i = 0; i < n; i++) { // BUG: forward loop breaks stability\n        int digit = (arr[i] / exp) % 10;\n        output[--count[digit]] = arr[i];\n    }\n    for (int i = 0; i < n; i++) arr[i] = output[i];\n}",
+      "bugDescription": "Processing the original array front-to-back instead of back-to-front still produces a numerically correct single-digit distribution, but it silently reverses the relative order of elements that land in the same bucket \u2014 breaking the stability that later digit passes depend on to produce a correctly fully-sorted result.",
+      "mascotDialogue": "This is why the loop direction matters even though it looks like a harmless stylistic choice \u2014 radix sort's correctness across multiple passes depends on each individual pass being stable, not just correct in isolation."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "Why must each digit-position pass in radix sort be stable?",
+      "answer": "Because later passes rely on the relative order established by earlier (less significant digit) passes",
+      "hints": [
+        "Radix sort processes least-significant digit first.",
+        "If an earlier pass's ordering gets scrambled, a later pass can't recover it."
+      ],
+      "solution": "Each pass sorts by one digit while relying on the ordering already established by previous, less-significant-digit passes. If any single pass isn't stable, it can undo correct ordering from earlier passes, and the final result won't be fully sorted."
+    }
   }
 }

@@ -1,15 +1,134 @@
 {
   "id": "1.3",
-  "title": "TODO",
+  "title": "Circular Linked List",
   "unit": 1,
-  "topics": [],
-  "xp": 10,
-  "structureVariant": "linear",
+  "topics": [
+    "circular design",
+    "cyclic bug",
+    "traversal termination"
+  ],
+  "xp": 12,
+  "structureVariant": "circular",
   "phases": {
-    "1": { "concept": "", "analogy": "", "mascotDialogue": "" },
-    "2": { "code": "", "highlightLines": [], "mascotDialogue": "" },
-    "3": { "code": "", "visual": { "rendererType": "node-graph", "data": {} }, "mascotDialogue": "", "mapping": {} },
-    "4": { "brokenCode": "", "brokenVisual": { "rendererType": "node-graph", "data": {} }, "bugDescription": "", "mascotDialogue": "" },
-    "5": { "challengeType": "multiple-choice", "question": "", "answer": "", "hints": [], "solution": "" }
+    "1": {
+      "concept": "A circular linked list is a linked list where the last node's `next` points back to the first node instead of to NULL, forming a loop by design. This is different from a 'cyclic bug' \u2014 an accidental loop caused by a mistake \u2014 even though both look similar on a diagram. One is intentional; the other is broken. The visual treatment of each must never be confused.",
+      "analogy": "Imagine a circular train line versus a train that accidentally got routed back to a station it already passed. Both loop \u2014 but one was built to loop on purpose (a scheduled circuit), and the other is a routing mistake that will run forever without ever reaching its actual destination.",
+      "mascotDialogue": "A circular list looping is a feature. The exact same shape appearing by accident is a bug. Same picture, opposite meaning \u2014 so we render them in different colors, on purpose."
+    },
+    "2": {
+      "code": "typedef struct Node {\n    int value;\n    struct Node* next;\n} Node;\n\nvoid makeCircular(Node* tail, Node* head) {\n    tail->next = head; // intentional wraparound\n}\n\nvoid traverseOnce(Node* head) {\n    Node* curr = head;\n    do {\n        printf(\"%d \", curr->value);\n        curr = curr->next;\n    } while (curr != head); // stop condition MUST check for head, not NULL\n}",
+      "highlightLines": [
+        6,
+        13
+      ],
+      "mascotDialogue": "Line 6 is the design choice. Line 13 is the consequence: you can never check `curr != NULL` to stop, because NULL never appears in a circular list. You have to check `curr != head` instead."
+    },
+    "3": {
+      "code": "Node* a = createNode(1);\nNode* b = createNode(2);\nNode* c = createNode(3);\na->next = b; b->next = c; c->next = a; // intentional loop",
+      "visual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "a",
+              "value": 1,
+              "next": "b",
+              "address": "0x300"
+            },
+            {
+              "id": "b",
+              "value": 2,
+              "next": "c",
+              "address": "0x304"
+            },
+            {
+              "id": "c",
+              "value": 3,
+              "next": "a",
+              "address": "0x308"
+            }
+          ],
+          "edges": [
+            {
+              "from": "a",
+              "to": "b",
+              "type": "next"
+            },
+            {
+              "from": "b",
+              "to": "c",
+              "type": "next"
+            },
+            {
+              "from": "c",
+              "to": "a",
+              "type": "next-circular"
+            }
+          ]
+        }
+      },
+      "mascotDialogue": "That last arrow, c back to a, is drawn in the calm closed-loop color \u2014 this loop is supposed to be here.",
+      "mapping": {
+        "line4": "c"
+      }
+    },
+    "4": {
+      "brokenCode": "Node* a = createNode(1);\nNode* b = createNode(2);\nNode* c = createNode(3);\na->next = b; b->next = c; c->next = b; // BUG: should be c->next = a, or NULL",
+      "brokenVisual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "a",
+              "value": 1,
+              "next": "b",
+              "address": "0x300"
+            },
+            {
+              "id": "b",
+              "value": 2,
+              "next": "c",
+              "address": "0x304"
+            },
+            {
+              "id": "c",
+              "value": 3,
+              "next": "b",
+              "address": "0x308",
+              "broken": true
+            }
+          ],
+          "edges": [
+            {
+              "from": "a",
+              "to": "b",
+              "type": "next"
+            },
+            {
+              "from": "b",
+              "to": "c",
+              "type": "next"
+            },
+            {
+              "from": "c",
+              "to": "b",
+              "type": "cyclic-bug"
+            }
+          ]
+        }
+      },
+      "bugDescription": "c->next was meant to either terminate the list (NULL) or wrap fully back to a (circular). Instead it points to b, creating an unintended loop between b and c. Any traversal starting at a will run forever, alternating b, c, b, c, and will never reach a again.",
+      "mascotDialogue": "See the difference? That arrow is drawn in the warning color, not the calm loop color \u2014 because this loop was never supposed to exist, and traversal will spin on it forever without warning."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "What visually distinguishes an intentional circular list from a cyclic bug in this app?",
+      "answer": "They use different colors/styling even though the pointer shape is identical",
+      "hints": [
+        "The two states can have the exact same arrow layout.",
+        "SeeDS 2.0 was rebuilt specifically to fix confusion between these two states \u2014 see structureVariant."
+      ],
+      "solution": "structureVariant is set explicitly to 'circular' or 'cyclic-bug', and each renders with a distinct color/treatment (calm green closed-loop vs. warning red) \u2014 the pointer shapes can be identical, but the meaning and visual treatment must never be confused."
+    }
   }
 }

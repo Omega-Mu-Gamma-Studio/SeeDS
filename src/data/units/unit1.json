@@ -1,6 +1,24 @@
 {
   "unit": 1,
-  "title": "TODO",
-  "lessons": [],
-  "icon": ""
+  "title": "The Chainworks & The Stack and Queue Yard",
+  "icon": "chain-link",
+  "landmarks": [
+    {
+      "id": "chainworks",
+      "name": "The Chainworks",
+      "sublabel": "1a",
+      "topics": ["Singly Linked List", "Doubly Linked List", "Circular Linked List"],
+      "visualHook": "A workshop strung with actual chain-link — some chains loop back on themselves (circular, calm blue), some just stop (broken pointer).",
+      "lessons": ["1.1", "1.2", "1.3"]
+    },
+    {
+      "id": "stack-queue-yard",
+      "name": "The Stack & Queue Yard",
+      "sublabel": "1b",
+      "topics": ["Stack", "Queue"],
+      "visualHook": "A loading dock: one tall crate-tower touchable only from the top (stack), one single-file boarding line at a pier (queue).",
+      "lessons": ["1.4", "1.5"]
+    }
+  ],
+  "lessons": ["1.1", "1.2", "1.3", "1.4", "1.5"]
 }

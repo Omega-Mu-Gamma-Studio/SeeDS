@@ -1,15 +1,125 @@
 {
   "id": "5.1",
-  "title": "TODO",
+  "title": "Hashing \u2014 Separate Chaining",
   "unit": 5,
-  "topics": [],
-  "xp": 10,
+  "topics": [
+    "hash function",
+    "collision resolution",
+    "linked chains"
+  ],
+  "xp": 12,
   "structureVariant": "linear",
   "phases": {
-    "1": { "concept": "", "analogy": "", "mascotDialogue": "" },
-    "2": { "code": "", "highlightLines": [], "mascotDialogue": "" },
-    "3": { "code": "", "visual": { "rendererType": "node-graph", "data": {} }, "mascotDialogue": "", "mapping": {} },
-    "4": { "brokenCode": "", "brokenVisual": { "rendererType": "node-graph", "data": {} }, "bugDescription": "", "mascotDialogue": "" },
-    "5": { "challengeType": "multiple-choice", "question": "", "answer": "", "hints": [], "solution": "" }
+    "1": {
+      "concept": "A hash table maps keys to array slots ('buckets') using a hash function. Since different keys can hash to the same bucket (a collision), separate chaining resolves this by having each bucket hold a small linked list of everything that landed there, instead of just one value.",
+      "analogy": "Mailboxes at an apartment building where two tenants were accidentally assigned the same box number \u2014 instead of a conflict, the mail room just keeps a small stack of letters in that one box for both tenants and checks names on retrieval.",
+      "mascotDialogue": "A collision here isn't an error \u2014 it's an expected outcome the whole design plans for. Each bucket just becomes a tiny linked list instead of a single slot."
+    },
+    "2": {
+      "code": "#define BUCKETS 7\ntypedef struct ChainNode {\n    int key, value;\n    struct ChainNode* next;\n} ChainNode;\n\nint hash(int key) { return key % BUCKETS; }\n\nvoid insert(ChainNode* table[], int key, int value) {\n    int idx = hash(key);\n    ChainNode* n = malloc(sizeof(ChainNode));\n    n->key = key; n->value = value;\n    n->next = table[idx]; // insert at head of this bucket's chain\n    table[idx] = n;\n}",
+      "highlightLines": [
+        1,
+        7,
+        9,
+        10,
+        13,
+        14
+      ],
+      "mascotDialogue": "Line 13 is the whole strategy: rather than overwrite whatever's already in the bucket, the new node just points at it and becomes the new head \u2014 nothing is ever lost to a collision."
+    },
+    "3": {
+      "code": "ChainNode* table[7] = {NULL};\ninsert(table, 10, 100); // hash(10) = 3\ninsert(table, 17, 200); // hash(17) = 3 -- collides with 10",
+      "visual": {
+        "rendererType": "node-graph",
+        "data": {
+          "buckets": [
+            {
+              "bucketIndex": 0,
+              "chain": []
+            },
+            {
+              "bucketIndex": 1,
+              "chain": []
+            },
+            {
+              "bucketIndex": 2,
+              "chain": []
+            },
+            {
+              "bucketIndex": 3,
+              "chain": [
+                {
+                  "id": "c1",
+                  "key": 17,
+                  "value": 200,
+                  "next": "c2"
+                },
+                {
+                  "id": "c2",
+                  "key": 10,
+                  "value": 100,
+                  "next": null
+                }
+              ]
+            },
+            {
+              "bucketIndex": 4,
+              "chain": []
+            },
+            {
+              "bucketIndex": 5,
+              "chain": []
+            },
+            {
+              "bucketIndex": 6,
+              "chain": []
+            }
+          ]
+        }
+      },
+      "mascotDialogue": "Bucket 3 now hangs a two-node chain off its side \u2014 17 inserted after 10 lands at the head, exactly as insert-at-head predicts.",
+      "mapping": {
+        "line2": "bucket3",
+        "line3": "bucket3"
+      }
+    },
+    "4": {
+      "brokenCode": "void insert(ChainNode* table[], int key, int value) {\n    int idx = hash(key);\n    ChainNode* n = malloc(sizeof(ChainNode));\n    n->key = key; n->value = value;\n    // BUG: forgot n->next = table[idx]; before overwriting\n    table[idx] = n;\n}",
+      "brokenVisual": {
+        "rendererType": "node-graph",
+        "data": {
+          "buckets": [
+            {
+              "bucketIndex": 3,
+              "chain": [
+                {
+                  "id": "c1",
+                  "key": 17,
+                  "value": 200,
+                  "next": null,
+                  "broken": true
+                }
+              ]
+            }
+          ],
+          "lostNode": {
+            "key": 10,
+            "value": 100
+          }
+        }
+      },
+      "bugDescription": "The new node's `next` was never set to the bucket's previous head before overwriting table[idx]. The node holding key 10 is now unreachable \u2014 not deleted, just permanently orphaned in memory, and any future lookup for key 10 will incorrectly report 'not found.'",
+      "mascotDialogue": "The chain looks fine \u2014 one node, no dangling pointer in sight. That's the trap: the bug isn't a broken pointer, it's a silently vanished one, and this app renders 'lost node' explicitly so it isn't invisible."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "In separate chaining, what happens when two different keys hash to the same bucket index?",
+      "answer": "Both are stored in that bucket's linked list, not overwritten",
+      "hints": [
+        "This is called a collision.",
+        "The bucket becomes a small chain rather than a single slot."
+      ],
+      "solution": "Both keys are kept \u2014 the bucket holds a linked list (chain) of every key/value pair that hashed to that index, and lookup walks the chain comparing keys to find the right one."
+    }
   }
 }

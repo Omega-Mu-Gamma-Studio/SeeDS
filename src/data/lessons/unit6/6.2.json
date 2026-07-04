@@ -1,15 +1,86 @@
 {
   "id": "6.2",
-  "title": "TODO",
+  "title": "Quick Sort",
   "unit": 6,
-  "topics": [],
-  "xp": 10,
+  "topics": [
+    "partitioning",
+    "pivot selection",
+    "divide and conquer"
+  ],
+  "xp": 12,
   "structureVariant": "linear",
   "phases": {
-    "1": { "concept": "", "analogy": "", "mascotDialogue": "" },
-    "2": { "code": "", "highlightLines": [], "mascotDialogue": "" },
-    "3": { "code": "", "visual": { "rendererType": "node-graph", "data": {} }, "mascotDialogue": "", "mapping": {} },
-    "4": { "brokenCode": "", "brokenVisual": { "rendererType": "node-graph", "data": {} }, "bugDescription": "", "mascotDialogue": "" },
-    "5": { "challengeType": "multiple-choice", "question": "", "answer": "", "hints": [], "solution": "" }
+    "1": {
+      "concept": "Quick sort picks a 'pivot' element, then partitions the array so everything smaller than the pivot ends up to its left and everything larger ends up to its right. It then recursively sorts each side. The pivot itself ends up exactly where it belongs once partitioning completes.",
+      "analogy": "Sorting a deck of cards by first picking one card as a reference, then splitting the rest into a 'lower' pile and a 'higher' pile relative to it, and repeating that same splitting trick on each pile.",
+      "mascotDialogue": "The pivot doesn't move again after partitioning \u2014 it's already home. Everything left to sort is strictly smaller on one side and strictly bigger on the other."
+    },
+    "2": {
+      "code": "int partition(int arr[], int low, int high) {\n    int pivot = arr[high];\n    int i = low - 1;\n    for (int j = low; j < high; j++) {\n        if (arr[j] < pivot) {\n            i++;\n            int tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;\n        }\n    }\n    int tmp = arr[i+1]; arr[i+1] = arr[high]; arr[high] = tmp;\n    return i + 1; // final pivot index\n}\n\nvoid quickSort(int arr[], int low, int high) {\n    if (low < high) {\n        int p = partition(arr, low, high);\n        quickSort(arr, low, p - 1);\n        quickSort(arr, p + 1, high);\n    }\n}",
+      "highlightLines": [
+        2,
+        9,
+        10,
+        15,
+        16,
+        17
+      ],
+      "mascotDialogue": "Line 9 places the pivot at its final resting index. Lines 16-17 then recurse on the strictly-smaller and strictly-larger sides \u2014 the pivot itself is never touched again."
+    },
+    "3": {
+      "code": "int arr[5] = {8, 3, 7, 4, 2};\n// pivot = 2 (arr[high] with high=4)\n// after partition: {2, 3, 7, 4, 8}, pivot index 0",
+      "visual": {
+        "rendererType": "bars",
+        "data": {
+          "values": [
+            8,
+            3,
+            7,
+            4,
+            2
+          ],
+          "comparisons": [
+            [
+              0,
+              4
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              3,
+              4
+            ]
+          ],
+          "swaps": [
+            [
+              0,
+              4
+            ]
+          ]
+        }
+      },
+      "mascotDialogue": "This pivot happened to be the smallest value, so it ends up all the way at index 0 \u2014 an unlucky pivot choice, and a good example of why pivot selection matters for performance."
+    },
+    "4": {
+      "brokenCode": "void quickSort(int arr[], int low, int high) {\n    if (low < high) {\n        int p = partition(arr, low, high);\n        quickSort(arr, low, p); // BUG: should be p - 1\n        quickSort(arr, p + 1, high);\n    }\n}",
+      "bugDescription": "The recursive call on the left side should exclude the pivot's own index (p - 1), since the pivot is already in its final position. Passing `p` instead of `p - 1` re-includes the pivot in the left recursive call, which can cause infinite recursion in some cases and, at minimum, wastes redundant comparisons re-processing an already-placed value.",
+      "mascotDialogue": "One character off \u2014 p instead of p-1 \u2014 and the recursion loses its most important guarantee: that every recursive call works on a strictly smaller range than the one before it."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "After partition() returns, what do we know for certain about the value at the returned pivot index?",
+      "answer": "It is in its final, correct sorted position and never needs to move again",
+      "hints": [
+        "This is the core partitioning guarantee quick sort relies on.",
+        "That's why the recursive calls exclude that index on both sides."
+      ],
+      "solution": "The pivot is guaranteed to be in its final sorted position \u2014 everything to its left is smaller and everything to its right is larger, so quickSort's recursive calls correctly exclude it from both halves."
+    }
   }
 }

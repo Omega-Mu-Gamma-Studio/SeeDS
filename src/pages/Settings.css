@@ -1,0 +1,36 @@
+.settings-page {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.settings-page__section {
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.settings-page__section h2 {
+  margin-top: 0;
+  color: var(--accent-primary);
+  font-size: 1.1rem;
+}
+
+.settings-page__hint {
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+}
+
+.settings-page__reset-btn {
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--ds-broken);
+  background: transparent;
+  color: var(--ds-broken);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 600;
+}

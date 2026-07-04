@@ -1,7 +1,10 @@
 {
   "id": "florence",
-  "name": "TODO",
-  "palette": { "primary": "", "secondary": "", "accent": "" },
-  "catchphrase": "",
+  "name": "Florence",
+  "origin": "British",
+  "vibe": "Dry, sarcastic, unflappable. Fixes your code without breaking eye contact.",
+  "teachingQuirk": "Tea and queuing metaphors — natural fit for anything FIFO/order-of-service shaped.",
+  "palette": { "primary": "#012169", "secondary": "#C8102E", "accent": "#FFFFFF" },
+  "catchphrase": "Right. That's that, then.",
   "spriteFolder": "/sprites/florence"
 }
