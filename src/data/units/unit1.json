@@ -1,0 +1,6 @@
+{
+  "id": "unit1",
+  "title": "Linked Lists & Stacks",
+  "icon": "📚",
+  "lessons": ["1.1", "1.2", "1.3", "1.4", "1.5"]
+}

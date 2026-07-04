@@ -1,0 +1,53 @@
+/* Design Tokens - SeeDS Color System */
+:root {
+  /* Primary Colors */
+  --color-primary: #4A90E2;
+  --color-primary-dark: #357ABD;
+  --color-primary-light: #6BA8E8;
+  
+  /* Secondary Colors */
+  --color-secondary: #E24A4A;
+  --color-success: #4AE24A;
+  --color-warning: #E2A64A;
+  --color-info: #4AC8E2;
+  
+  /* Background Colors */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F7FA;
+  --bg-tertiary: #E8ECF1;
+  --bg-dark: #1A1A2E;
+  
+  /* Text Colors */
+  --text-primary: #2C3E50;
+  --text-secondary: #7F8C8D;
+  --text-light: #FFFFFF;
+  --text-dark: #1A1A2E;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  
+  /* Borders */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-medium: 300ms ease;
+  --transition-slow: 500ms ease;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg-primary: #1A1A2E;
+  --bg-secondary: #2D2D44;
+  --bg-tertiary: #3D3D5C;
+  --text-primary: #E8ECF1;
+  --text-secondary: #A8B2C1;
+}
