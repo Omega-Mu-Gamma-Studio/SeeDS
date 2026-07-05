@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState, useLayoutEffect } from 'react'
-import { Stage, Layer, Circle, Line, Text, Rect, Arrow } from 'react-konva'
+import { Stage, Layer, Group, Circle, Line, Text, Rect, Arrow } from 'react-konva'
 
 // Measures the wrapping element and reports its content-box size,
 // updating on resize so the Stage can be scaled to fit instead of
@@ -159,21 +159,21 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
         {data.buckets.map((bucket) => {
           const bp = positions[`bucket${bucket.bucketIndex}`]
           return (
-            <g key={bucket.bucketIndex}>
+            <Group key={bucket.bucketIndex}>
               <Rect x={bp.x - 40} y={bp.y - 16} width={80} height={32} fill={nullColor} opacity={0.25} cornerRadius={4} />
               <Text x={bp.x - 40} y={bp.y - 8} width={80} align="center" text={`[${bucket.bucketIndex}]`} fontSize={12} fill={nodeInk === '#FFFFFF' ? '#333' : nodeInk} />
               {(bucket.chain || []).map((cn, ci) => {
                 const np = positions[cn.id]
                 const prevX = ci === 0 ? bp.x + 40 : positions[bucket.chain[ci - 1].id].x + 30
                 return (
-                  <g key={cn.id}>
+                  <Group key={cn.id}>
                     <Line points={[prevX, np.y, np.x - 30, np.y]} stroke={pointerColor} strokeWidth={2} />
                     <Circle x={np.x} y={np.y} radius={NODE_R} fill={cn.broken ? brokenColor : nodeColor} />
                     <Text x={np.x - 25} y={np.y - 8} width={50} align="center" text={String(cn.key ?? cn.value)} fontSize={13} fill={nodeInk} />
-                  </g>
+                  </Group>
                 )
               })}
-            </g>
+            </Group>
           )
         })}
     </ScaledStage>
@@ -185,7 +185,7 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
           const sp = positions[`slot${slot.slotIndex}`]
           const empty = slot.value === null || slot.value === undefined
           return (
-            <g key={slot.slotIndex}>
+            <Group key={slot.slotIndex}>
               <Rect x={sp.x - 30} y={sp.y - 30} width={60} height={60}
                 fill={empty ? 'transparent' : (slot.broken ? brokenColor : nodeColor)}
                 stroke={nullColor} strokeWidth={1.5} cornerRadius={6} />
@@ -193,7 +193,7 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
               {!empty && (
                 <Text x={sp.x - 30} y={sp.y - 8} width={60} align="center" text={String(slot.value)} fontSize={14} fill={nodeInk} />
               )}
-            </g>
+            </Group>
           )
         })}
     </ScaledStage>
@@ -211,10 +211,10 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
           if (!to) {
             // NULL terminator
             return (
-              <g key={i}>
+              <Group key={i}>
                 <Line points={[from.x + NODE_R, from.y, from.x + NODE_R + 40, from.y]} stroke={stroke} strokeWidth={2} dash={[4, 4]} />
                 <Text x={from.x + NODE_R + 10} y={from.y - 20} text="NULL" fontSize={12} fill={nullColor} fontStyle="bold" />
-              </g>
+              </Group>
             )
           }
           return (
@@ -235,7 +235,7 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
           const highlighted = mappingHighlight === node.id
           const fill = node.broken ? brokenColor : nodeColor
           return (
-            <g key={node.id} onMouseEnter={() => onNodeHover && onNodeHover(node.id)} onMouseLeave={() => onNodeHover && onNodeHover(null)}>
+            <Group key={node.id} onMouseEnter={() => onNodeHover && onNodeHover(node.id)} onMouseLeave={() => onNodeHover && onNodeHover(null)}>
               <Circle
                 x={p.x} y={p.y} radius={NODE_R}
                 fill={fill}
@@ -246,7 +246,7 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
               {'balanceFactor' in node && (
                 <Text x={p.x - 12} y={p.y - NODE_R - 16} text={`bf:${node.balanceFactor}`} fontSize={10} fill={inkMuted} />
               )}
-            </g>
+            </Group>
           )
         })}
     </ScaledStage>
