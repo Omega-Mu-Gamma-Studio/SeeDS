@@ -57,9 +57,12 @@ SeeDS/
 │   │   └── cousins/{id}/             ← one folder per Gamma Cousin
 │   └── audio/
 ├── src/
-│   ├── pages/                        ← Home, UnitPage, LessonPage, Settings
+│   ├── pages/                        ← Home, Island, Campus, CSBlock, Dorm,
+│   │                                    LessonPage, Settings (UnitPage kept
+│   │                                    as a legacy debug view, §2.1)
 │   ├── components/
 │   │   ├── layout/
+│   │   ├── campus/                   ← nested campus-map scene system (§2.2)
 │   │   ├── cousin/
 │   │   ├── lesson/
 │   │   ├── visualizers/
@@ -98,10 +101,69 @@ same fallback philosophy as dialogue, applied to art instead of text.
 
 ### `src/pages/`
 
-`Home`, `UnitPage` (routed at `/campus-map`), `LessonPage`, `Settings`.
-`Settings` is where a user changes their selected tutor **at any time** — but
-note the app also has a **hard onboarding gate** (§4) before any of these
-routes render at all on first launch.
+`Home` (dashboard), `Island` → `Campus` → `CSBlock` → `Dorm` (the nested
+campus-map flow, §2.1), `LessonPage`, `Settings`. `Settings` is where a user
+changes their selected tutor **at any time** — but note the app also has a
+**hard onboarding gate** (§4) before any of these routes render at all on
+first launch.
+
+`UnitPage` (the original flat, syllabus-ordered node map) still exists and
+still works, routed at `/campus-map/full`. It's not dead code — it's a fast,
+art-free debug view of raw landmark/lock state, useful for checking progress
+logic without walking through three scenes to get there.
+
+### 2.1 The Nested Campus Map
+
+`/campus-map` now redirects to `/campus` — the flat node map has been
+replaced as the *default* path by a nested, explorable sequence:
+
+```
+/island       → establishing shot, one hotspot ("The University")
+/campus       → university overview: CS Dept + Dorms (unlocked),
+                 3 other departments (locked, cross-studio teasers, §2.1.1)
+/campus/cs    → CS Block hallway: one door per landmark, only the current
+                 landmark's door unlocked; a Staff Room door always open
+/campus/dorm  → a quiet scene; its desk hotspot opens the Passport
+/lesson/:id   → unchanged — the nested map is a navigation layer *on top of*
+                 the existing lesson engine, not a replacement for any of it
+```
+
+Every scene shares two components (`src/components/campus/`, §2.2) rather
+than being bespoke per-screen markup. **All background art right now is a CSS
+gradient placeholder** (`components/campus/art.js`) — swapping in a real
+illustration per scene is a one-line change in that file, not a structural
+rewrite, by design.
+
+The CS Block hallway's lock logic is intentionally copy-identical to the
+locking logic `UnitPage` already used, so the two views of progress (nested
+scenes vs. the flat debug map) can never disagree about what's locked.
+
+#### 2.1.1 Locked departments are a deliberate cross-studio teaser
+
+The Campus overview shows the Conservatory, Engineering Hall, and
+Architecture Studio as visibly locked buildings with a tooltip ("closed for
+now"). This is intentional, not a stub waiting to be filled in for *this*
+subject — SeeDS only ever needs the CS Department. The locked buildings exist
+as a free, in-universe hint that this island hosts the rest of Omega Mu Gamma
+Studio's apps (BlockBeats, GateLab/ArchVisor). If/when those get their own
+campus-map presence, unlocking one is a matter of flipping a flag on its
+`Hotspot`, not redesigning the scene.
+
+### 2.2 `src/components/campus/`
+
+The reusable scaffolding every campus-map scene is built from:
+
+- **`SceneFrame`** — shared chrome (background, vignette, back button, title/
+  caption). Every scene passes its own `art` value and drops `Hotspot`s in as
+  children.
+- **`Hotspot`** — one clickable (or locked) thing in a scene. Two variants:
+  `building` (Campus overview) and `door` (CS Block hallway). Positioned by
+  `x`/`y` percentage, not fixed pixels, so it stays glued to the right spot
+  regardless of viewport size — this was a deliberate reaction to the
+  percentage/aspect-ratio drift bugs the old flat map's fixed layout was
+  prone to.
+- **`art.js`** — the single file holding every scene's placeholder gradient.
+  The only file that needs to change when real illustrations are ready.
 
 ### `src/components/cousin/`
 
@@ -266,7 +328,7 @@ npm install react react-dom react-router-dom zustand framer-motion konva react-k
 | Package | Why it's here |
 |---|---|
 | `react` / `react-dom` | React 19, core framework |
-| `react-router-dom` | Routes: `/`, `/campus-map`, `/lesson/:lessonId`, `/settings` |
+| `react-router-dom` | Routes: `/`, `/island`, `/campus`, `/campus/cs`, `/campus/dorm`, `/campus-map` (redirect alias), `/campus-map/full` (legacy flat map), `/lesson/:lessonId`, `/settings` |
 | `zustand` | `lessonStore`, `progressStore`, `cousinStore`, `uiStore` |
 | `framer-motion` | Phase transitions, mascot expression changes, Passport panel slide-in |
 | `konva` / `react-konva` | The visualizer layer — chosen because Phase 3/4's hover-highlight interaction needs per-shape hit detection and easy re-styling, which Konva's shape-object model provides natively |
@@ -332,7 +394,15 @@ or not" about the parts that are visibly incomplete:
   engine; the Konva visualizer layer (`NodeGraphRenderer`, `BarsRenderer`,
   `BucketsRenderer`, `ArrayTreeDualRenderer`); the neutral-default dialogue
   fallback chain; the cousin selection/onboarding gate; the Passport/Landmarks
-  progress system. Builds clean with `npm run build`, zero errors.
+  progress system; the nested campus-map navigation shell (Island → Campus →
+  CS Block → Dorm, §2.1) with functional locking, the Staff Room advisor
+  switcher, and the Passport-from-Dorm hotspot. Builds clean with
+  `npm run build`, zero errors, zero lint warnings.
+- **Explicitly a skeleton, not a finished scene — the nested campus map's
+  art.** Every background in `/island`, `/campus`, `/campus/cs`, `/campus/dorm`
+  is a CSS gradient placeholder (`components/campus/art.js`). The navigation,
+  locking, and hotspot logic are real and tested; the *visuals* are
+  intentionally unfinished pending real illustration.
 - **Not yet started — cousin dialogue packs.** Every lesson currently runs on
   the neutral default narrator only. `data/dialogue/{cousinId}/` folders exist
   for all 10 Gamma Cousins but are empty — this is expected and non-breaking
@@ -349,9 +419,11 @@ or not" about the parts that are visibly incomplete:
 - **Not yet started — background/environment art.** The Passport system's
   `visualHook` descriptions (e.g. "a workshop strung with actual chain-link"
   for The Chainworks) are written as text prompts for future illustration, not
-  as delivered assets. Landmark backgrounds, the campus-map visual itself, and
-  any lesson-specific environment art are all still text descriptions waiting
-  to become art.
+  as delivered assets. The nested campus map (§2.1) now has a real place for
+  this art to land — one file, `components/campus/art.js` — but the
+  illustrations themselves (island establishing shot, campus overview, CS
+  Block hallway, Dorm interior) don't exist yet, nor do landmark backgrounds
+  or any lesson-specific environment art.
 
 If you're a contributor picking a task off this list: dialogue packs are pure
 JSON authoring (no code changes required, see §4/§6 above), sprites and
