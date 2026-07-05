@@ -26,6 +26,11 @@ export const useCousinStore = create((set) => ({
     'default', 'scout', 'mei', 'camille', 'rosa', 'valeria',
     'ananya', 'miyu', 'florence', 'mack', 'simi',
   ],
+  // Set by unlockCousin, cleared by the toast once shown. Not persisted --
+  // it's a one-shot UI event, not durable state.
+  pendingCelebration: null,
+
+  clearCelebration: () => set({ pendingCelebration: null }),
 
   setCousin: (id) => set((state) => {
     const next = {
@@ -38,7 +43,8 @@ export const useCousinStore = create((set) => ({
   }),
 
   unlockCousin: (id) => set((state) => {
-    const unlockedCousins = state.unlockedCousins.includes(id)
+    const alreadyUnlocked = state.unlockedCousins.includes(id)
+    const unlockedCousins = alreadyUnlocked
       ? state.unlockedCousins
       : [...state.unlockedCousins, id]
     persist({
@@ -46,6 +52,9 @@ export const useCousinStore = create((set) => ({
       hasSelectedAdvisor: state.hasSelectedAdvisor,
       unlockedCousins,
     })
-    return { unlockedCousins }
+    return {
+      unlockedCousins,
+      pendingCelebration: alreadyUnlocked ? state.pendingCelebration : id,
+    }
   }),
 }))

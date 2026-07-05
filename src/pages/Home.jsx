@@ -15,9 +15,18 @@ export default function Home() {
   const allLessons = lessonService.getAllLessons()
   const nextLesson = allLessons.find((l) => !completedLessons.includes(l.id)) || allLessons[0]
   const percentDone = Math.round((completedLessons.length / allLessons.length) * 100)
+  const currentLandmark = nextLesson ? lessonService.getLandmarkForLesson(nextLesson.id) : null
 
   return (
     <div className="home-page">
+      {currentLandmark && (
+        <div className="home-page__chapter">
+          <span className="home-page__chapter-label">You are here</span>
+          <span className="home-page__chapter-name">
+            Unit {nextLesson.unit} — {currentLandmark.name}
+          </span>
+        </div>
+      )}
       <div className="home-page__hero">
         <CousinAvatar cousin={currentCousin} expression="teaching" size="lg" />
         <div className="home-page__hero-text">
