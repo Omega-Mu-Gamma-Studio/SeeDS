@@ -31,7 +31,10 @@ export default function AppLayout({ children }) {
       </div>
       <BottomBar />
       <PassportButton onClick={openPassport} />
-      <PassportPanel open={passportOpen} onClose={closePassport} />
+      {/* Remounting on open resets PassportPanel to its front page (Student
+          Record) every time it's freshly opened, rather than reopening
+          mid-book from wherever it was last left. */}
+      <PassportPanel key={passportOpen} open={passportOpen} onClose={closePassport} />
     </div>
   )
 }
