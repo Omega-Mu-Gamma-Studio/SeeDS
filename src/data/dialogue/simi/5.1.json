@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Collision here no be error, my pikin — na outcome wey the whole design dey plan for! Each bucket just dey become small linked list instead of one slot."
+    },
+    "2": {
+      "mascotDialogue": "Line 13, na the whole strategy — instead of overwriting whoever already dey inside the bucket, the new node just point at her and become the new head! Nothing ever lost to collision."
+    },
+    "3": {
+      "mascotDialogue": "Bucket 3 now dey carry two-node chain — 17, inserted after 10, land for the head, exactly as insert-at-head predict!"
+    },
+    "4": {
+      "mascotDialogue": "The chain dey look perfectly fine — one node, no dangling pointer for sight. Na the trap be that! The bug no be broken pointer, na silently vanished one — and this app dey show 'lost node' plainly, so she never invisible."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

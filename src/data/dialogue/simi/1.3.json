@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Circular list wey dey loop back — na on purpose, na feature! The exact same shape wey happen by accident — na bug o! Same picture, but opposite meaning entirely — na why we paint dem different colour."
+    },
+    "2": {
+      "mascotDialogue": "Line 6, na the design. Line 13, na the consequence — you no fit check `curr != NULL` to stop, because NULL no dey show for circular list! You check `curr != head` instead."
+    },
+    "3": {
+      "mascotDialogue": "That last arrow, c dey go back to a — painted for the calm, closed-loop colour. This loop suppose dey here. No wahala."
+    },
+    "4": {
+      "mascotDialogue": "Now — same arrow, but for the warning colour, not the calm one! This loop never suppose exist, and traversal go spin on top am forever, no warning at all."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

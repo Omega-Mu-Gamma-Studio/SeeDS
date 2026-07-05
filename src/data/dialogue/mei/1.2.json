@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Same idea, one more pointer join the queue. But now — every insert update FOUR pointer, not two. Miss one, list look shiok going forward, disaster going back."
+    },
+    "2": {
+      "mascotDialogue": "Lines 9 to 13. Four-pointer dance. New node next, new node prev, old neighbour prev, target next. Miss line 11, backward walk break quietly while forward walk continue like nothing happen."
+    },
+    "3": {
+      "mascotDialogue": "Arrows come in pairs now. Every connection between two nodes actually two pointers, agreeing with each other."
+    },
+    "4": {
+      "mascotDialogue": "This why doubly linked list give more trouble than singly one — forward direction can look perfect, backward direction already rot behind your back."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

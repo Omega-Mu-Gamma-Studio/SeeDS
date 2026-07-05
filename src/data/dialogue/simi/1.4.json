@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "One rule, no exception — everything dey happen for the top! You wan touch anywhere else, my pikin, na not stack you want."
+    },
+    "2": {
+      "mascotDialogue": "`top` na the stack whole memory of where she dey stand! Minus one, empty. MAX minus one, full. Everything else na just that one number, dey move up and down."
+    },
+    "3": {
+      "mascotDialogue": "Look — TOP marker dey sit for index 2, two empty space still dey above! That headroom, na the whole point sef."
+    },
+    "4": {
+      "mascotDialogue": "The function do her job well — she talk say no! The fault belong to the caller wey no listen. Na why we dey show the broken state honestly, one slot wey pass capacity, dey there open — never hidden, never secret."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Every node only knows one thing about neighbour: where next one is. Lose that pointer... gone. Like that. Let's see in C, can already."
+    },
+    "2": {
+      "mascotDialogue": "Line 3. Whole trick there. `next` is pointer to another Node, not value. `createNode` set it to NULL first, every time. New node never assume it knows what's next."
+    },
+    "3": {
+      "mascotDialogue": "Hover any line left side, watch which node light up right side. `head->next->next`? Just follow arrow twice. That's all, nothing more."
+    },
+    "4": {
+      "mascotDialogue": "Node 2 arrow point to nothing. See? Not the picture playing punk on you — that's the honest truth of the pointer. Code never tell it go anywhere else."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

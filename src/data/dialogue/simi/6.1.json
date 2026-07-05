@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Nothing fancy here — compare your neighbour, swap if you bigger, and repeat the whole sweep until nothing need swapping again!"
+    },
+    "2": {
+      "mascotDialogue": "`n minus i minus 1` for line 3 dey shrink the inner loop range every pass — the last i element don already sorted, no need to continue checking dem again!"
+    },
+    "3": {
+      "mascotDialogue": "Watch the tallest bar creep one step right with every swap she lose — na the 'bubbling' wey the algorithm name from, made completely literal."
+    },
+    "4": {
+      "mascotDialogue": "This one no go crash every time — she go just, occasionally, read pure garbage pass the array! Exactly the kind of bug wey dey slip by unnoticed, because she no dey always announce herself."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

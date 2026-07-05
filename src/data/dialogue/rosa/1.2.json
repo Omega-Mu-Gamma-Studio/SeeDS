@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Same idea as before, cara, just one more pointer along for the ride! But now — every insert, she updates FOUR pointers, not two. Miss one, and the list, she looks perfetto going one way, and un disastro going the other!"
+    },
+    "2": {
+      "mascotDialogue": "Lines 9 to 13 — the four-pointer dance! New node's next, new node's prev, the old neighbor's prev, the target's next. Miss line 11, and the backward walk, she breaks quietly while the forward walk struts along like nothing happened."
+    },
+    "3": {
+      "mascotDialogue": "Look — the arrows, they come in pairs now! Every connection between two nodes, it is really two pointers, agreeing with each other. Like a good duet."
+    },
+    "4": {
+      "mascotDialogue": "This, tesoro, is exactly why doubly linked lists give more trouble than singly ones — the forward direction, she can look beautiful, while the backward direction has quietly fallen apart behind her back."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

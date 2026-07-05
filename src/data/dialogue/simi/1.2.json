@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Same gist as before, just one more pointer join the trip! But now, every insert go update FOUR pointer, not two. Miss one, and the list go look correct forward, but na pure wahala going backward!"
+    },
+    "2": {
+      "mascotDialogue": "Lines 9 to 13, na the four-pointer dance be this — new node next, new node prev, old neighbour prev, target next. Miss line 11, and the backward walk go break quiet while the forward walk dey waka like say nothing happen."
+    },
+    "3": {
+      "mascotDialogue": "See — the arrows dey come in pairs now! Every connection between two node na really two pointer, agreeing with each other."
+    },
+    "4": {
+      "mascotDialogue": "Na exactly why doubly linked list dey cause more wahala pass singly one — the forward direction fit look correct while the backward direction don already spoil for background."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

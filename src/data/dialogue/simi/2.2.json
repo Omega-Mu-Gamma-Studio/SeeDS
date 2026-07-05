@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Balance factor, my pikin, na just left-height minus right-height! Anything outside minus one to one go trigger rotation before we continue. Na the whole self-balancing trick, nothing pass am."
+    },
+    "2": {
+      "mascotDialogue": "`rotateRight` dey lift the left child come become the new head of this subtree, and hand down her old right child to the demoted node — three pointer swap, one operation. Sharp work."
+    },
+    "3": {
+      "mascotDialogue": "After the rotation, 20 dey sit for top with balance factor zero for both side! Without am, 30 for don get balance factor two — one straight leaning line, not tree at all."
+    },
+    "4": {
+      "mascotDialogue": "The balance factor badge for node 30 — na the giveaway be that. Two na hard violation, shown plain and clear. No mental maths required."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

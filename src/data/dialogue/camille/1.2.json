@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Same idea as before, one more pointer along for the promenade. The catch — every insertion now updates four pointers, not two. Miss one, and the list is impeccable in one direction and un désastre in the other."
+    },
+    "2": {
+      "mascotDialogue": "Lines 9 through 13, this is the four-pointer choreography — the new node's next and prev, the old neighbour's prev, the target's next. Miss line 11, and prev-traversal breaks silently while next-traversal continues as if nothing happened."
+    },
+    "3": {
+      "mascotDialogue": "Notice the arrows arrive in pairs now. Every connection between two nodes is, in truth, two separate pointers, each agreeing with the other. A little contract."
+    },
+    "4": {
+      "mascotDialogue": "This is precisely why doubly linked lists cause more trouble than singly ones — the forward direction can appear immaculate while the backward direction has quietly fallen apart. Like a painting, perfect from the front and unfinished from behind."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "The pivot no dey move again after partitioning — she don already reach home! Everything wey remain to sort na strictly smaller for one side, strictly bigger for the other."
+    },
+    "2": {
+      "mascotDialogue": "Line 9 dey place the pivot for her final resting index. Lines 16 and 17 recurse for the strictly-smaller and strictly-bigger side — the pivot herself never touched again."
+    },
+    "3": {
+      "mascotDialogue": "This pivot happen to be the smallest value, so she end up all the way for index 0 — unlucky pivot choice, and good example of why selection matter for performance."
+    },
+    "4": {
+      "mascotDialogue": "One character out of place — p instead of p minus one — and the recursion go lose her most important guarantee: every recursive call must work for strictly smaller range pass the one before."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Same value, two view — tree for ordering rule, array for how she really live in memory. parent(i) equal (i minus one) over two. Whole address book, right there."
+    },
+    "2": {
+      "mascotDialogue": "Line 3, bridge between array and tree — any index parent always (i-1)/2, integer division. Line 4, min-heap rule herself — stop moment parent already smaller or equal."
+    },
+    "3": {
+      "mascotDialogue": "Hover index 4 in array — watch tree node light up as child of index 1. Same data, two window, same song."
+    },
+    "4": {
+      "mascotDialogue": "Both array cell and tree node light same broken colour at once — because it's one violation, just seen two ways."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

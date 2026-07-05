@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "My pikin, listen well — every node for this chain, she knows only one thing about her neighbour: where the next one dey stay. You lose that pointer, ehn, everything after am just... gone, just like that! Come make we see am for C."
+    },
+    "2": {
+      "mascotDialogue": "Line 3, na the whole gist be this — `next` na pointer to another Node, not value o. `createNode` dey set am to NULL first, every single time — new node no go dey assume say she know wetin dey come next."
+    },
+    "3": {
+      "mascotDialogue": "Hover any line for the left, watch which node light up for the right. `head->next->next`? Na just follow the arrow, twice. Nothing pass that."
+    },
+    "4": {
+      "mascotDialogue": "My pikin, look node 2 arrow — e dey point to nothing at all! Na not the picture wey dey lie to you o, na the honest true condition of that pointer. The code never tell am to go anywhere else."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

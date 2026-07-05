@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "No chains here, no extra memory per bucket — merely one slot each, and a clear, repeatable rule for where to look next when your first choice is occupied."
+    },
+    "2": {
+      "mascotDialogue": "Line 10's (idx plus 1) mod SLOTS is the entire probe sequence for linear probing — check the next slot, wrapping at the end, until an empty one appears."
+    },
+    "3": {
+      "mascotDialogue": "17's probe sequence tells the whole story — it wanted slot 3, found it occupied, and settled one slot over, at 4. This trail is precisely what the visual traces."
+    },
+    "4": {
+      "mascotDialogue": "The same failure as chaining's lost node, an entirely different structure — no probing means no collision resolution whatsoever, merely quiet overwriting."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}
