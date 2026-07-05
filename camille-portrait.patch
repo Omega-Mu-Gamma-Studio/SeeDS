@@ -1,0 +1,215 @@
+diff --git a/src/components/cousin/CousinAvatar.css b/src/components/cousin/CousinAvatar.css
+index 58b2996..ec8951e 100644
+--- a/src/components/cousin/CousinAvatar.css
++++ b/src/components/cousin/CousinAvatar.css
+@@ -42,3 +42,101 @@
+ }
+ 
+ .cousin-avatar--sm .cousin-avatar__glyph { font-size: 0.7rem; }
++
++/* ============================================================
++   Portrait mode -- full ink-wash illustrations, not sprites.
++   Rounded-rect, not circle: these images carry real scene
++   composition (props, setting, mood) that a circular crop would
++   cut off or crush. Taller than wide, so the frame respects the
++   source illustration's portrait-oriented staging instead of
++   fighting it down into a square or circle.
++   ============================================================ */
++
++.cousin-avatar--portrait {
++  display: inline-block;
++}
++
++.cousin-avatar__frame {
++  position: relative;
++  overflow: hidden;
++  border-radius: var(--radius-md);
++  border: 2px solid var(--bg-elevated);
++  box-shadow: var(--shadow-elevated);
++  background: var(--bg-sunken);
++}
++
++.cousin-avatar__portrait-img {
++  display: block;
++  width: 100%;
++  height: 100%;
++  object-fit: cover;
++}
++
++.cousin-avatar__portrait-glyph {
++  position: absolute;
++  bottom: 0.3rem;
++  right: 0.3rem;
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  width: 1.6rem;
++  height: 1.6rem;
++  border-radius: 50%;
++  background: var(--bg-elevated);
++  box-shadow: var(--shadow-elevated);
++  font-size: 0.85rem;
++  line-height: 1;
++}
++
++/* sm: picker grid -- tight bust crop, face-forward, just enough to
++   differentiate ten cousins at a glance. object-position keeps the crop
++   anchored near the face rather than centering on the whole scene. */
++.cousin-avatar--sm .cousin-avatar__frame {
++  width: 64px;
++  height: 80px;
++}
++.cousin-avatar--sm .cousin-avatar__portrait-img {
++  object-position: 50% 22%;
++}
++.cousin-avatar--sm .cousin-avatar__portrait-glyph {
++  width: 1.15rem;
++  height: 1.15rem;
++  font-size: 0.6rem;
++  bottom: 0.15rem;
++  right: 0.15rem;
++}
++
++/* md: lesson sidebar -- head-to-chest, hints at desk/props below without
++   needing them fully legible at this size. */
++.cousin-avatar--md .cousin-avatar__frame {
++  width: 96px;
++  height: 128px;
++}
++.cousin-avatar--md .cousin-avatar__portrait-img {
++  object-position: 50% 18%;
++}
++
++/* lg: Home hero -- the full scene gets to breathe. This is where the
++   illustration's atmosphere (setting, props, mood) actually gets to do
++   its job instead of being cropped away. */
++.cousin-avatar--lg .cousin-avatar__frame {
++  width: 220px;
++  height: 300px;
++}
++.cousin-avatar--lg .cousin-avatar__portrait-img {
++  object-position: 50% 10%;
++}
++.cousin-avatar--lg .cousin-avatar__portrait-glyph {
++  width: 2.1rem;
++  height: 2.1rem;
++  font-size: 1.1rem;
++  bottom: 0.5rem;
++  right: 0.5rem;
++}
++
++@media (max-width: 640px) {
++  .cousin-avatar--lg .cousin-avatar__frame {
++    width: 160px;
++    height: 220px;
++  }
++}
+diff --git a/src/components/cousin/CousinAvatar.jsx b/src/components/cousin/CousinAvatar.jsx
+index 45b0d0f..6a4c397 100644
+--- a/src/components/cousin/CousinAvatar.jsx
++++ b/src/components/cousin/CousinAvatar.jsx
+@@ -12,14 +12,47 @@ const EXPRESSION_GLYPH = {
+ }
+ 
+ /**
+- * Renders the current advisor's sprite. Real per-cousin PNG sprites live at
+- * cousin.spriteFolder/{expression}.png — until those assets exist, this falls
+- * back to an initial + glyph badge so the UI is fully functional without art.
++ * Renders the current advisor. Two modes, chosen automatically per cousin:
++ *
++ *  - PORTRAIT (cousin.portrait set): a full illustrated ink-wash scene, not
++ *    a clean sprite -- these carry real atmosphere (props, setting, mood)
++ *    that a small circular crop would destroy. So the frame is a soft
++ *    rounded-rect, not a circle, and sizes are taller than they are wide to
++ *    respect the source composition instead of fighting it.
++ *  - FALLBACK (no portrait yet): the original initial + expression-glyph
++ *    badge, still circular, still functional -- this is what every cousin
++ *    without commissioned art continues to render as, so the picker grid
++ *    doesn't look broken mid-rollout.
++ *
++ * The expression glyph is layered on as a small corner chip in both modes,
++ * rather than being baked into the art -- we are not commissioning a
++ * separate illustration per mood, so mood is a UI overlay, not the source
++ * image.
+  */
+ export default function CousinAvatar({ cousin, expression = 'teaching', size = 'md' }) {
+   if (!cousin) return null
+   const glyph = EXPRESSION_GLYPH[expression] || EXPRESSION_GLYPH.teaching
+   const initial = cousin.name?.[0] || '?'
++  const hasPortrait = Boolean(cousin.portrait)
++
++  if (hasPortrait) {
++    return (
++      <div
++        className={`cousin-avatar cousin-avatar--portrait cousin-avatar--${size}`}
++        title={`${cousin.name} — ${expression}`}
++      >
++        <div className="cousin-avatar__frame">
++          <img
++            className="cousin-avatar__portrait-img"
++            src={cousin.portrait}
++            alt={cousin.name}
++            loading="lazy"
++          />
++          <span className="cousin-avatar__portrait-glyph">{glyph}</span>
++        </div>
++      </div>
++    )
++  }
+ 
+   return (
+     <div className={`cousin-avatar cousin-avatar--${size}`} title={`${cousin.name} — ${expression}`}>
+diff --git a/src/components/cousin/CousinPicker.css b/src/components/cousin/CousinPicker.css
+index 0ef213c..2fe8611 100644
+--- a/src/components/cousin/CousinPicker.css
++++ b/src/components/cousin/CousinPicker.css
+@@ -21,14 +21,14 @@
+ 
+ .cousin-picker__grid {
+   display: grid;
+-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+-  gap: 0.75rem;
++  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
++  gap: 0.85rem;
+   width: 100%;
+ }
+ 
+ .cousin-picker--settings .cousin-picker__grid {
+-  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+-  gap: 0.5rem;
++  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
++  gap: 0.6rem;
+ }
+ 
+ .cousin-picker__card {
+diff --git a/src/components/passport/PassportPanel.jsx b/src/components/passport/PassportPanel.jsx
+index d3617c6..1e2d0e4 100644
+--- a/src/components/passport/PassportPanel.jsx
++++ b/src/components/passport/PassportPanel.jsx
+@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
+ import { lessonService } from '../../services/lessonService.js'
+ import { useProgress } from '../../hooks/useProgress.js'
+ import { useCousin } from '../../hooks/useCousin.js'
++import CousinAvatar from '../cousin/CousinAvatar.jsx'
+ import { rankTitleForLevel, nextRankAt } from '../../utils/rankTitles.js'
+ import './Passport.css'
+ 
+@@ -112,6 +113,7 @@ export default function PassportPanel({ open, onClose }) {
+                     transition={{ duration: 0.22 }}
+                   >
+                     <div className="passport-record__left">
++                      <CousinAvatar cousin={currentCousin} expression="teaching" size="md" />
+                       <span className="passport-record__eyebrow">Student Record</span>
+                       <h3 className="passport-record__title">{rankTitle}</h3>
+                       <p className="passport-record__advisor">
+diff --git a/src/data/cousins/camille.json b/src/data/cousins/camille.json
+index 6e45a22..326a852 100644
+--- a/src/data/cousins/camille.json
++++ b/src/data/cousins/camille.json
+@@ -6,5 +6,5 @@
+   "teachingQuirk": "Food and art/museum metaphors — great for anything with \"rooms,\" \"layers,\" or \"composition.\"",
+   "palette": { "primary": "#002395", "secondary": "#FFFFFF", "accent": "#ED2939" },
+   "catchphrase": "Bizarre... mais ça marche.",
+-  "spriteFolder": "/sprites/camille"
++  "portrait": "/portraits/cousins/camille.png"
+ }

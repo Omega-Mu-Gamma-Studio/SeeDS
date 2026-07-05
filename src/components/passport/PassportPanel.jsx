@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { lessonService } from '../../services/lessonService.js'
 import { useProgress } from '../../hooks/useProgress.js'
 import { useCousin } from '../../hooks/useCousin.js'
+import CousinAvatar from '../cousin/CousinAvatar.jsx'
 import { rankTitleForLevel, nextRankAt } from '../../utils/rankTitles.js'
 import './Passport.css'
 
@@ -112,6 +113,7 @@ export default function PassportPanel({ open, onClose }) {
                     transition={{ duration: 0.22 }}
                   >
                     <div className="passport-record__left">
+                      <CousinAvatar cousin={currentCousin} expression="teaching" size="md" />
                       <span className="passport-record__eyebrow">Student Record</span>
                       <h3 className="passport-record__title">{rankTitle}</h3>
                       <p className="passport-record__advisor">
