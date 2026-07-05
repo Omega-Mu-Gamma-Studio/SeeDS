@@ -6,5 +6,5 @@
   "teachingQuirk": "Origami and calligraphy (shodo) metaphors — exceptional fit for recursion, folding/repeated structure.",
   "palette": { "primary": "#BC002D", "secondary": "#1A1A1A", "accent": "#FFFFFF" },
   "catchphrase": "Maa... ganbatte ne.",
-  "spriteFolder": "/sprites/miyu"
+  "portrait": "/portraits/cousins/miyu.png"
 }

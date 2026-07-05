@@ -6,5 +6,5 @@
   "teachingQuirk": "Hawker centre food metaphors — collisions, queues, resource contention map naturally.",
   "palette": { "primary": "#EE3124", "secondary": "#FFFFFF", "accent": "#F582AE" },
   "catchphrase": "Can already. Let's go.",
-  "spriteFolder": "/sprites/mei"
+  "portrait": "/portraits/cousins/mei.png"
 }

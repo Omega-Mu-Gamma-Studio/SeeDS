@@ -6,5 +6,5 @@
   "teachingQuirk": "Tea and queuing metaphors — natural fit for anything FIFO/order-of-service shaped.",
   "palette": { "primary": "#012169", "secondary": "#C8102E", "accent": "#FFFFFF" },
   "catchphrase": "Right. That's that, then.",
-  "spriteFolder": "/sprites/florence"
+  "portrait": "/portraits/cousins/florence.png"
 }
