@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Now y'all listen up — every one of these nodes is mindin' its own business, and the ONLY thing it knows about its neighbor is where the next one's hidin'. You let go of that pointer, darlin', and everything downstream just — gone. Poof. Let's go see what that looks like written out in C."
+    },
+    "2": {
+      "mascotDialogue": "Right there, line 3 — that's the whole rodeo. `next` ain't a value, it's a pointer to another Node. And `createNode` sets it to NULL first thing, every time. A brand new node don't go assumin' it knows what's comin' next."
+    },
+    "3": {
+      "mascotDialogue": "Go on, hover any line over yonder on the left — watch which node lights up on the right for ya. `head->next->next`? That's just followin' the arrow twice. Ain't no more to it than that."
+    },
+    "4": {
+      "mascotDialogue": "Bless your heart, look at node 2's arrow — pointin' at a whole lotta nothin'. Now that ain't the picture lyin' to you, that's the honest-to-goodness truth of that pointer. Code just never told it where else to go."
+    },
+    "5": {
+      "mascotDialogue": "Hold my sweet tea — you got this one."
+    }
+  }
+}

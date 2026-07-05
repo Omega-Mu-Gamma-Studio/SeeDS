@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "All that splittin' is just bookkeepin' — the real sortin' work happens entirely in the merge step, comparin' two already-sorted halves and interleavin' 'em right."
+    },
+    "2": {
+      "mascotDialogue": "Lines 9 and 10 are the merge's heart — compare the fronts of both halves, take the smaller, advance only that side. Lines 12 and 13 mop up whichever half's still got leftovers once the other one runs dry."
+    },
+    "3": {
+      "mascotDialogue": "Notice this view don't show swaps a-tall — merge sort don't swap elements in place, it writes the smaller of two fronts into a fresh spot, every single comparison."
+    },
+    "4": {
+      "mascotDialogue": "Easy to think the merge's 'done' the second the main comparison loop ends — but one side near always finishes 'fore the other, and forgettin' to drain them leftovers loses real data, quiet as can be."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

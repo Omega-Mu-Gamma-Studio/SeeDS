@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Left's always smaller, right's always bigger — at EVERY single node, not just the root. Break that rule anywhere down the line and it stops bein' a BST, plain and simple."
+    },
+    "2": {
+      "mascotDialogue": "Lines 12 and 13 — that's the orderin' rule made literal in code. Smaller goes left, bigger goes right, recursively, all the way on down."
+    },
+    "3": {
+      "mascotDialogue": "20 sits left of 30, which is already left of 50 — every step down, that orderin' rule holds up again. Consistent as a Sunday sermon."
+    },
+    "4": {
+      "mascotDialogue": "Tree still looks like a tree, and that's exactly what makes this bug sneaky — it's only wrong relative to the orderin' rule, not wrong in shape."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}
