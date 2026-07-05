@@ -42,11 +42,25 @@
    bg/ink tokens (time-of-day); no new colors introduced here.
    ============================================================ */
 
-.passport-book {
+/* Centering lives on this wrapper, not on the animated book itself.
+   Framer Motion drives `.passport-book`'s transform (scale/y) directly as
+   an inline style, which would clobber a `transform: translate(-50%,-50%)`
+   centering trick placed on that same element -- that mismatch is what was
+   pushing the book off-center and clipping it at the bottom. Centering via
+   flexbox here means Motion's transform never has to fight anything. */
+.passport-panel__center {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  z-index: 31;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  pointer-events: none; /* let clicks in the padding fall through to the scrim */
+}
+
+.passport-book {
+  pointer-events: auto;
   width: min(880px, 94vw);
   height: min(640px, 88vh);
   max-height: 88vh;
@@ -55,7 +69,6 @@
   background: var(--bg-elevated);
   border-radius: var(--radius-lg);
   box-shadow: 0 24px 64px rgba(0,0,0,0.35), var(--shadow-elevated);
-  z-index: 31;
   font-family: var(--font-body);
   overflow: hidden;
 }

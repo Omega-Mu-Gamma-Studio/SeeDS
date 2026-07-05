@@ -63,6 +63,7 @@ export default function PassportPanel({ open, onClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           />
+          <div className="passport-panel__center">
           <motion.div
             className="passport-book"
             role="dialog"
@@ -254,6 +255,7 @@ export default function PassportPanel({ open, onClose }) {
               </button>
             </footer>
           </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
