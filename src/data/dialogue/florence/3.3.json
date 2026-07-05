@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Build the heap once, then simply keep pulling the maximum off the top. Each pull locks one more element into its correct final spot."
+    },
+    "2": {
+      "mascotDialogue": "Two loops: build the heap once, lines 2 and 3, then repeatedly swap-and-shrink, lines 5 through 7. The 'end' boundary shrinking each time is what carves out the sorted region at the back."
+    },
+    "3": {
+      "mascotDialogue": "Watch the tallest bar get walked to the top, then swapped to the far right — that's one value locked into its sorted home."
+    },
+    "4": {
+      "mascotDialogue": "This is the step easiest to forget, because the array still appears to change each loop. It simply never converges into sorted order without it, however busy it looks."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}
