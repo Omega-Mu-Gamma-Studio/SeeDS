@@ -50,11 +50,19 @@
 .phase-content__col--visual {
   background: var(--bg-sunken);
   border-radius: var(--radius-md);
-  overflow: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* Fixed height gives the renderer's ResizeObserver something concrete to
+     measure. The renderer now scales its diagram to fit this box instead of
+     overflowing it, so `overflow: auto` + centering (which used to silently
+     scroll past the first/leftmost node) is no longer needed. */
+  height: 360px;
   padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 800px) {
+  .phase-content__col--visual {
+    height: 300px;
+  }
 }
 
 .phase-content__bug-desc {

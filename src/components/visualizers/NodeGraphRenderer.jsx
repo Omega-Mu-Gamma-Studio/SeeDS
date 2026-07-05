@@ -1,5 +1,28 @@
-import { useMemo } from 'react'
+import { useMemo, useRef, useState, useLayoutEffect } from 'react'
 import { Stage, Layer, Circle, Line, Text, Rect, Arrow } from 'react-konva'
+
+// Measures the wrapping element and reports its content-box size,
+// updating on resize so the Stage can be scaled to fit instead of
+// overflowing and getting auto-centered/scroll-clipped by the parent.
+function useContainerSize() {
+  const ref = useRef(null)
+  const [size, setSize] = useState({ width: 640, height: 340 })
+
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const ro = new ResizeObserver((entries) => {
+      const entry = entries[0]
+      if (!entry) return
+      const { width, height } = entry.contentRect
+      if (width > 0 && height > 0) setSize({ width, height })
+    })
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
+  return [ref, size]
+}
 
 const NODE_R = 26
 
@@ -24,6 +47,28 @@ function resolveVar(name) {
 export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover }) {
   const width = 640
   const height = 340
+
+  const [containerRef, containerSize] = useContainerSize()
+
+  // Wraps a Stage's content in a scaled+centered Layer so diagrams shrink to
+  // fit the actual panel width instead of overflowing and getting silently
+  // scrolled (which is what was clipping the leftmost/head node before).
+  function ScaledStage({ naturalWidth, naturalHeight, children }) {
+    const scale = Math.min(
+      containerSize.width / naturalWidth,
+      containerSize.height / naturalHeight,
+      1 // never upscale past 1:1
+    ) || 1
+    const offsetX = (containerSize.width - naturalWidth * scale) / 2
+    const offsetY = (containerSize.height - naturalHeight * scale) / 2
+    return (
+      <Stage width={containerSize.width} height={containerSize.height}>
+        <Layer x={offsetX} y={offsetY} scaleX={scale} scaleY={scale}>
+          {children}
+        </Layer>
+      </Stage>
+    )
+  }
 
   const nodeColor = resolveVar('--ds-node')
   const nodeInk = resolveVar('--ds-node-ink')
@@ -110,8 +155,7 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
   if (!data) return <div style={{ padding: '1rem', color: 'var(--ink-muted)' }}>No visual data.</div>
 
   const renderBucketView = () => (
-    <Stage width={width} height={Math.max(height, 40 + data.buckets.length * 42)}>
-      <Layer>
+    <ScaledStage naturalWidth={width} naturalHeight={Math.max(height, 40 + data.buckets.length * 42)}>
         {data.buckets.map((bucket) => {
           const bp = positions[`bucket${bucket.bucketIndex}`]
           return (
@@ -132,13 +176,11 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
             </g>
           )
         })}
-      </Layer>
-    </Stage>
+    </ScaledStage>
   )
 
   const renderSlotView = () => (
-    <Stage width={Math.max(width, 60 + data.slots.length * 80)} height={220}>
-      <Layer>
+    <ScaledStage naturalWidth={Math.max(width, 60 + data.slots.length * 80)} naturalHeight={220}>
         {data.slots.map((slot) => {
           const sp = positions[`slot${slot.slotIndex}`]
           const empty = slot.value === null || slot.value === undefined
@@ -154,13 +196,11 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
             </g>
           )
         })}
-      </Layer>
-    </Stage>
+    </ScaledStage>
   )
 
   const renderNodeEdgeView = () => (
-    <Stage width={width} height={height}>
-      <Layer>
+    <ScaledStage naturalWidth={width} naturalHeight={height}>
         {(data.edges || []).map((edge, i) => {
           const from = positions[edge.from]
           const to = edge.to ? positions[edge.to] : null
@@ -209,11 +249,12 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
             </g>
           )
         })}
-      </Layer>
-    </Stage>
+    </ScaledStage>
   )
 
-  if (data.buckets) return renderBucketView()
-  if (data.slots) return renderSlotView()
-  return renderNodeEdgeView()
+  return (
+    <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
+      {data.buckets ? renderBucketView() : data.slots ? renderSlotView() : renderNodeEdgeView()}
+    </div>
+  )
 }
