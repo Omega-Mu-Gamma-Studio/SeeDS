@@ -6,12 +6,12 @@ Built by Omega Mu Gamma Studio.
 > "The code explains the visual. The visual explains the code."
 
 This is a **full rebuild** of the original SeeDS (a Three.js data structure
-visualizer). It is not a reskin — no code is carried over by default. This README
-exists so that anyone opening this repo cold — a collaborator, a future
-contributor, or a fresh AI coding session with zero memory of how this project came
-to be — can understand *why* the folders are shaped the way they are and start
-building immediately, without needing the original design conversation replayed
-to them.
+visualizer). It is not a reskin — no code is carried over by default. This
+README exists so that anyone opening this repo cold — a collaborator, a future
+contributor, or a fresh AI coding session with zero memory of how this project
+came to be — can understand *why* the folders are shaped the way they are and
+start building immediately, without needing the original design conversations
+replayed to them.
 
 **Read this file first. Then read `PRD.md` (full product spec) and
 `GAMMA_COUSINS.md` (the tutor-character system) before writing any code.**
@@ -27,22 +27,23 @@ SeeDS 1.0 got beta feedback with one verdict that outweighed every individual bu
 
 Every specific bug in that round — a sphere showing the wrong node's value, a
 doubly linked list tooltip missing the `prev` pointer entirely, a "normal" stack
-demo that looked identical to an overflow, a circular linked list confused with a
-buggy cycle — traced back to one root cause: **a value or state that existed in
-the data model had no explicit, unambiguous visual signal.**
+demo that looked identical to an overflow, a circular linked list confused with
+a buggy cycle — traced back to one root cause: **a value or state that existed
+in the data model had no explicit, unambiguous visual signal.**
 
-This rebuild doesn't fix that by writing more careful Three.js. It fixes it by:
+This rebuild doesn't fix that by writing more careful rendering code. It fixes
+it by:
 1. Restructuring the entire learning flow so a concept is *taught* before it's
    *shown* (the 5-Phase Model, §3).
-2. Making the required visual signals part of the **data schema itself** (§8 of
-   `PRD.md`), so leaving one out is awkward to do by accident, not just
+2. Making the required visual signals part of the **data schema itself**
+   (`PRD.md` §8), so leaving one out is awkward to do by accident, not just
    discouraged in a comment somewhere.
 
 If you're building a new lesson or a new component and you're not sure why a
-field is required or why something is split into two files instead of one — the
-answer is almost always "a beta tester found a real bug caused by this exact gap
-last time, and this structure exists to make that class of bug harder to
-reintroduce."
+field is required or why something is split into two files instead of one —
+the answer is almost always "a beta tester found a real bug caused by this
+exact gap last time, and this structure exists to make that class of bug
+harder to reintroduce."
 
 ---
 
@@ -52,22 +53,23 @@ reintroduce."
 SeeDS/
 ├── public/
 │   ├── sprites/
-│   │   ├── default/          
-│   │   └── cousins/{id}/     
+│   │   ├── default/                  ← neutral narrator's sprite set
+│   │   └── cousins/{id}/             ← one folder per Gamma Cousin
 │   └── audio/
 ├── src/
-│   ├── pages/
+│   ├── pages/                        ← Home, UnitPage, LessonPage, Settings
 │   ├── components/
 │   │   ├── layout/
 │   │   ├── cousin/
 │   │   ├── lesson/
 │   │   ├── visualizers/
+│   │   ├── passport/                 ← Passport/Landmarks UI (§4)
 │   │   └── ui/
 │   ├── data/
-│   │   ├── lessons/unit{1-6}/
-│   │   ├── units/
-│   │   ├── cousins/
-│   │   └── dialogue/{cousinId}/
+│   │   ├── lessons/unit{1-6}/        ← 22 lesson files, core content + neutral dialogue
+│   │   ├── units/                    ← per-unit metadata + landmarks (§4)
+│   │   ├── cousins/                  ← tutor identity files
+│   │   └── dialogue/{cousinId}/      ← per-lesson voiced dialogue overrides
 │   ├── hooks/
 │   ├── services/
 │   ├── store/
@@ -80,147 +82,121 @@ SeeDS/
 
 ### `public/sprites/`
 
-Two subfolders, not one, and this split is load-bearing:
+Two subfolders, and the split is load-bearing:
 
 - **`default/`** — the neutral narrator's sprite set (6 expressions: `teaching`,
-  `excited`, `thinking`, `oops`, `frustrated`, `idle`). This is not a placeholder
-  character — it is the **permanent fallback voice** that every lesson is
-  guaranteed to have. v1 launches on this voice alone.
-- **`cousins/{id}/`** — one folder per Gamma Cousin (see `GAMMA_COUSINS.md`),
-  each with the same 6 expression files. A cousin folder can exist and be empty
-  of dialogue (see `data/dialogue/` below) while still having sprites — art and
-  writing don't have to be finished in lockstep.
+  `excited`, `thinking`, `oops`, `frustrated`, `idle`). Not a placeholder — this
+  is the **permanent fallback voice** every lesson is guaranteed to have.
+- **`cousins/{id}/`** — one folder per Gamma Cousin, same 6 expressions each. A
+  cousin can have sprites with zero written dialogue, or dialogue with
+  placeholder sprites — art and writing don't have to finish in lockstep.
 
-**Why this matters for anyone building UI:** any component that renders "the
-current tutor" should never hardcode a specific character's sprite path. It
-should resolve `public/sprites/{selectedCousin}/{expression}.png`, falling back
-to `public/sprites/default/{expression}.png` if the selected cousin has no
-sprites yet. Same fallback philosophy as dialogue (§2, `data/dialogue/` below),
-applied to art instead of text.
+Any component rendering "the current tutor" resolves
+`public/sprites/{selectedCousin}/{expression}.png`, falling back to
+`public/sprites/default/{expression}.png` if that cousin has no sprites yet —
+same fallback philosophy as dialogue, applied to art instead of text.
 
 ### `src/pages/`
 
-Standard React Router top-level views: `Home`, `UnitPage`, `LessonPage`, and
-`Settings` — the last of which is new relative to prior studio apps, because
-it's where a user changes their selected tutor **at any time**, not just once at
-onboarding. Character choice must never be locked to a single moment in the app.
-
-### `src/components/layout/`
-
-Standard shell: `AppLayout`, `Sidebar` (lesson navigation + completion status),
-`AnimatedBg`. Nothing SeeDS-specific here — same shape as prior studio apps.
+`Home`, `UnitPage` (routed at `/campus-map`), `LessonPage`, `Settings`.
+`Settings` is where a user changes their selected tutor **at any time** — but
+note the app also has a **hard onboarding gate** (§4) before any of these
+routes render at all on first launch.
 
 ### `src/components/cousin/`
 
 Everything related to rendering *whichever* tutor is currently active, without
-ever hardcoding which one:
-
-- **`CousinAvatar`** — renders the selected cousin's sprite + current expression.
-- **`CousinPicker`** — the "meet the cousins" selection UI, used on first launch
-  and reachable again from Settings.
-- **`SpeechBubble`** — displays resolved dialogue text. This component takes
-  already-resolved text as a prop; it has no knowledge of the fallback chain
-  itself (that logic lives in `services/dialogueService.js`, kept out of the UI
-  layer on purpose so the resolution logic is testable independent of rendering).
+ever hardcoding which one: `CousinAvatar` (sprite + expression), `CousinPicker`
+(the selection grid — used both at the onboarding gate and again from
+Settings), `SpeechBubble` (displays already-resolved dialogue text; it has no
+knowledge of the fallback chain itself, that logic lives in
+`services/dialogueService.js`).
 
 ### `src/components/lesson/`
 
 One component per phase of the 5-Phase Model (`Phase1Understand` through
-`Phase5Test`), plus `PhaseContainer` (the wrapper that shows whichever phase is
-active) and `CodeBlock`/`PhaseIndicator` as shared pieces. Each phase component
-is intentionally dumb about *which* structure it's displaying — it receives
-resolved lesson + dialogue data as props and renders it. Structure-specific
-rendering logic lives one layer down, in:
+`Phase5Test`), plus `PhaseContainer` and shared pieces (`CodeBlock`,
+`PhaseIndicator`). Each phase component is dumb about *which* structure it's
+displaying — it receives resolved lesson + dialogue data as props. Structure-
+specific rendering lives one layer down, in:
 
 ### `src/components/visualizers/`
 
-This folder doesn't exist in any prior studio app, because no prior app needed
-more than one visual metaphor. SeeDS does — a linked list and a bubble sort
-should **not** be forced through the same "nodes and edges" rendering logic.
+The Konva rendering layer. `VisualizerDispatch` reads a lesson's
+`visual.rendererType` and picks the right renderer:
 
-- **`VisualizerDispatch`** — reads a lesson's `visual.rendererType` field and
-  picks the right renderer below. This is the *only* place that dispatch
-  decision is made — no other component should ever branch on rendererType.
-- **`NodeGraphRenderer`** — lists, trees, graphs, hash chaining (the classic
-  spheres-and-arrows view)
-- **`BarsRenderer`** — comparison-based sorts (bubble/quick/merge/shell)
-- **`BucketsRenderer`** — radix sort's digit-bucket distribution
-- **`ArrayTreeDualRenderer`** — heaps, shown simultaneously as array and tree
+- **`NodeGraphRenderer`** — lists, trees, graphs, hash chaining
+- **`BarsRenderer`** — comparison-based sorts
+- **`BucketsRenderer`** — radix sort
+- **`ArrayTreeDualRenderer`** — heaps, array + tree simultaneously
 
-Adding a new visual metaphor later means adding one new file here and one new
-case in the dispatch — it should never require touching an existing renderer.
+Adding a new visual metaphor means adding one new file here and one new case
+in the dispatch — never touching an existing renderer.
 
-### `src/components/ui/`
+### `src/components/passport/`
 
-Generic, structure-agnostic UI: `BottomBar`, `ProgressBar`, `XPDisplay`,
-`ThemeToggle`. Nothing here should ever import from `data/lessons` or
-`data/dialogue` directly.
+Renders the **Student Passport** — see §4 for the full mechanic. `PassportButton`
+is the floating entry point (badges when new stamps exist since last opened),
+`PassportPanel` shows every landmark and its stamp/seal state.
 
 ### `src/data/lessons/unit{1-6}/`
 
-**This is Layer 1 — core lesson content.** Concept text, C code, visual data
-(`nodes`/`edges` or `bars`/`buckets` depending on `rendererType`), broken-code
-variant, and challenge question/answer. Every `mascotDialogue` field in these
-files holds the **neutral default version** of that dialogue beat — not a
-placeholder, but the real fallback content. See `PRD.md` §8 for the exact
-required schema per structure type (this is where the DLL-`prev`-field and
-circular-vs-cyclic-bug requirements live — read it before authoring a new
-lesson).
+**Layer 1 — core lesson content.** Concept text, C code, visual data, broken-
+code variant, challenge question/answer. Every `mascotDialogue` field here
+holds the **neutral default** dialogue — real fallback content, not a
+placeholder. Required schema per structure type is in `PRD.md` §8 (this is
+where the DLL-`prev`-field and circular-vs-cyclic-bug requirements live — read
+it before authoring a new lesson).
 
 ### `src/data/units/`
 
-One file per unit (`unit1.json`–`unit6.json`) holding just navigation metadata:
-title, ordered lesson list, icon. Kept separate from lesson content so the
-sidebar doesn't need to load all 22 full lesson files just to render a nav list.
+Per-unit metadata **and landmark definitions** — this folder does more than
+navigation now. See §4 below; `PRD.md` §8.6 has the required schema.
 
-### `src/data/cousins/`
+### `src/data/cousins/` and `src/data/dialogue/{cousinId}/`
 
-**Identity only.** One JSON file per cousin (`scout.json`, `miyu.json`, etc.)
-holding her name, palette hex codes, catchphrase, and sprite folder reference —
-content that is true about her regardless of which lesson is being taught. This
-should rarely change once written. Full personality/voice reference for writing
-these lives in `GAMMA_COUSINS.md` — don't invent a cousin's traits from scratch
-here, port them from that document.
-
-### `src/data/dialogue/{cousinId}/`
-
-**This is Layer 2 — the actual authoring surface for character voice.** One file
-per lesson per cousin (e.g. `dialogue/scout/1.1.json`), containing only the
-*voiced override* of that lesson's dialogue beats. **This is the folder to open
-when you want to give a cousin a personality pass on a specific lesson** — you
-never touch the lesson core file to do this.
-
-Critically: **a missing file here is not an error.** If
-`dialogue/miyu/1.7.json` doesn't exist, the app silently falls back to
-`data/lessons/unit2/1.7.json`'s own neutral dialogue. This is what makes it safe
-to have 10 cousin folders sitting mostly empty for months — nothing breaks, the
-neutral voice just covers the gap. Build cousins one lesson at a time, in any
-order, whenever you feel like it.
+Identity (palette, catchphrase, sprite path) vs. voice (per-lesson dialogue
+overrides), kept deliberately separate. **`dialogue/{cousinId}/` is the folder
+to open when giving a cousin a personality pass on a specific lesson** — a
+missing file there is not an error, it silently falls back to the lesson's own
+neutral dialogue (`PRD.md` §5.3).
 
 ### `src/hooks/`, `src/services/`, `src/store/`
 
-Standard separation:
-- **`services/dialogueService.js`** is the one piece of code that actually
-  implements the fallback chain described above — check `dialogue/{cousin}/{lesson}.json`
-  first, fall back to `lessons/{lesson}.json` if it doesn't exist. This logic
-  should live in exactly one place.
-- **`store/cousinStore.js`** holds `selectedCousin` + `unlockedCousins`,
-  completely decoupled from `store/progressStore.js` — switching tutors must
-  never affect completed lessons, XP, or streak.
-- **`hooks/useDialogue.js`** and **`hooks/useCousin.js`** are the React-facing
-  wrappers around the services/store above — components should call these
-  hooks, not reach into services or stores directly.
+- **`services/dialogueService.js`** implements the fallback chain — checks
+  `dialogue/{cousin}/{lesson}.json` first, falls back to the lesson's own
+  neutral text. Uses `import.meta.glob` to auto-register every lesson/dialogue
+  JSON at build time, so adding new content is a pure data change, never a code
+  change.
+- **`services/lessonService.js`** — same auto-registration pattern for lessons
+  and units; also resolves which landmark a lesson belongs to.
+- **`store/cousinStore.js`** — `selectedCousin`, `hasSelectedAdvisor` (the
+  onboarding gate flag), `unlockedCousins`. Persisted to `localStorage` under
+  `seeds:cousin`.
+- **`store/progressStore.js`** — completed lessons, XP, level, streak, **and**
+  the passport `stamps`/seal bookkeeping. Persisted under `seeds:progress`.
+  Entirely independent of which cousin is active — switching tutors never
+  touches progress.
 
-### `src/utils/`
+### `src/utils/`, `src/styles/`
 
-`cHighlighter.js` (C syntax highlighting for the code panel), `rendererDispatch.js`
-(the lookup table `VisualizerDispatch` uses), `xpCalculator.js`.
+`cHighlighter.js` (C syntax highlighting), `rendererDispatch.js`,
+`xpCalculator.js`; `styles/tokens.css` holds the color-coding system as CSS
+variables (node blue, pointer orange, NULL gray, broken red, highlight yellow —
+full list in `PRD.md` §11.3).
 
-### `src/styles/tokens.css`
+### A retired script
 
-The color-coding system as CSS variables (node blue, pointer orange, NULL gray,
-broken red, highlight yellow — full list in `PRD.md` §11.3). Any new component
-should reference these variables, never hardcode a hex value inline.
+An earlier version of this repo included `scaffold.sh`, a bash script that
+generated this directory structure and its blank stub files in one pass. It
+did its job — this structure exists because of it — but it was a rough,
+primitive first draft (string-templated file generation, no real
+error-handling, brittle if re-run against a partially-hand-edited tree) and
+has been removed rather than kept around as dead weight or a false promise of
+"safe to re-run." The structure it produced is now maintained by hand, per the
+conventions documented in this README and in `PRD.md`. If a proper authoring
+tool ever gets built for lesson/dialogue scaffolding, it'll replace this
+section with something worth pointing at — not a resurrection of the old script.
 
 ---
 
@@ -238,18 +214,33 @@ Every lesson runs through five phases, in order. Full detail in `PRD.md` §4.
 
 ---
 
-## 4. The Tutor System (quick reference)
+## 4. The Tutor System & The Passport (quick reference)
 
-Full detail and all 10 personalities in `GAMMA_COUSINS.md` — read that file
-before writing any dialogue. Summary of the mechanism:
+Full tutor detail and all 10 personalities in `GAMMA_COUSINS.md` — read that
+file before writing any dialogue. Full technical spec of both systems below is
+in `PRD.md` §5 and §6.1/§8.6.
 
+**Tutors:**
 1. Every lesson has neutral default dialogue baked into its core JSON.
-2. A user selects a "Gamma Cousin" as their active tutor — changeable anytime
-   from Settings, never locked.
-3. If that cousin has a written dialogue file for the current lesson, her
-   version is shown. If not, the neutral default is shown instead. Nothing ever
-   breaks from incomplete content.
-4. Progress tracking is entirely independent of which cousin is active.
+2. On first launch, the app is **gated** — nothing else renders until the
+   student picks a Gamma Cousin as their tutor (`cousinStore.hasSelectedAdvisor`).
+3. That choice is changeable anytime afterward from Settings.
+4. If the selected cousin has written dialogue for the current lesson, hers is
+   shown; if not, the neutral default is shown instead. Nothing ever breaks
+   from incomplete content.
+5. Progress tracking is entirely independent of which cousin is active.
+
+**The Passport:**
+1. Units are subdivided into named **landmarks** (e.g. Unit 1 = "The
+   Chainworks" + "The Stack & Queue Yard"), each with a short `visualHook`
+   description and an explicit list of which lessons belong to it.
+2. Completing a lesson stamps its landmark in the student's in-app Passport.
+3. Once every lesson under a landmark is done, that landmark's stamp **seals**
+   (wax-crest state) — a small, satisfying "you've finished this whole place"
+   moment distinct from finishing just one lesson.
+4. **Every unit file must define its `landmarks` array** (`PRD.md` §8.6) — a
+   unit without one silently produces no passport progress for its lessons.
+   This is a required part of authoring a new unit, not decoration to add later.
 
 ---
 
@@ -258,9 +249,13 @@ before writing any dialogue. Summary of the mechanism:
 ```bash
 git clone https://github.com/Omega-Mu-Gamma-Studio/SeeDS.git
 cd SeeDS
+git checkout rebuild-2.0
 npm install
 npm run dev
 ```
+
+Verified as of this README: `npm install` resolves cleanly and `npm run build`
+produces a working production bundle with zero errors.
 
 ### Dependencies
 
@@ -271,10 +266,14 @@ npm install react react-dom react-router-dom zustand framer-motion konva react-k
 | Package | Why it's here |
 |---|---|
 | `react` / `react-dom` | React 19, core framework |
-| `react-router-dom` | Lesson/unit navigation |
+| `react-router-dom` | Routes: `/`, `/campus-map`, `/lesson/:lessonId`, `/settings` |
 | `zustand` | `lessonStore`, `progressStore`, `cousinStore`, `uiStore` |
-| `framer-motion` | Phase transitions, mascot expression changes, node insertion animation |
-| `konva` / `react-konva` | The visualizer layer — chosen specifically because Phase 3/4's hover-highlight interaction needs per-shape hit detection and easy re-styling, which Konva's shape-object model provides natively (raw Canvas or SVG would mean building hit-testing by hand) |
+| `framer-motion` | Phase transitions, mascot expression changes, Passport panel slide-in |
+| `konva` / `react-konva` | The visualizer layer — chosen because Phase 3/4's hover-highlight interaction needs per-shape hit detection and easy re-styling, which Konva's shape-object model provides natively |
+
+**Note:** `react-konva` is pinned to a version compatible with React 19's peer
+dependencies (not the older `^18.x` line) — if you ever see a peer-dependency
+warning on install, check this first before troubleshooting further.
 
 ### Dev dependencies
 
@@ -282,10 +281,18 @@ npm install react react-dom react-router-dom zustand framer-motion konva react-k
 npm install -D vite @vitejs/plugin-react eslint @eslint/js eslint-plugin-react-hooks eslint-plugin-react-refresh globals @types/react @types/react-dom
 ```
 
-No CSS framework (plain CSS + CSS Modules, per `PRD.md` §10), no cloud backend
-(localStorage via Zustand persist is sufficient for a course companion tool), no
-automated schema-validation library for v1 (QA is a manual lightweight checklist
-— see `PRD.md` §12 — not automated validation).
+No CSS framework (plain CSS + CSS Modules), no cloud backend (localStorage via
+Zustand persist is sufficient for a course companion tool), no automated
+schema-validation library for v1 (QA is a manual lightweight checklist —
+`PRD.md` §12).
+
+**A note on bundle size as content grows:** `lessonService.js` and
+`dialogueService.js` both use `import.meta.glob(..., { eager: true })`, which
+bundles every lesson and dialogue file into the initial load, always. This
+keeps content-authoring simple (no manual import lists) but means the bundle
+can only grow, never lazy-load, as more lessons and cousin dialogue packs are
+written. Worth revisiting (`eager: false` + dynamic `import()`) if the bundle
+approaches the `PRD.md` §15 budget of <1MB initial.
 
 ---
 
@@ -295,27 +302,95 @@ If you're a contributor, or an AI assistant in a fresh session, starting from
 just this repo:
 
 1. Read this README fully (you just did).
-2. Read `PRD.md` in full — it has the exact lesson JSON schema (§8), the full
-   feature list, architecture, and QA checklist.
-3. Read `GAMMA_COUSINS.md` in full — it has every tutor's personality, voice
-   rules, and the design rules that apply to any dialogue you write for them.
-4. Before authoring a new lesson: check `PRD.md` §8.2 for the required node
-   fields for that structure type, and §12 for the pre-merge checklist.
-5. Before writing a cousin's dialogue for a lesson: open her folder in
+2. Read `PRD.md` in full — the lesson JSON schema (§8), the unit/landmark
+   schema (§8.6), the Passport system (§6.1), full feature list, architecture,
+   and QA checklist all live there.
+3. Read `GAMMA_COUSINS.md` in full — every tutor's personality, voice rules,
+   and the design rules that apply to any dialogue you write for them.
+4. Before authoring a new lesson: check `PRD.md` §8.2 for required node fields
+   per structure type, and §12 for the pre-merge checklist.
+5. Before authoring a new unit: make sure its `landmarks` array is defined and
+   every one of its lessons is assigned to exactly one landmark (§8.6) — this
+   is easy to forget and fails silently, not loudly.
+6. Before writing a cousin's dialogue for a lesson: open her folder in
    `data/dialogue/{cousinId}/`, create the file for that lesson ID if it
-   doesn't exist, and write only the phase-level dialogue overrides — don't
-   touch the lesson core file.
-6. Never hardcode a specific cousin's assets or dialogue path anywhere outside
+   doesn't exist, write only the phase-level overrides — never touch the
+   lesson core file.
+7. Never hardcode a specific cousin's assets or dialogue path anywhere outside
    `services/dialogueService.js` and the sprite-resolution logic in
-   `components/cousin/CousinAvatar.jsx` — every other component should be
-   working with already-resolved data.
+   `components/cousin/CousinAvatar.jsx`.
 
 ---
 
-## 7. License
+## 7. Current Status — What's Actively Being Worked On
 
-See `LICENSE`. (SeeDS is a collaborative studio tool — MIT.)
+Snapshot, so nobody (including future-you) wastes time wondering "is this done
+or not" about the parts that are visibly incomplete:
+
+- **Fully built and verified:** all 22 lessons authored with real content
+  (concept, C code, dialogue, visual data) across all 6 units; the 5-Phase
+  engine; the Konva visualizer layer (`NodeGraphRenderer`, `BarsRenderer`,
+  `BucketsRenderer`, `ArrayTreeDualRenderer`); the neutral-default dialogue
+  fallback chain; the cousin selection/onboarding gate; the Passport/Landmarks
+  progress system. Builds clean with `npm run build`, zero errors.
+- **Not yet started — cousin dialogue packs.** Every lesson currently runs on
+  the neutral default narrator only. `data/dialogue/{cousinId}/` folders exist
+  for all 10 Gamma Cousins but are empty — this is expected and non-breaking
+  (§4), not a bug. Writing a cousin's full 22-lesson voice pass is the next
+  major content phase, and per `PRD.md` §5.1, which cousin goes first hasn't
+  been decided yet — deliberately, so it happens after the neutral-voice
+  content is proven, not before.
+- **Not yet started — character sprites.** `public/sprites/default/` and
+  `public/sprites/cousins/{id}/` exist as empty folders (`.gitkeep`
+  placeholders only) for all 6 required expressions
+  (`teaching`/`excited`/`thinking`/`oops`/`frustrated`/`idle`) per character.
+  No actual artwork has been produced yet for anyone, including the default
+  narrator — `CousinAvatar.jsx` currently has nothing to render.
+- **Not yet started — background/environment art.** The Passport system's
+  `visualHook` descriptions (e.g. "a workshop strung with actual chain-link"
+  for The Chainworks) are written as text prompts for future illustration, not
+  as delivered assets. Landmark backgrounds, the campus-map visual itself, and
+  any lesson-specific environment art are all still text descriptions waiting
+  to become art.
+
+If you're a contributor picking a task off this list: dialogue packs are pure
+JSON authoring (no code changes required, see §4/§6 above), sprites and
+background art are asset production against the existing folder contracts
+above, and neither blocks the other — they can be worked in parallel by
+different people without stepping on each other's files.
 
 ---
 
-*Built by Omega Mu Gamma Studio. Full spec: `PRD.md`. Tutor roster: `GAMMA_COUSINS.md`.*
+## 8. License
+
+**PolyForm Noncommercial 1.0.0.** SeeDS is licensed under the same
+finished-product license tier as the studio's other shipped apps — this
+supersedes an earlier plan to keep SeeDS under MIT as a "collaborative tool,"
+and an earlier draft of this README incorrectly named it PolyForm **Shield**
+instead — a meaningfully different license, corrected here.
+
+In plain terms, and this distinction matters, so read it carefully rather than
+pattern-matching to "oh, some open-source-adjacent license":
+
+- **Noncommercial ≠ Shield.** PolyForm Shield permits commercial use broadly,
+  restricting only *competing* against the licensor. PolyForm Noncommercial is
+  stricter: **no commercial use of any kind is permitted**, full stop, by
+  anyone other than the licensor. You can use, study, modify, and share this
+  source freely for noncommercial purposes — personal learning, academic use,
+  contributing back to the project — but nobody (including a fork, including a
+  derivative product) may use this code, or a substantial part of it, as part
+  of anything sold, monetized, or run as a commercial service, without a
+  separate agreement with Omega Mu Gamma Studio.
+- This is the correct license for a course-companion tool the studio wants
+  freely usable by students and contributors, while keeping commercial
+  exploitation of the codebase itself off the table.
+
+See the `LICENSE` file in this repo for the full, authoritative text — this
+paragraph is a plain-English summary, not a substitute for it. If anything
+here reads differently than what's actually in `LICENSE`, `LICENSE` wins;
+flag it and this section gets corrected again.
+
+---
+
+*Built by Omega Mu Gamma Studio. Full spec: `PRD.md`. Tutor roster:
+`GAMMA_COUSINS.md`.*
