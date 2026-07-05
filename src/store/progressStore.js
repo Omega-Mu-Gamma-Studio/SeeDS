@@ -26,7 +26,11 @@ const defaults = {
   stamps: {}, // { [landmarkId]: { lessonsDone: [...], sealed: bool } }
   newStampsSinceOpen: 0,
 }
-
+// Not persisted -- like cousinStore's pendingCelebration, this is a one-shot
+// UI event (landmark just got sealed), cleared by the toast once shown.
+const transientDefaults = {
+  pendingSeal: null, // landmarkId, or null
+}
 const persisted = loadPersisted()
 const initial = { ...defaults, ...(persisted || {}) }
 
@@ -41,6 +45,7 @@ function todayStr() {
 
 export const useProgressStore = create((set, get) => ({
   ...initial,
+  ...transientDefaults,
 
   isLessonComplete: (lessonId) => get().completedLessons.includes(lessonId),
 
@@ -63,6 +68,7 @@ export const useProgressStore = create((set, get) => ({
     // stamp bookkeeping
     const stamps = { ...state.stamps }
     let newStamps = state.newStampsSinceOpen + 1 // lesson stamp
+    let pendingSeal = state.pendingSeal
     if (landmarkId) {
       const prevEntry = stamps[landmarkId] || { lessonsDone: [], sealed: false }
       const lessonsDone = prevEntry.lessonsDone.includes(lessonId)
@@ -71,7 +77,10 @@ export const useProgressStore = create((set, get) => ({
       const sealed = Array.isArray(allLessonsForLandmark) && allLessonsForLandmark.length > 0
         ? allLessonsForLandmark.every((id) => lessonsDone.includes(id))
         : prevEntry.sealed
-      if (sealed && !prevEntry.sealed) newStamps += 1 // wax-seal crest bonus
+      if (sealed && !prevEntry.sealed) {
+        newStamps += 1 // wax-seal crest bonus
+        pendingSeal = landmarkId // fires LandmarkSealToast regardless of what screen we're on
+      }
       stamps[landmarkId] = { lessonsDone, sealed }
     }
 
@@ -79,8 +88,10 @@ export const useProgressStore = create((set, get) => ({
       completedLessons, totalXP, level, streak,
       lastActiveDate: today, stamps, newStampsSinceOpen: newStamps,
     }
+    // pendingSeal is deliberately excluded from persist() -- it's transient
+    // UI state, not durable progress, same as newStampsSinceOpen's sibling.
     persist({ ...state, ...next })
-    set(next)
+    set({ ...next, pendingSeal })
   },
 
   clearNewStamps: () => set((state) => {
@@ -88,8 +99,10 @@ export const useProgressStore = create((set, get) => ({
     return { newStampsSinceOpen: 0 }
   }),
 
+  clearSealCelebration: () => set({ pendingSeal: null }),
+
   resetProgress: () => {
     persist(defaults)
-    set(defaults)
+    set({ ...defaults, ...transientDefaults })
   },
 }))

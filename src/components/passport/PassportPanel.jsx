@@ -187,7 +187,13 @@ export default function PassportPanel({ open, onClose }) {
                                 <div className="passport-panel__page-header">
                                   <span className="passport-panel__landmark-name">{lm.name}</span>
                                   {entry.sealed && (
-                                    <span className="passport-panel__wax-seal" title={`Sealed by ${currentCousin?.name || 'your advisor'}`}>
+                                    <motion.span
+                                      className="passport-panel__wax-seal"
+                                      title={`Sealed by ${currentCousin?.name || 'your advisor'}`}
+                                      initial={{ scale: 1.8, opacity: 0, rotate: -20 }}
+                                      animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                                      transition={{ type: 'spring', stiffness: 320, damping: 16 }}
+                                    >
                                       <svg viewBox="0 0 40 40" width="28" height="28" aria-hidden="true">
                                         <circle cx="20" cy="20" r="18" fill="var(--accent-primary)" />
                                         <circle cx="20" cy="20" r="18" fill="none" stroke="var(--accent-primary-ink)" strokeWidth="1" strokeOpacity="0.4" />
@@ -195,7 +201,7 @@ export default function PassportPanel({ open, onClose }) {
                                           {(currentCousin?.name || 'A')[0]}
                                         </text>
                                       </svg>
-                                    </span>
+                                    </motion.span>
                                   )}
                                 </div>
                                 <p className="passport-panel__topics">{lm.topics.join(' \u00b7 ')}</p>

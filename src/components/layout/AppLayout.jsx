@@ -7,6 +7,7 @@ import BottomBar from '../ui/BottomBar.jsx'
 import PassportButton from '../passport/PassportButton.jsx'
 import PassportPanel from '../passport/PassportPanel.jsx'
 import CousinUnlockToast from '../cousin/CousinUnlockToast.jsx'
+import LandmarkSealToast from '../passport/LandmarkSealToast.jsx'
 import './AppLayout.css'
 
 export default function AppLayout({ children }) {
@@ -23,6 +24,7 @@ export default function AppLayout({ children }) {
     >
       <AnimatedBg />
       <CousinUnlockToast />
+      <LandmarkSealToast />
       <div className="app-layout__body">
         <Sidebar open={sidebarOpen} />
         <main className="app-layout__main">

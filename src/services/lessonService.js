@@ -46,6 +46,14 @@ export const lessonService = {
     }
     return null
   },
+  getLandmarkById(landmarkId) {
+    for (const unit of Object.values(unitsById)) {
+      for (const landmark of unit.landmarks || []) {
+        if (landmark.id === landmarkId) return landmark
+      }
+    }
+    return null
+  },
   getNextLesson(lessonId) {
     const all = this.getAllLessons()
     const idx = all.findIndex((l) => l.id === lessonId)
