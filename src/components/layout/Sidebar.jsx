@@ -40,7 +40,7 @@ export default function Sidebar({ open }) {
 
         {open && (
           <nav className="sidebar__nav">
-            <NavLink to="/campus-map" className="sidebar__campus-link">
+            <NavLink to="/campus" className="sidebar__campus-link">
               🗺️ Campus Map
             </NavLink>
             {units.map((unit) => (

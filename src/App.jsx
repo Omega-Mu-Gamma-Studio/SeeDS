@@ -3,6 +3,10 @@ import { useCousinStore } from './store/cousinStore.js'
 import AppLayout from './components/layout/AppLayout.jsx'
 import CousinPicker from './components/cousin/CousinPicker.jsx'
 import Home from './pages/Home.jsx'
+import Island from './pages/Island.jsx'
+import Campus from './pages/Campus.jsx'
+import CSBlock from './pages/CSBlock.jsx'
+import Dorm from './pages/Dorm.jsx'
 import UnitPage from './pages/UnitPage.jsx'
 import LessonPage from './pages/LessonPage.jsx'
 import Settings from './pages/Settings.jsx'
@@ -29,7 +33,13 @@ function App() {
       <AppLayout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/campus-map" element={<UnitPage />} />
+          <Route path="/island" element={<Island />} />
+          <Route path="/campus" element={<Campus />} />
+          <Route path="/campus/cs" element={<CSBlock />} />
+          <Route path="/campus/dorm" element={<Dorm />} />
+          {/* Legacy flat map -- kept as an alias so old links/bookmarks still work. */}
+          <Route path="/campus-map" element={<Navigate to="/campus" replace />} />
+          <Route path="/campus-map/full" element={<UnitPage />} />
           <Route path="/lesson/:lessonId" element={<LessonPage />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<Navigate to="/" replace />} />

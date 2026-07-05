@@ -1,7 +1,6 @@
-import { useState } from 'react'
 import { useUIStore } from '../../store/uiStore.js'
 import { useCousin } from '../../hooks/useCousin.js'
-import { useProgressStore } from '../../store/progressStore.js'
+import { usePassport } from '../../hooks/usePassport.js'
 import Sidebar from './Sidebar.jsx'
 import AnimatedBg from './AnimatedBg.jsx'
 import BottomBar from '../ui/BottomBar.jsx'
@@ -14,13 +13,7 @@ export default function AppLayout({ children }) {
   const theme = useUIStore((s) => s.theme)
   const sidebarOpen = useUIStore((s) => s.sidebarOpen)
   const { selectedCousin } = useCousin()
-  const clearNewStamps = useProgressStore((s) => s.clearNewStamps)
-  const [passportOpen, setPassportOpen] = useState(false)
-
-  function openPassport() {
-    setPassportOpen(true)
-    clearNewStamps()
-  }
+  const { passportOpen, openPassport, closePassport } = usePassport()
 
   return (
     <div
@@ -38,7 +31,7 @@ export default function AppLayout({ children }) {
       </div>
       <BottomBar />
       <PassportButton onClick={openPassport} />
-      <PassportPanel open={passportOpen} onClose={() => setPassportOpen(false)} />
+      <PassportPanel open={passportOpen} onClose={closePassport} />
     </div>
   )
 }

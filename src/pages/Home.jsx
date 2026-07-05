@@ -65,9 +65,9 @@ export default function Home() {
 
         <div className="home-page__card">
           <h3>Explore the Campus</h3>
-          <p>Walk the island and pick any landmark to study.</p>
-          <button className="home-page__cta home-page__cta--secondary" onClick={() => navigate('/campus-map')}>
-            Open Campus Map →
+          <p>Walk the island, find the CS block, pick a door.</p>
+          <button className="home-page__cta home-page__cta--secondary" onClick={() => navigate('/island')}>
+            Head to the Island →
           </button>
         </div>
       </div>

@@ -19,6 +19,12 @@ export const useUIStore = create((set) => ({
   sidebarOpen: true,
   mascotExpression: 'teaching', // teaching | excited | thinking | oops | frustrated | idle
 
+  // Passport visibility lives here (not local component state) so any scene
+  // on the campus map -- e.g. the Dorm's desk hotspot -- can open it directly,
+  // not just the PassportButton FAB.
+  passportOpen: false,
+  setPassportOpen: (passportOpen) => set({ passportOpen }),
+
   toggleTheme: () => set((state) => {
     const next = state.theme === 'day' ? 'night' : 'day'
     if (typeof window !== 'undefined') window.localStorage.setItem('seeds:theme', next)
