@@ -1,0 +1,550 @@
+diff --git a/src/data/dialogue/miyu/1.1.json b/src/data/dialogue/miyu/1.1.json
+new file mode 100644
+index 0000000..a6af596
+--- /dev/null
++++ b/src/data/dialogue/miyu/1.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Please, sit properly — every node here knows only one thing about its neighbor: where the next one lives. So gentle, so simple, ne? But let go of that pointer, and everything after it disappears completely. Nothing left. Now, let us see this in C."
++    },
++    "2": {
++      "mascotDialogue": "Look closely — line 3 is everything. `next` is not a value, it is a pointer to another Node. `createNode` always sets `next` to NULL first — a new node never assumes it already knows what comes next. Very polite of it, don't you think."
++    },
++    "3": {
++      "mascotDialogue": "Hover any line on the left, please — watch which node answers on the right. `head->next->next` is only this: follow the arrow, then follow it again. Nothing more mysterious than that."
++    },
++    "4": {
++      "mascotDialogue": "Ara... look at node 2's arrow. Pointing at nothing at all. This is not the picture lying to you — this is the pointer's true, honest state. The code simply never told it where else to go. Maa... ganbatte ne."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/1.2.json b/src/data/dialogue/miyu/1.2.json
+new file mode 100644
+index 0000000..b96030f
+--- /dev/null
++++ b/src/data/dialogue/miyu/1.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Same idea as before, just one more pointer added, so gentle. But now every insert needs four pointers updated, not two. Miss even one, and the list looks perfectly correct walking forward, while walking backward it has already fallen apart, quietly."
++    },
++    "2": {
++      "mascotDialogue": "Lines 9 through 13 — the four-pointer dance. New node's next, new node's prev, old neighbor's prev, target's next. Miss line 11, and prev-traversal breaks silently while next-traversal keeps smiling, as if nothing happened."
++    },
++    "3": {
++      "mascotDialogue": "Notice — the arrows arrive in pairs now. Every connection between two nodes is really two separate pointers, agreeing quietly with each other."
++    },
++    "4": {
++      "mascotDialogue": "This is exactly why doubly linked lists cause more trouble than singly ones — forward direction can look flawless, while backward direction has already broken, without a sound."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/1.3.json b/src/data/dialogue/miyu/1.3.json
+new file mode 100644
+index 0000000..a695e82
+--- /dev/null
++++ b/src/data/dialogue/miyu/1.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "A circular list looping around — this is intentional, a feature, done with care. The same shape appearing by accident, however, is a mistake. Same picture, opposite meaning entirely — so we paint them in different colors, deliberately."
++    },
++    "2": {
++      "mascotDialogue": "Line 6 is the design. Line 13 is the consequence — you may never check `curr != NULL` to stop, because NULL never appears in a circular list. You must check `curr != head` instead."
++    },
++    "3": {
++      "mascotDialogue": "That last arrow, c returning to a — drawn in the calm, closed-loop color. This loop belongs here. No need to worry."
++    },
++    "4": {
++      "mascotDialogue": "See the difference? This arrow is in the warning color now, not the calm one — because this loop was never meant to exist, and traversal will spin on it forever, silently, without complaint."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/1.4.json b/src/data/dialogue/miyu/1.4.json
+new file mode 100644
+index 0000000..c26636f
+--- /dev/null
++++ b/src/data/dialogue/miyu/1.4.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "One rule. No exceptions. Everything happens at the top. If you find yourself wanting to touch anywhere else — this is not a stack you want."
++    },
++    "2": {
++      "mascotDialogue": "`top` is the stack's entire memory of where it stands. Minus one means empty. MAX minus one means full. Everything else is simply moving that one number, quietly, back and forth."
++    },
++    "3": {
++      "mascotDialogue": "See the TOP marker resting on index 2, two empty seats still waiting above it? That space is the whole point — this stack still has room to grow."
++    },
++    "4": {
++      "mascotDialogue": "The function did exactly its duty — it said no, politely. The mistake belongs entirely to the caller, who did not listen. This is why we always show the broken state plainly, with a visible slot past capacity — never quietly."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/1.5.json b/src/data/dialogue/miyu/1.5.json
+new file mode 100644
+index 0000000..25d591e
+--- /dev/null
++++ b/src/data/dialogue/miyu/1.5.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Two ends this time, not one — front for leaving, back for joining. Confuse them even once, and you have quietly built a stack instead."
++    },
++    "2": {
++      "mascotDialogue": "That `% MAX` on both front and rear — this is what allows the array to wrap around gracefully, instead of shifting everyone forward each time someone leaves."
++    },
++    "3": {
++      "mascotDialogue": "FRONT and REAR — two separate markers now. Watch them stay exactly two apart, no matter how much you enqueue or dequeue."
++    },
++    "4": {
++      "mascotDialogue": "An empty queue is not 'nothing to see' — it is a specific, checkable state. If your dequeue does not check for it, it will hand you garbage, calmly, and call it a real value. Maa... ganbatte ne."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/2.1.json b/src/data/dialogue/miyu/2.1.json
+new file mode 100644
+index 0000000..4f108ba
+--- /dev/null
++++ b/src/data/dialogue/miyu/2.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Left is always smaller. Right is always bigger. At every single node, not only the root. Break this rule anywhere, even one fold deep, and it is no longer a BST at all."
++    },
++    "2": {
++      "mascotDialogue": "Lines 12 and 13 — the ordering rule, made literal in code. Smaller folds left, bigger folds right, recursively, all the way down."
++    },
++    "3": {
++      "mascotDialogue": "20 sits left of 30, which already sits left of 50 — each fold downward, the rule holds again. Very consistent, very neat."
++    },
++    "4": {
++      "mascotDialogue": "The tree still looks like a tree — this is what makes the mistake so quiet. It is wrong only relative to the ordering rule, never wrong in shape."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/2.2.json b/src/data/dialogue/miyu/2.2.json
+new file mode 100644
+index 0000000..cc1ba6c
+--- /dev/null
++++ b/src/data/dialogue/miyu/2.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Balance factor is simply left-height minus right-height. Anything outside [-1, 1], and a rotation happens immediately, before we continue. This is the entire self-balancing trick."
++    },
++    "2": {
++      "mascotDialogue": "`rotateRight` lifts the left child up to become the new root of this small subtree, and hands its old right child down to the node just demoted — three pointer swaps, one motion, like folding paper correctly the first time."
++    },
++    "3": {
++      "mascotDialogue": "After the rotation, 20 sits on top, balance factor zero on both sides. Without it, 30 would have carried a balance factor of 2 — a straight leaning line, no longer a tree."
++    },
++    "4": {
++      "mascotDialogue": "The balance factor badge on node 30 — this is the tell. 2 is a hard violation, shown plainly. You do not need to calculate it by hand to notice."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/2.3.json b/src/data/dialogue/miyu/2.3.json
+new file mode 100644
+index 0000000..008020a
+--- /dev/null
++++ b/src/data/dialogue/miyu/2.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Once the expression becomes a tree, evaluating it is simple — solve both children, then apply the operator waiting at the parent. No precedence table required at evaluation time — the shape already carries it, folded in."
++    },
++    "2": {
++      "mascotDialogue": "Line 8 is the base case — a leaf simply returns its digit. Lines 9 and 10 recurse into both children before line 11 combines them. The bottom of the tree always resolves first."
++    },
++    "3": {
++      "mascotDialogue": "Because plus sits beneath multiply, it must resolve first — this is precedence, shown as depth in the tree, instead of a rule you memorize by hand."
++    },
++    "4": {
++      "mascotDialogue": "This mistake hides so well precisely because multiplication does not care about order. Change the operator to subtraction, only in your mind, and this exact same shape begins to lie to you."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/3.1.json b/src/data/dialogue/miyu/3.1.json
+new file mode 100644
+index 0000000..c8fc19f
+--- /dev/null
++++ b/src/data/dialogue/miyu/3.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Same values, two views — a tree for the ordering rule, an array for how it truly lives in memory. parent(i) equals (i minus 1) divided by 2. This is the entire address book."
++    },
++    "2": {
++      "mascotDialogue": "Line 3 is the bridge between array and tree — any index's parent is always (i-1)/2, integer division, no rounding. Line 4 is the min-heap rule itself — stop the moment the parent is already smaller or equal."
++    },
++    "3": {
++      "mascotDialogue": "Hover index 4 in the array — watch its tree node answer, as a child of index 1. Same data, two windows, moving together."
++    },
++    "4": {
++      "mascotDialogue": "Both the array cell and the tree node glow the same broken color at once — because it is one mistake, only seen from two angles."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/3.2.json b/src/data/dialogue/miyu/3.2.json
+new file mode 100644
+index 0000000..db643eb
+--- /dev/null
++++ b/src/data/dialogue/miyu/3.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "extract-max is really two motions — swap the root with the last leaf, shrink the heap by one, then let the displaced value sink to wherever it truly belongs."
++    },
++    "2": {
++      "mascotDialogue": "Lines 4 and 5 find the largest among the node and its two children. Line 8's recursive call is what allows the displaced value to keep sinking past more than one level, if it must."
++    },
++    "3": {
++      "mascotDialogue": "9 sits at the very top, and every parent below beats both its children — same array-index arithmetic as min heap, only the comparison direction reversed."
++    },
++    "4": {
++      "mascotDialogue": "The swap alone does not finish the task. Without siftDown, you have only moved the problem to the top of the tree, not resolved it."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/3.3.json b/src/data/dialogue/miyu/3.3.json
+new file mode 100644
+index 0000000..66afadd
+--- /dev/null
++++ b/src/data/dialogue/miyu/3.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Build the heap once, then simply keep removing the maximum from the top, again and again. Each removal locks one more element into its correct final place."
++    },
++    "2": {
++      "mascotDialogue": "Two loops — build the heap once, on lines 2 and 3, then repeatedly swap and shrink, on lines 5 through 7. The 'end' boundary shrinking each time is what carves the sorted region at the back."
++    },
++    "3": {
++      "mascotDialogue": "Watch the tallest bar walk all the way to the top, then swap cleanly to the far right — one value, locked into its sorted home."
++    },
++    "4": {
++      "mascotDialogue": "This is the one step easiest to forget, because the array still appears to change each loop. It simply never converges into sorted order without it, no matter how busy it looks."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/4.1.json b/src/data/dialogue/miyu/4.1.json
+new file mode 100644
+index 0000000..13ca334
+--- /dev/null
++++ b/src/data/dialogue/miyu/4.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "An arrow in a directed graph means exactly one thing — you may travel this way. It says nothing at all about whether you may return."
++    },
++    "2": {
++      "mascotDialogue": "Line 8 sets exactly one cell in the matrix. A directed edge only ever writes adjacency[u][v] — never adjacency[v][u]."
++    },
++    "3": {
++      "mascotDialogue": "Every arrowhead points only one way here. This particular loop happens to form a cycle, yes, but each edge remains, individually, one-directional."
++    },
++    "4": {
++      "mascotDialogue": "This is the single most common mistake with directed graphs — treating a one-way arrow as though it secretly runs both ways. It does not. The visual only ever draws the direction you actually assigned."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/4.2.json b/src/data/dialogue/miyu/4.2.json
+new file mode 100644
+index 0000000..89a70c6
+--- /dev/null
++++ b/src/data/dialogue/miyu/4.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "One edge, but two entries in the adjacency matrix. Forget the second, and you have quietly built half a directed graph instead."
++    },
++    "2": {
++      "mascotDialogue": "Line 2 and line 3 are not optional extras of one another — they are the same conceptual edge, and must be added together, as a single atomic pair, every time."
++    },
++    "3": {
++      "mascotDialogue": "No arrowheads this time — only a plain line, because the connection is mutual by its very nature."
++    },
++    "4": {
++      "mascotDialogue": "The visual shows a single arrowhead where an undirected graph should never have one at all — this mismatch is the mistake, made impossible to overlook."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/4.3.json b/src/data/dialogue/miyu/4.3.json
+new file mode 100644
+index 0000000..ca2020d
+--- /dev/null
++++ b/src/data/dialogue/miyu/4.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "The queue — this is what makes it breadth-first, rather than depth-first. Whatever is discovered first is explored first — FIFO order performing the level-by-level spread on its own."
++    },
++    "2": {
++      "mascotDialogue": "Line 12 is the guard that keeps BFS from looping forever — mark visited the moment you enqueue, not the moment you dequeue, or the same node will be enqueued again and again."
++    },
++    "3": {
++      "mascotDialogue": "1 and 2 are both distance-1 from the start, so they are visited before 3, which is distance-2 from either. This is the level-order guarantee, in motion."
++    },
++    "4": {
++      "mascotDialogue": "One missing line, and BFS's core guarantee — visit each node exactly once — quietly stops holding, for any graph that is not a simple tree."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/4.4.json b/src/data/dialogue/miyu/4.4.json
+new file mode 100644
+index 0000000..2a2a2e2
+--- /dev/null
++++ b/src/data/dialogue/miyu/4.4.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Same visited-tracking idea as BFS, an entirely different order of motion — DFS descends deeply first, and returns only when it truly must."
++    },
++    "2": {
++      "mascotDialogue": "Line 6 is the whole difference from BFS — instead of placing the neighbor in a queue for later, DFS recurses into it at once, descending before ever returning to the next sibling."
++    },
++    "3": {
++      "mascotDialogue": "Same graph as the BFS lesson, an entirely different order — 3 is visited before 2, because DFS committed to 1 first, and followed that path all the way down."
++    },
++    "4": {
++      "mascotDialogue": "DFS's recursive elegance is also its greatest risk — forget the visited check, and 'go deep' has no floor to reach. It simply keeps calling itself, without end."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/5.1.json b/src/data/dialogue/miyu/5.1.json
+new file mode 100644
+index 0000000..9c48f96
+--- /dev/null
++++ b/src/data/dialogue/miyu/5.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "A collision here is not an error — it is an expected outcome, one the whole design plans for. Each bucket simply becomes its own small linked list, instead of a single slot."
++    },
++    "2": {
++      "mascotDialogue": "Line 13 is the entire strategy — rather than overwrite whatever already rests in the bucket, the new node simply points to it and becomes the new head. Nothing is ever lost to a collision."
++    },
++    "3": {
++      "mascotDialogue": "Bucket 3 now carries a two-node chain — 17, inserted after 10, arrives at the head, exactly as insert-at-head predicts."
++    },
++    "4": {
++      "mascotDialogue": "The chain appears entirely fine — one node, no dangling pointer in sight. This is the trap. The mistake is not a broken pointer, it is one that vanished silently, and this app shows 'lost node' plainly, so it is never invisible. Maa... ganbatte ne."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/5.2.json b/src/data/dialogue/miyu/5.2.json
+new file mode 100644
+index 0000000..f1e6774
+--- /dev/null
++++ b/src/data/dialogue/miyu/5.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "No chains here, no extra memory per bucket — only one slot each, and a clear, repeatable rule for where to look next when your first choice is already occupied."
++    },
++    "2": {
++      "mascotDialogue": "Line 10's (idx plus 1) mod SLOTS — this is the entire probe sequence for linear probing. Simply check the next slot, wrapping at the end, until an empty one appears."
++    },
++    "3": {
++      "mascotDialogue": "17's probe sequence tells the whole journey — it wanted slot 3, found it occupied, and settled one slot over, at 4. This trail is exactly what the visual traces."
++    },
++    "4": {
++      "mascotDialogue": "Same failure as chaining's lost node, an entirely different structure — no probing means no collision resolution at all, only quiet overwriting."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/6.1.json b/src/data/dialogue/miyu/6.1.json
+new file mode 100644
+index 0000000..021d3a8
+--- /dev/null
++++ b/src/data/dialogue/miyu/6.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Nothing elaborate here — simply compare your neighbor, swap if you are larger, and repeat the entire sweep until nothing needs swapping anymore."
++    },
++    "2": {
++      "mascotDialogue": "`n minus i minus 1` on line 3 shrinks the inner loop's range each pass — the last i elements are already sorted, no need to check them again."
++    },
++    "3": {
++      "mascotDialogue": "Watch the tallest bar creep one step right with every swap it loses — this is the 'bubbling' the algorithm is named for, made entirely literal."
++    },
++    "4": {
++      "mascotDialogue": "This one will not crash every time — that is the quiet danger. It will simply, occasionally, read garbage past the array — exactly the kind of mistake that slips by, because it does not always announce itself."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/6.2.json b/src/data/dialogue/miyu/6.2.json
+new file mode 100644
+index 0000000..00940d3
+--- /dev/null
++++ b/src/data/dialogue/miyu/6.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "The pivot does not move again after partitioning — it is already home. Everything left to sort is strictly smaller on one side, strictly larger on the other."
++    },
++    "2": {
++      "mascotDialogue": "Line 9 places the pivot at its final resting index. Lines 16 and 17 then recurse on the strictly-smaller and strictly-larger sides — the pivot itself is never touched again."
++    },
++    "3": {
++      "mascotDialogue": "This pivot happened to be the smallest value, so it settles all the way at index 0 — an unlucky choice, and a fine example of why pivot selection matters for performance."
++    },
++    "4": {
++      "mascotDialogue": "One character out of place — p instead of p minus 1 — and the recursion loses its most important guarantee: that each recursive call works on a strictly smaller range than the one before. One character, an entire guarantee, gone."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/6.3.json b/src/data/dialogue/miyu/6.3.json
+new file mode 100644
+index 0000000..289cdfb
+--- /dev/null
++++ b/src/data/dialogue/miyu/6.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "All the splitting is only bookkeeping — the true sorting work happens entirely within the merge step, comparing two already-sorted halves and interleaving them correctly."
++    },
++    "2": {
++      "mascotDialogue": "Lines 9 and 10 are the merge's heart — compare the fronts of both halves, take the smaller, advance only that side. Lines 12 and 13 gather whichever half still holds leftovers, once the other empties."
++    },
++    "3": {
++      "mascotDialogue": "Notice this view shows no swaps at all — merge sort does not swap elements in place. It writes the smaller of two fronts into a fresh position, with every comparison."
++    },
++    "4": {
++      "mascotDialogue": "It is easy to believe the merge is finished the moment the main comparison loop ends — but one side almost always finishes before the other, and forgetting to drain the leftovers loses real data, silently."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/6.4.json b/src/data/dialogue/miyu/6.4.json
+new file mode 100644
+index 0000000..6cc715e
+--- /dev/null
++++ b/src/data/dialogue/miyu/6.4.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "It is insertion sort, simply given permission to take large steps first. Shrink the gap enough times, and it collapses into ordinary insertion sort for the final, finest pass."
++    },
++    "2": {
++      "mascotDialogue": "Line 2's gap begins at n divided by 2, halving each outer pass. Lines 6 through 8 are only insertion sort's inner loop, comparing arr[j] to arr[j minus gap] instead of arr[j minus 1]."
++    },
++    "3": {
++      "mascotDialogue": "Watch these first comparisons leap across three positions at once — this is a gap of 3 performing long-distance correction, before the finer gap-of-1 pass even begins."
++    },
++    "4": {
++      "mascotDialogue": "This is a quiet kind of mistake — the output is correct, yet the algorithm has silently stopped being the algorithm it claims to be. Not every mistake crashes. Some simply discard, quietly, the entire reason you chose this approach."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/miyu/6.5.json b/src/data/dialogue/miyu/6.5.json
+new file mode 100644
+index 0000000..6a609e2
+--- /dev/null
++++ b/src/data/dialogue/miyu/6.5.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "No comparisons anywhere in this algorithm — none at all. Only repeatedly asking, 'which bucket does this digit belong to,' and gathering the buckets back, in order, digit by digit."
++    },
++    "2": {
++      "mascotDialogue": "Line 10's backward loop — this is what keeps radix sort stable. Processing the original array from the end preserves the relative order of elements sharing the same digit."
++    },
++    "3": {
++      "mascotDialogue": "170 and 90 both arrive in bucket 0 this pass, and their order — 170 before 90 — remains exactly as it was. This is stability, performing its duty quietly, across every pass."
++    },
++    "4": {
++      "mascotDialogue": "This is why loop direction matters, even though it appears a harmless stylistic choice — radix sort's correctness across passes depends on every single pass being stable, not merely correct on its own. Maa... ganbatte ne."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}

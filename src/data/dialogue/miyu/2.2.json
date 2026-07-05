@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Balance factor is simply left-height minus right-height. Anything outside [-1, 1], and a rotation happens immediately, before we continue. This is the entire self-balancing trick."
+    },
+    "2": {
+      "mascotDialogue": "`rotateRight` lifts the left child up to become the new root of this small subtree, and hands its old right child down to the node just demoted — three pointer swaps, one motion, like folding paper correctly the first time."
+    },
+    "3": {
+      "mascotDialogue": "After the rotation, 20 sits on top, balance factor zero on both sides. Without it, 30 would have carried a balance factor of 2 — a straight leaning line, no longer a tree."
+    },
+    "4": {
+      "mascotDialogue": "The balance factor badge on node 30 — this is the tell. 2 is a hard violation, shown plainly. You do not need to calculate it by hand to notice."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Same idea as before, just one more pointer added, so gentle. But now every insert needs four pointers updated, not two. Miss even one, and the list looks perfectly correct walking forward, while walking backward it has already fallen apart, quietly."
+    },
+    "2": {
+      "mascotDialogue": "Lines 9 through 13 — the four-pointer dance. New node's next, new node's prev, old neighbor's prev, target's next. Miss line 11, and prev-traversal breaks silently while next-traversal keeps smiling, as if nothing happened."
+    },
+    "3": {
+      "mascotDialogue": "Notice — the arrows arrive in pairs now. Every connection between two nodes is really two separate pointers, agreeing quietly with each other."
+    },
+    "4": {
+      "mascotDialogue": "This is exactly why doubly linked lists cause more trouble than singly ones — forward direction can look flawless, while backward direction has already broken, without a sound."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}
