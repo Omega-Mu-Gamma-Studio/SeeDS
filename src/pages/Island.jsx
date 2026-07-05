@@ -21,11 +21,12 @@ export default function Island() {
         caption="Gothic spires up on the cliff. Everything else down here pretends that's normal."
       >
         <Hotspot
-          x={38}
-          y={30}
+          x={43}
+          y={40}
+          width={17}
+          height={22}
           label="The University"
           sublabel="Est. a long time ago, apparently"
-          icon="🏰"
           onClick={() => navigate('/campus')}
         />
       </SceneFrame>

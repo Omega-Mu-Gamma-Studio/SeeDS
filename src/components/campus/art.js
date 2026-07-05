@@ -1,15 +1,11 @@
-// Placeholder backgrounds for each campus-map scene. Every value here is a
-// CSS gradient standing in for a real illustration. When art exists, replace
-// the relevant string with e.g. `url('/campus-art/island.jpg') center/cover`
-// -- nothing else about SceneFrame or the hotspot layout needs to change.
+// Real illustrated backgrounds for each campus-map scene. Ink-wash, warm
+// lantern-lit palette, matching the cousin portraits' medium. Swapped in
+// from CSS-gradient placeholders -- SceneFrame and the hotspot layout
+// didn't need to change shape to support this, just the values below.
 
 export const SCENE_ART = {
-  island:
-    'radial-gradient(ellipse at 30% 20%, #2a6f6a 0%, #1c4f52 35%, #0f3247 65%, #0a2338 100%)',
-  campus:
-    'linear-gradient(160deg, #3a3428 0%, #2a2620 45%, #1a1712 100%)',
-  csBlock:
-    'linear-gradient(180deg, #3d3226 0%, #2a2118 55%, #1a140e 100%)',
-  dorm:
-    'linear-gradient(160deg, #4a3b2e 0%, #2e2418 60%, #1c150e 100%)',
+  island: "url('/campus-art/island.png') center/cover",
+  campus: "url('/campus-art/campus.png') center/cover",
+  csBlock: "url('/campus-art/cs-block.png') center/cover",
+  dorm: "url('/campus-art/dorm.png') center/cover",
 }

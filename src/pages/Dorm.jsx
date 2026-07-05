@@ -25,11 +25,12 @@ export default function Dorm() {
         backLabel="Back to campus"
       >
         <Hotspot
-          x={50}
-          y={55}
+          x={46}
+          y={65}
+          width={23}
+          height={26}
           label="Your Journal"
           sublabel="Open Passport"
-          icon="📖"
           onClick={openPassport}
         />
       </SceneFrame>

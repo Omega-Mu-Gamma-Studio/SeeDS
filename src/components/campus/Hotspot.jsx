@@ -2,60 +2,62 @@ import { useState } from 'react'
 import './Hotspot.css'
 
 /**
- * One clickable (or locked) thing in a scene: a department building on the
- * Campus overview, a lecture-hall door in the CS Block hallway, a desk in
- * the Dorm. Positioned with `x`/`y` percentages so it stays glued to the
- * right spot regardless of viewport size (no drift like plain background-
- * image + absolute-px positioning would cause).
+ * One clickable (or locked) region in a scene, sized and positioned to hug
+ * an actual object in the illustrated background -- a door, a desk, a
+ * building -- rather than floating a badge on top of the art.
  *
- * variant="building" -> squarer card, used on the Campus overview
- * variant="door"      -> tall arched door, used in the CS Block hallway
+ * `x`/`y`/`width`/`height` are all percentages of the scene, describing a
+ * bounding box over the real object (x/y = top-left corner, not center).
+ * The region is fully invisible at rest; hovering or focusing it reveals a
+ * soft outline traced to that same box plus a label, so the art reads clean
+ * until someone's actually looking for what's interactive.
  */
 export default function Hotspot({
   x,
   y,
+  width,
+  height,
   label,
   sublabel,
-  icon = '🏛️',
-  variant = 'building',
   locked = false,
   current = false,
   lockedReason = 'Locked for now',
   onClick,
 }) {
   const [hovered, setHovered] = useState(false)
+  const [focused, setFocused] = useState(false)
+  const active = hovered || focused
 
   return (
     <div
       className="hotspot"
-      style={{ left: `${x}%`, top: `${y}%` }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      style={{ left: `${x}%`, top: `${y}%`, width: `${width}%`, height: `${height}%` }}
     >
       <button
         type="button"
         className={[
-          'hotspot__shape',
-          `hotspot__shape--${variant}`,
-          locked ? 'hotspot__shape--locked' : '',
-          current ? 'hotspot__shape--current' : '',
+          'hotspot__region',
+          locked ? 'hotspot__region--locked' : '',
+          current ? 'hotspot__region--current' : '',
+          active ? 'hotspot__region--active' : '',
         ].join(' ').trim()}
         disabled={locked}
         onClick={onClick}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         aria-label={locked ? `${label} (${lockedReason})` : label}
       >
-        <span className="hotspot__icon">{locked ? '🔒' : icon}</span>
         {current && <span className="hotspot__pulse" aria-hidden="true" />}
       </button>
 
-      <div className="hotspot__label">
-        <span className="hotspot__label-text">{label}</span>
-        {sublabel && <span className="hotspot__label-sub">{sublabel}</span>}
-      </div>
-
-      {hovered && (
+      {active && (
         <div className="hotspot__tooltip" role="tooltip">
-          {locked ? lockedReason : sublabel || label}
+          <span className="hotspot__tooltip-title">{label}</span>
+          {(locked ? lockedReason : sublabel) && (
+            <span className="hotspot__tooltip-sub">{locked ? lockedReason : sublabel}</span>
+          )}
         </div>
       )}
     </div>

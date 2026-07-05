@@ -21,6 +21,7 @@ function statusFor(landmark, completedLessons) {
 export default function CSBlock() {
   const navigate = useNavigate()
   const { completedLessons } = useProgress()
+  const [lectureHallOpen, setLectureHallOpen] = useState(false)
   const [staffRoomOpen, setStaffRoomOpen] = useState(false)
 
   const units = lessonService.getAllUnits()
@@ -35,60 +36,94 @@ export default function CSBlock() {
   })
 
   const current = doors.find((d) => !d.locked && d.status !== 'complete')
+  const doneCount = doors.filter((d) => d.status === 'complete').length
 
-  function handleDoorClick(door) {
+  function handleLandmarkClick(door) {
     if (door.locked) return
-    // First lesson behind the door -- not-yet-done one if mid-landmark,
+    // First lesson behind the landmark -- not-yet-done one if mid-landmark,
     // otherwise just the first. Keeps a single click meaningful even
-    // once a landmark has several lessons behind its door.
+    // once a landmark has several lessons behind it.
     const target = door.lessons.find((lid) => !completedLessons.includes(lid)) || door.lessons[0]
     navigate(`/lesson/${target}`)
   }
-
-  // Doors laid out in a single row the player "walks down." Overflow
-  // scrolls horizontally -- fine for now with a handful of landmarks,
-  // and doesn't require knowing the total count up front.
-  const doorSpacing = 100 / (doors.length + 1)
 
   return (
     <div className="cs-block-page">
       <SceneFrame
         art={SCENE_ART.csBlock}
         title="CS Department -- Ground Floor"
-        caption="One door is unlocked. The rest are still waiting their turn."
+        caption="One lecture hall teaches every unit. The other door is just the staff."
         backTo="/campus"
         backLabel="Back to campus"
       >
-        {doors.map((door, i) => (
-          <Hotspot
-            key={door.id}
-            variant="door"
-            x={doorSpacing * (i + 1)}
-            y={55}
-            label={door.name}
-            sublabel={
-              door.locked
-                ? undefined
-                : `${door.lessons.filter((id) => completedLessons.includes(id)).length}/${door.lessons.length} lessons`
-            }
-            icon={door.status === 'complete' ? '📜' : '🚪'}
-            locked={door.locked}
-            current={door === current}
-            lockedReason={`${door.name} -- come back once the previous hall is sealed.`}
-            onClick={() => handleDoorClick(door)}
-          />
-        ))}
+        <Hotspot
+          x={3}
+          y={5}
+          width={19}
+          height={73}
+          label="Lecture Hall"
+          sublabel={`${doneCount}/${doors.length} landmarks`}
+          current
+          onClick={() => setLectureHallOpen(true)}
+        />
 
         <Hotspot
-          variant="door"
-          x={doorSpacing * (doors.length + 1) > 92 ? 6 : 94}
-          y={55}
+          x={34}
+          y={5}
+          width={16}
+          height={67}
           label="Staff Room"
           sublabel="Switch advisor"
-          icon="🧑‍🏫"
           onClick={() => setStaffRoomOpen(true)}
         />
       </SceneFrame>
+
+      {lectureHallOpen && (
+        <div className="cs-block-staffroom" role="dialog" aria-label="Lecture hall">
+          <div className="cs-block-staffroom__scrim" onClick={() => setLectureHallOpen(false)} />
+          <div className="cs-block-staffroom__panel">
+            <div className="cs-block-staffroom__header">
+              <h2>The Lecture Hall</h2>
+              <button onClick={() => setLectureHallOpen(false)} aria-label="Leave the lecture hall">✕</button>
+            </div>
+            <p className="cs-block-staffroom__sub">
+              Same room, every unit -- pick a landmark to jump into its lessons.
+            </p>
+            <ul className="lecture-hall__list">
+              {doors.map((door) => (
+                <li key={door.id}>
+                  <button
+                    type="button"
+                    className={[
+                      'lecture-hall__row',
+                      door.locked ? 'lecture-hall__row--locked' : '',
+                      door === current ? 'lecture-hall__row--current' : '',
+                      door.status === 'complete' ? 'lecture-hall__row--complete' : '',
+                    ].join(' ').trim()}
+                    disabled={door.locked}
+                    onClick={() => {
+                      handleLandmarkClick(door)
+                      setLectureHallOpen(false)
+                    }}
+                  >
+                    <span className="lecture-hall__row-icon" aria-hidden="true">
+                      {door.locked ? '🔒' : door.status === 'complete' ? '📜' : '🚪'}
+                    </span>
+                    <span className="lecture-hall__row-text">
+                      <span className="lecture-hall__row-name">{door.name}</span>
+                      <span className="lecture-hall__row-sub">
+                        {door.locked
+                          ? `${door.name} -- come back once the previous landmark is sealed.`
+                          : `${door.lessons.filter((id) => completedLessons.includes(id)).length}/${door.lessons.length} lessons`}
+                      </span>
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
 
       {staffRoomOpen && (
         <div className="cs-block-staffroom" role="dialog" aria-label="Staff room">

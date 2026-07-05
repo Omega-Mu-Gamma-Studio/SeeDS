@@ -21,21 +21,6 @@
   pointer-events: none;
 }
 
-.scene-frame__wip-tag {
-  position: absolute;
-  bottom: 0.75rem;
-  right: 0.9rem;
-  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.55);
-  background: rgba(0, 0, 0, 0.25);
-  padding: 0.2rem 0.5rem;
-  border-radius: 999px;
-  pointer-events: none;
-  z-index: 5;
-}
-
 .scene-frame__back {
   position: absolute;
   top: 1.25rem;

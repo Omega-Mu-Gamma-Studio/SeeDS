@@ -24,43 +24,48 @@ export default function Campus() {
         backLabel="Back to the island"
       >
         <Hotspot
-          x={30}
-          y={45}
+          x={4}
+          y={20}
+          width={35}
+          height={58}
           label="CS Department"
           sublabel="Where SeeDS lives"
-          icon="🖥️"
           current
           onClick={() => navigate('/campus/cs')}
         />
         <Hotspot
-          x={62}
-          y={62}
+          x={59}
+          y={16}
+          width={38}
+          height={58}
           label="The Dorms"
           sublabel="Passport, rest, breathe"
-          icon="🛏️"
           onClick={() => navigate('/campus/dorm')}
         />
         <Hotspot
-          x={55}
-          y={22}
+          x={40}
+          y={2}
+          width={17}
+          height={18}
           label="The Conservatory"
-          icon="🎵"
           locked
           lockedReason="Closed for now. Word is someone's building something in there."
         />
         <Hotspot
-          x={78}
-          y={35}
+          x={60}
+          y={7}
+          width={11}
+          height={14}
           label="Engineering Hall"
-          icon="⚙️"
           locked
           lockedReason="Closed for now."
         />
         <Hotspot
-          x={15}
-          y={70}
+          x={85}
+          y={4}
+          width={12}
+          height={16}
           label="Architecture Studio"
-          icon="📐"
           locked
           lockedReason="Closed for now."
         />

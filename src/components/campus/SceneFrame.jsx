@@ -26,9 +26,6 @@ export default function SceneFrame({
     <div className="scene-frame">
       <div className="scene-frame__art" style={{ background: art }}>
         <div className="scene-frame__vignette" aria-hidden="true" />
-        <div className="scene-frame__wip-tag" title="Placeholder art -- swap via art.js">
-          art: placeholder
-        </div>
 
         {backTo && (
           <button

@@ -1,67 +1,44 @@
 .hotspot {
   position: absolute;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
 }
 
-.hotspot__shape {
+.hotspot__region {
+  width: 100%;
+  height: 100%;
   border: none;
+  background: transparent;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 10px;
   position: relative;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  transition: box-shadow 0.15s ease, background 0.15s ease;
 }
 
-.hotspot__shape:not(:disabled):hover {
-  transform: scale(1.08);
+.hotspot__region--active:not(.hotspot__region--locked) {
+  background: rgba(255, 223, 150, 0.08);
+  box-shadow: inset 0 0 0 2px rgba(255, 214, 120, 0.85), 0 0 18px 2px rgba(255, 200, 90, 0.25);
 }
 
-.hotspot__shape:not(:disabled):active {
-  transform: scale(0.97);
+.hotspot__region--active.hotspot__region--locked {
+  background: rgba(180, 180, 180, 0.06);
+  box-shadow: inset 0 0 0 2px rgba(210, 210, 210, 0.5);
 }
 
-/* Building variant -- squarish, used on the Campus overview */
-.hotspot__shape--building {
-  width: 76px;
-  height: 76px;
-  border-radius: 14px;
-  background: linear-gradient(160deg, #7a6a52, #4b4032);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4), inset 0 0 0 2px rgba(255, 223, 150, 0.35);
-  font-size: 1.9rem;
-}
-
-/* Door variant -- tall arch, used in the CS Block hallway */
-.hotspot__shape--door {
-  width: 58px;
-  height: 92px;
-  border-radius: 29px 29px 6px 6px;
-  background: linear-gradient(180deg, #5b4630, #2e2115);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.45), inset 0 0 0 2px rgba(255, 223, 150, 0.3);
-  font-size: 1.5rem;
-}
-
-.hotspot__shape--locked {
+.hotspot__region--locked {
   cursor: not-allowed;
-  filter: grayscale(0.6) brightness(0.65);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
 }
 
-.hotspot__shape--locked:hover {
-  transform: none;
+.hotspot__region:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px rgba(255, 214, 120, 0.95), 0 0 0 3px rgba(255, 214, 120, 0.35);
 }
 
-.hotspot__shape--current {
-  box-shadow: 0 0 0 3px rgba(255, 214, 120, 0.9), 0 0 26px 6px rgba(255, 200, 90, 0.55);
+.hotspot__region--current {
+  box-shadow: inset 0 0 0 2px rgba(255, 214, 120, 0.55);
 }
 
 .hotspot__pulse {
   position: absolute;
-  inset: -6px;
+  inset: -4px;
   border-radius: inherit;
   border: 2px solid rgba(255, 214, 120, 0.8);
   animation: hotspot-pulse 1.8s ease-out infinite;
@@ -70,29 +47,7 @@
 
 @keyframes hotspot-pulse {
   0% { transform: scale(1); opacity: 0.9; }
-  100% { transform: scale(1.35); opacity: 0; }
-}
-
-.hotspot__label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  color: #f9f6ee;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-  max-width: 120px;
-}
-
-.hotspot__label-text {
-  font-size: 0.78rem;
-  font-weight: 700;
-  line-height: 1.1;
-}
-
-.hotspot__label-sub {
-  font-size: 0.66rem;
-  opacity: 0.8;
-  margin-top: 0.1rem;
+  100% { transform: scale(1.05); opacity: 0; }
 }
 
 .hotspot__tooltip {
@@ -100,6 +55,10 @@
   bottom: calc(100% + 10px);
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   background: rgba(15, 12, 10, 0.92);
   color: #f4efe2;
   padding: 0.4rem 0.65rem;
@@ -108,7 +67,24 @@
   white-space: nowrap;
   max-width: 220px;
   white-space: normal;
-  text-align: center;
   z-index: 10;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.hotspot__tooltip-title {
+  font-weight: 700;
+}
+
+.hotspot__tooltip-sub {
+  opacity: 0.8;
+  margin-top: 0.1rem;
+  font-size: 0.68rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hotspot__pulse {
+    animation: none;
+    opacity: 0.6;
+  }
 }
