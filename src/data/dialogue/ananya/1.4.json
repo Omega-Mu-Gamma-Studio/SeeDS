@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "One rule, beta, no exceptions: everything happens at the TOP. You start wanting to touch anything else? Arre, then you don't want a stack at all, you want something else entirely."
+    },
+    "2": {
+      "mascotDialogue": "`top` is the stack's entire memory of where it stands, beta. -1 means empty. MAX minus 1 means full. Everything else? Just moving that one number around, that's the whole job."
+    },
+    "3": {
+      "mascotDialogue": "See the TOP marker sitting right on index 2, with two empty slots still open above it? That headroom is the whole point, beta — this stack still has room to grow."
+    },
+    "4": {
+      "mascotDialogue": "The function did exactly its job, beta — it said no! The bug is entirely the caller not listening. This is why we always show a broken state with a visible slot past capacity — loudly, not quietly."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "A circular list looping around — that is a FEATURE, beta, on purpose! But the exact same shape showing up by accident? That is a bug. Same picture, completely opposite meaning — so we draw them in different colors, deliberately."
+    },
+    "2": {
+      "mascotDialogue": "Line 6 — that's the design choice. Line 13 is the consequence, beta: you can never check `curr != NULL` to stop, because NULL never shows up in a circular list, not even once! You must check `curr != head` instead."
+    },
+    "3": {
+      "mascotDialogue": "That last arrow, c going back to a — drawn in the calm, closed-loop color. This loop is supposed to be here, beta, nothing to worry about."
+    },
+    "4": {
+      "mascotDialogue": "See the difference? That arrow is in the warning color now, not the calm one — because this loop was never meant to exist, and traversal will spin on it forever, no warning, nothing."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

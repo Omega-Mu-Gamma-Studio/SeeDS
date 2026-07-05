@@ -1,0 +1,550 @@
+diff --git a/src/data/dialogue/ananya/1.1.json b/src/data/dialogue/ananya/1.1.json
+new file mode 100644
+index 0000000..3e23282
+--- /dev/null
++++ b/src/data/dialogue/ananya/1.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Arre beta, listen — every node here, it only knows ONE thing about its neighbor: where the next one is sitting. That's it! You let go of that pointer — poof — everything after it, gone, vanished, like the last dish in a buffet line nobody labeled. Chalo, let's see this in C."
++    },
++    "2": {
++      "mascotDialogue": "Dekho, line 3 — that is the whole scene, beta. `next` is not a value, it's a pointer to another Node. And `createNode`? Always sets it to NULL first, every single time — a brand new node does not go around assuming it already knows what's coming next."
++    },
++    "3": {
++      "mascotDialogue": "Hover any line on the left, na — watch who lights up on the right! `head->next->next`? Simple, simple — just following the arrow twice. Nothing more dramatic than that, I promise."
++    },
++    "4": {
++      "mascotDialogue": "Look at node 2's arrow, beta — pointing at absolutely nothing! Don't blame the picture, ok? This is the honest, true position of that pointer. The code simply never told it to go anywhere else."
++    },
++    "5": {
++      "mascotDialogue": "Bas! That's it. Done."
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/1.2.json b/src/data/dialogue/ananya/1.2.json
+new file mode 100644
+index 0000000..77bb4f8
+--- /dev/null
++++ b/src/data/dialogue/ananya/1.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Same idea as before, beta, just ONE more pointer per node. But now — arre — every insert needs FOUR pointers updated, not two! Miss even one, and the list looks perfectly fine walking forward, and a complete mess walking backward."
++    },
++    "2": {
++      "mascotDialogue": "Lines 9 through 13, beta — that is the four-pointer dance. New node's next, new node's prev, the old neighbor's prev, the target's next. Miss line 11 and — chup-chap, quietly — prev-traversal breaks while next-traversal is still smiling at you like nothing happened."
++    },
++    "3": {
++      "mascotDialogue": "Notice — the arrows come in pairs now! Every connection between two nodes, it is really TWO separate pointers, agreeing with each other. Like a good jodi, haan, both sides have to say yes."
++    },
++    "4": {
++      "mascotDialogue": "This, beta, is exactly why doubly linked lists cause more trouble than singly ones — forward direction can look absolutely perfect, while backward is quietly, secretly broken the whole time."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/1.3.json b/src/data/dialogue/ananya/1.3.json
+new file mode 100644
+index 0000000..3ee91f1
+--- /dev/null
++++ b/src/data/dialogue/ananya/1.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "A circular list looping around — that is a FEATURE, beta, on purpose! But the exact same shape showing up by accident? That is a bug. Same picture, completely opposite meaning — so we draw them in different colors, deliberately."
++    },
++    "2": {
++      "mascotDialogue": "Line 6 — that's the design choice. Line 13 is the consequence, beta: you can never check `curr != NULL` to stop, because NULL never shows up in a circular list, not even once! You must check `curr != head` instead."
++    },
++    "3": {
++      "mascotDialogue": "That last arrow, c going back to a — drawn in the calm, closed-loop color. This loop is supposed to be here, beta, nothing to worry about."
++    },
++    "4": {
++      "mascotDialogue": "See the difference? That arrow is in the warning color now, not the calm one — because this loop was never meant to exist, and traversal will spin on it forever, no warning, nothing."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/1.4.json b/src/data/dialogue/ananya/1.4.json
+new file mode 100644
+index 0000000..3fa1eee
+--- /dev/null
++++ b/src/data/dialogue/ananya/1.4.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "One rule, beta, no exceptions: everything happens at the TOP. You start wanting to touch anything else? Arre, then you don't want a stack at all, you want something else entirely."
++    },
++    "2": {
++      "mascotDialogue": "`top` is the stack's entire memory of where it stands, beta. -1 means empty. MAX minus 1 means full. Everything else? Just moving that one number around, that's the whole job."
++    },
++    "3": {
++      "mascotDialogue": "See the TOP marker sitting right on index 2, with two empty slots still open above it? That headroom is the whole point, beta — this stack still has room to grow."
++    },
++    "4": {
++      "mascotDialogue": "The function did exactly its job, beta — it said no! The bug is entirely the caller not listening. This is why we always show a broken state with a visible slot past capacity — loudly, not quietly."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/1.5.json b/src/data/dialogue/ananya/1.5.json
+new file mode 100644
+index 0000000..ddc30cf
+--- /dev/null
++++ b/src/data/dialogue/ananya/1.5.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Two ends this time, beta, not one — front for leaving, back for joining, that's it. Mix those up even once and you've quietly built yourself a stack instead!"
++    },
++    "2": {
++      "mascotDialogue": "That `% MAX` on both front and rear, beta — that is what lets this array wrap around instead of shifting everybody forward every single time someone leaves. Smart, no?"
++    },
++    "3": {
++      "mascotDialogue": "FRONT and REAR — two separate markers now, beta. Watch them, they stay two apart, no matter how much you enqueue or dequeue."
++    },
++    "4": {
++      "mascotDialogue": "An empty queue is not 'nothing to see,' beta — it is a specific, checkable state! If your dequeue does not check for it, it will happily hand you garbage and call it a real value. Not okay!"
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/2.1.json b/src/data/dialogue/ananya/2.1.json
+new file mode 100644
+index 0000000..b5457e4
+--- /dev/null
++++ b/src/data/dialogue/ananya/2.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Left is always smaller, right is always bigger — at EVERY single node, beta, not just the root! Break that rule anywhere, even one node deep in the family tree, and it stops being a BST altogether."
++    },
++    "2": {
++      "mascotDialogue": "Lines 12 and 13, beta — that is the ordering rule made literal in code. Smaller goes left, bigger goes right, recursively, all the way down the tree, no shortcuts."
++    },
++    "3": {
++      "mascotDialogue": "20 sits left of 30, which is already left of 50 — every single step down, beta, the ordering rule holds again and again. Consistent family, this one."
++    },
++    "4": {
++      "mascotDialogue": "The tree still looks like a perfectly nice tree, beta — that is what makes this bug so sneaky! It is only wrong relative to the ordering rule, not wrong in shape at all."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/2.2.json b/src/data/dialogue/ananya/2.2.json
+new file mode 100644
+index 0000000..b814610
+--- /dev/null
++++ b/src/data/dialogue/ananya/2.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Balance factor is just left-height minus right-height, beta, simple subtraction. Anything outside [-1, 1] and — bas, rotation happens right away before we move on. That is the entire self-balancing trick."
++    },
++    "2": {
++      "mascotDialogue": "`rotateRight` lifts the left child up to become the new root of this little subtree, and hands its old right child down to the node that just got demoted — three pointer swaps, beta, one single operation."
++    },
++    "3": {
++      "mascotDialogue": "After the rotation, 20 sits right on top, balance factor 0 on both sides — beautiful symmetry! Without it, beta, 30 would have had a balance factor of 2 — a straight leaning line, not a tree anymore at all."
++    },
++    "4": {
++      "mascotDialogue": "The balance factor badge on node 30 — that is the tell, beta! 2 is a hard violation, shown right there plainly, you don't even have to calculate it by hand to notice."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/2.3.json b/src/data/dialogue/ananya/2.3.json
+new file mode 100644
+index 0000000..bf2d6c0
+--- /dev/null
++++ b/src/data/dialogue/ananya/2.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Once the expression becomes a tree, beta, evaluating it is simple — solve both children, then apply the operator sitting at the parent. No precedence table needed at evaluation time at all — the shape itself already encodes everything."
++    },
++    "2": {
++      "mascotDialogue": "Line 8 is the base case, beta — a leaf simply returns its digit. Lines 9 and 10 recurse into both children before line 11 combines them. Bottom of the tree evaluates first, always, no exceptions."
++    },
++    "3": {
++      "mascotDialogue": "Because plus sits underneath multiply, beta, it is forced to resolve first — that is precedence, shown right there as depth in the tree, instead of some rule you have to memorize by heart!"
++    },
++    "4": {
++      "mascotDialogue": "This bug hides so well, beta, precisely because multiplication doesn't care about order. Swap the operator to subtraction in your head for a second — and this exact same shape suddenly starts lying to you!"
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/3.1.json b/src/data/dialogue/ananya/3.1.json
+new file mode 100644
+index 0000000..5ef8266
+--- /dev/null
++++ b/src/data/dialogue/ananya/3.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Same values, beta, but TWO views — a tree for the ordering rule, an array for how it actually lives in memory. parent(i) equals (i minus 1) divided by 2 — that's it, the whole address book, right there."
++    },
++    "2": {
++      "mascotDialogue": "Line 3 is the array-to-tree bridge, beta: any index's parent is always (i-1)/2, integer division, no rounding tricks. Line 4 is the min-heap rule itself — stop the moment the parent is already smaller or equal."
++    },
++    "3": {
++      "mascotDialogue": "Hover index 4 in the array, beta — watch its tree node light up as a child of index 1! Same data, two synchronized windows looking at the exact same thing."
++    },
++    "4": {
++      "mascotDialogue": "Both the array cell and the tree node light up in the same broken color at once, beta — because it is ONE violation, just being viewed two different ways at the same time."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/3.2.json b/src/data/dialogue/ananya/3.2.json
+new file mode 100644
+index 0000000..5237fff
+--- /dev/null
++++ b/src/data/dialogue/ananya/3.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "extract-max is really two moves, beta. Swap the root with the last leaf, shrink the heap by one — then let that displaced value sink down to wherever it truly belongs."
++    },
++    "2": {
++      "mascotDialogue": "Lines 4 and 5 find the biggest among the node and its two children, beta. Line 8's recursive call is what lets that displaced value keep sinking past more than one level, if it needs to go further down."
++    },
++    "3": {
++      "mascotDialogue": "9 sits right up top, beta, and every parent down this tree beats both its children — same array-index math as min heap, just the comparison direction flipped completely around."
++    },
++    "4": {
++      "mascotDialogue": "The swap alone does not finish the job, beta! Without siftDown, you have just relocated the problem to the top of the tree instead of actually solving it. Half a job is no job."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/3.3.json b/src/data/dialogue/ananya/3.3.json
+new file mode 100644
+index 0000000..45f51f2
+--- /dev/null
++++ b/src/data/dialogue/ananya/3.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Build the heap once, beta, and then just keep pulling the max off the top, again and again. Each pull locks one more element into its correct final spot — simple, satisfying."
++    },
++    "2": {
++      "mascotDialogue": "Two loops here, beta — build the heap once on lines 2 and 3, then repeatedly swap-and-shrink on lines 5 through 7. That 'end' boundary shrinking every time is what carves out the sorted region at the back."
++    },
++    "3": {
++      "mascotDialogue": "Watch the tallest bar get walked all the way to the top, beta, then swapped clean to the far right — that is one value, locked into its sorted home, forever."
++    },
++    "4": {
++      "mascotDialogue": "This is the one step that is so easy to forget, beta, because the array still LOOKS like it's changing each loop! It just never converges into sorted order without this step, no matter how busy it looks."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/4.1.json b/src/data/dialogue/ananya/4.1.json
+new file mode 100644
+index 0000000..b1c7e4d
+--- /dev/null
++++ b/src/data/dialogue/ananya/4.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "An arrow in a directed graph means exactly ONE thing, beta — you can go this way. That's it! It says absolutely nothing about whether you can come back the same way."
++    },
++    "2": {
++      "mascotDialogue": "Line 8 sets exactly ONE cell in the matrix, beta. A directed edge only ever writes adjacency[u][v] — never, ever touches adjacency[v][u]. One-way ticket, that's all."
++    },
++    "3": {
++      "mascotDialogue": "Every arrowhead points just one way here, beta. This particular loop happens to form a cycle, sure — but notice, each edge is still, individually, one-directional. Like a big ensemble scene, everybody's got their own entrance."
++    },
++    "4": {
++      "mascotDialogue": "This, beta, is the single most common directed-graph mistake — treating a one-way arrow like it secretly goes both ways! It does not. The visual only ever draws the direction you actually set, nothing hidden."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/4.2.json b/src/data/dialogue/ananya/4.2.json
+new file mode 100644
+index 0000000..216268e
+--- /dev/null
++++ b/src/data/dialogue/ananya/4.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "One edge, beta, but TWO entries in the adjacency matrix! Forget the second one, and — arre — you've quietly built half a directed graph by accident."
++    },
++    "2": {
++      "mascotDialogue": "Line 2 and line 3 are not optional extras of each other, beta — they are the SAME conceptual edge, and they must be added together, as one single atomic pair, every single time."
++    },
++    "3": {
++      "mascotDialogue": "No arrowheads this time, beta — just a plain line, because the connection is inherently mutual. Both sides agree, like a proper handshake."
++    },
++    "4": {
++      "mascotDialogue": "The visual is showing a single arrowhead where an undirected graph should never, ever have one — that mismatch IS the bug, beta, made impossible to miss."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/4.3.json b/src/data/dialogue/ananya/4.3.json
+new file mode 100644
+index 0000000..a541b5c
+--- /dev/null
++++ b/src/data/dialogue/ananya/4.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "The queue, beta — that is what makes this breadth-first instead of depth-first. Whoever gets discovered first gets explored first, that's FIFO order doing the level-by-level spreading, all on its own."
++    },
++    "2": {
++      "mascotDialogue": "Line 12 is the guard, beta, that keeps BFS from looping forever — mark visited the MOMENT you enqueue, not the moment you dequeue, or you will enqueue the same node again and again."
++    },
++    "3": {
++      "mascotDialogue": "1 and 2 are both distance-1 from the start, beta, so they get visited before 3, which is distance-2 from either of them. That is the level-order guarantee, right there in action!"
++    },
++    "4": {
++      "mascotDialogue": "One missing line, beta, and BFS's core guarantee — visit each node exactly once — quietly stops holding, for any graph that isn't just a simple tree. Small miss, big consequence."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/4.4.json b/src/data/dialogue/ananya/4.4.json
+new file mode 100644
+index 0000000..75f7cba
+--- /dev/null
++++ b/src/data/dialogue/ananya/4.4.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Same visited-tracking idea as BFS, beta, but a completely different order of operations! DFS dives deep first, and only comes back up when it truly, absolutely has to."
++    },
++    "2": {
++      "mascotDialogue": "Line 6 is the whole difference from BFS, beta — instead of queuing the neighbor for later, DFS recurses into it immediately, going deep before it ever comes back to check the next sibling."
++    },
++    "3": {
++      "mascotDialogue": "Same graph as the BFS lesson, beta, completely different order — 3 gets visited before 2, because DFS committed to going through 1 first and rode that path all the way down, no looking back."
++    },
++    "4": {
++      "mascotDialogue": "DFS's recursive elegance is also its biggest risk, beta — forget the visited check, and 'go deep' has no bottom to hit at all. It just keeps calling itself, forever and ever."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/5.1.json b/src/data/dialogue/ananya/5.1.json
+new file mode 100644
+index 0000000..1a7e421
+--- /dev/null
++++ b/src/data/dialogue/ananya/5.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "A collision here is not an error at all, beta — it is an expected outcome, the whole design plans for it! Each bucket just becomes its own tiny linked list instead of one single slot."
++    },
++    "2": {
++      "mascotDialogue": "Line 13 is the whole strategy, beta — instead of overwriting whatever is already sitting in the bucket, the new node just points at it and becomes the new head. Nothing is ever lost to a collision, nothing!"
++    },
++    "3": {
++      "mascotDialogue": "Bucket 3 is now hanging a two-node chain off its side, beta — 17, inserted after 10, lands right at the head, exactly like insert-at-head predicts."
++    },
++    "4": {
++      "mascotDialogue": "The chain looks perfectly fine, beta — one node, no dangling pointer in sight. That is the trap! The bug is not a broken pointer, it is a silently vanished one, and this app shows you 'lost node' explicitly so it never stays invisible."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/5.2.json b/src/data/dialogue/ananya/5.2.json
+new file mode 100644
+index 0000000..bd9f4d8
+--- /dev/null
++++ b/src/data/dialogue/ananya/5.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "No chains here, beta, no extra memory per bucket — just one slot each, and a clear, repeatable rule for where to look next when your first choice is already taken."
++    },
++    "2": {
++      "mascotDialogue": "Line 10's (idx plus 1) mod SLOTS — that is the entire probe sequence for linear probing, beta! Just check the next slot, wrapping around at the end, until an empty one finally turns up."
++    },
++    "3": {
++      "mascotDialogue": "17's probe sequence shows the whole journey, beta — it wanted slot 3, found it taken, and settled one slot over at 4. That trail is exactly what the visual is tracing for you."
++    },
++    "4": {
++      "mascotDialogue": "Same failure mode as chaining's lost node, beta, but a completely different structure — no probing means no collision resolution at all, just quiet, silent overwriting."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/6.1.json b/src/data/dialogue/ananya/6.1.json
+new file mode 100644
+index 0000000..d44f80c
+--- /dev/null
++++ b/src/data/dialogue/ananya/6.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Nothing fancy here, beta! Just compare your neighbor, swap if you are bigger, and repeat the whole sweep until nothing needs swapping anymore. Simple, simple."
++    },
++    "2": {
++      "mascotDialogue": "`n minus i minus 1` on line 3, beta — that shrinks the inner loop's range every single pass. The last i elements are already sorted, so why check them again? No need."
++    },
++    "3": {
++      "mascotDialogue": "Watch the tallest bar creep one step right, beta, every single swap it loses — that is the 'bubbling' this whole algorithm is named after, made completely literal for you."
++    },
++    "4": {
++      "mascotDialogue": "This one will not crash every time, beta — that's the sneaky part! It will just occasionally read garbage past the array, and that is exactly the kind of bug that slips by, because it does not always announce itself."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/6.2.json b/src/data/dialogue/ananya/6.2.json
+new file mode 100644
+index 0000000..f3dca3f
+--- /dev/null
++++ b/src/data/dialogue/ananya/6.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "The pivot does not move again after partitioning, beta — it is already home! Everything left to sort is strictly smaller on one side, strictly bigger on the other. Neat and settled."
++    },
++    "2": {
++      "mascotDialogue": "Line 9 places the pivot at its final resting index, beta. Lines 16 and 17 then recurse on the strictly-smaller and strictly-larger sides — the pivot itself? Never touched again, not once."
++    },
++    "3": {
++      "mascotDialogue": "This pivot happened to be the smallest value, beta, so it ends up all the way at index 0 — an unlucky pivot choice! And a very good example of why pivot selection actually matters for performance."
++    },
++    "4": {
++      "mascotDialogue": "One character off, beta — p instead of p minus 1 — and the recursion loses its most important guarantee: that every recursive call works on a strictly smaller range than the one before. One character, whole guarantee gone!"
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/6.3.json b/src/data/dialogue/ananya/6.3.json
+new file mode 100644
+index 0000000..a876263
+--- /dev/null
++++ b/src/data/dialogue/ananya/6.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "All the splitting is just bookkeeping, beta — the real sorting work happens entirely in the merge step, comparing two already-sorted halves and interleaving them correctly. That's where the magic actually is."
++    },
++    "2": {
++      "mascotDialogue": "Lines 9 and 10 are the merge's heart, beta — compare the fronts of both halves, take the smaller one, advance only that side. Lines 12 and 13 mop up whichever half still has leftovers once the other one runs out completely."
++    },
++    "3": {
++      "mascotDialogue": "Notice this view does not show swaps at all, beta — merge sort doesn't swap elements in place! It writes the smaller of two fronts into a fresh position, every single comparison."
++    },
++    "4": {
++      "mascotDialogue": "It is easy to think the merge is 'done' the moment the main comparison loop ends, beta — but one side almost always finishes before the other! And forgetting to drain the leftovers loses real data, quietly, without a single warning."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/6.4.json b/src/data/dialogue/ananya/6.4.json
+new file mode 100644
+index 0000000..12ed897
+--- /dev/null
++++ b/src/data/dialogue/ananya/6.4.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "It's insertion sort, beta, just given permission to take big steps first! Shrink the gap enough times, and it collapses right into ordinary insertion sort for the final, finest pass."
++    },
++    "2": {
++      "mascotDialogue": "Line 2's gap starts at n divided by 2, beta, and halves every outer pass. Lines 6 through 8 are just insertion sort's inner loop, except comparing arr[j] to arr[j minus gap] instead of arr[j minus 1]."
++    },
++    "3": {
++      "mascotDialogue": "Watch these first comparisons skip across three positions at once, beta — that's a gap of 3 doing long-distance corrections, well before the finer gap-of-1 pass even begins."
++    },
++    "4": {
++      "mascotDialogue": "This is a subtle kind of bug, beta — the output is correct, but the algorithm quietly stopped being the algorithm it claims to be! Not every bug crashes, some just quietly throw away the whole reason you chose this approach in the first place."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/ananya/6.5.json b/src/data/dialogue/ananya/6.5.json
+new file mode 100644
+index 0000000..d4f385a
+--- /dev/null
++++ b/src/data/dialogue/ananya/6.5.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "No comparisons anywhere in this algorithm, beta — none at all! Just repeatedly asking 'which bucket does this digit belong in' and gathering the buckets back up in order, digit by digit."
++    },
++    "2": {
++      "mascotDialogue": "Line 10's backward loop, beta — that is what keeps radix sort stable! Processing the original array from the end preserves the relative order of elements that share the same digit. Small detail, big deal."
++    },
++    "3": {
++      "mascotDialogue": "170 and 90 both land in bucket 0 for this pass, beta — and their relative order, 170 before 90, is preserved! That is stability doing its job, quietly, across every single pass."
++    },
++    "4": {
++      "mascotDialogue": "This is why the loop direction matters, beta, even though it looks like a harmless stylistic choice! Radix sort's correctness across multiple passes depends on each individual pass being stable, not just correct all on its own."
++    },
++    "5": {
++      "mascotDialogue": "Bas! That's it. Done."
++    }
++  }
++}

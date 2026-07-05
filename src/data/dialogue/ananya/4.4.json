@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Same visited-tracking idea as BFS, beta, but a completely different order of operations! DFS dives deep first, and only comes back up when it truly, absolutely has to."
+    },
+    "2": {
+      "mascotDialogue": "Line 6 is the whole difference from BFS, beta — instead of queuing the neighbor for later, DFS recurses into it immediately, going deep before it ever comes back to check the next sibling."
+    },
+    "3": {
+      "mascotDialogue": "Same graph as the BFS lesson, beta, completely different order — 3 gets visited before 2, because DFS committed to going through 1 first and rode that path all the way down, no looking back."
+    },
+    "4": {
+      "mascotDialogue": "DFS's recursive elegance is also its biggest risk, beta — forget the visited check, and 'go deep' has no bottom to hit at all. It just keeps calling itself, forever and ever."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

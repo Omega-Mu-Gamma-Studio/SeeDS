@@ -1,0 +1,550 @@
+diff --git a/src/data/dialogue/scout/1.1.json b/src/data/dialogue/scout/1.1.json
+new file mode 100644
+index 0000000..1d7ec01
+--- /dev/null
++++ b/src/data/dialogue/scout/1.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Now y'all listen up — every one of these nodes is mindin' its own business, and the ONLY thing it knows about its neighbor is where the next one's hidin'. You let go of that pointer, darlin', and everything downstream just — gone. Poof. Let's go see what that looks like written out in C."
++    },
++    "2": {
++      "mascotDialogue": "Right there, line 3 — that's the whole rodeo. `next` ain't a value, it's a pointer to another Node. And `createNode` sets it to NULL first thing, every time. A brand new node don't go assumin' it knows what's comin' next."
++    },
++    "3": {
++      "mascotDialogue": "Go on, hover any line over yonder on the left — watch which node lights up on the right for ya. `head->next->next`? That's just followin' the arrow twice. Ain't no more to it than that."
++    },
++    "4": {
++      "mascotDialogue": "Bless your heart, look at node 2's arrow — pointin' at a whole lotta nothin'. Now that ain't the picture lyin' to you, that's the honest-to-goodness truth of that pointer. Code just never told it where else to go."
++    },
++    "5": {
++      "mascotDialogue": "Hold my sweet tea — you got this one."
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/1.2.json b/src/data/dialogue/scout/1.2.json
+new file mode 100644
+index 0000000..1c019c3
+--- /dev/null
++++ b/src/data/dialogue/scout/1.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Same setup as before, just one more pointer ridin' along on each node. Here's the catch, though — every insert's got FOUR pointers to update now, not two. Miss even one and that list'll look just fine goin' forward and a plumb mess comin' back."
++    },
++    "2": {
++      "mascotDialogue": "Lines 9 through 13 — that there's the four-pointer two-step. New node's next, new node's prev, the old neighbor's prev, the target's next. Miss line 11 and prev-traversal breaks quiet as a mouse while next-traversal's still smilin' like nothin' happened."
++    },
++    "3": {
++      "mascotDialogue": "Look at that — the arrows come in pairs now. Every connection between two nodes is really two separate pointers, and both of 'em gotta agree, or it don't count."
++    },
++    "4": {
++      "mascotDialogue": "This right here's exactly why doubly linked lists cause more headaches than singly ones — forward direction can look pretty as a picture while backward's quietly fallin' apart the whole time."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/1.3.json b/src/data/dialogue/scout/1.3.json
+new file mode 100644
+index 0000000..ad44a5c
+--- /dev/null
++++ b/src/data/dialogue/scout/1.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "A circular list loopin' around — that's a feature, sugar, done on purpose. That exact same shape showin' up by accident, though? That's a bug. Same picture, opposite meanin' entirely — so we paint 'em different colors on purpose."
++    },
++    "2": {
++      "mascotDialogue": "Line 6's the design choice. Line 13's the consequence — you can never check `curr != NULL` to stop, on account of NULL never once showin' up in a circular list. Gotta check `curr != head` instead."
++    },
++    "3": {
++      "mascotDialogue": "That last arrow there, c headin' back round to a — drawn in the calm, closed-loop color. This loop's supposed to be here, nothin' to fret over."
++    },
++    "4": {
++      "mascotDialogue": "See the difference? That arrow's in the warnin' color now, not the calm one — 'cause this loop was never meant to exist, and traversal'll spin on it forever without so much as a heads up."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/1.4.json b/src/data/dialogue/scout/1.4.json
+new file mode 100644
+index 0000000..980f994
+--- /dev/null
++++ b/src/data/dialogue/scout/1.4.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "One rule, no exceptions — everything happens at the top. You start wantin' to touch anywhere else, well, you don't want a stack no more, darlin'."
++    },
++    "2": {
++      "mascotDialogue": "`top` is the stack's whole memory of where it's standin'. Minus one means empty. MAX minus one means full. Everything else is just movin' that one number around, that's the whole job."
++    },
++    "3": {
++      "mascotDialogue": "See that TOP marker sittin' right on index 2, with two empty slots still open up top? That headroom's the whole point — this stack's still got room to grow."
++    },
++    "4": {
++      "mascotDialogue": "That function did exactly what it was s'posed to — it said no. The bug's entirely the caller not listenin'. That's why we always show a broke state with a slot past capacity you can see plain — loud, not quiet."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/1.5.json b/src/data/dialogue/scout/1.5.json
+new file mode 100644
+index 0000000..4fe8b73
+--- /dev/null
++++ b/src/data/dialogue/scout/1.5.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Two ends this time, not one — front for leavin', back for joinin'. Mix them up even once and you've gone and built yourself a stack instead."
++    },
++    "2": {
++      "mascotDialogue": "That `% MAX` on both front and rear — that's what lets this array wrap clean around 'stead of shiftin' everybody forward every single time somebody leaves."
++    },
++    "3": {
++      "mascotDialogue": "FRONT and REAR — two separate markers now. Watch 'em, they stay two apart no matter how much you enqueue or dequeue."
++    },
++    "4": {
++      "mascotDialogue": "An empty queue ain't 'nothin' to see' — it's a specific, checkable state. Your dequeue don't check for it, it'll hand you garbage happy as you please and call it a real value."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/2.1.json b/src/data/dialogue/scout/2.1.json
+new file mode 100644
+index 0000000..c98828a
+--- /dev/null
++++ b/src/data/dialogue/scout/2.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Left's always smaller, right's always bigger — at EVERY single node, not just the root. Break that rule anywhere down the line and it stops bein' a BST, plain and simple."
++    },
++    "2": {
++      "mascotDialogue": "Lines 12 and 13 — that's the orderin' rule made literal in code. Smaller goes left, bigger goes right, recursively, all the way on down."
++    },
++    "3": {
++      "mascotDialogue": "20 sits left of 30, which is already left of 50 — every step down, that orderin' rule holds up again. Consistent as a Sunday sermon."
++    },
++    "4": {
++      "mascotDialogue": "Tree still looks like a tree, and that's exactly what makes this bug sneaky — it's only wrong relative to the orderin' rule, not wrong in shape."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/2.2.json b/src/data/dialogue/scout/2.2.json
+new file mode 100644
+index 0000000..fb9cbb0
+--- /dev/null
++++ b/src/data/dialogue/scout/2.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Balance factor's just left-height minus right-height. Anything outside [-1, 1] and — bam — rotation kicks in before we go any further. That's the whole self-balancin' trick right there."
++    },
++    "2": {
++      "mascotDialogue": "`rotateRight` hoists the left child up to be the new root of this subtree, and hands its old right child down to the node that just got demoted — three pointer swaps, one operation."
++    },
++    "3": {
++      "mascotDialogue": "After the rotation, 20's sittin' right on top, balance factor 0 on both sides. Without it, 30 would've had a balance factor of 2 — a straight leanin' line, not a tree no more."
++    },
++    "4": {
++      "mascotDialogue": "That balance factor badge on node 30 — that's the tell. 2's a hard violation, right there plain as day, you don't gotta do the math yourself to spot it."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/2.3.json b/src/data/dialogue/scout/2.3.json
+new file mode 100644
+index 0000000..2c2a3fd
+--- /dev/null
++++ b/src/data/dialogue/scout/2.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Once the expression's a tree, evaluatin' it's simple — solve both children, then apply the operator sittin' at the parent. No precedence table needed at evaluation time a-tall — the shape's already got it baked in."
++    },
++    "2": {
++      "mascotDialogue": "Line 8's the base case — a leaf just hands back its digit. Lines 9 and 10 recurse into both children before line 11 puts 'em together. Bottom of the tree evaluates first, every time."
++    },
++    "3": {
++      "mascotDialogue": "Since plus sits underneath multiply, it's forced to go first — that's precedence, shown right there as depth in the tree, 'stead of some rule you gotta memorize."
++    },
++    "4": {
++      "mascotDialogue": "This bug hides good precisely 'cause multiplication don't care what order it's in. Swap that operator to subtraction in your head for a second, and this same shape starts fibbin' to you."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/3.1.json b/src/data/dialogue/scout/3.1.json
+new file mode 100644
+index 0000000..1fd696a
+--- /dev/null
++++ b/src/data/dialogue/scout/3.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Same values, two ways of lookin' at 'em — a tree for the orderin' rule, an array for how it actually sits in memory. parent(i) equals (i minus 1) over 2. That's the whole address book right there."
++    },
++    "2": {
++      "mascotDialogue": "Line 3's the array-to-tree bridge — any index's parent is always (i-1)/2, integer division. Line 4's the min-heap rule itself — stop soon as the parent's already smaller or equal."
++    },
++    "3": {
++      "mascotDialogue": "Hover index 4 in the array — watch its tree node light up as a child of index 1. Same data, two windows onto it, workin' in step."
++    },
++    "4": {
++      "mascotDialogue": "Both the array cell and the tree node light up in that same broke color together — 'cause it's one violation, just seen two different ways."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/3.2.json b/src/data/dialogue/scout/3.2.json
+new file mode 100644
+index 0000000..cc39668
+--- /dev/null
++++ b/src/data/dialogue/scout/3.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "extract-max is really two moves — swap the root with the last leaf, shrink the heap by one, then let that displaced value sink on down to wherever it truly belongs."
++    },
++    "2": {
++      "mascotDialogue": "Lines 4 and 5 find the biggest of the node and its two children. Line 8's recursive call is what lets that displaced value keep sinkin' past more'n one level if it's gotta."
++    },
++    "3": {
++      "mascotDialogue": "9's sittin' right up top, and every parent down this tree beats out both its kids — same array-index math as min heap, just the comparison flipped clean around."
++    },
++    "4": {
++      "mascotDialogue": "That swap alone don't finish the job. Without siftDown, you've just moved the problem up to the top of the tree instead of actually fixin' it."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/3.3.json b/src/data/dialogue/scout/3.3.json
+new file mode 100644
+index 0000000..4acf0ac
+--- /dev/null
++++ b/src/data/dialogue/scout/3.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Build the heap once, then just keep pullin' the max off the top, over and over. Each pull locks one more element into its rightful final spot."
++    },
++    "2": {
++      "mascotDialogue": "Two loops here — build the heap once on lines 2 and 3, then swap-and-shrink over and over on lines 5 through 7. That 'end' boundary shrinkin' every time is what carves out the sorted stretch at the back."
++    },
++    "3": {
++      "mascotDialogue": "Watch that tallest bar get walked clean up to the top, then swapped over to the far right — that's one value, locked into its sorted home for good."
++    },
++    "4": {
++      "mascotDialogue": "This here's the one step that's easy to forget, 'cause the array still looks like it's changin' every loop. It just never settles into sorted order without it, no matter how busy it looks."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/4.1.json b/src/data/dialogue/scout/4.1.json
+new file mode 100644
+index 0000000..f141f7c
+--- /dev/null
++++ b/src/data/dialogue/scout/4.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "An arrow in a directed graph means exactly one thing — you can go this way. That's it. Says nothin' at all about whether you can come on back."
++    },
++    "2": {
++      "mascotDialogue": "Line 8 sets exactly one cell in the matrix. A directed edge only ever writes adjacency[u][v] — never touches adjacency[v][u], not once."
++    },
++    "3": {
++      "mascotDialogue": "Every arrowhead points just one way here. This particular loop happens to form a cycle, sure, but each edge is still, on its own, one-directional."
++    },
++    "4": {
++      "mascotDialogue": "This right here's the single most common directed-graph mistake — treatin' a one-way arrow like it secretly goes both ways. It don't. The visual only ever draws the direction you actually set."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/4.2.json b/src/data/dialogue/scout/4.2.json
+new file mode 100644
+index 0000000..f5dc19f
+--- /dev/null
++++ b/src/data/dialogue/scout/4.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "One edge, but TWO entries in the adjacency matrix. Forget that second one and you've gone and built yourself half a directed graph without even meanin' to."
++    },
++    "2": {
++      "mascotDialogue": "Line 2 and line 3 ain't optional extras of each other — they're the same darn edge, and they gotta go in together, as one atomic pair, every single time."
++    },
++    "3": {
++      "mascotDialogue": "No arrowheads this time — just a plain line, on account of the connection bein' mutual right down to its bones."
++    },
++    "4": {
++      "mascotDialogue": "The visual's showin' a single arrowhead where an undirected graph oughta never have one at all — that mismatch is the bug, made plain impossible to miss."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/4.3.json b/src/data/dialogue/scout/4.3.json
+new file mode 100644
+index 0000000..531b509
+--- /dev/null
++++ b/src/data/dialogue/scout/4.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "The queue's what makes this breadth-first 'stead of depth-first. Whatever gets found first gets explored first — that's FIFO order doin' the level-by-level spreadin' for you."
++    },
++    "2": {
++      "mascotDialogue": "Line 12's the guard that keeps BFS from loopin' forever — mark visited the second you enqueue, not the second you dequeue, or you'll go and enqueue that same node two, three times over."
++    },
++    "3": {
++      "mascotDialogue": "1 and 2 are both distance-1 from the start, so they get visited before 3, which is distance-2 from either of 'em. That's the level-order guarantee, right there doin' its job."
++    },
++    "4": {
++      "mascotDialogue": "One missin' line, and BFS's whole guarantee — visit each node exactly once — quietly stops holdin' up for any graph that ain't a plain simple tree."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/4.4.json b/src/data/dialogue/scout/4.4.json
+new file mode 100644
+index 0000000..e6ca71a
+--- /dev/null
++++ b/src/data/dialogue/scout/4.4.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Same visited-trackin' idea as BFS, but a whole different order of operations — DFS dives on down deep first and only comes back up when it truly has to."
++    },
++    "2": {
++      "mascotDialogue": "Line 6's the whole difference from BFS — 'stead of queuein' the neighbor for later, DFS recurses into it right then and there, goin' deep before it ever checks the next sibling."
++    },
++    "3": {
++      "mascotDialogue": "Same graph as the BFS lesson, whole different order — 3 gets visited before 2, 'cause DFS committed to goin' through 1 first and rode that path clean down."
++    },
++    "4": {
++      "mascotDialogue": "DFS's recursive elegance is its biggest risk, too — forget the visited check, and 'go deep' ain't got no bottom to hit. It just keeps callin' itself, on and on."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/5.1.json b/src/data/dialogue/scout/5.1.json
+new file mode 100644
+index 0000000..6d4079f
+--- /dev/null
++++ b/src/data/dialogue/scout/5.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "A collision here ain't no error — it's an expected outcome the whole design plans right for. Each bucket just turns into its own little linked list 'stead of one lonesome slot."
++    },
++    "2": {
++      "mascotDialogue": "Line 13's the whole strategy — 'stead of overwritin' whatever's already sittin' in that bucket, the new node just points at it and becomes the new head. Nothin' ever gets lost to a collision."
++    },
++    "3": {
++      "mascotDialogue": "Bucket 3's hangin' a two-node chain off its side now — 17, inserted after 10, lands right at the head, exactly like insert-at-head calls for."
++    },
++    "4": {
++      "mascotDialogue": "That chain looks just fine — one node, no danglin' pointer in sight. That's the trap — the bug ain't a broke pointer, it's one that up and vanished quiet-like, and this app shows you 'lost node' plain so it never stays hidden."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/5.2.json b/src/data/dialogue/scout/5.2.json
+new file mode 100644
+index 0000000..672f9df
+--- /dev/null
++++ b/src/data/dialogue/scout/5.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "No chains here, no extra memory per bucket — just one slot each, and a clear, repeatable rule for where to look next when your first pick's already taken."
++    },
++    "2": {
++      "mascotDialogue": "Line 10's (idx plus 1) mod SLOTS — that's the entire probe sequence for linear probin'. Just check the next slot, wrappin' around at the end, till an empty one turns up."
++    },
++    "3": {
++      "mascotDialogue": "17's probe sequence tells the whole story — wanted slot 3, found it taken, settled one slot over at 4. That trail's exactly what the visual's tracin' for you."
++    },
++    "4": {
++      "mascotDialogue": "Same failure as chainin's lost node, whole different structure — no probin' means no collision resolution a-tall, just quiet overwritin'."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/6.1.json b/src/data/dialogue/scout/6.1.json
+new file mode 100644
+index 0000000..5454313
+--- /dev/null
++++ b/src/data/dialogue/scout/6.1.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "Nothin' fancy here — just compare your neighbor, swap if you're bigger, and repeat the whole sweep till nothin' needs swappin' no more."
++    },
++    "2": {
++      "mascotDialogue": "That `n minus i minus 1` on line 3 shrinks the inner loop's range every pass — the last i elements are already sorted, ain't no need to keep checkin' 'em."
++    },
++    "3": {
++      "mascotDialogue": "Watch that tallest bar creep one step right every swap it loses — that's the 'bubblin'' this whole thing's named after, made plain literal."
++    },
++    "4": {
++      "mascotDialogue": "This one won't crash every time — that's the sneaky part. It'll just now and again read garbage past the array, and that's exactly the kind of bug that slips by, 'cause it don't always announce itself."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/6.2.json b/src/data/dialogue/scout/6.2.json
+new file mode 100644
+index 0000000..25f5775
+--- /dev/null
++++ b/src/data/dialogue/scout/6.2.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "The pivot don't move again after partitionin' — it's already home. Everything left to sort is strictly smaller on one side and strictly bigger on the other."
++    },
++    "2": {
++      "mascotDialogue": "Line 9 sets the pivot at its final restin' index. Lines 16 and 17 then recurse on the strictly-smaller and strictly-bigger sides — the pivot itself never gets touched again."
++    },
++    "3": {
++      "mascotDialogue": "This pivot happened to be the smallest value, so it ends up clean at index 0 — an unlucky pivot pick, and a right good example of why pivot choice matters for performance."
++    },
++    "4": {
++      "mascotDialogue": "One character off — p instead of p minus 1 — and the recursion loses its most important guarantee: every recursive call workin' on a strictly smaller range than the last. One character, whole guarantee gone."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/6.3.json b/src/data/dialogue/scout/6.3.json
+new file mode 100644
+index 0000000..9336e07
+--- /dev/null
++++ b/src/data/dialogue/scout/6.3.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "All that splittin' is just bookkeepin' — the real sortin' work happens entirely in the merge step, comparin' two already-sorted halves and interleavin' 'em right."
++    },
++    "2": {
++      "mascotDialogue": "Lines 9 and 10 are the merge's heart — compare the fronts of both halves, take the smaller, advance only that side. Lines 12 and 13 mop up whichever half's still got leftovers once the other one runs dry."
++    },
++    "3": {
++      "mascotDialogue": "Notice this view don't show swaps a-tall — merge sort don't swap elements in place, it writes the smaller of two fronts into a fresh spot, every single comparison."
++    },
++    "4": {
++      "mascotDialogue": "Easy to think the merge's 'done' the second the main comparison loop ends — but one side near always finishes 'fore the other, and forgettin' to drain them leftovers loses real data, quiet as can be."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/6.4.json b/src/data/dialogue/scout/6.4.json
+new file mode 100644
+index 0000000..fb4970f
+--- /dev/null
++++ b/src/data/dialogue/scout/6.4.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "It's insertion sort, just given leave to take big steps first. Shrink that gap enough times and it collapses right on down into ordinary insertion sort for the final, finest pass."
++    },
++    "2": {
++      "mascotDialogue": "Line 2's gap starts at n over 2 and halves every outer pass. Lines 6 through 8 are just insertion sort's inner loop, 'cept comparin' arr[j] to arr[j minus gap] instead of arr[j minus 1]."
++    },
++    "3": {
++      "mascotDialogue": "Watch these first comparisons skip clean across three spots at a time — that's a gap of 3 doin' long-distance fixin' 'fore the finer gap-of-1 pass even starts up."
++    },
++    "4": {
++      "mascotDialogue": "This here's a sneaky kinda bug — the output's correct, but the algorithm quietly stopped bein' the algorithm it claims to be. Not every bug crashes — some just quietly throw away the whole reason you picked this approach."
++    },
++    "5": {
++      "mascotDialogue": ""
++    }
++  }
++}
+diff --git a/src/data/dialogue/scout/6.5.json b/src/data/dialogue/scout/6.5.json
+new file mode 100644
+index 0000000..fd69f10
+--- /dev/null
++++ b/src/data/dialogue/scout/6.5.json
+@@ -0,0 +1,19 @@
++{
++  "phases": {
++    "1": {
++      "mascotDialogue": "No comparisons anywhere in this algorithm — none a-tall. Just askin' over and over 'which bucket does this digit belong in' and gatherin' the buckets back up in order, digit by digit."
++    },
++    "2": {
++      "mascotDialogue": "Line 10's backward loop — that's what keeps radix sort stable. Workin' the original array from the end preserves the relative order of elements sharin' the same digit."
++    },
++    "3": {
++      "mascotDialogue": "170 and 90 both land in bucket 0 this pass, and their order — 170 before 90 — stays put. That's stability doin' its job, quiet, across every pass."
++    },
++    "4": {
++      "mascotDialogue": "This is why the loop direction matters, even though it looks like a harmless style choice — radix sort's correctness across passes depends on every single pass bein' stable, not just correct on its own."
++    },
++    "5": {
++      "mascotDialogue": "Hold my sweet tea — that's a wrap."
++    }
++  }
++}
