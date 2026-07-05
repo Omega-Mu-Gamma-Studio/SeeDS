@@ -403,13 +403,14 @@ or not" about the parts that are visibly incomplete:
   is a CSS gradient placeholder (`components/campus/art.js`). The navigation,
   locking, and hotspot logic are real and tested; the *visuals* are
   intentionally unfinished pending real illustration.
-- **Not yet started — cousin dialogue packs.** Every lesson currently runs on
-  the neutral default narrator only. `data/dialogue/{cousinId}/` folders exist
-  for all 10 Gamma Cousins but are empty — this is expected and non-breaking
-  (§4), not a bug. Writing a cousin's full 22-lesson voice pass is the next
-  major content phase, and per `PRD.md` §5.1, which cousin goes first hasn't
-  been decided yet — deliberately, so it happens after the neutral-voice
-  content is proven, not before.
+- **Fully built and verified — cousin dialogue.** All 10 Gamma Cousins have
+  complete, fully-voiced 22-lesson dialogue packs in
+  `data/dialogue/{cousinId}/` (220 files total, verified file-by-file — not a
+  partial pass). Every lesson now has a real per-cousin voice on top of the
+  neutral default, not just the fallback. (An earlier draft of this README
+  said this hadn't started yet — that was wrong and has been corrected here;
+  if you're reading a stale copy of this file anywhere, this note is the one
+  to trust.)
 - **Not yet started — character sprites.** `public/sprites/default/` and
   `public/sprites/cousins/{id}/` exist as empty folders (`.gitkeep`
   placeholders only) for all 6 required expressions
