@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "A circular list looping around — this is intentional, a feature, done with care. The same shape appearing by accident, however, is a mistake. Same picture, opposite meaning entirely — so we paint them in different colors, deliberately."
+    },
+    "2": {
+      "mascotDialogue": "Line 6 is the design. Line 13 is the consequence — you may never check `curr != NULL` to stop, because NULL never appears in a circular list. You must check `curr != head` instead."
+    },
+    "3": {
+      "mascotDialogue": "That last arrow, c returning to a — drawn in the calm, closed-loop color. This loop belongs here. No need to worry."
+    },
+    "4": {
+      "mascotDialogue": "See the difference? This arrow is in the warning color now, not the calm one — because this loop was never meant to exist, and traversal will spin on it forever, silently, without complaint."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

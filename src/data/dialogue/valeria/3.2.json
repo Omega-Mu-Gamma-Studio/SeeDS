@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Extract-max is really two moves — swap the root with the last leaf, shrink the heap by one, then let that displaced value sink to wherever it actually belongs."
+    },
+    "2": {
+      "mascotDialogue": "Lines 4 and 5 find the biggest of the node and its two kids. Line 8's recursive call, that's what lets the displaced value keep sinking past more than one level, if it's gotta."
+    },
+    "3": {
+      "mascotDialogue": "9 sits on top, and every parent beats both its children, all the way down. Same array-index math as min heap — just the comparison flipped, güey."
+    },
+    "4": {
+      "mascotDialogue": "The swap alone doesn't finish the job! Without siftDown, you just relocated the problem to the top of the tree — didn't solve nada."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

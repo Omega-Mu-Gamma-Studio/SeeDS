@@ -1,0 +1,15 @@
+{
+  "unit": 4,
+  "title": "The Bridge District",
+  "icon": "rope-bridge",
+  "landmarks": [
+    {
+      "id": "bridge-district",
+      "name": "The Bridge District",
+      "topics": ["Directed Graphs", "Undirected Graphs", "BFS", "DFS"],
+      "visualHook": "A cluster of small islands connected by rope and stone bridges — some one-way (directed), some both (undirected).",
+      "lessons": ["4.1", "4.2", "4.3", "4.4"]
+    }
+  ],
+  "lessons": ["4.1", "4.2", "4.3", "4.4"]
+}

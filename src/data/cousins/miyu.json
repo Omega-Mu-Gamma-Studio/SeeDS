@@ -1,0 +1,10 @@
+{
+  "id": "miyu",
+  "name": "Miyu",
+  "origin": "Japanese",
+  "vibe": "Politely chaotic. Calm, bows on entry, then dismantles your code with surgical precision.",
+  "teachingQuirk": "Origami and calligraphy (shodo) metaphors — exceptional fit for recursion, folding/repeated structure.",
+  "palette": { "primary": "#BC002D", "secondary": "#1A1A1A", "accent": "#FFFFFF" },
+  "catchphrase": "Maa... ganbatte ne.",
+  "portrait": "/portraits/cousins/miyu.png"
+}

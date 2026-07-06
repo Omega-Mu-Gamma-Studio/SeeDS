@@ -1,0 +1,8 @@
+{
+  "id": "default",
+  "name": "The Narrator",
+  "origin": "Academy Faculty (neutral fallback voice)",
+  "palette": { "primary": "#4A6D8C", "secondary": "#D8CBA5", "accent": "#8C6E4A" },
+  "catchphrase": "Let's get this figured out, step by step.",
+  "spriteFolder": "/sprites/default"
+}

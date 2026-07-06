@@ -1,0 +1,133 @@
+{
+  "id": "1.1",
+  "title": "Singly Linked List",
+  "unit": 1,
+  "topics": [
+    "insertion",
+    "deletion",
+    "traversal"
+  ],
+  "xp": 10,
+  "structureVariant": "linear",
+  "phases": {
+    "1": {
+      "concept": [
+        "A singly linked list is a chain of separately-allocated nodes, where each node holds a value and a pointer to the next node in the chain. Unlike an array, the nodes don't have to sit next to each other in memory \u2014 the pointer is what stitches them together into one sequence.",
+        "That trade-off cuts both ways: insertion or deletion at a known position is O(1) once you're there, since you're just rewiring a pointer instead of shifting every following element like an array would.",
+        "But you lose random access \u2014 finding the k-th node means walking the chain one `next` at a time, so lookup is O(n) with no shortcut.",
+        "That's the core reason linked lists and arrays aren't interchangeable; they're optimized for opposite access patterns."
+      ],
+      "analogy": "Think of a scavenger hunt where each clue tells you where to find the next clue. You don't need to know where every clue is ahead of time \u2014 you just need the very first clue, and each one hands you the address of the next.",
+      "mascotDialogue": "Every node here only knows one thing about its neighbor: where the NEXT one lives. Lose that pointer, and everything after it is gone. Let's see what that looks like in C."
+    },
+    "2": {
+      "code": "typedef struct Node {\n    int value;\n    struct Node* next;\n} Node;\n\nNode* createNode(int value) {\n    Node* n = (Node*)malloc(sizeof(Node));\n    n->value = value;\n    n->next = NULL;\n    return n;\n}\n\nvoid insertAtEnd(Node** head, int value) {\n    Node* newNode = createNode(value);\n    if (*head == NULL) {\n        *head = newNode;\n        return;\n    }\n    Node* curr = *head;\n    while (curr->next != NULL) {\n        curr = curr->next;\n    }\n    curr->next = newNode;\n}",
+      "highlightLines": [
+        1,
+        2,
+        3,
+        12,
+        16
+      ],
+      "mascotDialogue": "Line 3 is the whole trick: `next` is a pointer to another Node, not a value. `createNode` always sets `next` to NULL first \u2014 a brand-new node never assumes it knows what comes after it."
+    },
+    "3": {
+      "code": "Node* head = createNode(10);\nhead->next = createNode(20);\nhead->next->next = createNode(30);\n// head->next->next->next is NULL",
+      "visual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "n1",
+              "value": 10,
+              "next": "n2",
+              "address": "0x100"
+            },
+            {
+              "id": "n2",
+              "value": 20,
+              "next": "n3",
+              "address": "0x104"
+            },
+            {
+              "id": "n3",
+              "value": 30,
+              "next": null,
+              "address": "0x108"
+            }
+          ],
+          "edges": [
+            {
+              "from": "n1",
+              "to": "n2",
+              "type": "next"
+            },
+            {
+              "from": "n2",
+              "to": "n3",
+              "type": "next"
+            },
+            {
+              "from": "n3",
+              "to": null,
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "mascotDialogue": "Hover any line on the left \u2014 watch which node lights up on the right. `head->next->next` is just 'follow the arrow twice.'",
+      "mapping": {
+        "line1": "n1",
+        "line2": "n2",
+        "line3": "n3"
+      }
+    },
+    "4": {
+      "brokenCode": "Node* head = createNode(10);\nhead->next = createNode(20);\n// forgot: head->next->next = createNode(30);\nfree(head->next->next); // next was never set \u2014 this reads garbage",
+      "brokenVisual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "n1",
+              "value": 10,
+              "next": "n2",
+              "address": "0x100"
+            },
+            {
+              "id": "n2",
+              "value": 20,
+              "next": null,
+              "address": "0x104",
+              "broken": true
+            }
+          ],
+          "edges": [
+            {
+              "from": "n1",
+              "to": "n2",
+              "type": "next"
+            },
+            {
+              "from": "n2",
+              "to": null,
+              "type": "null-unexpected"
+            }
+          ]
+        }
+      },
+      "bugDescription": "The list was supposed to have three nodes, but node 2's `next` was never assigned \u2014 it's still NULL from `createNode`. The dangling third node never got attached, and the code that tries to free it is operating on garbage.",
+      "mascotDialogue": "See how node 2's arrow points at nothing? That's not a bug in the rendering \u2014 that's the actual, honest state of the pointer. The visual isn't lying to you; the code just never told it to point anywhere else."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "In the broken example, what is the value of `head->next->next` right now?",
+      "answer": "NULL",
+      "hints": [
+        "Node 2 was created with createNode(20), which always sets next to NULL.",
+        "No line of code in the broken example ever reassigns node 2's next pointer."
+      ],
+      "solution": "head->next->next is NULL, because createNode() initializes every new node's next field to NULL, and nothing in the broken snippet ever changes it."
+    }
+  }
+}

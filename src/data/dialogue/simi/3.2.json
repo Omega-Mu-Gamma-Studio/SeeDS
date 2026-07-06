@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Extract-max na really two movement — swap the root with the last leaf, shrink the heap by one, then make that displaced value sink to where she truly belong."
+    },
+    "2": {
+      "mascotDialogue": "Lines 4 and 5 dey find the biggest of the node and her two children. Line 8 recursive call — na wetin let the displaced value continue sinking, past more than one level, if she need to."
+    },
+    "3": {
+      "mascotDialogue": "9 dey sit for top, and every parent dey beat both her children, all the way down. Same array-index maths as min heap — just the comparison, flipped."
+    },
+    "4": {
+      "mascotDialogue": "The swap alone no dey finish the job! Without siftDown, you just relocate the problem to the top of the tree — you never solve am at all."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

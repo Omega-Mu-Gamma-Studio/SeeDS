@@ -1,0 +1,131 @@
+{
+  "id": "4.1",
+  "title": "Directed Graphs",
+  "unit": 4,
+  "topics": [
+    "adjacency list",
+    "directed edges"
+  ],
+  "xp": 12,
+  "structureVariant": "linear",
+  "phases": {
+    "1": {
+      "concept": [
+        "A directed graph is a set of nodes (vertices) connected by edges that only go one way.",
+        "If there's an edge from A to B, that doesn't automatically mean there's a path from B back to A \u2014 direction matters and must be tracked explicitly.",
+        "Representing this as an adjacency list \u2014 each vertex holding a list of the vertices it points to \u2014 takes O(V + E) space and is the standard choice for sparse graphs; the alternative, an adjacency matrix, takes O(V\u00b2) regardless of how many edges actually exist, which wastes space fast once a graph has many more vertices than edges."
+      ],
+      "analogy": "A city's one-way streets. Being able to drive from the library to the park doesn't guarantee you can drive straight back the same way \u2014 you might need an entirely different route home.",
+      "mascotDialogue": "An arrow in a directed graph means exactly one thing: you can go this way. It says nothing at all about whether you can come back."
+    },
+    "2": {
+      "code": "#define MAX_V 10\ntypedef struct {\n    int adjacency[MAX_V][MAX_V]; // adjacency[u][v] = 1 means edge u -> v\n    int numVertices;\n} Graph;\n\nvoid addDirectedEdge(Graph* g, int u, int v) {\n    g->adjacency[u][v] = 1; // only one direction set\n}",
+      "highlightLines": [
+        3,
+        7,
+        8
+      ],
+      "mascotDialogue": "Line 8 sets exactly one cell in the matrix. A directed edge only ever writes adjacency[u][v] \u2014 never touches adjacency[v][u]."
+    },
+    "3": {
+      "code": "Graph g = {0};\naddDirectedEdge(&g, 0, 1); // 0 -> 1\naddDirectedEdge(&g, 1, 2); // 1 -> 2\naddDirectedEdge(&g, 2, 0); // 2 -> 0",
+      "visual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "v0",
+              "value": 0,
+              "adjacency": [
+                "v1"
+              ],
+              "visited": false
+            },
+            {
+              "id": "v1",
+              "value": 1,
+              "adjacency": [
+                "v2"
+              ],
+              "visited": false
+            },
+            {
+              "id": "v2",
+              "value": 2,
+              "adjacency": [
+                "v0"
+              ],
+              "visited": false
+            }
+          ],
+          "edges": [
+            {
+              "from": "v0",
+              "to": "v1",
+              "type": "directed"
+            },
+            {
+              "from": "v1",
+              "to": "v2",
+              "type": "directed"
+            },
+            {
+              "from": "v2",
+              "to": "v0",
+              "type": "directed"
+            }
+          ]
+        }
+      },
+      "mascotDialogue": "Every arrowhead points one way. This particular loop happens to form a cycle, but notice each edge is still individually one-directional.",
+      "mapping": {
+        "line2": "v0",
+        "line3": "v1"
+      }
+    },
+    "4": {
+      "brokenCode": "addDirectedEdge(&g, 0, 1); // 0 -> 1\n// BUG: code elsewhere assumes addDirectedEdge also adds the reverse edge\nif (g.adjacency[1][0]) { /* expected true, but it's false */ }",
+      "brokenVisual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "v0",
+              "value": 0,
+              "adjacency": [
+                "v1"
+              ],
+              "visited": false
+            },
+            {
+              "id": "v1",
+              "value": 1,
+              "adjacency": [],
+              "visited": false,
+              "broken": true
+            }
+          ],
+          "edges": [
+            {
+              "from": "v0",
+              "to": "v1",
+              "type": "directed"
+            }
+          ]
+        }
+      },
+      "bugDescription": "Some downstream code assumed that adding edge 0->1 implicitly also created edge 1->0, as if this were an undirected graph. It doesn't \u2014 adjacency[1][0] remains 0, and any traversal starting from vertex 1 will never reach vertex 0 through this edge.",
+      "mascotDialogue": "This is the single most common directed-graph mistake: treating a one-way arrow like it secretly goes both ways. It doesn't, and the visual only ever draws the direction you actually set."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "If addDirectedEdge(g, 3, 7) is called and nothing else, what does g.adjacency[7][3] equal?",
+      "answer": "0 (unset)",
+      "hints": [
+        "A directed edge only writes one cell of the adjacency matrix.",
+        "The reverse direction is a completely separate edge that must be added explicitly."
+      ],
+      "solution": "It remains 0 \u2014 a directed edge from 3 to 7 only sets adjacency[3][7]; the reverse edge 7->3 does not exist unless added as its own, separate call."
+    }
+  }
+}

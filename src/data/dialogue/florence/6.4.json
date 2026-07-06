@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "It's insertion sort given permission to take large steps first. Shrink the gap enough times and it collapses into ordinary insertion sort for the final, finest pass."
+    },
+    "2": {
+      "mascotDialogue": "Line 2's gap starts at n over 2 and halves every outer pass. Lines 6 to 8 are just insertion sort's inner loop, comparing arr[j] to arr[j minus gap] instead of arr[j minus 1]."
+    },
+    "3": {
+      "mascotDialogue": "Watch these first comparisons skip across three positions at once — that's a gap of 3 making long-distance corrections before the finer gap-of-1 pass even begins."
+    },
+    "4": {
+      "mascotDialogue": "A subtle sort of bug, this — the output's correct, but the algorithm's quietly stopped being the algorithm it claims to be. Not every bug crashes; some simply discard the entire reason you chose this approach."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "id": "2.3",
+  "title": "Expression Tree",
+  "unit": 2,
+  "topics": [
+    "expression parsing",
+    "operator precedence",
+    "traversal evaluation"
+  ],
+  "xp": 12,
+  "structureVariant": "linear",
+  "phases": {
+    "1": {
+      "concept": [
+        "An expression tree represents an arithmetic expression as a tree, where leaf nodes are operands (numbers/variables) and internal nodes are operators.",
+        "Evaluating the tree bottom-up automatically respects operator precedence, because precedence is baked into the tree's shape rather than needing separate rules at evaluation time.",
+        "The three standard traversals map directly onto the three ways to write the same expression: an in-order traversal reproduces infix notation (with parentheses needed to recover the original grouping), pre-order gives prefix (Polish) notation, and post-order gives postfix (Reverse Polish) notation \u2014 which is exactly the form a stack-based calculator evaluates directly, without needing precedence rules at all."
+      ],
+      "analogy": "Like a recipe's dependency chart: you can't frost the cake before it's baked, and you can't compute an operator's result before both its children are computed. The shape of the tree enforces the order for you.",
+      "mascotDialogue": "Once the expression is a tree, evaluating it is just: solve both children, then apply the operator at the parent. No precedence table required at evaluation time \u2014 the shape already encodes it."
+    },
+    "2": {
+      "code": "typedef struct ExprNode {\n    char symbol; // operator, or digit character if leaf\n    int isOperator;\n    struct ExprNode* left;\n    struct ExprNode* right;\n} ExprNode;\n\nint evaluate(ExprNode* node) {\n    if (!node->isOperator) return node->symbol - '0';\n    int l = evaluate(node->left);\n    int r = evaluate(node->right);\n    switch (node->symbol) {\n        case '+': return l + r;\n        case '*': return l * r;\n    }\n    return 0;\n}",
+      "highlightLines": [
+        1,
+        2,
+        8,
+        9,
+        10
+      ],
+      "mascotDialogue": "Line 8 is the base case: a leaf just returns its digit. Lines 9-10 recurse into both children before line 11 combines them \u2014 bottom of the tree evaluates first, always."
+    },
+    "3": {
+      "code": "// Represents: (3 + 4) * 2\nExprNode* root = makeOp('*',\n    makeOp('+', makeLeaf('3'), makeLeaf('4')),\n    makeLeaf('2'));\nint result = evaluate(root); // 14",
+      "visual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "mul",
+              "value": "*",
+              "left": "add",
+              "right": "two"
+            },
+            {
+              "id": "add",
+              "value": "+",
+              "left": "three",
+              "right": "four"
+            },
+            {
+              "id": "three",
+              "value": 3,
+              "left": null,
+              "right": null
+            },
+            {
+              "id": "four",
+              "value": 4,
+              "left": null,
+              "right": null
+            },
+            {
+              "id": "two",
+              "value": 2,
+              "left": null,
+              "right": null
+            }
+          ],
+          "edges": [
+            {
+              "from": "mul",
+              "to": "add",
+              "type": "left"
+            },
+            {
+              "from": "mul",
+              "to": "two",
+              "type": "right"
+            },
+            {
+              "from": "add",
+              "to": "three",
+              "type": "left"
+            },
+            {
+              "from": "add",
+              "to": "four",
+              "type": "right"
+            }
+          ]
+        }
+      },
+      "mascotDialogue": "Because + sits underneath *, it's forced to resolve first \u2014 that's precedence, shown as depth in the tree instead of a rule you have to memorize.",
+      "mapping": {
+        "line2": "mul",
+        "line3": "add"
+      }
+    },
+    "4": {
+      "brokenCode": "// Meant to build (3 + 4) * 2, but children swapped at the root\nExprNode* root = makeOp('*',\n    makeLeaf('2'),\n    makeOp('+', makeLeaf('3'), makeLeaf('4')));\n// evaluate() still returns 14 here -- but a subtraction tree built\n// the same wrong way would silently invert the result",
+      "brokenVisual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "mul",
+              "value": "*",
+              "left": "two",
+              "right": "add",
+              "broken": true
+            },
+            {
+              "id": "two",
+              "value": 2,
+              "left": null,
+              "right": null
+            },
+            {
+              "id": "add",
+              "value": "+",
+              "left": "three",
+              "right": "four"
+            },
+            {
+              "id": "three",
+              "value": 3,
+              "left": null,
+              "right": null
+            },
+            {
+              "id": "four",
+              "value": 4,
+              "left": null,
+              "right": null
+            }
+          ],
+          "edges": [
+            {
+              "from": "mul",
+              "to": "two",
+              "type": "left-wrong"
+            },
+            {
+              "from": "mul",
+              "to": "add",
+              "type": "right"
+            },
+            {
+              "from": "add",
+              "to": "three",
+              "type": "left"
+            },
+            {
+              "from": "add",
+              "to": "four",
+              "type": "right"
+            }
+          ]
+        }
+      },
+      "bugDescription": "The left and right children were swapped when building the tree. For a commutative operator like '*' the numeric answer is unaffected \u2014 but for a non-commutative operator like '-' or '/', swapped children silently produce the wrong result while the tree still looks structurally valid.",
+      "mascotDialogue": "This bug hides well precisely because multiplication doesn't care about order. Swap the operator to subtraction in your head and this exact same shape starts lying to you."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "For the expression tree representing (3 + 4) * 2, which node is evaluated first?",
+      "answer": "The '+' node (3 + 4)",
+      "hints": [
+        "Evaluation is bottom-up.",
+        "A node can't be evaluated until both its children have values."
+      ],
+      "solution": "The '+' node evaluates first, since it's deeper in the tree \u2014 evaluate() must resolve both of a node's children before it can apply the parent's operator."
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Nothing elaborate here — simply compare your neighbor, swap if you are larger, and repeat the entire sweep until nothing needs swapping anymore."
+    },
+    "2": {
+      "mascotDialogue": "`n minus i minus 1` on line 3 shrinks the inner loop's range each pass — the last i elements are already sorted, no need to check them again."
+    },
+    "3": {
+      "mascotDialogue": "Watch the tallest bar creep one step right with every swap it loses — this is the 'bubbling' the algorithm is named for, made entirely literal."
+    },
+    "4": {
+      "mascotDialogue": "This one will not crash every time — that is the quiet danger. It will simply, occasionally, read garbage past the array — exactly the kind of mistake that slips by, because it does not always announce itself."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

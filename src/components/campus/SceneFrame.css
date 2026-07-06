@@ -1,0 +1,81 @@
+.scene-frame {
+  width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 4rem);
+  display: flex;
+}
+
+.scene-frame__art {
+  position: relative;
+  flex: 1;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 560px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.scene-frame__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.45) 100%);
+  pointer-events: none;
+}
+
+.scene-frame__back {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  z-index: 6;
+  background: rgba(15, 15, 20, 0.55);
+  color: #f4efe2;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.scene-frame__back:hover {
+  transform: translateX(-2px);
+  background: rgba(15, 15, 20, 0.75);
+}
+
+.scene-frame__heading {
+  position: absolute;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  text-align: center;
+  color: #f9f6ee;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.scene-frame__heading h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+}
+
+.scene-frame__heading p {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.scene-frame__hotspots {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+@media (max-width: 720px) {
+  .scene-frame__art {
+    min-height: 480px;
+    border-radius: 14px;
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "id": "4.2",
+  "title": "Undirected Graphs",
+  "unit": 4,
+  "topics": [
+    "adjacency list",
+    "symmetric edges"
+  ],
+  "xp": 12,
+  "structureVariant": "linear",
+  "phases": {
+    "1": {
+      "concept": [
+        "An undirected graph's edges go both ways by definition: if A connects to B, B also connects to A.",
+        "In code, this means adding an edge requires updating the adjacency structure symmetrically, in both directions, in one operation.",
+        "That symmetry is easy to forget in practice \u2014 insert only A\u2192B and the graph silently behaves like a directed one from B's side, which is a common source of subtle graph bugs that only show up when traversal starts from the 'wrong' end."
+      ],
+      "analogy": "A two-way street, or a friendship \u2014 if A is friends with B, B is necessarily friends with A too. There's no version of this connection that only runs one way.",
+      "mascotDialogue": "One edge, two entries in the adjacency matrix. Forget the second one, and you've quietly built half a directed graph instead."
+    },
+    "2": {
+      "code": "void addUndirectedEdge(Graph* g, int u, int v) {\n    g->adjacency[u][v] = 1;\n    g->adjacency[v][u] = 1; // symmetric \u2014 both directions, always together\n}",
+      "highlightLines": [
+        1,
+        2,
+        3
+      ],
+      "mascotDialogue": "Line 2 and line 3 are not optional extras of each other \u2014 they're the same conceptual edge, and they must be added as a single atomic pair, every time."
+    },
+    "3": {
+      "code": "Graph g = {0};\naddUndirectedEdge(&g, 0, 1);\naddUndirectedEdge(&g, 1, 2);",
+      "visual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "v0",
+              "value": 0,
+              "adjacency": [
+                "v1"
+              ],
+              "visited": false
+            },
+            {
+              "id": "v1",
+              "value": 1,
+              "adjacency": [
+                "v0",
+                "v2"
+              ],
+              "visited": false
+            },
+            {
+              "id": "v2",
+              "value": 2,
+              "adjacency": [
+                "v1"
+              ],
+              "visited": false
+            }
+          ],
+          "edges": [
+            {
+              "from": "v0",
+              "to": "v1",
+              "type": "undirected"
+            },
+            {
+              "from": "v1",
+              "to": "v2",
+              "type": "undirected"
+            }
+          ]
+        }
+      },
+      "mascotDialogue": "No arrowheads this time \u2014 just a plain line, because the connection is inherently mutual.",
+      "mapping": {
+        "line2": "v0",
+        "line3": "v2"
+      }
+    },
+    "4": {
+      "brokenCode": "void addUndirectedEdge(Graph* g, int u, int v) {\n    g->adjacency[u][v] = 1;\n    // BUG: forgot g->adjacency[v][u] = 1;\n}",
+      "brokenVisual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "v0",
+              "value": 0,
+              "adjacency": [
+                "v1"
+              ],
+              "visited": false
+            },
+            {
+              "id": "v1",
+              "value": 1,
+              "adjacency": [],
+              "visited": false,
+              "broken": true
+            }
+          ],
+          "edges": [
+            {
+              "from": "v0",
+              "to": "v1",
+              "type": "directed",
+              "broken": true
+            }
+          ]
+        }
+      },
+      "bugDescription": "The function is named addUndirectedEdge but only wrote adjacency[u][v]. The result is functionally a directed edge masquerading as undirected \u2014 traversal from vertex 1 will never reach vertex 0 through this connection, even though the graph is meant to treat them as mutually connected.",
+      "mascotDialogue": "The visual shows a single arrowhead where an undirected graph should never have one at all \u2014 that mismatch is the bug, made impossible to miss."
+    },
+    "5": {
+      "challengeType": "code-fill",
+      "question": "Complete addUndirectedEdge so the connection is symmetric: g->adjacency[u][v] = 1; g->adjacency[___][___] = 1;",
+      "answer": "v, u",
+      "hints": [
+        "The second line should set the reverse direction.",
+        "Swap the order of u and v from the first line."
+      ],
+      "solution": "g->adjacency[v][u] = 1; \u2014 both directions must be set for a single undirected edge to be represented correctly."
+    }
+  }
+}

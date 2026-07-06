@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Two end this time, not one — front na for leaving, back na for joining! Mix dem up, my pikin, and you don quietly build yourself stack by mistake."
+    },
+    "2": {
+      "mascotDialogue": "That `% MAX` for both front and rear — na wetin dey make the array wrap around instead of shifting everybody forward every time somebody leave. E clever well well."
+    },
+    "3": {
+      "mascotDialogue": "FRONT and REAR, two separate marker now! Watch dem, dem go stay two apart as you enqueue, dequeue."
+    },
+    "4": {
+      "mascotDialogue": "Empty queue no be 'nothing to see' o, my pikin — na specific, checkable state! If your dequeue no check for am, e go hand you garbage and call am value. No shame at all!"
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

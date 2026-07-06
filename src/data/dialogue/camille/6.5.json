@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "No comparisons anywhere in this algorithm — merely asking, repeatedly, which bucket a digit belongs to, and gathering the buckets back up in order, digit by digit."
+    },
+    "2": {
+      "mascotDialogue": "Line 10's backward loop is what keeps radix sort stable — processing the original array from the end preserves the relative order of elements sharing the same digit."
+    },
+    "3": {
+      "mascotDialogue": "170 and 90 both land in bucket 0 this pass, and their relative order — 170 before 90 — is preserved. Stability, quietly doing its work across every pass."
+    },
+    "4": {
+      "mascotDialogue": "This is why the direction of the loop matters, however harmless a stylistic choice it appears — radix sort's correctness across passes depends on each individual pass being stable, not merely correct alone."
+    },
+    "5": {
+      "mascotDialogue": "Bizarre... mais ça marche. Alors — that is that."
+    }
+  }
+}

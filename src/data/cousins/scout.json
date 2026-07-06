@@ -1,0 +1,10 @@
+{
+  "id": "scout",
+  "name": "Scout",
+  "origin": "Texas",
+  "vibe": "Loud, proud, unapologetic. Fast talker. Chaos delivered with warmth.",
+  "teachingQuirk": "Rodeo and BBQ metaphors — anything sequential or roundup-shaped fits her naturally.",
+  "palette": { "primary": "#BF0A30", "secondary": "#FFFFFF", "accent": "#002868" },
+  "catchphrase": "Hold my sweet tea — I'm fixin' to teach.",
+  "portrait": "/portraits/cousins/scout.png"
+}

@@ -1,0 +1,234 @@
+.sidebar {
+  position: relative;
+  width: 280px;
+  flex-shrink: 0;
+  background: var(--bg-elevated);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  transition: width 0.2s ease;
+  overflow: hidden;
+}
+
+.sidebar--collapsed {
+  width: 56px;
+  align-items: center;
+}
+
+.sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  padding: 1rem;
+  padding-right: 2.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  width: 100%;
+}
+
+.sidebar--collapsed .sidebar__header {
+  justify-content: center;
+  padding: 1rem 0.5rem;
+}
+
+.sidebar__logo {
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--accent-primary);
+  text-decoration: none;
+  min-width: 0;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar__settings-btn {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  flex-shrink: 0;
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
+}
+
+.sidebar__settings-btn:hover,
+.sidebar__settings-btn.active {
+  background: var(--bg-sunken);
+}
+
+/* Floating collapse tab -- positioned absolutely inside the sidebar's own
+   bounds (never past its edge) so it can never get squeezed out by the
+   header's flex content, at any collapsed width. */
+.sidebar__collapse-tab {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.4rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-sunken);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink-muted);
+  z-index: 2;
+}
+
+.sidebar--collapsed .sidebar__collapse-tab {
+  position: static;
+  margin-top: 0.25rem;
+}
+
+.sidebar__collapse-tab:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.sidebar__hud {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  width: 100%;
+}
+
+.sidebar--collapsed .sidebar__hud {
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.6rem 0.25rem;
+}
+
+.sidebar__hud-level {
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--accent-primary);
+  white-space: nowrap;
+}
+
+.sidebar__hud-streak {
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.sidebar__nav {
+  overflow-y: auto;
+  padding: 0.5rem;
+  flex: 1;
+  width: 100%;
+}
+
+.sidebar__campus-link {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.sidebar__campus-link.active,
+.sidebar__campus-link:hover {
+  background: var(--bg-sunken);
+}
+
+.sidebar__unit {
+  margin-bottom: 0.75rem;
+}
+
+.sidebar__unit-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+  padding: 0.4rem 0.75rem;
+}
+
+.sidebar__lesson-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar__lesson-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 0.85rem;
+}
+
+.sidebar__lesson-item:hover {
+  background: var(--bg-sunken);
+}
+
+.sidebar__lesson-item--active {
+  background: color-mix(in srgb, var(--accent-primary) 15%, transparent);
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.sidebar__lesson-item--recommended {
+  background: color-mix(in srgb, var(--accent-primary) 8%, transparent);
+  box-shadow: inset 2px 0 0 var(--accent-primary);
+}
+
+.sidebar__lesson-status {
+  width: 1rem;
+  text-align: center;
+  color: var(--ink-muted);
+}
+
+.sidebar__lesson-item--done .sidebar__lesson-status {
+  color: var(--ds-circular-intentional);
+}
+
+.sidebar__lesson-item--recommended .sidebar__lesson-status {
+  color: var(--accent-primary);
+}
+
+.sidebar__lesson-id {
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+.sidebar__lesson-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar__lesson-xp {
+  font-size: 0.68rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  font-family: var(--font-code);
+}
+
+.sidebar__lesson-next-badge {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent-primary-ink);
+  background: var(--accent-primary);
+  padding: 0.1rem 0.35rem;
+  border-radius: 999px;
+  font-weight: 700;
+  white-space: nowrap;
+}

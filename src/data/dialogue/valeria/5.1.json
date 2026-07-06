@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "A collision here isn't an error, güey — it's an outcome the whole design plans for! Each bucket just becomes a tiny linked list instead of one slot."
+    },
+    "2": {
+      "mascotDialogue": "Line 13's the whole strategy — instead of overwriting whoever's already in the bucket, the new node just points at it and becomes the new head! Nothing's ever lost to a collision."
+    },
+    "3": {
+      "mascotDialogue": "Bucket 3 now carries a two-node chain — 17, inserted after 10, lands at the head, exactly like insert-at-head says it would!"
+    },
+    "4": {
+      "mascotDialogue": "The chain looks perfectly fine — one node, no dangling pointer in sight. That's the trap! The bug isn't a broken pointer, it's a silently vanished one — and this app shows 'lost node' plain, so it never hides."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

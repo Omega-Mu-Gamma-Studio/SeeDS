@@ -1,0 +1,11 @@
+{
+  "id": "valeria",
+  "name": "Valeria",
+  "nickname": "Val",
+  "origin": "Mexican",
+  "vibe": "Loud, expressive, draws in the air. Calls students \"güey.\"",
+  "teachingQuirk": "Food metaphors, especially anything about consuming/allocating/freeing resources.",
+  "palette": { "primary": "#C85A3E", "secondary": "#F9D342", "accent": "#2E7D32" },
+  "catchphrase": "Ándale, ándale — let's leak some memory!",
+  "portrait": "/portraits/cousins/valeria.png"
+}

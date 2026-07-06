@@ -1,0 +1,10 @@
+{
+  "id": "mei",
+  "name": "Mei",
+  "origin": "Singaporean",
+  "vibe": "Deadpan delivery, sudden chaos. Students can't tell if she's joking — both is the answer.",
+  "teachingQuirk": "Hawker centre food metaphors — collisions, queues, resource contention map naturally.",
+  "palette": { "primary": "#EE3124", "secondary": "#FFFFFF", "accent": "#F582AE" },
+  "catchphrase": "Can already. Let's go.",
+  "portrait": "/portraits/cousins/mei.png"
+}

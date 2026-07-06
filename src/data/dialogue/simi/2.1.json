@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Left, always smaller. Right, always bigger. For every single node, not just the root! Break this rule anywhere — poof, e no be BST again."
+    },
+    "2": {
+      "mascotDialogue": "Lines 12 and 13, na the ordering rule, written straight for code — smaller go left, bigger go right, recursively, all the way down."
+    },
+    "3": {
+      "mascotDialogue": "20 dey sit left of 30, wey already dey left of 50 — every step down, the rule dey hold again. Consistent, at least."
+    },
+    "4": {
+      "mascotDialogue": "The tree still dey look like tree — na that dey make this bug sneaky well well! E dey wrong only relative to the rule, not wrong for shape."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

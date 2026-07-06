@@ -1,0 +1,185 @@
+.phase-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.phase-container__body {
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  min-height: 320px;
+  border: 1px solid var(--border-subtle);
+  transition: box-shadow var(--t-bug) ease;
+}
+
+.phase-container__body--damaged {
+  box-shadow: 0 0 0 2px var(--ds-broken), 0 0 24px rgba(231, 76, 60, 0.25);
+  animation: bug-pulse var(--t-bug) ease;
+}
+
+@keyframes bug-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.6); }
+  100% { box-shadow: 0 0 0 2px var(--ds-broken), 0 0 24px rgba(231, 76, 60, 0.25); }
+}
+
+.phase-content h3 {
+  margin-top: 0;
+  color: var(--accent-primary);
+}
+
+.phase-content__concept-list {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.phase-content__concept-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  line-height: 1.5;
+}
+
+.phase-content__concept-list li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.phase-content__analogy {
+  font-style: italic;
+  color: var(--ink-muted);
+  border-left: 3px solid var(--accent-tertiary);
+  padding-left: 1rem;
+}
+
+.phase-content__two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.phase-content__col {
+  /* Without this, a grid track's automatic minimum size is its content's
+     min-content size, not 0. The Konva Stage inside .phase-content__col--visual
+     renders a fixed-pixel-width wrapper div (react-konva sets inline width/height),
+     which doesn't shrink -- so without min-width: 0 the grid column refuses to be
+     narrower than that canvas, blowing the whole column past the panel bounds
+     (visible as the oversized, right-shifted canvas bug). overflow: hidden is a
+     second line of defense in case a renderer ever reports a size before the
+     ResizeObserver settles. */
+  min-width: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 800px) {
+  .phase-content__two-col { grid-template-columns: 1fr; }
+}
+
+.phase-content__col--visual {
+  background: var(--bg-sunken);
+  border-radius: var(--radius-md);
+  /* Fixed height gives the renderer's ResizeObserver something concrete to
+     measure. The renderer now scales its diagram to fit this box instead of
+     overflowing it, so `overflow: auto` + centering (which used to silently
+     scroll past the first/leftmost node) is no longer needed. */
+  height: 360px;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 800px) {
+  .phase-content__col--visual {
+    height: 300px;
+  }
+}
+
+.phase-content__bug-desc {
+  background: color-mix(in srgb, var(--ds-broken) 10%, transparent);
+  border-left: 3px solid var(--ds-broken);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+}
+
+.phase-content__question {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.phase-content__answer-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.phase-content__answer-input {
+  flex: 1;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-sunken);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+.phase-content__submit-btn {
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: var(--accent-primary);
+  color: var(--accent-primary-ink);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.phase-content__feedback {
+  margin-top: 0.75rem;
+  font-weight: 600;
+}
+
+.phase-content__feedback--correct {
+  color: var(--ds-circular-intentional);
+}
+
+.phase-content__feedback--incorrect {
+  color: var(--ds-broken);
+}
+
+.phase-container__mascot-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.phase-container__nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.phase-container__nav-btn {
+  padding: 0.7rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.phase-container__nav-btn--primary {
+  background: var(--accent-primary);
+  color: var(--accent-primary-ink);
+  border-color: transparent;
+}
+
+.phase-container__nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}

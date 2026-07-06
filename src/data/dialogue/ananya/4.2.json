@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "One edge, beta, but TWO entries in the adjacency matrix! Forget the second one, and — arre — you've quietly built half a directed graph by accident."
+    },
+    "2": {
+      "mascotDialogue": "Line 2 and line 3 are not optional extras of each other, beta — they are the SAME conceptual edge, and they must be added together, as one single atomic pair, every single time."
+    },
+    "3": {
+      "mascotDialogue": "No arrowheads this time, beta — just a plain line, because the connection is inherently mutual. Both sides agree, like a proper handshake."
+    },
+    "4": {
+      "mascotDialogue": "The visual is showing a single arrowhead where an undirected graph should never, ever have one — that mismatch IS the bug, beta, made impossible to miss."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

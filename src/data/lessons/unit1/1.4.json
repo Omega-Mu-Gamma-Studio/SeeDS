@@ -1,0 +1,132 @@
+{
+  "id": "1.4",
+  "title": "Stack",
+  "unit": 1,
+  "topics": [
+    "push",
+    "pop",
+    "overflow",
+    "underflow"
+  ],
+  "xp": 10,
+  "structureVariant": "linear",
+  "phases": {
+    "1": {
+      "concept": [
+        "A stack is a Last-In-First-Out (LIFO) structure: the last item pushed on is the first one popped off.",
+        "You can only ever add to or remove from one end, called the top.",
+        "That restriction is exactly what makes push and pop O(1) \u2014 there's never any shifting or searching involved.",
+        "It's also why function calls, undo history, and expression parsing all lean on a stack under the hood: each of those is fundamentally a 'last thing first' problem."
+      ],
+      "analogy": "A stack of trays in a cafeteria \u2014 you take from the top, and you put new ones on the top. You cannot pull a tray out from the middle without disturbing everything above it.",
+      "mascotDialogue": "One rule, no exceptions: everything happens at the top. If you find yourself wanting to touch anything else, you don't want a stack."
+    },
+    "2": {
+      "code": "#define MAX 5\ntypedef struct {\n    int items[MAX];\n    int top; // index of the top element, -1 means empty\n} Stack;\n\nint push(Stack* s, int value) {\n    if (s->top == MAX - 1) return 0; // overflow\n    s->items[++(s->top)] = value;\n    return 1;\n}\n\nint pop(Stack* s, int* out) {\n    if (s->top == -1) return 0; // underflow\n    *out = s->items[(s->top)--];\n    return 1;\n}",
+      "highlightLines": [
+        4,
+        8,
+        9,
+        13,
+        14
+      ],
+      "mascotDialogue": "`top` is the whole stack's memory of where it is. -1 means empty. MAX - 1 means full. Everything else is just moving that one number."
+    },
+    "3": {
+      "code": "Stack s; s.top = -1;\npush(&s, 10);\npush(&s, 20);\npush(&s, 30);\n// s.top == 2, s.items == [10, 20, 30, _, _]",
+      "visual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "s0",
+              "value": 10,
+              "arrayIndex": 0,
+              "address": "0x400"
+            },
+            {
+              "id": "s1",
+              "value": 20,
+              "arrayIndex": 1,
+              "address": "0x404"
+            },
+            {
+              "id": "s2",
+              "value": 30,
+              "arrayIndex": 2,
+              "address": "0x408",
+              "isTop": true
+            }
+          ],
+          "edges": [],
+          "capacity": 5,
+          "size": 3,
+          "demoState": "healthy"
+        }
+      },
+      "mascotDialogue": "See the TOP marker sitting on index 2, with two empty slots still visible above it? That headroom is the point \u2014 this stack has room to grow.",
+      "mapping": {
+        "line4": "s2"
+      }
+    },
+    "4": {
+      "brokenCode": "Stack s; s.top = 4; // capacity is MAX=5, so top is already at the last valid index\nint ok = push(&s, 99); // returns 0 \u2014 overflow, but the caller ignored it\ns.items[++(s.top)] = 99; // wrote past the array bounds anyway",
+      "brokenVisual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "s0",
+              "value": 1,
+              "arrayIndex": 0
+            },
+            {
+              "id": "s1",
+              "value": 2,
+              "arrayIndex": 1
+            },
+            {
+              "id": "s2",
+              "value": 3,
+              "arrayIndex": 2
+            },
+            {
+              "id": "s3",
+              "value": 4,
+              "arrayIndex": 3
+            },
+            {
+              "id": "s4",
+              "value": 5,
+              "arrayIndex": 4,
+              "isTop": true
+            },
+            {
+              "id": "s5",
+              "value": 99,
+              "arrayIndex": 5,
+              "broken": true,
+              "outOfBounds": true
+            }
+          ],
+          "edges": [],
+          "capacity": 5,
+          "size": 6,
+          "demoState": "broken"
+        }
+      },
+      "bugDescription": "The stack was already full (top at index 4, the last valid slot for capacity 5). push() correctly detected overflow and returned 0 \u2014 but the calling code ignored that return value and wrote to items[5] anyway, one slot past the allocated array.",
+      "mascotDialogue": "The function did its job \u2014 it said no. The bug is entirely in the caller not listening. This is why we always show demoState: 'broken' with a visible slot past capacity, never quietly."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "A lesson demo shows a 5-capacity stack with 5 items and labels it demoState: 'healthy'. What's wrong?",
+      "answer": "A full stack should never be labeled 'healthy' \u2014 healthy demos must show visible headroom (size < capacity)",
+      "hints": [
+        "Check PRD \u00a78.4's demo-state validation rule.",
+        "This was an actual bug in SeeDS 1.0 \u2014 a full stack looked identical to an overflowing one."
+      ],
+      "solution": "Per the demo-state rule, any capacity-bound structure marked 'healthy' must show size strictly less than max capacity, so a healthy demo is never visually indistinguishable from an overflow."
+    }
+  }
+}

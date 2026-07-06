@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Same values, two views — a tree for the ordering rule, an array for how it truly lives in memory. parent(i) equals (i minus 1) divided by 2. This is the entire address book."
+    },
+    "2": {
+      "mascotDialogue": "Line 3 is the bridge between array and tree — any index's parent is always (i-1)/2, integer division, no rounding. Line 4 is the min-heap rule itself — stop the moment the parent is already smaller or equal."
+    },
+    "3": {
+      "mascotDialogue": "Hover index 4 in the array — watch its tree node answer, as a child of index 1. Same data, two windows, moving together."
+    },
+    "4": {
+      "mascotDialogue": "Both the array cell and the tree node glow the same broken color at once — because it is one mistake, only seen from two angles."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

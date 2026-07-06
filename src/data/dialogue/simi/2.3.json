@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Once the expression don become tree, to evaluate am simple — solve both children, then apply operator for the parent. No precedence table needed for evaluation time — the shape don already encode am."
+    },
+    "2": {
+      "mascotDialogue": "Line 8, na the base case — leaf just return her digit. Lines 9 and 10 recurse into both children before line 11 combine dem. Bottom of the tree dey evaluate first, always."
+    },
+    "3": {
+      "mascotDialogue": "Because plus dey sit beneath times, e forced to resolve first — na precedence be that, shown as depth for the tree, instead of rule wey you must memorise."
+    },
+    "4": {
+      "mascotDialogue": "This bug dey hide well because multiplication no dey care about order. Swap the operator to subtraction for your head, and this same exact shape go start lying to you."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

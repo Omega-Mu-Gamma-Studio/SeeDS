@@ -1,0 +1,80 @@
+.home-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.home-page__chapter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: -1.25rem;
+}
+
+.home-page__chapter-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.home-page__chapter-name {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.home-page__hero {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.home-page__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.home-page__card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.home-page__card h3 {
+  margin: 0;
+  color: var(--accent-primary);
+}
+
+.home-page__lesson-title {
+  font-weight: 600;
+}
+
+.home-page__cta {
+  align-self: flex-start;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--accent-primary);
+  color: var(--accent-primary-ink);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.home-page__cta--secondary {
+  background: var(--accent-tertiary);
+}
+
+.home-page__level {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  margin: 0;
+}

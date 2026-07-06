@@ -1,0 +1,29 @@
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-base);
+  color: var(--ink);
+  font-family: var(--font-body);
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app-layout__body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.app-layout__main {
+  flex: 1;
+  min-width: 0;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+@media (max-width: 720px) {
+  .app-layout__main {
+    padding: 1rem;
+  }
+}

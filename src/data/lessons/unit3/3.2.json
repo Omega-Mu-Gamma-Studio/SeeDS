@@ -1,0 +1,181 @@
+{
+  "id": "3.2",
+  "title": "Max Heap",
+  "unit": 3,
+  "topics": [
+    "heap property",
+    "sift-down",
+    "extract-max"
+  ],
+  "xp": 12,
+  "structureVariant": "linear",
+  "phases": {
+    "1": {
+      "concept": [
+        "A max heap is the mirror of a min heap: every parent is greater than or equal to both children, so the largest value always sits at the root.",
+        "Removing the max involves swapping the root with the last element, shrinking the heap, then sifting that element down until the heap property is restored.",
+        "Every complexity guarantee carries over unchanged from the min heap \u2014 O(1) to peek the max, O(log n) to remove it \u2014 because sifting down, like sifting up, only ever travels a single root-to-leaf path, never touches the rest of the tree."
+      ],
+      "analogy": "A leaderboard where the champion always sits at the very top slot. When the champion steps down, whoever was last in line temporarily takes their spot, then gets bumped down through challenge matches until they land at a rank they actually deserve.",
+      "mascotDialogue": "extract-max is really two moves: swap root with the last leaf, shrink the heap by one, then let that displaced value sink to wherever it actually belongs."
+    },
+    "2": {
+      "code": "void siftDown(int arr[], int n, int i) {\n    int largest = i;\n    int l = 2*i + 1, r = 2*i + 2;\n    if (l < n && arr[l] > arr[largest]) largest = l;\n    if (r < n && arr[r] > arr[largest]) largest = r;\n    if (largest != i) {\n        int tmp = arr[i]; arr[i] = arr[largest]; arr[largest] = tmp;\n        siftDown(arr, n, largest);\n    }\n}",
+      "highlightLines": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "mascotDialogue": "Lines 4-5 find the biggest of the node and its two children. Line 8's recursive call is what lets the displaced value keep sinking past more than one level if it needs to."
+    },
+    "3": {
+      "code": "int heap[6] = {9, 7, 8, 3, 6, 5};\n// root=9 is the max, siftDown restores order after any change",
+      "visual": {
+        "rendererType": "array-tree-dual",
+        "data": {
+          "nodes": [
+            {
+              "id": "h0",
+              "value": 9,
+              "arrayIndex": 0,
+              "parentIndex": null
+            },
+            {
+              "id": "h1",
+              "value": 7,
+              "arrayIndex": 1,
+              "parentIndex": 0
+            },
+            {
+              "id": "h2",
+              "value": 8,
+              "arrayIndex": 2,
+              "parentIndex": 0
+            },
+            {
+              "id": "h3",
+              "value": 3,
+              "arrayIndex": 3,
+              "parentIndex": 1
+            },
+            {
+              "id": "h4",
+              "value": 6,
+              "arrayIndex": 4,
+              "parentIndex": 1
+            },
+            {
+              "id": "h5",
+              "value": 5,
+              "arrayIndex": 5,
+              "parentIndex": 2
+            }
+          ],
+          "edges": [
+            {
+              "from": "h0",
+              "to": "h1"
+            },
+            {
+              "from": "h0",
+              "to": "h2"
+            },
+            {
+              "from": "h1",
+              "to": "h3"
+            },
+            {
+              "from": "h1",
+              "to": "h4"
+            },
+            {
+              "from": "h2",
+              "to": "h5"
+            }
+          ]
+        }
+      },
+      "mascotDialogue": "9 up top, and every parent down the tree beats both its children. Same array-index math as min heap, just the comparison direction flipped.",
+      "mapping": {
+        "line1": "h0"
+      }
+    },
+    "4": {
+      "brokenCode": "int heap[6] = {9, 7, 8, 3, 6, 5};\n// extractMax swapped root and last leaf, shrank size, but FORGOT to call siftDown\nheap[0] = heap[5]; // heap[0] is now 5\n// size is now 5, but 5 at the root is smaller than its children 7 and 8",
+      "brokenVisual": {
+        "rendererType": "array-tree-dual",
+        "data": {
+          "nodes": [
+            {
+              "id": "h0",
+              "value": 5,
+              "arrayIndex": 0,
+              "parentIndex": null,
+              "broken": true
+            },
+            {
+              "id": "h1",
+              "value": 7,
+              "arrayIndex": 1,
+              "parentIndex": 0
+            },
+            {
+              "id": "h2",
+              "value": 8,
+              "arrayIndex": 2,
+              "parentIndex": 0
+            },
+            {
+              "id": "h3",
+              "value": 3,
+              "arrayIndex": 3,
+              "parentIndex": 1
+            },
+            {
+              "id": "h4",
+              "value": 6,
+              "arrayIndex": 4,
+              "parentIndex": 1
+            }
+          ],
+          "edges": [
+            {
+              "from": "h0",
+              "to": "h1",
+              "type": "violation"
+            },
+            {
+              "from": "h0",
+              "to": "h2",
+              "type": "violation"
+            },
+            {
+              "from": "h1",
+              "to": "h3"
+            },
+            {
+              "from": "h1",
+              "to": "h4"
+            }
+          ]
+        }
+      },
+      "bugDescription": "After moving the last leaf's value to the root, siftDown() was never called. The root now holds 5, which is smaller than both of its children (7 and 8) \u2014 a direct max-heap violation left unrepaired.",
+      "mascotDialogue": "The swap alone doesn't finish the job. Without siftDown, you've just relocated the problem to the top of the tree instead of solving it."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "After swapping the root with the last leaf during extract-max, what operation must run to restore the heap property?",
+      "answer": "siftDown, starting from the root",
+      "hints": [
+        "The displaced value is now at the top, likely too small to belong there.",
+        "It needs to move toward wherever it actually fits."
+      ],
+      "solution": "siftDown must run starting at the root, repeatedly swapping the displaced value with its larger child until it settles in a position where the max-heap property holds again."
+    }
+  }
+}

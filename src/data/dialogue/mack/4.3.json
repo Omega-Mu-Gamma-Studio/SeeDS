@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "The queue's what makes this breadth-first, not depth-first. Whatever's discovered first gets explored first — FIFO order, doing the level-by-level spreading for ya."
+    },
+    "2": {
+      "mascotDialogue": "Line 12's the guard that keeps BFS from looping forever — mark visited the second you enqueue, not when you dequeue, or you'll be enqueuing the same node over and over."
+    },
+    "3": {
+      "mascotDialogue": "1 and 2, both distance-one from the start — so they're visited before 3, who's distance-two from either. That's the level-order guarantee, working exactly as promised."
+    },
+    "4": {
+      "mascotDialogue": "One line missing, and BFS's whole promise — visit each node exactly once — quietly stops holding for any graph that isn't a simple tree."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

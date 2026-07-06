@@ -1,0 +1,181 @@
+.campus-map {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.campus-map__bg {
+  position: absolute;
+  inset: -1rem -1rem auto -1rem;
+  height: 180px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--accent-tertiary), var(--accent-primary));
+  opacity: 0.18;
+  z-index: -1;
+}
+
+[data-theme='night'] .campus-map__bg {
+  filter: brightness(0.55) saturate(0.85) hue-rotate(-6deg);
+}
+
+.campus-map__intro {
+  color: var(--ink-muted);
+  margin-top: -0.5rem;
+}
+
+.campus-map__canvas {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.campus-map__path-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.campus-map__path-line {
+  stroke: var(--accent-primary);
+  stroke-width: 2;
+  stroke-dasharray: 6 6;
+  opacity: 0.5;
+}
+
+.campus-map__path-line--locked {
+  stroke: var(--border-subtle);
+  opacity: 0.6;
+}
+
+.campus-map__hotspot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  width: 132px;
+  padding: 0.6rem;
+  border-radius: var(--radius-md);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
+  font-family: var(--font-body);
+  z-index: 1;
+}
+
+.campus-map__hotspot-node {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 2px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.15s ease;
+}
+
+.campus-map__hotspot:hover:not(:disabled) .campus-map__hotspot-node {
+  border-color: var(--accent-primary);
+  transform: scale(1.06);
+}
+
+.campus-map__hotspot--in-progress .campus-map__hotspot-node {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.campus-map__hotspot--complete .campus-map__hotspot-node {
+  border-color: var(--ds-circular-intentional);
+  background: var(--ds-circular-intentional);
+  color: var(--accent-primary-ink);
+  box-shadow: var(--ambient-glow);
+}
+
+.campus-map__hotspot--locked {
+  cursor: not-allowed;
+}
+
+.campus-map__hotspot--locked .campus-map__hotspot-node {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+
+.campus-map__hotspot--locked .campus-map__hotspot-name,
+.campus-map__hotspot--locked .campus-map__hotspot-meta {
+  opacity: 0.45;
+}
+
+.campus-map__hotspot-pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-primary);
+  animation: campus-map-pulse 1.8s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes campus-map-pulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.campus-map__hotspot-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
+.campus-map__hotspot-meta {
+  font-size: 0.7rem;
+  color: var(--ink-muted);
+}
+
+.campus-map__drilldown {
+  margin-top: 2rem;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.campus-map__lesson-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.campus-map__lesson-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-sunken);
+  cursor: pointer;
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+.campus-map__lesson-id {
+  font-family: var(--font-code);
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+}

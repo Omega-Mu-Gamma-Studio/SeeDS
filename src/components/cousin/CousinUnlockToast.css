@@ -1,0 +1,74 @@
+.cousin-unlock-toast {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--accent-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-elevated), var(--ambient-glow);
+  z-index: 50;
+  overflow: visible;
+}
+
+.cousin-unlock-toast__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.cousin-unlock-toast__eyebrow {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.cousin-unlock-toast__name {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--accent-primary);
+}
+
+.cousin-unlock-toast__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-muted);
+  font-size: 1rem;
+  margin-left: 0.25rem;
+}
+
+.cousin-unlock-toast__confetti {
+  position: absolute;
+  inset: -0.5rem;
+  pointer-events: none;
+}
+
+.cousin-unlock-toast__confetti-piece {
+  position: absolute;
+  top: 50%;
+  left: calc(12% * var(--i));
+  font-size: 1rem;
+  animation: cousin-unlock-confetti 1.1s ease-out forwards;
+  animation-delay: calc(var(--i) * 90ms);
+  opacity: 0;
+}
+
+@keyframes cousin-unlock-confetti {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(0deg) scale(0.6);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-38px) rotate(200deg) scale(1);
+  }
+}

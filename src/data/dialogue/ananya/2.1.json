@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Left is always smaller, right is always bigger — at EVERY single node, beta, not just the root! Break that rule anywhere, even one node deep in the family tree, and it stops being a BST altogether."
+    },
+    "2": {
+      "mascotDialogue": "Lines 12 and 13, beta — that is the ordering rule made literal in code. Smaller goes left, bigger goes right, recursively, all the way down the tree, no shortcuts."
+    },
+    "3": {
+      "mascotDialogue": "20 sits left of 30, which is already left of 50 — every single step down, beta, the ordering rule holds again and again. Consistent family, this one."
+    },
+    "4": {
+      "mascotDialogue": "The tree still looks like a perfectly nice tree, beta — that is what makes this bug so sneaky! It is only wrong relative to the ordering rule, not wrong in shape at all."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

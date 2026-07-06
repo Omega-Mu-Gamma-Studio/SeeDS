@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Left is always smaller, right is always bigger, at every single node, not merely the root. Break that rule anywhere and it stops being a BST, full stop."
+    },
+    "2": {
+      "mascotDialogue": "Lines 12 and 13 are the ordering rule made literal in code: smaller goes left, bigger goes right, recursively, all the way down."
+    },
+    "3": {
+      "mascotDialogue": "20 sits left of 30, which is already left of 50 — every step down, the ordering rule holds again. Consistent, if nothing else."
+    },
+    "4": {
+      "mascotDialogue": "The tree still looks like a tree — that's what makes this bug so easy to miss. It's only wrong relative to the ordering rule, not wrong in shape."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

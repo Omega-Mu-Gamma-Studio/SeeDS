@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "An arrow in a directed graph means exactly one thing — you may go this way! She says nothing at all about whether you may come back."
+    },
+    "2": {
+      "mascotDialogue": "Line 8 sets exactly one cell in the matrix. A directed edge, she only ever writes adjacency[u][v] — never adjacency[v][u]."
+    },
+    "3": {
+      "mascotDialogue": "Every arrowhead points one way. This particular loop happens to form a cycle, but each edge, tesoro, remains individually one-directional."
+    },
+    "4": {
+      "mascotDialogue": "This is the most common mistake with directed graphs — treating a one-way arrow like she secretly runs both ways. She does not! The visual only ever draws the direction you truly set."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

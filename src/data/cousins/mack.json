@@ -1,0 +1,10 @@
+{
+  "id": "mack",
+  "name": "Mack",
+  "origin": "Australian",
+  "vibe": "Chill, calls everyone \"mate,\" fixes a segfault without raising her voice.",
+  "teachingQuirk": "Beach and BBQ metaphors — good for anything about coverage/sweeping a range.",
+  "palette": { "primary": "#00843D", "secondary": "#FED100", "accent": "#00008B" },
+  "catchphrase": "No wukkas, mate — we got this.",
+  "portrait": "/portraits/cousins/mack.png"
+}

@@ -1,0 +1,41 @@
+.animated-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.animated-bg__gradient {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.4s ease;
+}
+
+.animated-bg--day .animated-bg__gradient {
+  background: radial-gradient(ellipse at 20% 0%, rgba(255, 236, 200, 0.5), transparent 60%);
+}
+
+.animated-bg--night .animated-bg__gradient {
+  background: radial-gradient(ellipse at 80% 10%, rgba(255, 244, 214, 0.08), transparent 60%);
+}
+
+.animated-bg__stars {
+  position: absolute;
+  inset: 0;
+}
+
+.animated-bg__star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.6;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.9; }
+}

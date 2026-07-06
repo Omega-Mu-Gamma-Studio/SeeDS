@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Balance factor, tesoro, is simply left-height minus right-height! Anything outside minus one to one triggers a rotation before we go further. The whole self-balancing trick, no more mysterious than that."
+    },
+    "2": {
+      "mascotDialogue": "`rotateRight` lifts the left child up to become the new head of this family, and hands down her old right child to the demoted node — three pointer swaps, one operation. Beautiful, no?"
+    },
+    "3": {
+      "mascotDialogue": "After the rotation, 20 sits at the top with balance factor zero on both sides! Without it, 30 would have had a balance factor of two — a straight leaning line, not a tree at all."
+    },
+    "4": {
+      "mascotDialogue": "The balance factor badge on node 30, this is the giveaway — two is a hard violation, shown plainly, no arithmetic in your head required."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

@@ -1,0 +1,80 @@
+.seal-toast__scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seal-toast__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem 2.25rem 1.75rem;
+  width: min(360px, 88vw);
+  background: var(--bg-elevated);
+  border: 1px solid var(--accent-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.35), var(--ambient-glow);
+  text-align: center;
+}
+
+.seal-toast__eyebrow {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+
+.seal-toast__landmark-name {
+  margin: 0.1rem 0 0.5rem;
+  font-size: 1.3rem;
+  color: var(--ink);
+  font-family: var(--font-display, var(--font-body));
+}
+
+.seal-toast__stamp-wrap {
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.3));
+  margin: 0.25rem 0 0.75rem;
+}
+
+.seal-toast__quip {
+  margin: 0;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--ink-muted);
+  line-height: 1.4;
+}
+
+.seal-toast__quip-attr {
+  font-style: normal;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.seal-toast__dismiss {
+  margin-top: 1rem;
+  padding: 0.5rem 1.4rem;
+  background: var(--accent-primary);
+  color: var(--accent-primary-ink);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.seal-toast__dismiss:hover {
+  filter: brightness(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seal-toast__card,
+  .seal-toast__stamp-wrap {
+    transition: none !important;
+    animation: none !important;
+  }
+}

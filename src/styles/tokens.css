@@ -1,0 +1,145 @@
+/* ============================================================
+   SeeDS 2.0 — Design Tokens
+   Generated to match GAMMA_COUSINS.md §2 palette rows.
+   Two orthogonal layers (Master UI/UX Doc §1):
+     1. Time-of-day  -> base neutrals   (:root / [data-theme='night'])
+     2. Advisor      -> accent colors   ([data-cousin='...'])
+   Structure-diagram tokens (--ds-*) are a THIRD, fully separate
+   namespace. Never let a component read --accent-* to color a
+   Konva canvas element, and never let a renderer read --ds-*
+   for chrome.
+   ============================================================ */
+
+:root {
+  /* ---- Day (base neutrals) ---- */
+  --bg-base: #F4EDE0;
+  --bg-elevated: #FFFFFF;
+  --bg-sunken: #E9E0CE;
+  --ink: #2B2620;
+  --ink-muted: #6B6357;
+  --border-subtle: rgba(43, 38, 32, 0.12);
+  --texture-overlay: none;
+  --ambient-glow: none;
+  --shadow-elevated: 0 4px 16px rgba(43, 38, 32, 0.10);
+
+  /* ---- Structure-diagram tokens (PRD §11.3 — cousin-agnostic, permanent) ---- */
+  --ds-node: #4A90D9;
+  --ds-node-ink: #FFFFFF;
+  --ds-pointer: #F5A623;
+  --ds-null: #999999;
+  --ds-broken: #E74C3C;
+  --ds-highlight: #FFD700;
+  --ds-circular-intentional: #3CA05A;
+
+  /* ---- Typography ---- */
+  --font-code: 'Fira Code', 'JetBrains Mono', ui-monospace, monospace;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* ---- Motion (PRD §11.3.4) ---- */
+  --t-phase: 0.3s;
+  --t-highlight: 0.2s;
+  --t-bug: 0.5s;
+  --t-insert: 0.5s;
+  --t-rotation: 0.5s;
+
+  /* ---- Radii / spacing scale ---- */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Default advisor accents (used before onboarding / for 'default' narrator) */
+  --accent-primary: #4A6D8C;
+  --accent-secondary: #D8CBA5;
+  --accent-tertiary: #8C6E4A;
+  --accent-primary-ink: #FFFFFF;
+}
+
+[data-theme='night'] {
+  --bg-base: #14161F;
+  --bg-elevated: #1E212E;
+  --bg-sunken: #0E0F16;
+  --ink: #EDEAE2;
+  --ink-muted: #9A97A8;
+  --border-subtle: rgba(237, 234, 226, 0.12);
+  --texture-overlay: none;
+  --ambient-glow: 0 0 24px rgba(255, 214, 120, 0.25);
+  --shadow-elevated: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+[data-cousin='default'] {
+  --accent-primary: #4A6D8C;
+  --accent-secondary: #D8CBA5;
+  --accent-tertiary: #8C6E4A;
+  --accent-primary-ink: #FFFFFF;
+}
+
+[data-cousin='scout'] {
+  --accent-primary: #BF0A30;
+  --accent-secondary: #FFFFFF;
+  --accent-tertiary: #002868;
+  --accent-primary-ink: #FFFFFF;
+}
+
+[data-cousin='mei'] {
+  /* Only 2 canon colors (Red/White) — 3rd slot filled: pink */
+  --accent-primary: #EE3124;
+  --accent-secondary: #FFFFFF;
+  --accent-tertiary: #F582AE;
+  --accent-primary-ink: #FFFFFF;
+}
+
+[data-cousin='camille'] {
+  --accent-primary: #002395;
+  --accent-secondary: #FFFFFF;
+  --accent-tertiary: #ED2939;
+  --accent-primary-ink: #FFFFFF;
+}
+
+[data-cousin='rosa'] {
+  --accent-primary: #009246;
+  --accent-secondary: #FFFFFF;
+  --accent-tertiary: #CE2B37;
+  --accent-primary-ink: #FFFFFF;
+}
+
+[data-cousin='valeria'] {
+  --accent-primary: #C85A3E;
+  --accent-secondary: #F9D342;
+  --accent-tertiary: #2E7D32;
+  --accent-primary-ink: #FFFFFF;
+}
+
+[data-cousin='ananya'] {
+  --accent-primary: #FF9933;
+  --accent-secondary: #800020;
+  --accent-tertiary: #008080;
+  --accent-primary-ink: #1A1A1A;
+}
+
+[data-cousin='miyu'] {
+  --accent-primary: #BC002D;
+  --accent-secondary: #1A1A1A;
+  --accent-tertiary: #FFFFFF;
+  --accent-primary-ink: #FFFFFF;
+}
+
+[data-cousin='florence'] {
+  --accent-primary: #012169;
+  --accent-secondary: #C8102E;
+  --accent-tertiary: #FFFFFF;
+  --accent-primary-ink: #FFFFFF;
+}
+
+[data-cousin='mack'] {
+  --accent-primary: #00843D;
+  --accent-secondary: #FED100;
+  --accent-tertiary: #00008B;
+  --accent-primary-ink: #FFFFFF;
+}
+
+[data-cousin='simi'] {
+  --accent-primary: #008751;
+  --accent-secondary: #FFFFFF;
+  --accent-tertiary: #000000;
+  --accent-primary-ink: #FFFFFF;
+}

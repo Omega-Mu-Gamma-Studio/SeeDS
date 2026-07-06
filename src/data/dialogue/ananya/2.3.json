@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Once the expression becomes a tree, beta, evaluating it is simple — solve both children, then apply the operator sitting at the parent. No precedence table needed at evaluation time at all — the shape itself already encodes everything."
+    },
+    "2": {
+      "mascotDialogue": "Line 8 is the base case, beta — a leaf simply returns its digit. Lines 9 and 10 recurse into both children before line 11 combines them. Bottom of the tree evaluates first, always, no exceptions."
+    },
+    "3": {
+      "mascotDialogue": "Because plus sits underneath multiply, beta, it is forced to resolve first — that is precedence, shown right there as depth in the tree, instead of some rule you have to memorize by heart!"
+    },
+    "4": {
+      "mascotDialogue": "This bug hides so well, beta, precisely because multiplication doesn't care about order. Swap the operator to subtraction in your head for a second — and this exact same shape suddenly starts lying to you!"
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Two ends this time, not one — the front, for leaving, the back, for joining! Mix those up, tesoro, and you have quietly built yourself a stack instead."
+    },
+    "2": {
+      "mascotDialogue": "That `% MAX`, on both front and rear — this is what lets the array wrap around, instead of shifting everybody forward every time somebody leaves. Molto elegante."
+    },
+    "3": {
+      "mascotDialogue": "FRONT and REAR, two separate markers now! Watch them, they stay two apart as you enqueue, as you dequeue."
+    },
+    "4": {
+      "mascotDialogue": "An empty queue, she is not 'nothing to see,' tesoro — she is a specific, checkable state! If your dequeue does not check for her, she will hand you garbage and call it a value, shameless!"
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

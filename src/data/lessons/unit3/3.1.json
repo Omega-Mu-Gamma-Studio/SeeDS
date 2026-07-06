@@ -1,0 +1,211 @@
+{
+  "id": "3.1",
+  "title": "Min Heap",
+  "unit": 3,
+  "topics": [
+    "heap property",
+    "array representation",
+    "sift-up"
+  ],
+  "xp": 12,
+  "structureVariant": "linear",
+  "phases": {
+    "1": {
+      "concept": [
+        "A min heap is a complete binary tree where every parent is smaller than or equal to both its children. The smallest value overall always sits at the root.",
+        "Because the tree is 'complete' (filled left-to-right, level by level), it can be stored efficiently as a plain array \u2014 no pointers needed at all.",
+        "A node at index i has its children at 2i+1 and 2i+2, and its parent at (i-1)/2, so navigating the 'tree' is just arithmetic on array indices.",
+        "Peeking the minimum is O(1) since it's always the root; inserting or removing it costs O(log n), since restoring the heap property only ever means moving a value up or down a single path, never across the whole structure."
+      ],
+      "analogy": "A single-elimination tournament bracket run in reverse: the smallest score always bubbles up to the top slot, and you can find any competitor's parent match with simple arithmetic on their bracket position, no wiring required.",
+      "mascotDialogue": "Same values, two views: a tree for the ordering rule, an array for how it actually lives in memory. parent(i) = (i-1)/2. That's the whole address book."
+    },
+    "2": {
+      "code": "void siftUp(int arr[], int i) {\n    while (i > 0) {\n        int parent = (i - 1) / 2;\n        if (arr[parent] <= arr[i]) break;\n        int tmp = arr[i];\n        arr[i] = arr[parent];\n        arr[parent] = tmp;\n        i = parent;\n    }\n}",
+      "highlightLines": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "mascotDialogue": "Line 3 is the array-to-tree bridge: any index's parent is always (i-1)/2, integer division. Line 4 is the min-heap rule itself: stop as soon as the parent is already smaller or equal."
+    },
+    "3": {
+      "code": "int heap[7] = {2, 5, 3, 8, 9, 6, 7};\n// arr[0]=2 is root, children of i are 2i+1 and 2i+2",
+      "visual": {
+        "rendererType": "array-tree-dual",
+        "data": {
+          "nodes": [
+            {
+              "id": "h0",
+              "value": 2,
+              "arrayIndex": 0,
+              "parentIndex": null
+            },
+            {
+              "id": "h1",
+              "value": 5,
+              "arrayIndex": 1,
+              "parentIndex": 0
+            },
+            {
+              "id": "h2",
+              "value": 3,
+              "arrayIndex": 2,
+              "parentIndex": 0
+            },
+            {
+              "id": "h3",
+              "value": 8,
+              "arrayIndex": 3,
+              "parentIndex": 1
+            },
+            {
+              "id": "h4",
+              "value": 9,
+              "arrayIndex": 4,
+              "parentIndex": 1
+            },
+            {
+              "id": "h5",
+              "value": 6,
+              "arrayIndex": 5,
+              "parentIndex": 2
+            },
+            {
+              "id": "h6",
+              "value": 7,
+              "arrayIndex": 6,
+              "parentIndex": 2
+            }
+          ],
+          "edges": [
+            {
+              "from": "h0",
+              "to": "h1"
+            },
+            {
+              "from": "h0",
+              "to": "h2"
+            },
+            {
+              "from": "h1",
+              "to": "h3"
+            },
+            {
+              "from": "h1",
+              "to": "h4"
+            },
+            {
+              "from": "h2",
+              "to": "h5"
+            },
+            {
+              "from": "h2",
+              "to": "h6"
+            }
+          ]
+        }
+      },
+      "mascotDialogue": "Hover index 4 in the array \u2014 watch its tree node light up as a child of index 1. Same data, two synchronized windows onto it.",
+      "mapping": {
+        "line1": "h0"
+      }
+    },
+    "4": {
+      "brokenCode": "int heap[7] = {2, 5, 3, 8, 1, 6, 7};\n// arr[4] = 1 is smaller than its parent arr[1] = 5 -- heap property violated",
+      "brokenVisual": {
+        "rendererType": "array-tree-dual",
+        "data": {
+          "nodes": [
+            {
+              "id": "h0",
+              "value": 2,
+              "arrayIndex": 0,
+              "parentIndex": null
+            },
+            {
+              "id": "h1",
+              "value": 5,
+              "arrayIndex": 1,
+              "parentIndex": 0,
+              "broken": true
+            },
+            {
+              "id": "h2",
+              "value": 3,
+              "arrayIndex": 2,
+              "parentIndex": 0
+            },
+            {
+              "id": "h3",
+              "value": 8,
+              "arrayIndex": 3,
+              "parentIndex": 1
+            },
+            {
+              "id": "h4",
+              "value": 1,
+              "arrayIndex": 4,
+              "parentIndex": 1,
+              "broken": true
+            },
+            {
+              "id": "h5",
+              "value": 6,
+              "arrayIndex": 5,
+              "parentIndex": 2
+            },
+            {
+              "id": "h6",
+              "value": 7,
+              "arrayIndex": 6,
+              "parentIndex": 2
+            }
+          ],
+          "edges": [
+            {
+              "from": "h0",
+              "to": "h1"
+            },
+            {
+              "from": "h0",
+              "to": "h2"
+            },
+            {
+              "from": "h1",
+              "to": "h3"
+            },
+            {
+              "from": "h1",
+              "to": "h4",
+              "type": "violation"
+            },
+            {
+              "from": "h2",
+              "to": "h5"
+            },
+            {
+              "from": "h2",
+              "to": "h6"
+            }
+          ]
+        }
+      },
+      "bugDescription": "Index 4 (value 1) is a child of index 1 (value 5), but 1 is smaller than its parent \u2014 violating the min-heap property that every parent must be <= its children. siftUp() was never called after this value was placed.",
+      "mascotDialogue": "Both the array cell and the tree node light up in the same broken color at once \u2014 because it's one violation, just viewed two ways."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "In an array-based heap, what is the index of the left child of the node at index i?",
+      "answer": "2i + 1",
+      "hints": [
+        "This is the mirror of the parent formula (i-1)/2.",
+        "Try it on index 0: its left child should be index 1."
+      ],
+      "solution": "2i + 1 \u2014 for example, index 0's left child is index 1, and index 1's left child is index 3, matching the tree structure shown in Phase 3."
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "unit": 6,
+  "title": "The Sorting Stadium",
+  "icon": "stadium-track",
+  "landmarks": [
+    {
+      "id": "sorting-stadium",
+      "name": "The Sorting Stadium",
+      "topics": ["Bubble Sort", "Quick Sort", "Merge Sort", "Shell Sort", "Radix Sort"],
+      "visualHook": "A running track / field-day stadium — bars-as-runners lining up.",
+      "lessons": ["6.1", "6.2", "6.3", "6.4", "6.5"]
+    }
+  ],
+  "lessons": ["6.1", "6.2", "6.3", "6.4", "6.5"]
+}

@@ -1,0 +1,96 @@
+{
+  "id": "1.5",
+  "title": "Queue",
+  "unit": 1,
+  "topics": [
+    "enqueue",
+    "dequeue",
+    "FIFO"
+  ],
+  "xp": 10,
+  "structureVariant": "linear",
+  "phases": {
+    "1": {
+      "concept": [
+        "A queue is a First-In-First-Out (FIFO) structure: the first item added is the first one removed.",
+        "New items join at the back; removal happens from the front.",
+        "Done right \u2014 with a circular buffer or a linked list with head and tail pointers \u2014 both enqueue and dequeue are O(1).",
+        "Naively implementing a queue with a plain array and always shifting elements after every removal is the classic mistake that quietly turns dequeue into O(n)."
+      ],
+      "analogy": "A single-file line at a ticket counter. Whoever joined first gets served first, and everyone else has to wait their turn at the back.",
+      "mascotDialogue": "Two ends this time, not one \u2014 front for leaving, back for joining. Mix those up and you've quietly built a stack instead."
+    },
+    "2": {
+      "code": "#define MAX 5\ntypedef struct {\n    int items[MAX];\n    int front, rear, size;\n} Queue;\n\nint enqueue(Queue* q, int value) {\n    if (q->size == MAX) return 0; // overflow\n    q->items[q->rear] = value;\n    q->rear = (q->rear + 1) % MAX;\n    q->size++;\n    return 1;\n}\n\nint dequeue(Queue* q, int* out) {\n    if (q->size == 0) return 0; // underflow\n    *out = q->items[q->front];\n    q->front = (q->front + 1) % MAX;\n    q->size--;\n    return 1;\n}",
+      "highlightLines": [
+        4,
+        9,
+        10,
+        17,
+        18
+      ],
+      "mascotDialogue": "The `% MAX` on both front and rear is what lets this array wrap around instead of needing to shift everyone forward every time something leaves."
+    },
+    "3": {
+      "code": "Queue q = {.front=0, .rear=0, .size=0};\nenqueue(&q, 10);\nenqueue(&q, 20);\nenqueue(&q, 30);\n// front=0, rear=3, size=3",
+      "visual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "q0",
+              "value": 10,
+              "arrayIndex": 0,
+              "isFront": true
+            },
+            {
+              "id": "q1",
+              "value": 20,
+              "arrayIndex": 1
+            },
+            {
+              "id": "q2",
+              "value": 30,
+              "arrayIndex": 2,
+              "isRear": true
+            }
+          ],
+          "edges": [],
+          "capacity": 5,
+          "size": 3,
+          "demoState": "healthy"
+        }
+      },
+      "mascotDialogue": "FRONT and REAR are two separate markers now. Watch them stay two apart as you enqueue and dequeue.",
+      "mapping": {
+        "line2": "q0",
+        "line4": "q2"
+      }
+    },
+    "4": {
+      "brokenCode": "Queue q = {.front=0, .rear=0, .size=0};\ndequeue(&q, &out); // BUG: called before anything was enqueued",
+      "brokenVisual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [],
+          "edges": [],
+          "capacity": 5,
+          "size": 0,
+          "demoState": "broken"
+        }
+      },
+      "bugDescription": "size is 0, meaning the queue is empty, but dequeue() was still called. A correct implementation must check size == 0 and return failure (underflow) rather than reading items[front] from a slot that was never written.",
+      "mascotDialogue": "An empty queue isn't 'nothing to see' \u2014 it's a specific, checkable state. If your dequeue doesn't check for it, it'll happily hand you garbage and call it a value."
+    },
+    "5": {
+      "challengeType": "multiple-choice",
+      "question": "Why does enqueue use `(q->rear + 1) % MAX` instead of just `q->rear + 1`?",
+      "answer": "So the rear index wraps back to 0 instead of walking off the end of the fixed-size array",
+      "hints": [
+        "This queue is implemented on a fixed-size array, not a linked list.",
+        "Without wraparound, dequeued space at the front could never be reused."
+      ],
+      "solution": "The modulo makes this a circular buffer: once rear reaches the last index, the next enqueue wraps it back to 0, reusing space freed by earlier dequeues instead of running off the end of the array."
+    }
+  }
+}

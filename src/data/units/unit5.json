@@ -1,0 +1,15 @@
+{
+  "unit": 5,
+  "title": "The Hash Market",
+  "icon": "market-stall",
+  "landmarks": [
+    {
+      "id": "hash-market",
+      "name": "The Hash Market",
+      "topics": ["Separate Chaining", "Open Addressing"],
+      "visualHook": "A bazaar of numbered stalls; some stalls have a queue of goods hanging off the side (chaining), others show a customer probing to the next open stall (open addressing).",
+      "lessons": ["5.1", "5.2"]
+    }
+  ],
+  "lessons": ["5.1", "5.2"]
+}

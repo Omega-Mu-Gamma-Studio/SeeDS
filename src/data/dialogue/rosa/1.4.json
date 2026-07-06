@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "One rule, no exceptions, capito? Everything happens at the top! You want to touch anywhere else — mamma mia, you do not want a stack, tesoro."
+    },
+    "2": {
+      "mascotDialogue": "`top`, she is the stack's whole memory of where she stands! Minus one, empty. MAX minus one, full. Everything else, it is just that one number, moving back and forth."
+    },
+    "3": {
+      "mascotDialogue": "Look — the TOP marker, sitting on index 2, with two empty spaces still above her! That room to grow, that is the whole point."
+    },
+    "4": {
+      "mascotDialogue": "The function, she did her job — she said no! The fault, it belongs entirely to the caller, who did not listen. That is why we always show the broken state honestly, a slot past capacity, right there for you to see — never quietly, never in secret."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

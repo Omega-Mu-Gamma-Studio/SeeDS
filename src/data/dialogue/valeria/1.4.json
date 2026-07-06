@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "One rule, no exceptions, güey — everything happens at the top! You go wanting to touch anywhere else, you don't want a stack."
+    },
+    "2": {
+      "mascotDialogue": "`top` is the stack's whole memory of where it's standing! Minus one, empty. MAX minus one, full. Everything else — that's just that one número, getting moved around."
+    },
+    "3": {
+      "mascotDialogue": "Look — the TOP marker, sitting on index 2, two empty slots still up there! That room to grow, that's the whole point, ándale."
+    },
+    "4": {
+      "mascotDialogue": "The function did her job — she said no! The fault's all on the caller for not listening. That's why we always show the broken state honest, a slot right past capacity, out in the open — never quiet, never sneaky."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

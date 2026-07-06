@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "All the splitting na just bookkeeping, my pikin — the real sorting dey happen entirely for the merge step, comparing two already-sorted halves and interleaving dem correctly!"
+    },
+    "2": {
+      "mascotDialogue": "Lines 9 and 10 na the merge heart — compare the fronts of both halves, take the smaller, advance only that side. Lines 12 and 13 mop up whichever half still get leftover once the other don run dry."
+    },
+    "3": {
+      "mascotDialogue": "This view dey show no swap at all — merge sort no dey swap for place, she dey write the smaller of two fronts into fresh position, with every comparison."
+    },
+    "4": {
+      "mascotDialogue": "E easy to think the merge don finish the moment the main comparison loop end — but one side almost always go finish before the other, and forgetting to drain the leftover go lose real data, quietly."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

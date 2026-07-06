@@ -1,0 +1,163 @@
+{
+  "id": "1.2",
+  "title": "Doubly Linked List",
+  "unit": 1,
+  "topics": [
+    "insertion",
+    "deletion",
+    "traversal",
+    "prev pointer"
+  ],
+  "xp": 10,
+  "structureVariant": "linear",
+  "phases": {
+    "1": {
+      "concept": [
+        "A doubly linked list adds a second pointer to every node: `prev`, pointing backward to the previous node, alongside the `next` pointer pointing forward.",
+        "This lets you walk the list in either direction, at the cost of one extra pointer to keep correct on every insert and delete.",
+        "The payoff isn't just direction, though \u2014 it's what deletion costs. In a singly linked list, deleting a node you already have a reference to still means walking from the head to find its predecessor, because you need to rewire the node before it; that's O(n).",
+        "With `prev` already in hand, the doubly linked list makes that same deletion O(1) \u2014 you can jump straight to the predecessor without a search."
+      ],
+      "analogy": "A singly linked list is a one-way hallway with doors that only open forward. A doubly linked list adds doors that also open backward \u2014 but now every door has two hinges to maintain instead of one, and forgetting one hinge leaves a door that looks fine walking forward but breaks the moment you turn around.",
+      "mascotDialogue": "Same idea as before, just one more pointer per node. The catch: every insert now has FOUR pointers to update, not two. Miss one, and the list looks fine in one direction and broken in the other."
+    },
+    "2": {
+      "code": "typedef struct DNode {\n    int value;\n    struct DNode* next;\n    struct DNode* prev;\n} DNode;\n\nvoid insertAfter(DNode* target, int value) {\n    DNode* n = (DNode*)malloc(sizeof(DNode));\n    n->value = value;\n    n->next = target->next;\n    n->prev = target;\n    if (target->next != NULL) {\n        target->next->prev = n;\n    }\n    target->next = n;\n}",
+      "highlightLines": [
+        1,
+        2,
+        3,
+        4,
+        9,
+        10,
+        11,
+        13
+      ],
+      "mascotDialogue": "Lines 9-13 are the four-pointer dance: new node's next/prev, the old next-neighbor's prev, and the target's next. Miss line 11 and prev-traversal silently breaks while next-traversal still looks fine."
+    },
+    "3": {
+      "code": "DNode* a = createDNode(1);\nDNode* b = createDNode(2);\na->next = b; b->prev = a;\nDNode* c = createDNode(3);\nb->next = c; c->prev = b;",
+      "visual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "a",
+              "value": 1,
+              "next": "b",
+              "prev": null,
+              "address": "0x200"
+            },
+            {
+              "id": "b",
+              "value": 2,
+              "next": "c",
+              "prev": "a",
+              "address": "0x204"
+            },
+            {
+              "id": "c",
+              "value": 3,
+              "next": null,
+              "prev": "b",
+              "address": "0x208"
+            }
+          ],
+          "edges": [
+            {
+              "from": "a",
+              "to": "b",
+              "type": "next"
+            },
+            {
+              "from": "b",
+              "to": "a",
+              "type": "prev"
+            },
+            {
+              "from": "b",
+              "to": "c",
+              "type": "next"
+            },
+            {
+              "from": "c",
+              "to": "b",
+              "type": "prev"
+            }
+          ]
+        }
+      },
+      "mascotDialogue": "Notice the arrows come in pairs now \u2014 every connection between two nodes is really two separate pointers agreeing with each other.",
+      "mapping": {
+        "line3": "a",
+        "line5": "c"
+      }
+    },
+    "4": {
+      "brokenCode": "a->next = b; b->prev = a;\nb->next = c;\n// forgot: c->prev = b;",
+      "brokenVisual": {
+        "rendererType": "node-graph",
+        "data": {
+          "nodes": [
+            {
+              "id": "a",
+              "value": 1,
+              "next": "b",
+              "prev": null,
+              "address": "0x200"
+            },
+            {
+              "id": "b",
+              "value": 2,
+              "next": "c",
+              "prev": "a",
+              "address": "0x204"
+            },
+            {
+              "id": "c",
+              "value": 3,
+              "next": null,
+              "prev": null,
+              "address": "0x208",
+              "broken": true
+            }
+          ],
+          "edges": [
+            {
+              "from": "a",
+              "to": "b",
+              "type": "next"
+            },
+            {
+              "from": "b",
+              "to": "a",
+              "type": "prev"
+            },
+            {
+              "from": "b",
+              "to": "c",
+              "type": "next"
+            },
+            {
+              "from": "c",
+              "to": null,
+              "type": "null-unexpected"
+            }
+          ]
+        }
+      },
+      "bugDescription": "Forward traversal (a -> b -> c) looks completely correct. But c's `prev` was never set to b, so walking backward from c goes straight to NULL instead of back to b.",
+      "mascotDialogue": "This is exactly why doubly linked lists cause more bugs than singly ones \u2014 the forward direction can look perfect while the backward direction is quietly broken."
+    },
+    "5": {
+      "challengeType": "code-fill",
+      "question": "Fill in the missing line so that backward traversal from c correctly reaches b: c->___ = b;",
+      "answer": "prev",
+      "hints": [
+        "You need the pointer that lets you walk backward.",
+        "Forward is `next`; backward is the other one."
+      ],
+      "solution": "c->prev = b;"
+    }
+  }
+}

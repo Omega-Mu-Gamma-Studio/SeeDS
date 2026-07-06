@@ -1,0 +1,28 @@
+.bars-renderer__controls, .buckets-renderer__label, .array-tree-dual__label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.bars-renderer__controls button {
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.bars-renderer__controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.array-tree-dual__section {
+  margin-bottom: 0.75rem;
+}

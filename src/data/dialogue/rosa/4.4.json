@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Same visited-tracking idea as BFS, tesoro, but an entirely different order! DFS dives deep first, and only comes back up when she truly must."
+    },
+    "2": {
+      "mascotDialogue": "Line 6, this is the whole difference from BFS — instead of queuing the neighbor for later, DFS recurses into her right away, going deep before ever checking the next sibling."
+    },
+    "3": {
+      "mascotDialogue": "Same graph as the BFS lesson, entirely different order — 3 is visited before 2, because DFS committed to 1 first, and rode that path all the way down!"
+    },
+    "4": {
+      "mascotDialogue": "DFS's recursive elegance, she is also her biggest risk — forget the visited check, and 'go deep' has no bottom to hit. She simply keeps calling herself, forever."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

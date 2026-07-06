@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "Left is always smaller. Right is always bigger. At every single node, not only the root. Break this rule anywhere, even one fold deep, and it is no longer a BST at all."
+    },
+    "2": {
+      "mascotDialogue": "Lines 12 and 13 — the ordering rule, made literal in code. Smaller folds left, bigger folds right, recursively, all the way down."
+    },
+    "3": {
+      "mascotDialogue": "20 sits left of 30, which already sits left of 50 — each fold downward, the rule holds again. Very consistent, very neat."
+    },
+    "4": {
+      "mascotDialogue": "The tree still looks like a tree — this is what makes the mistake so quiet. It is wrong only relative to the ordering rule, never wrong in shape."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

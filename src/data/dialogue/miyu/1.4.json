@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "One rule. No exceptions. Everything happens at the top. If you find yourself wanting to touch anywhere else — this is not a stack you want."
+    },
+    "2": {
+      "mascotDialogue": "`top` is the stack's entire memory of where it stands. Minus one means empty. MAX minus one means full. Everything else is simply moving that one number, quietly, back and forth."
+    },
+    "3": {
+      "mascotDialogue": "See the TOP marker resting on index 2, two empty seats still waiting above it? That space is the whole point — this stack still has room to grow."
+    },
+    "4": {
+      "mascotDialogue": "The function did exactly its duty — it said no, politely. The mistake belongs entirely to the caller, who did not listen. This is why we always show the broken state plainly, with a visible slot past capacity — never quietly."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "phases": {
+    "1": {
+      "mascotDialogue": "All the splitting just bookkeeping — real sorting happen entirely in merge step, comparing two already-sorted half and interleaving them correctly."
+    },
+    "2": {
+      "mascotDialogue": "Lines 9 and 10, merge heart — compare front of both half, take smaller, advance only that side. Lines 12 and 13 mop up whichever half still got leftover once other run dry."
+    },
+    "3": {
+      "mascotDialogue": "This view show no swap at all — merge sort don't swap in place, she write smaller of two fronts into fresh position, with every comparison."
+    },
+    "4": {
+      "mascotDialogue": "Easy to think merge done moment main comparison loop end — but one side almost always finish before other, and forgetting to drain leftover lose real data, quietly."
+    },
+    "5": {
+      "mascotDialogue": ""
+    }
+  }
+}
