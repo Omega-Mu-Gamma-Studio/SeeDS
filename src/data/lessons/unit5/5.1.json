@@ -11,7 +11,12 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "A hash table maps keys to array slots ('buckets') using a hash function. Since different keys can hash to the same bucket (a collision), separate chaining resolves this by having each bucket hold a small linked list of everything that landed there, instead of just one value. With a good hash function spreading keys evenly, lookup, insert, and delete are all O(1) on average \u2014 you jump straight to a bucket and the chain there is short. That average holds only while the load factor (items stored \u00f7 number of buckets) stays low; let it grow unchecked and chains get long, degrading toward O(n) per operation, which is why real implementations resize and rehash once load factor crosses a threshold.",
+      "concept": [
+        "A hash table maps keys to array slots ('buckets') using a hash function.",
+        "Since different keys can hash to the same bucket (a collision), separate chaining resolves this by having each bucket hold a small linked list of everything that landed there, instead of just one value.",
+        "With a good hash function spreading keys evenly, lookup, insert, and delete are all O(1) on average \u2014 you jump straight to a bucket and the chain there is short.",
+        "That average holds only while the load factor (items stored \u00f7 number of buckets) stays low; let it grow unchecked and chains get long, degrading toward O(n) per operation, which is why real implementations resize and rehash once load factor crosses a threshold."
+      ],
       "analogy": "Mailboxes at an apartment building where two tenants were accidentally assigned the same box number \u2014 instead of a conflict, the mail room just keeps a small stack of letters in that one box for both tenants and checks names on retrieval.",
       "mascotDialogue": "A collision here isn't an error \u2014 it's an expected outcome the whole design plans for. Each bucket just becomes a tiny linked list instead of a single slot."
     },

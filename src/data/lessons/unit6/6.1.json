@@ -10,7 +10,12 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "Bubble sort repeatedly steps through the array, comparing each pair of adjacent elements and swapping them if they're in the wrong order. Each full pass 'bubbles' the largest remaining unsorted value to its correct position at the end. That's n passes each doing up to n comparisons, so it's O(n\u00b2) in the average and worst case \u2014 the reason it's a teaching tool rather than a production sort. It is stable, though (equal elements never swap past each other), and a version that exits early once a full pass makes zero swaps drops to O(n) on already-sorted input.",
+      "concept": [
+        "Bubble sort repeatedly steps through the array, comparing each pair of adjacent elements and swapping them if they're in the wrong order.",
+        "Each full pass 'bubbles' the largest remaining unsorted value to its correct position at the end.",
+        "That's n passes each doing up to n comparisons, so it's O(n\u00b2) in the average and worst case \u2014 the reason it's a teaching tool rather than a production sort.",
+        "It is stable, though (equal elements never swap past each other), and a version that exits early once a full pass makes zero swaps drops to O(n) on already-sorted input."
+      ],
       "analogy": "Bubbles rising in a glass of soda \u2014 the biggest ones drift to the top fastest, and repeating the pass keeps pushing the next-biggest one up as well.",
       "mascotDialogue": "Nothing fancy here: just compare your neighbor, swap if you're bigger, and repeat the whole sweep until nothing needs swapping anymore."
     },

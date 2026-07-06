@@ -11,7 +11,12 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "A queue is a First-In-First-Out (FIFO) structure: the first item added is the first one removed. New items join at the back; removal happens from the front. Done right \u2014 with a circular buffer or a linked list with head and tail pointers \u2014 both enqueue and dequeue are O(1). Naively implementing a queue with a plain array and always shifting elements after every removal is the classic mistake that quietly turns dequeue into O(n).",
+      "concept": [
+        "A queue is a First-In-First-Out (FIFO) structure: the first item added is the first one removed.",
+        "New items join at the back; removal happens from the front.",
+        "Done right \u2014 with a circular buffer or a linked list with head and tail pointers \u2014 both enqueue and dequeue are O(1).",
+        "Naively implementing a queue with a plain array and always shifting elements after every removal is the classic mistake that quietly turns dequeue into O(n)."
+      ],
       "analogy": "A single-file line at a ticket counter. Whoever joined first gets served first, and everyone else has to wait their turn at the back.",
       "mascotDialogue": "Two ends this time, not one \u2014 front for leaving, back for joining. Mix those up and you've quietly built a stack instead."
     },

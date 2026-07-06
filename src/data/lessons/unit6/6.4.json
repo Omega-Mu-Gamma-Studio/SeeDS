@@ -10,7 +10,12 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "Shell sort generalizes insertion sort by first comparing and swapping elements that are far apart (a 'gap'), gradually shrinking the gap down to 1. This moves far-out-of-place elements toward their correct position faster than plain insertion sort, which only ever compares immediate neighbors. Unusually for a sorting algorithm, shell sort's complexity isn't a single fixed value \u2014 it depends entirely on the gap sequence chosen. The simplest sequence (halving the gap each pass) gives O(n\u00b2) worst case, no better than plain insertion sort, but sequences like Hibbard's or Sedgewick's push it down toward O(n^1.5) or better, which is part of why shell sort is still an active area of analysis rather than a fully solved problem.",
+      "concept": [
+        "Shell sort generalizes insertion sort by first comparing and swapping elements that are far apart (a 'gap'), gradually shrinking the gap down to 1.",
+        "This moves far-out-of-place elements toward their correct position faster than plain insertion sort, which only ever compares immediate neighbors.",
+        "Unusually for a sorting algorithm, shell sort's complexity isn't a single fixed value \u2014 it depends entirely on the gap sequence chosen.",
+        "The simplest sequence (halving the gap each pass) gives O(n\u00b2) worst case, no better than plain insertion sort, but sequences like Hibbard's or Sedgewick's push it down toward O(n^1.5) or better, which is part of why shell sort is still an active area of analysis rather than a fully solved problem."
+      ],
       "analogy": "Combing tangled hair by first working out the big knots with wide strokes, then switching to finer and finer strokes \u2014 starting fine on badly tangled hair wastes a lot of effort re-checking things that are still far from where they belong.",
       "mascotDialogue": "It's insertion sort, just given permission to take big steps first. Shrink the gap enough times and it collapses into ordinary insertion sort for the final, finest pass."
     },

@@ -11,7 +11,12 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "Breadth-First Search explores a graph level by level: visit all of a node's direct neighbors before moving on to any neighbor-of-a-neighbor. It uses a queue to keep track of what to visit next, always processing the earliest-discovered node first. Visiting every vertex and edge exactly once gives BFS a runtime of O(V + E). The level-by-level order isn't just tidy \u2014 it's the reason BFS is the standard way to find the shortest path in an unweighted graph: the first time you reach any node is guaranteed to be via the fewest possible edges.",
+      "concept": [
+        "Breadth-First Search explores a graph level by level: visit all of a node's direct neighbors before moving on to any neighbor-of-a-neighbor.",
+        "It uses a queue to keep track of what to visit next, always processing the earliest-discovered node first.",
+        "Visiting every vertex and edge exactly once gives BFS a runtime of O(V + E).",
+        "The level-by-level order isn't just tidy \u2014 it's the reason BFS is the standard way to find the shortest path in an unweighted graph: the first time you reach any node is guaranteed to be via the fewest possible edges."
+      ],
       "analogy": "Ripples spreading outward from a stone dropped in water \u2014 everything at the current distance gets reached before anything further out even starts.",
       "mascotDialogue": "The queue is what makes this breadth-first instead of depth-first. Whatever gets discovered first, gets explored first \u2014 that's FIFO order doing the level-by-level spreading for you."
     },

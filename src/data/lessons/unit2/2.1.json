@@ -11,7 +11,12 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "A Binary Search Tree keeps every node's left subtree smaller and its right subtree larger. That single rule means you can search, insert, or find any value by only ever choosing left-or-right at each step \u2014 no need to check every node. When the tree stays roughly balanced, that gives O(log n) search and insertion \u2014 each step eliminates half the remaining nodes, the same trick as binary search on a sorted array. But nothing about the basic BST definition guarantees balance: insert values in sorted order and the tree degenerates into a straight line, with search collapsing to O(n). That exact weakness is the reason self-balancing variants like AVL trees exist.",
+      "concept": [
+        "A Binary Search Tree keeps every node's left subtree smaller and its right subtree larger. That single rule means you can search, insert, or find any value by only ever choosing left-or-right at each step \u2014 no need to check every node.",
+        "When the tree stays roughly balanced, that gives O(log n) search and insertion \u2014 each step eliminates half the remaining nodes, the same trick as binary search on a sorted array.",
+        "But nothing about the basic BST definition guarantees balance: insert values in sorted order and the tree degenerates into a straight line, with search collapsing to O(n).",
+        "That exact weakness is the reason self-balancing variants like AVL trees exist."
+      ],
       "analogy": "Guessing a number between 1 and 100 by always asking 'higher or lower' and narrowing the range in half each time. A BST bakes that narrowing strategy directly into its shape.",
       "mascotDialogue": "Left is always smaller, right is always bigger, at every single node, not just the root. Break that rule anywhere and it stops being a BST."
     },

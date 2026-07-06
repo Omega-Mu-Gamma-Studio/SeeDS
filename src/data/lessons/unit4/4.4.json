@@ -11,7 +11,12 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "Depth-First Search explores as far down one path as possible before backtracking. Instead of spreading level by level like BFS, it commits to a neighbor and keeps going deeper through that neighbor's neighbors, only backing up once it hits a dead end. Like BFS, visiting every vertex and edge once gives it O(V + E) runtime \u2014 the two differ in order, not in total work. DFS's traversal order is what makes it the natural fit for problems like detecting cycles or producing a topological sort, though on very deep or unbalanced graphs, a naive recursive implementation can hit the call stack's own limits before it hits a dead end in the graph.",
+      "concept": [
+        "Depth-First Search explores as far down one path as possible before backtracking.",
+        "Instead of spreading level by level like BFS, it commits to a neighbor and keeps going deeper through that neighbor's neighbors, only backing up once it hits a dead end.",
+        "Like BFS, visiting every vertex and edge once gives it O(V + E) runtime \u2014 the two differ in order, not in total work.",
+        "DFS's traversal order is what makes it the natural fit for problems like detecting cycles or producing a topological sort, though on very deep or unbalanced graphs, a naive recursive implementation can hit the call stack's own limits before it hits a dead end in the graph."
+      ],
       "analogy": "Solving a maze by always taking the first available turn and following it as far as it goes, only backtracking to the last fork when you hit a wall \u2014 rather than exploring every nearby hallway before committing to any single direction.",
       "mascotDialogue": "Same visited-tracking idea as BFS, completely different order of operations \u2014 DFS dives deep first and only comes back up when it truly has to."
     },

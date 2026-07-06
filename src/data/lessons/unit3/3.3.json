@@ -11,7 +11,11 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "Heap sort builds a max heap from the input array, then repeatedly extracts the maximum (swap root with the last unsorted element, shrink the heap, siftDown) \u2014 each extraction places one more value in its final sorted position at the end of the array. Building the initial heap is O(n), and each of the n extractions costs O(log n), giving O(n log n) overall in every case \u2014 no worst-case blowup like quick sort has. Its other selling point is space: heap sort sorts in place, using O(1) extra memory, where merge sort's guaranteed O(n log n) comes at the cost of O(n) auxiliary space.",
+      "concept": [
+        "Heap sort builds a max heap from the input array, then repeatedly extracts the maximum (swap root with the last unsorted element, shrink the heap, siftDown) \u2014 each extraction places one more value in its final sorted position at the end of the array.",
+        "Building the initial heap is O(n), and each of the n extractions costs O(log n), giving O(n log n) overall in every case \u2014 no worst-case blowup like quick sort has.",
+        "Its other selling point is space: heap sort sorts in place, using O(1) extra memory, where merge sort's guaranteed O(n log n) comes at the cost of O(n) auxiliary space."
+      ],
       "analogy": "Repeatedly picking the tallest person from a crowd and moving them to the back of a line, one at a time. Once everyone's been picked, the line is sorted shortest-to-tallest from front to back.",
       "mascotDialogue": "Build the heap once, then just keep pulling the max off the top. Each pull is one more element locked into its correct final spot."
     },

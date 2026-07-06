@@ -11,7 +11,12 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "A min heap is a complete binary tree where every parent is smaller than or equal to both its children. The smallest value overall always sits at the root. Because the tree is 'complete' (filled left-to-right, level by level), it can be stored efficiently as a plain array \u2014 no pointers needed at all. A node at index i has its children at 2i+1 and 2i+2, and its parent at (i-1)/2, so navigating the 'tree' is just arithmetic on array indices. Peeking the minimum is O(1) since it's always the root; inserting or removing it costs O(log n), since restoring the heap property only ever means moving a value up or down a single path, never across the whole structure.",
+      "concept": [
+        "A min heap is a complete binary tree where every parent is smaller than or equal to both its children. The smallest value overall always sits at the root.",
+        "Because the tree is 'complete' (filled left-to-right, level by level), it can be stored efficiently as a plain array \u2014 no pointers needed at all.",
+        "A node at index i has its children at 2i+1 and 2i+2, and its parent at (i-1)/2, so navigating the 'tree' is just arithmetic on array indices.",
+        "Peeking the minimum is O(1) since it's always the root; inserting or removing it costs O(log n), since restoring the heap property only ever means moving a value up or down a single path, never across the whole structure."
+      ],
       "analogy": "A single-elimination tournament bracket run in reverse: the smallest score always bubbles up to the top slot, and you can find any competitor's parent match with simple arithmetic on their bracket position, no wiring required.",
       "mascotDialogue": "Same values, two views: a tree for the ordering rule, an array for how it actually lives in memory. parent(i) = (i-1)/2. That's the whole address book."
     },

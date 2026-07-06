@@ -11,7 +11,11 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "Open addressing resolves collisions differently from chaining: instead of letting a bucket hold multiple items, every slot holds at most one item, and a colliding key probes forward (using a defined probe sequence) to find the next open slot. Like chaining, lookup and insertion are O(1) on average when the table isn't too full \u2014 but open addressing is more sensitive to load factor, since every slot lives in the same array and there's no separate chain to fall back on. Linear probing in particular can suffer from clustering: once a run of occupied slots forms, every new collision in that region has to probe through the whole cluster, which is why some implementations use quadratic probing or double hashing instead, to spread collisions out more evenly.",
+      "concept": [
+        "Open addressing resolves collisions differently from chaining: instead of letting a bucket hold multiple items, every slot holds at most one item, and a colliding key probes forward (using a defined probe sequence) to find the next open slot.",
+        "Like chaining, lookup and insertion are O(1) on average when the table isn't too full \u2014 but open addressing is more sensitive to load factor, since every slot lives in the same array and there's no separate chain to fall back on.",
+        "Linear probing in particular can suffer from clustering: once a run of occupied slots forms, every new collision in that region has to probe through the whole cluster, which is why some implementations use quadratic probing or double hashing instead, to spread collisions out more evenly."
+      ],
       "analogy": "Musical chairs at a full row of seats: if your assigned seat is taken, you don't share it \u2014 you check the next seat over, and the next, until you find one that's free.",
       "mascotDialogue": "No chains, no extra memory per bucket \u2014 just one slot each, and a clear, repeatable rule for where to look next when your first choice is occupied."
     },

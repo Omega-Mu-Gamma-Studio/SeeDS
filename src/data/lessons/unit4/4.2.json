@@ -10,7 +10,11 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "An undirected graph's edges go both ways by definition: if A connects to B, B also connects to A. In code, this means adding an edge requires updating the adjacency structure symmetrically, in both directions, in one operation. That symmetry is easy to forget in practice \u2014 insert only A\u2192B and the graph silently behaves like a directed one from B's side, which is a common source of subtle graph bugs that only show up when traversal starts from the 'wrong' end.",
+      "concept": [
+        "An undirected graph's edges go both ways by definition: if A connects to B, B also connects to A.",
+        "In code, this means adding an edge requires updating the adjacency structure symmetrically, in both directions, in one operation.",
+        "That symmetry is easy to forget in practice \u2014 insert only A\u2192B and the graph silently behaves like a directed one from B's side, which is a common source of subtle graph bugs that only show up when traversal starts from the 'wrong' end."
+      ],
       "analogy": "A two-way street, or a friendship \u2014 if A is friends with B, B is necessarily friends with A too. There's no version of this connection that only runs one way.",
       "mascotDialogue": "One edge, two entries in the adjacency matrix. Forget the second one, and you've quietly built half a directed graph instead."
     },

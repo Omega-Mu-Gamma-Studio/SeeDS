@@ -11,7 +11,12 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "Radix sort sorts integers without ever comparing two elements directly. Instead, it processes one digit position at a time (starting from the least significant digit), distributing numbers into 10 buckets by that digit's value, then collecting them back in bucket order \u2014 repeating for each digit position. That gives it O(nk) time, where k is the number of digits \u2014 which can beat the O(n log n) lower bound that applies to any sort based on comparisons, because radix sort simply isn't playing that game; it's exploiting the structure of the numbers themselves instead of comparing pairs of them. The trade-off is that it only works on data with that kind of structure \u2014 numbers, or fixed-length strings \u2014 not on arbitrary comparable objects.",
+      "concept": [
+        "Radix sort sorts integers without ever comparing two elements directly.",
+        "Instead, it processes one digit position at a time (starting from the least significant digit), distributing numbers into 10 buckets by that digit's value, then collecting them back in bucket order \u2014 repeating for each digit position.",
+        "That gives it O(nk) time, where k is the number of digits \u2014 which can beat the O(n log n) lower bound that applies to any sort based on comparisons, because radix sort simply isn't playing that game; it's exploiting the structure of the numbers themselves instead of comparing pairs of them.",
+        "The trade-off is that it only works on data with that kind of structure \u2014 numbers, or fixed-length strings \u2014 not on arbitrary comparable objects."
+      ],
       "analogy": "Sorting mail by zip code one digit at a time: first sort every letter into 10 bins by the last digit, gather them back up in bin order, then re-sort that whole stack by the second-to-last digit, and so on \u2014 never once comparing two zip codes directly to each other.",
       "mascotDialogue": "No comparisons anywhere in this algorithm \u2014 just repeatedly asking 'which bucket does this digit belong in' and gathering the buckets back up in order, digit by digit."
     },
