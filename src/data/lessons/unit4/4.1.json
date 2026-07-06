@@ -10,7 +10,7 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "A directed graph is a set of nodes (vertices) connected by edges that only go one way. If there's an edge from A to B, that doesn't automatically mean there's a path from B back to A \u2014 direction matters and must be tracked explicitly.",
+      "concept": "A directed graph is a set of nodes (vertices) connected by edges that only go one way. If there's an edge from A to B, that doesn't automatically mean there's a path from B back to A \u2014 direction matters and must be tracked explicitly. Representing this as an adjacency list \u2014 each vertex holding a list of the vertices it points to \u2014 takes O(V + E) space and is the standard choice for sparse graphs; the alternative, an adjacency matrix, takes O(V\u00b2) regardless of how many edges actually exist, which wastes space fast once a graph has many more vertices than edges.",
       "analogy": "A city's one-way streets. Being able to drive from the library to the park doesn't guarantee you can drive straight back the same way \u2014 you might need an entirely different route home.",
       "mascotDialogue": "An arrow in a directed graph means exactly one thing: you can go this way. It says nothing at all about whether you can come back."
     },

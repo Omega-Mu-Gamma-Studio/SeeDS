@@ -12,7 +12,7 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "A stack is a Last-In-First-Out (LIFO) structure: the last item pushed on is the first one popped off. You can only ever add to or remove from one end, called the top.",
+      "concept": "A stack is a Last-In-First-Out (LIFO) structure: the last item pushed on is the first one popped off. You can only ever add to or remove from one end, called the top. That restriction is exactly what makes push and pop O(1) \u2014 there's never any shifting or searching involved. It's also why function calls, undo history, and expression parsing all lean on a stack under the hood: each of those is fundamentally a 'last thing first' problem.",
       "analogy": "A stack of trays in a cafeteria \u2014 you take from the top, and you put new ones on the top. You cannot pull a tray out from the middle without disturbing everything above it.",
       "mascotDialogue": "One rule, no exceptions: everything happens at the top. If you find yourself wanting to touch anything else, you don't want a stack."
     },

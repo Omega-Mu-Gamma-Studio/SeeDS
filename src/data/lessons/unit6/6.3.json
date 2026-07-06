@@ -11,7 +11,7 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "Merge sort splits the array in half recursively until each piece has just one element (trivially sorted), then merges pairs of sorted pieces back together in order. The merge step is where all the actual comparison work happens.",
+      "concept": "Merge sort splits the array in half recursively until each piece has just one element (trivially sorted), then merges pairs of sorted pieces back together in order. The merge step is where all the actual comparison work happens. Unlike quick sort, merge sort's O(n log n) runtime holds in every case \u2014 best, average, and worst \u2014 because the split is always exactly in half regardless of the data's order. That guarantee costs memory: merging needs a temporary array, so merge sort uses O(n) extra space, where quick sort sorts in place. Merge sort is also stable, meaning equal elements keep their original relative order, which is why it's often preferred for sorting records where ties should stay in their original order.",
       "analogy": "Two people each holding a sorted stack of numbered cards, combining them into one sorted stack by always taking whichever visible card is smaller \u2014 repeat that same trick going up the chain until it's one single sorted stack.",
       "mascotDialogue": "All the splitting is just bookkeeping \u2014 the real sorting work happens entirely in the merge step, comparing two already-sorted halves and interleaving them correctly."
     },

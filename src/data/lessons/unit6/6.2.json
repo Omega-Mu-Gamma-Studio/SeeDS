@@ -11,7 +11,7 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "Quick sort picks a 'pivot' element, then partitions the array so everything smaller than the pivot ends up to its left and everything larger ends up to its right. It then recursively sorts each side. The pivot itself ends up exactly where it belongs once partitioning completes.",
+      "concept": "Quick sort picks a 'pivot' element, then partitions the array so everything smaller than the pivot ends up to its left and everything larger ends up to its right. It then recursively sorts each side. The pivot itself ends up exactly where it belongs once partitioning completes. When the pivot splits the array roughly in half each time, that's O(n log n) \u2014 the same as merge sort, but in place, without merge sort's extra array. The catch is that the split depends entirely on the pivot: a consistently bad pivot choice (like always picking the first element on already-sorted input) degrades performance to O(n\u00b2), which is why production implementations pick the pivot randomly or use median-of-three instead of a fixed position.",
       "analogy": "Sorting a deck of cards by first picking one card as a reference, then splitting the rest into a 'lower' pile and a 'higher' pile relative to it, and repeating that same splitting trick on each pile.",
       "mascotDialogue": "The pivot doesn't move again after partitioning \u2014 it's already home. Everything left to sort is strictly smaller on one side and strictly bigger on the other."
     },

@@ -11,7 +11,7 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "A singly linked list is a chain of separately-allocated nodes. Each node holds a value and a pointer to the next node in the chain. Unlike an array, the nodes don't have to sit next to each other in memory \u2014 the pointer is what stitches them together into one sequence.",
+      "concept": "A singly linked list is a chain of separately-allocated nodes, where each node holds a value and a pointer to the next node in the chain. Unlike an array, the nodes don't have to sit next to each other in memory \u2014 the pointer is what stitches them together into one sequence. That trade-off cuts both ways: insertion or deletion at a known position is O(1) once you're there, since you're just rewiring a pointer instead of shifting every following element like an array would. But you lose random access \u2014 finding the k-th node means walking the chain one `next` at a time, so lookup is O(n) with no shortcut. That's the core reason linked lists and arrays aren't interchangeable; they're optimized for opposite access patterns.",
       "analogy": "Think of a scavenger hunt where each clue tells you where to find the next clue. You don't need to know where every clue is ahead of time \u2014 you just need the very first clue, and each one hands you the address of the next.",
       "mascotDialogue": "Every node here only knows one thing about its neighbor: where the NEXT one lives. Lose that pointer, and everything after it is gone. Let's see what that looks like in C."
     },

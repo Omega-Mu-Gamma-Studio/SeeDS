@@ -11,7 +11,7 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "An AVL tree is a BST that automatically re-balances itself after every insertion so that the height difference between any node's left and right subtree \u2014 its balance factor \u2014 never exceeds 1. When an insertion pushes that difference too far, the tree performs a rotation to restore balance.",
+      "concept": "An AVL tree is a BST that automatically re-balances itself after every insertion so that the height difference between any node's left and right subtree \u2014 its balance factor \u2014 never exceeds 1. When an insertion pushes that difference too far, the tree performs a rotation to restore balance. That constant maintenance is what guarantees O(log n) height no matter what order values are inserted in \u2014 the worst-case degeneration a plain BST is vulnerable to simply can't happen here. The cost is that every insertion may trigger a rotation, but a rotation only touches a small constant number of pointers, so it's O(1) \u2014 the balancing overhead is cheap; what you're buying is a hard guarantee instead of a hope.",
       "analogy": "A tightrope walker constantly making tiny weight shifts to stay centered. A plain BST can lean further and further to one side with every insert until it's basically a straight line; an AVL tree corrects its lean immediately, every time.",
       "mascotDialogue": "Balance factor is just left-height minus right-height. Anything outside [-1, 1] triggers a rotation before we move on. That's the whole self-balancing trick."
     },

@@ -11,7 +11,7 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "An expression tree represents an arithmetic expression as a tree, where leaf nodes are operands (numbers/variables) and internal nodes are operators. Evaluating the tree bottom-up automatically respects operator precedence, because precedence is baked into the tree's shape rather than needing separate rules at evaluation time.",
+      "concept": "An expression tree represents an arithmetic expression as a tree, where leaf nodes are operands (numbers/variables) and internal nodes are operators. Evaluating the tree bottom-up automatically respects operator precedence, because precedence is baked into the tree's shape rather than needing separate rules at evaluation time. The three standard traversals map directly onto the three ways to write the same expression: an in-order traversal reproduces infix notation (with parentheses needed to recover the original grouping), pre-order gives prefix (Polish) notation, and post-order gives postfix (Reverse Polish) notation \u2014 which is exactly the form a stack-based calculator evaluates directly, without needing precedence rules at all.",
       "analogy": "Like a recipe's dependency chart: you can't frost the cake before it's baked, and you can't compute an operator's result before both its children are computed. The shape of the tree enforces the order for you.",
       "mascotDialogue": "Once the expression is a tree, evaluating it is just: solve both children, then apply the operator at the parent. No precedence table required at evaluation time \u2014 the shape already encodes it."
     },

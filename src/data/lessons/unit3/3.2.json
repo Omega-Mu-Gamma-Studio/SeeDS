@@ -11,7 +11,7 @@
   "structureVariant": "linear",
   "phases": {
     "1": {
-      "concept": "A max heap is the mirror of a min heap: every parent is greater than or equal to both children, so the largest value always sits at the root. Removing the max involves swapping the root with the last element, shrinking the heap, then sifting that element down until the heap property is restored.",
+      "concept": "A max heap is the mirror of a min heap: every parent is greater than or equal to both children, so the largest value always sits at the root. Removing the max involves swapping the root with the last element, shrinking the heap, then sifting that element down until the heap property is restored. Every complexity guarantee carries over unchanged from the min heap \u2014 O(1) to peek the max, O(log n) to remove it \u2014 because sifting down, like sifting up, only ever travels a single root-to-leaf path, never touches the rest of the tree.",
       "analogy": "A leaderboard where the champion always sits at the very top slot. When the champion steps down, whoever was last in line temporarily takes their spot, then gets bumped down through challenge matches until they land at a rank they actually deserve.",
       "mascotDialogue": "extract-max is really two moves: swap root with the last leaf, shrink the heap by one, then let that displaced value sink to wherever it actually belongs."
     },
