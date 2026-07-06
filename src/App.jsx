@@ -23,6 +23,7 @@ function OnboardingGate() {
 
 function App() {
   const hasSelectedAdvisor = useCousinStore((s) => s.hasSelectedAdvisor)
+  const justOnboarded = useCousinStore((s) => s.justOnboarded)
 
   if (!hasSelectedAdvisor) {
     return <OnboardingGate />
@@ -32,7 +33,14 @@ function App() {
     <BrowserRouter>
       <AppLayout>
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* Fresh advisor pick lands on the Island first, like starting a game.
+              Island.jsx clears justOnboarded on mount, so every route after
+              that (including a later reload of "/") goes to the normal Home
+              dashboard -- this only fires once, right after onboarding. */}
+          <Route
+            path="/"
+            element={justOnboarded ? <Navigate to="/island" replace /> : <Home />}
+          />
           <Route path="/island" element={<Island />} />
           <Route path="/campus" element={<Campus />} />
           <Route path="/campus/cs" element={<CSBlock />} />

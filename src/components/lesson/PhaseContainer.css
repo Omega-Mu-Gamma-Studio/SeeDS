@@ -66,6 +66,19 @@
   gap: 1rem;
 }
 
+.phase-content__col {
+  /* Without this, a grid track's automatic minimum size is its content's
+     min-content size, not 0. The Konva Stage inside .phase-content__col--visual
+     renders a fixed-pixel-width wrapper div (react-konva sets inline width/height),
+     which doesn't shrink -- so without min-width: 0 the grid column refuses to be
+     narrower than that canvas, blowing the whole column past the panel bounds
+     (visible as the oversized, right-shifted canvas bug). overflow: hidden is a
+     second line of defense in case a renderer ever reports a size before the
+     ResizeObserver settles. */
+  min-width: 0;
+  overflow: hidden;
+}
+
 @media (max-width: 800px) {
   .phase-content__two-col { grid-template-columns: 1fr; }
 }

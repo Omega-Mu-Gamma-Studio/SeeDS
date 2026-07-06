@@ -30,7 +30,14 @@ export const useCousinStore = create((set) => ({
   // it's a one-shot UI event, not durable state.
   pendingCelebration: null,
 
+  // Set by setCousin on first-ever advisor pick, cleared by App once consumed
+  // to route the very first landing to the Island instead of the Home
+  // dashboard. Not persisted -- a one-shot UI event, same pattern as
+  // pendingCelebration above, not durable state.
+  justOnboarded: false,
+
   clearCelebration: () => set({ pendingCelebration: null }),
+  clearJustOnboarded: () => set({ justOnboarded: false }),
 
   setCousin: (id) => set((state) => {
     const next = {
@@ -39,7 +46,7 @@ export const useCousinStore = create((set) => ({
       unlockedCousins: state.unlockedCousins,
     }
     persist(next)
-    return { selectedCousin: id, hasSelectedAdvisor: true }
+    return { selectedCousin: id, hasSelectedAdvisor: true, justOnboarded: true }
   }),
 
   unlockCousin: (id) => set((state) => {
