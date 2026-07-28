@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
-import { Stage, Layer, Rect, Text } from 'react-konva'
+import { Group, Rect, Text } from 'react-konva'
+import { useContainerSize, ScaledStage } from './useScaledStage.jsx'
 
 function resolveVar(name) {
   if (typeof window === 'undefined') return '#4A90D9'
@@ -14,6 +15,7 @@ function resolveVar(name) {
  */
 export default function BarsRenderer({ data }) {
   const [step, setStep] = useState(0)
+  const [containerRef, containerSize] = useContainerSize({ width: 320, height: 260 })
   const nodeColor = resolveVar('--ds-node')
   const highlightColor = resolveVar('--ds-highlight')
   const ink = resolveVar('--ink')
@@ -45,24 +47,24 @@ export default function BarsRenderer({ data }) {
 
   return (
     <div className="bars-renderer">
-      <Stage width={width} height={height}>
-        <Layer>
+      <div ref={containerRef} style={{ width: '100%', height }}>
+        <ScaledStage containerSize={containerSize} naturalWidth={width} naturalHeight={height}>
           {currentValues.map((val, i) => {
             const barHeight = (val / maxVal) * (height - 60)
             const x = 20 + i * (barWidth + 12)
             const y = height - 30 - barHeight
             const active = activeIndices.includes(i)
             return (
-              <g key={i}>
+              <Group key={i}>
                 <Rect x={x} y={y} width={barWidth} height={barHeight}
                   fill={active ? highlightColor : nodeColor}
                   cornerRadius={4} />
                 <Text x={x} y={height - 22} width={barWidth} align="center" text={String(val)} fontSize={13} fill={ink} />
-              </g>
+              </Group>
             )
           })}
-        </Layer>
-      </Stage>
+        </ScaledStage>
+      </div>
       {totalSteps > 0 && (
         <div className="bars-renderer__controls">
           <button onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0}>◀ Prev</button>
