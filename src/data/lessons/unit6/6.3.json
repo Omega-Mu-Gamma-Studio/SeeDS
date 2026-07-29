@@ -37,7 +37,7 @@
     "3": {
       "code": "// Merging L=[2,5,8] and R=[1,3,9]\n// Step by step: 1, 2, 3, 5, 8, 9",
       "visual": {
-        "rendererType": "bars",
+        "rendererType": "number-grid",
         "data": {
           "values": [
             2,
@@ -47,35 +47,25 @@
             3,
             9
           ],
-          "comparisons": [
-            [
-              0,
-              3
-            ],
-            [
-              0,
-              4
-            ],
-            [
-              1,
-              4
-            ],
-            [
-              1,
-              5
-            ],
-            [
-              2,
-              5
-            ]
-          ],
-          "swaps": []
+          "passes": [
+            {
+              "label": "After Merge",
+              "values": [
+                1,
+                2,
+                3,
+                5,
+                8,
+                9
+              ]
+            }
+          ]
         }
       },
-      "mascotDialogue": "Notice this view doesn't show swaps at all \u2014 merge sort doesn't swap elements in place, it writes the smaller of two fronts into a fresh position each comparison.",
+      "mascotDialogue": "Notice there's no in-place swapping here \u2014 merge sort compares the fronts of the two halves and writes whichever is smaller into a fresh output position each time.",
       "mapping": {
-        "line1": "s0",
-        "line2": "s5"
+        "line1": "start",
+        "line2": "pass1"
       }
     },
     "4": {

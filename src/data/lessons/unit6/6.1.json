@@ -35,7 +35,7 @@
     "3": {
       "code": "int arr[5] = {5, 2, 4, 1, 3};\n// pass 1: {2, 4, 1, 3, 5}\n// pass 2: {2, 1, 3, 4, 5}\n// pass 3: {1, 2, 3, 4, 5}",
       "visual": {
-        "rendererType": "bars",
+        "rendererType": "number-grid",
         "data": {
           "values": [
             5,
@@ -44,44 +44,46 @@
             1,
             3
           ],
-          "comparisons": [
-            [
-              0,
-              1
-            ],
-            [
-              1,
-              2
-            ],
-            [
-              2,
-              3
-            ],
-            [
-              3,
-              4
-            ]
-          ],
-          "swaps": [
-            [
-              0,
-              1
-            ],
-            [
-              1,
-              2
-            ],
-            [
-              2,
-              3
-            ]
+          "passes": [
+            {
+              "label": "Pass 1",
+              "values": [
+                2,
+                4,
+                1,
+                3,
+                5
+              ]
+            },
+            {
+              "label": "Pass 2",
+              "values": [
+                2,
+                1,
+                3,
+                4,
+                5
+              ]
+            },
+            {
+              "label": "Pass 3",
+              "values": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            }
           ]
         }
       },
-      "mascotDialogue": "Watch the tallest bar creep one step right on every swap it loses \u2014 that's the 'bubbling' the algorithm's named after, made literal.",
+      "mascotDialogue": "Watch the 5 creep one box right each pass as it loses every comparison along the way \u2014 that's the 'bubbling' the algorithm's named after, made literal.",
       "mapping": {
-        "line1": "s0",
-        "line2": "s4"
+        "line1": "start",
+        "line2": "pass1",
+        "line3": "pass2",
+        "line4": "pass3"
       }
     },
     "4": {

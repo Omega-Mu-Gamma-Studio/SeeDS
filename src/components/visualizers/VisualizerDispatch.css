@@ -26,3 +26,61 @@
 .array-tree-dual__section {
   margin-bottom: 0.75rem;
 }
+
+.grid-renderer {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.25rem;
+  box-sizing: border-box;
+}
+
+.grid-renderer__row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0.4rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+}
+
+.grid-renderer__row--active {
+  border-color: var(--ds-highlight);
+  background: color-mix(in srgb, var(--ds-highlight) 8%, transparent);
+}
+
+.grid-renderer__row-label {
+  flex: 0 0 auto;
+  min-width: 4.5rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+.grid-renderer__boxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.grid-renderer__box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.4rem;
+  height: 2.4rem;
+  padding: 0 0.3rem;
+  border-radius: var(--radius-sm);
+  background: var(--ds-node);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
+.grid-renderer__box--changed {
+  background: var(--ds-highlight);
+}

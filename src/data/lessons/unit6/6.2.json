@@ -35,7 +35,7 @@
     "3": {
       "code": "int arr[5] = {8, 3, 7, 4, 2};\n// pivot = 2 (arr[high] with high=4)\n// after partition: {2, 3, 7, 4, 8}, pivot index 0",
       "visual": {
-        "rendererType": "bars",
+        "rendererType": "number-grid",
         "data": {
           "values": [
             8,
@@ -44,37 +44,25 @@
             4,
             2
           ],
-          "comparisons": [
-            [
-              0,
-              4
-            ],
-            [
-              1,
-              4
-            ],
-            [
-              2,
-              4
-            ],
-            [
-              3,
-              4
-            ]
-          ],
-          "swaps": [
-            [
-              0,
-              4
-            ]
+          "passes": [
+            {
+              "label": "Partition (pivot=2)",
+              "values": [
+                2,
+                3,
+                7,
+                4,
+                8
+              ]
+            }
           ]
         }
       },
       "mascotDialogue": "This pivot happened to be the smallest value, so it ends up all the way at index 0 \u2014 an unlucky pivot choice, and a good example of why pivot selection matters for performance.",
       "mapping": {
-        "line1": "s0",
-        "line2": "s0",
-        "line3": "s1"
+        "line1": "start",
+        "line2": "start",
+        "line3": "pass1"
       }
     },
     "4": {

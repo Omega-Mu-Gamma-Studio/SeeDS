@@ -39,28 +39,48 @@
       "visual": {
         "rendererType": "buckets",
         "data": {
-          "digitPosition": "ones",
-          "buckets": {
-            "0": [
-              170,
-              90
-            ],
-            "5": [
-              45,
-              75
-            ]
-          },
           "values": [
             170,
             45,
             75,
             90
+          ],
+          "passes": [
+            {
+              "digitPosition": "ones",
+              "buckets": {
+                "0": [
+                  170,
+                  90
+                ],
+                "5": [
+                  45,
+                  75
+                ]
+              }
+            },
+            {
+              "digitPosition": "tens",
+              "buckets": {
+                "7": [
+                  170,
+                  75
+                ],
+                "4": [
+                  45
+                ],
+                "9": [
+                  90
+                ]
+              }
+            }
           ]
         }
       },
-      "mascotDialogue": "170 and 90 both land in bucket 0 for this pass, and their relative order (170 before 90) is preserved \u2014 that's stability doing its job across passes.",
+      "mascotDialogue": "170 and 90 both land in bucket 0 on the ones-digit pass, and their relative order (170 before 90) survives into the tens-digit pass below \u2014 that's stability doing its job across passes.",
       "mapping": {
-        "line2": "bucket0"
+        "line2": "p1-bucket0",
+        "line3": "p2-bucket7"
       }
     },
     "4": {

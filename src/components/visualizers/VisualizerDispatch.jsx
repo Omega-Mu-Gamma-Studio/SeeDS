@@ -1,5 +1,5 @@
 import NodeGraphRenderer from './NodeGraphRenderer.jsx'
-import BarsRenderer from './BarsRenderer.jsx'
+import GridRenderer from './GridRenderer.jsx'
 import BucketsRenderer from './BucketsRenderer.jsx'
 import ArrayTreeDualRenderer from './ArrayTreeDualRenderer.jsx'
 import './VisualizerDispatch.css'
@@ -16,8 +16,8 @@ export default function VisualizerDispatch({ visual, ...rest }) {
   const key = JSON.stringify(visual.data)
 
   switch (visual.rendererType) {
-    case 'bars':
-      return <BarsRenderer key={key} data={visual.data} {...rest} />
+    case 'number-grid':
+      return <GridRenderer key={key} data={visual.data} {...rest} />
     case 'buckets':
       return <BucketsRenderer key={key} data={visual.data} {...rest} />
     case 'array-tree-dual':
