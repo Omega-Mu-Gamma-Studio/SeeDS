@@ -66,7 +66,10 @@
       },
       "mascotDialogue": "See the TOP marker sitting on index 2, with two empty slots still visible above it? That headroom is the point \u2014 this stack has room to grow.",
       "mapping": {
-        "line4": "s2"
+        "line2": "s0",
+        "line3": "s1",
+        "line4": "s2",
+        "line5": "s2"
       }
     },
     "4": {

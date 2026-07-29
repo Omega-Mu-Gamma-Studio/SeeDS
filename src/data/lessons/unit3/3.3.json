@@ -65,7 +65,12 @@
           ]
         }
       },
-      "mascotDialogue": "Watch the tallest bar get walked to the top, then swapped to the far right \u2014 that's one value locked into its sorted home."
+      "mascotDialogue": "Watch the tallest bar get walked to the top, then swapped to the far right \u2014 that's one value locked into its sorted home.",
+      "mapping": {
+        "line1": "s0",
+        "line2": "s1",
+        "line3": "s2"
+      }
     },
     "4": {
       "brokenCode": "for (int end = n - 1; end > 0; end--) {\n    int tmp = arr[0]; arr[0] = arr[end]; arr[end] = tmp;\n    // BUG: siftDown(arr, end, 0) call was left out entirely\n}",

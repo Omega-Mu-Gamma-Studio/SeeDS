@@ -64,7 +64,9 @@
       "mascotDialogue": "FRONT and REAR are two separate markers now. Watch them stay two apart as you enqueue and dequeue.",
       "mapping": {
         "line2": "q0",
-        "line4": "q2"
+        "line3": "q1",
+        "line4": "q2",
+        "line5": "q2"
       }
     },
     "4": {

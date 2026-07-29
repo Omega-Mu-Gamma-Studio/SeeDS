@@ -9,10 +9,13 @@ function resolveVar(name) {
 /**
  * Radix sort's digit-bucket distribution view.
  * data: { digitPosition: string, buckets: { [digit]: number[] }, values: number[] }
+ * mappingHighlight, when set to "bucket<d>" by a hovered code line, outlines
+ * that digit's bucket.
  */
-export default function BucketsRenderer({ data }) {
+export default function BucketsRenderer({ data, mappingHighlight }) {
   const nodeColor = resolveVar('--ds-node')
   const inkMuted = resolveVar('--ink-muted')
+  const highlightColor = resolveVar('--ds-highlight')
   const [containerRef, containerSize] = useContainerSize({ width: 640, height: 220 })
 
   if (!data) return <div style={{ padding: '1rem', color: 'var(--ink-muted)' }}>No visual data.</div>
@@ -31,9 +34,12 @@ export default function BucketsRenderer({ data }) {
           {digits.map((d, i) => {
             const items = data.buckets?.[d] || []
             const x = i * cellW
+            const active = mappingHighlight === `bucket${d}`
             return (
               <Group key={d}>
-                <Rect x={x + 4} y={20} width={cellW - 8} height={height - 40} stroke={inkMuted} strokeWidth={1} cornerRadius={6} />
+                <Rect x={x + 4} y={20} width={cellW - 8} height={height - 40}
+                  stroke={active ? highlightColor : inkMuted}
+                  strokeWidth={active ? 3 : 1} cornerRadius={6} />
                 <Text x={x} y={4} width={cellW} align="center" text={d} fontSize={12} fill={inkMuted} />
                 {items.map((val, vi) => (
                   <Group key={vi}>

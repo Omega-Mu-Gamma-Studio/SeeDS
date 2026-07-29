@@ -12,7 +12,7 @@ function resolveVar(name) {
  * (PRD §11.2 "Dual View"). Hovering either representation highlights the
  * same node in both.
  */
-export default function ArrayTreeDualRenderer({ data }) {
+export default function ArrayTreeDualRenderer({ data, mappingHighlight }) {
   const [hovered, setHovered] = useState(null)
   const [arrayContainerRef, arrayContainerSize] = useContainerSize({ width: 320, height: 90 })
   const [treeContainerRef, treeContainerSize] = useContainerSize({ width: 620, height: 220 })
@@ -51,7 +51,7 @@ export default function ArrayTreeDualRenderer({ data }) {
           <ScaledStage containerSize={arrayContainerSize} naturalWidth={Math.max(320, nodes.length * (cellW + 8))} naturalHeight={90}>
             {nodes.map((n) => {
               const x = n.arrayIndex * (cellW + 8) + 8
-              const active = hovered === n.id
+              const active = hovered === n.id || mappingHighlight === n.id
               return (
                 <Group key={n.id}
                   onMouseEnter={() => setHovered(n.id)}
@@ -88,8 +88,7 @@ export default function ArrayTreeDualRenderer({ data }) {
             })}
             {nodes.map((n) => {
               const p = treePositions[n.id]
-              if (!p) return null
-              const active = hovered === n.id
+              const active = hovered === n.id || mappingHighlight === n.id
               return (
                 <Group key={n.id}
                   onMouseEnter={() => setHovered(n.id)}

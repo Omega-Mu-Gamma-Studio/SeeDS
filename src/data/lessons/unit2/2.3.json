@@ -93,8 +93,11 @@
       },
       "mascotDialogue": "Because + sits underneath *, it's forced to resolve first \u2014 that's precedence, shown as depth in the tree instead of a rule you have to memorize.",
       "mapping": {
+        "line1": "mul",
         "line2": "mul",
-        "line3": "add"
+        "line3": "add",
+        "line4": "two",
+        "line5": "mul"
       }
     },
     "4": {

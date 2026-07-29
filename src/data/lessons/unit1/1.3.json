@@ -74,6 +74,9 @@
       },
       "mascotDialogue": "That last arrow, c back to a, is drawn in the calm closed-loop color \u2014 this loop is supposed to be here.",
       "mapping": {
+        "line1": "a",
+        "line2": "b",
+        "line3": "c",
         "line4": "c"
       }
     },

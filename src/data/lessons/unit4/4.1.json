@@ -80,7 +80,8 @@
       "mascotDialogue": "Every arrowhead points one way. This particular loop happens to form a cycle, but notice each edge is still individually one-directional.",
       "mapping": {
         "line2": "v0",
-        "line3": "v1"
+        "line3": "v1",
+        "line4": "v2"
       }
     },
     "4": {

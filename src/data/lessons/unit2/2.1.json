@@ -87,7 +87,9 @@
       },
       "mascotDialogue": "20 goes left of 30, which is already left of 50 \u2014 every step down, the ordering rule holds again.",
       "mapping": {
+        "line2": "n50",
         "line3": "n30",
+        "line4": "n70",
         "line5": "n20"
       }
     },

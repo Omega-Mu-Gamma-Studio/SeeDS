@@ -77,7 +77,8 @@
       "mascotDialogue": "After the rotation, 20 sits on top with balance factor 0 on both sides. Without it, 30 would've had a balance factor of 2 \u2014 a straight leaning line, not a tree anymore.",
       "mapping": {
         "line3": "n30",
-        "line5": "n20"
+        "line4": "n20",
+        "line5": "n10"
       }
     },
     "4": {

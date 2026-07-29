@@ -11,9 +11,11 @@ function resolveVar(name) {
  * Sorting visualizer for comparison-based sorts (bubble/quick/merge/shell).
  * data: { values: number[], comparisons: [i,j][], swaps: [i,j][] }
  * Step controls (P1, PRD §11.1) let the student scrub through the recorded
- * comparisons/swaps log one step at a time.
+ * comparisons/swaps log one step at a time. mappingHighlight, when set to
+ * "s<N>" by a hovered code line, previews step N without disturbing the
+ * student's manual scrub position.
  */
-export default function BarsRenderer({ data }) {
+export default function BarsRenderer({ data, mappingHighlight }) {
   const [step, setStep] = useState(0)
   const [containerRef, containerSize] = useContainerSize({ width: 320, height: 260 })
   const nodeColor = resolveVar('--ds-node')
@@ -23,10 +25,14 @@ export default function BarsRenderer({ data }) {
   const { values = [], comparisons = [], swaps = [] } = data || {}
   const totalSteps = comparisons.length
 
+  const stepMatch = /^s(\d+)$/.exec(mappingHighlight || '')
+  const previewStep = stepMatch ? Math.min(Number(stepMatch[1]), totalSteps) : null
+  const effectiveStep = previewStep ?? step
+
   const currentValues = useMemo(() => {
-    // Apply swaps up to current step to visualize progressive sorting
+    // Apply swaps up to the effective step to visualize progressive sorting
     const arr = [...values]
-    for (let s = 0; s < step; s++) {
+    for (let s = 0; s < effectiveStep; s++) {
       const swap = swaps[s]
       if (swap) {
         const [i, j] = swap
@@ -34,7 +40,7 @@ export default function BarsRenderer({ data }) {
       }
     }
     return arr
-  }, [values, swaps, step])
+  }, [values, swaps, effectiveStep])
 
   if (!values.length) return <div style={{ padding: '1rem', color: 'var(--ink-muted)' }}>No visual data.</div>
 
@@ -43,7 +49,7 @@ export default function BarsRenderer({ data }) {
   const maxVal = Math.max(...values, 1)
   const barWidth = Math.min(56, (width - 40) / values.length - 12)
 
-  const activeIndices = comparisons[step] || []
+  const activeIndices = comparisons[effectiveStep] || []
 
   return (
     <div className="bars-renderer">

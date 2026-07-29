@@ -89,7 +89,10 @@
       },
       "mascotDialogue": "Notice the arrows come in pairs now \u2014 every connection between two nodes is really two separate pointers agreeing with each other.",
       "mapping": {
+        "line1": "a",
+        "line2": "b",
         "line3": "a",
+        "line4": "c",
         "line5": "c"
       }
     },

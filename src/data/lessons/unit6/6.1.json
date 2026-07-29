@@ -78,7 +78,11 @@
           ]
         }
       },
-      "mascotDialogue": "Watch the tallest bar creep one step right on every swap it loses \u2014 that's the 'bubbling' the algorithm's named after, made literal."
+      "mascotDialogue": "Watch the tallest bar creep one step right on every swap it loses \u2014 that's the 'bubbling' the algorithm's named after, made literal.",
+      "mapping": {
+        "line1": "s0",
+        "line2": "s4"
+      }
     },
     "4": {
       "bugDescription": "A common bubble sort bug: the inner loop bound is written as `j < n - i` instead of `j < n - i - 1`, causing arr[j+1] to read one index past the array's last valid element on the final pass \u2014 undefined behavior reading whatever memory happens to sit there.",

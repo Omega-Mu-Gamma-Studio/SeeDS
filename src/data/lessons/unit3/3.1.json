@@ -111,7 +111,8 @@
       },
       "mascotDialogue": "Hover index 4 in the array \u2014 watch its tree node light up as a child of index 1. Same data, two synchronized windows onto it.",
       "mapping": {
-        "line1": "h0"
+        "line1": "h0",
+        "line2": "h0"
       }
     },
     "4": {

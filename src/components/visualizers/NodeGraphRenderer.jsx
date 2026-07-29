@@ -122,9 +122,11 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
     <ScaledStage naturalWidth={width} naturalHeight={Math.max(height, 40 + data.buckets.length * 42)}>
         {data.buckets.map((bucket) => {
           const bp = positions[`bucket${bucket.bucketIndex}`]
+          const highlighted = mappingHighlight === `bucket${bucket.bucketIndex}`
           return (
             <Group key={bucket.bucketIndex}>
-              <Rect x={bp.x - 40} y={bp.y - 16} width={80} height={32} fill={nullColor} opacity={0.25} cornerRadius={4} />
+              <Rect x={bp.x - 40} y={bp.y - 16} width={80} height={32} fill={nullColor} opacity={0.25}
+                stroke={highlighted ? highlightColor : undefined} strokeWidth={highlighted ? 3 : 0} cornerRadius={4} />
               <Text x={bp.x - 40} y={bp.y - 8} width={80} align="center" text={`[${bucket.bucketIndex}]`} fontSize={12} fill={nodeInk === '#FFFFFF' ? '#333' : nodeInk} />
               {(bucket.chain || []).map((cn, ci) => {
                 const np = positions[cn.id]
@@ -132,7 +134,8 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
                 return (
                   <Group key={cn.id}>
                     <Line points={[prevX, np.y, np.x - 30, np.y]} stroke={pointerColor} strokeWidth={2} />
-                    <Circle x={np.x} y={np.y} radius={NODE_R} fill={cn.broken ? brokenColor : nodeColor} />
+                    <Circle x={np.x} y={np.y} radius={NODE_R} fill={cn.broken ? brokenColor : nodeColor}
+                      stroke={highlighted ? highlightColor : undefined} strokeWidth={highlighted ? 3 : 0} />
                     <Text x={np.x - 25} y={np.y - 8} width={50} align="center" text={String(cn.key ?? cn.value)} fontSize={13} fill={nodeInk} />
                   </Group>
                 )
@@ -148,11 +151,12 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
         {data.slots.map((slot) => {
           const sp = positions[`slot${slot.slotIndex}`]
           const empty = slot.value === null || slot.value === undefined
+          const highlighted = mappingHighlight === `slot${slot.slotIndex}`
           return (
             <Group key={slot.slotIndex}>
               <Rect x={sp.x - 30} y={sp.y - 30} width={60} height={60}
                 fill={empty ? 'transparent' : (slot.broken ? brokenColor : nodeColor)}
-                stroke={nullColor} strokeWidth={1.5} cornerRadius={6} />
+                stroke={highlighted ? highlightColor : nullColor} strokeWidth={highlighted ? 3 : 1.5} cornerRadius={6} />
               <Text x={sp.x - 30} y={sp.y - 46} width={60} align="center" text={`[${slot.slotIndex}]`} fontSize={11} fill={inkMuted} />
               {!empty && (
                 <Text x={sp.x - 30} y={sp.y - 8} width={60} align="center" text={String(slot.value)} fontSize={14} fill={nodeInk} />

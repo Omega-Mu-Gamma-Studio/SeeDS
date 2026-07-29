@@ -72,7 +72,11 @@
           "swaps": []
         }
       },
-      "mascotDialogue": "Notice this view doesn't show swaps at all \u2014 merge sort doesn't swap elements in place, it writes the smaller of two fronts into a fresh position each comparison."
+      "mascotDialogue": "Notice this view doesn't show swaps at all \u2014 merge sort doesn't swap elements in place, it writes the smaller of two fronts into a fresh position each comparison.",
+      "mapping": {
+        "line1": "s0",
+        "line2": "s5"
+      }
     },
     "4": {
       "brokenCode": "int i = 0, j = 0, k = l;\nwhile (i < n1 && j < n2) {\n    if (L[i] <= R[j]) arr[k++] = L[i++];\n    else arr[k++] = R[j++];\n}\n// BUG: missing the two leftover-copying while loops entirely",

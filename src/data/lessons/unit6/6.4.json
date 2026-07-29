@@ -71,7 +71,11 @@
           ]
         }
       },
-      "mascotDialogue": "Watch these first comparisons skip across three positions at a time \u2014 that's a gap of 3 doing long-distance corrections before the finer gap=1 pass even starts."
+      "mascotDialogue": "Watch these first comparisons skip across three positions at a time \u2014 that's a gap of 3 doing long-distance corrections before the finer gap=1 pass even starts.",
+      "mapping": {
+        "line1": "s0",
+        "line2": "s3"
+      }
     },
     "4": {
       "brokenCode": "void shellSort(int arr[], int n) {\n    // BUG: gap fixed at 1 instead of starting from n/2 and shrinking\n    int gap = 1;\n    for (int i = gap; i < n; i++) {\n        int temp = arr[i];\n        int j = i;\n        while (j >= gap && arr[j - gap] > temp) {\n            arr[j] = arr[j - gap];\n            j -= gap;\n        }\n        arr[j] = temp;\n    }\n}",

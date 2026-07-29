@@ -70,7 +70,12 @@
           ]
         }
       },
-      "mascotDialogue": "This pivot happened to be the smallest value, so it ends up all the way at index 0 \u2014 an unlucky pivot choice, and a good example of why pivot selection matters for performance."
+      "mascotDialogue": "This pivot happened to be the smallest value, so it ends up all the way at index 0 \u2014 an unlucky pivot choice, and a good example of why pivot selection matters for performance.",
+      "mapping": {
+        "line1": "s0",
+        "line2": "s0",
+        "line3": "s1"
+      }
     },
     "4": {
       "brokenCode": "void quickSort(int arr[], int low, int high) {\n    if (low < high) {\n        int p = partition(arr, low, high);\n        quickSort(arr, low, p); // BUG: should be p - 1\n        quickSort(arr, p + 1, high);\n    }\n}",

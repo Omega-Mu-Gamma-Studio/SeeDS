@@ -101,7 +101,8 @@
       },
       "mascotDialogue": "9 up top, and every parent down the tree beats both its children. Same array-index math as min heap, just the comparison direction flipped.",
       "mapping": {
-        "line1": "h0"
+        "line1": "h0",
+        "line2": "h0"
       }
     },
     "4": {
