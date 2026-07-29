@@ -119,8 +119,8 @@ The collapsed Archive itself. The physical center of the whole plot.
 | Layer | Beat |
 |---|---|
 | 1 | Lena is crouched by a collapsed archway, brushing dirt off a stone. "Oh! You're not a professor, are you? Thank god. They'd yell at me for being here. I'm trying to figure out what this place actually was—before the university." |
-| 2 | Lena has a theory. She spreads out sketches: "Look—the layout of the ruins matches the street plan of an old tech campus. But the university records say this was just farmland. They're lying." |
-| 3 | Lena finds a data slate with a message from the original researcher. "They knew. Everyone knew. And they buried it." (Tiny Choice moment here.) |
+| 2 | Lena has a theory. She spreads out sketches: "Look—the layout of the ruins matches the street plan of something a lot more organized than a farm. But the university records just call it 'prior land use, unspecified.' Nobody writes it that vague by accident." |
+| 3 | Lena finds a data slate, mostly corroded, one line still legible. "It's a note-to-self. Not even signed. Just: 'catalogued everything except what mattered.'" She sits back. "I don't think anyone buried anything, exactly. I think somebody just... stopped being able to finish. And nobody after them wanted to pick it back up." (Tiny Choice moment here.) |
 
 **Badge Unlock:** "The Ruin's Secret"
 
@@ -144,7 +144,7 @@ The loud, ordinary, everyday location — the counterweight to everywhere else. 
 |---|---|
 | 1 | Kai is untangling a net, whistling. "New face! You look lost. Or just curious. Both are good." He offers you dried fish. "I'm Kai. I work here, study marine bio, and occasionally fall into the water. Want a tour?" |
 | 2 | Kai is staring at the water. "My grandfather—Ezra—he used to tell me stories about the island. About a 'hum' in the water. I thought it was just old man talk. But lately... I've been hearing it too." |
-| 3 | Kai takes you to a hidden tide pool. "This is where the hum is loudest. I think... I think there's something under the island. Not a machine. Something older." (Tiny Choice moment here.) |
+| 3 | Kai takes you to a hidden tide pool at low tide — old stonework just visible under the water. "I used to think it was just current against the rocks. Now I'm not so sure it's nothing." He shrugs, half-embarrassed. "Grandpa's never once told it the same way twice. Maybe that's the actual answer — some things you just keep telling, instead of solving." (Tiny Choice moment here.) |
 
 **Badge Unlock:** "The Hum's Keeper"
 
@@ -212,9 +212,9 @@ Second of three. See §4.7.
 
 | Layer | Beat |
 |---|---|
-| 1 | Elena is sitting on the rocks, staring at the water. "I'm Elena. My brother—he was the keeper here. He... died a few years ago. They said it was an accident. I don't believe them." |
-| 2 | Elena shows you her brother's logbook: "He was investigating something. He wrote about it obsessively. And then—nothing." |
-| 3 | Elena finds her brother's hidden cache: photos, notes, a ring. "He was trying to stop something. And they killed him for it." (Tiny Choice moment here.) |
+| 1 | Elena is sitting on the rocks, staring at the water. "I'm Elena. My brother kept this light, before me. He died a few years back — a fall, they said. I keep the light now. Seemed like it needed someone." |
+| 2 | Elena shows you her brother's logbook — same obsessive, minute-by-minute logging as North and Harbor Light's keepers. "Near the end he was writing pages a night. Then it just stops. No last entry, no goodbye. Just stops." |
+| 3 | Elena finds a small cache he'd hidden — photos, notes, a ring that was never hers or his. "I used to want it to mean something happened to him. Some answer I could be angry at." She turns the ring over once. "Lately I think he just went looking for something and didn't stop in time to notice he'd gone too far out. I don't need it to be more than that anymore." (Tiny Choice moment here.) |
 
 **Badge Unlock:** "The Sister's Ring"
 
