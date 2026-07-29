@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
-import { Stage, Layer, Circle, Rect, Text, Line } from 'react-konva'
+import { Group, Circle, Rect, Text, Line } from 'react-konva'
+import { useContainerSize, ScaledStage } from './useScaledStage.jsx'
 
 function resolveVar(name) {
   if (typeof window === 'undefined') return '#4A90D9'
@@ -13,6 +14,8 @@ function resolveVar(name) {
  */
 export default function ArrayTreeDualRenderer({ data }) {
   const [hovered, setHovered] = useState(null)
+  const [arrayContainerRef, arrayContainerSize] = useContainerSize({ width: 320, height: 90 })
+  const [treeContainerRef, treeContainerSize] = useContainerSize({ width: 620, height: 220 })
   const nodeColor = resolveVar('--ds-node')
   const brokenColor = resolveVar('--ds-broken')
   const highlightColor = resolveVar('--ds-highlight')
@@ -44,13 +47,13 @@ export default function ArrayTreeDualRenderer({ data }) {
     <div className="array-tree-dual">
       <div className="array-tree-dual__section">
         <p className="array-tree-dual__label">Array view</p>
-        <Stage width={Math.max(320, nodes.length * (cellW + 8))} height={90}>
-          <Layer>
+        <div ref={arrayContainerRef} style={{ width: '100%', height: 90 }}>
+          <ScaledStage containerSize={arrayContainerSize} naturalWidth={Math.max(320, nodes.length * (cellW + 8))} naturalHeight={90}>
             {nodes.map((n) => {
               const x = n.arrayIndex * (cellW + 8) + 8
               const active = hovered === n.id
               return (
-                <g key={n.id}
+                <Group key={n.id}
                   onMouseEnter={() => setHovered(n.id)}
                   onMouseLeave={() => setHovered(null)}>
                   <Rect x={x} y={20} width={cellW} height={44}
@@ -60,16 +63,16 @@ export default function ArrayTreeDualRenderer({ data }) {
                     cornerRadius={6} />
                   <Text x={x} y={34} width={cellW} align="center" text={String(n.value)} fontSize={14} fill={ink} />
                   <Text x={x} y={68} width={cellW} align="center" text={`[${n.arrayIndex}]`} fontSize={10} fill={inkMuted} />
-                </g>
+                </Group>
               )
             })}
-          </Layer>
-        </Stage>
+          </ScaledStage>
+        </div>
       </div>
       <div className="array-tree-dual__section">
         <p className="array-tree-dual__label">Tree view</p>
-        <Stage width={620} height={220}>
-          <Layer>
+        <div ref={treeContainerRef} style={{ width: '100%', height: 220 }}>
+          <ScaledStage containerSize={treeContainerSize} naturalWidth={620} naturalHeight={220}>
             {nodes.map((n) => {
               if (n.parentIndex === null || n.parentIndex === undefined) return null
               const parent = nodes.find((p) => p.arrayIndex === n.parentIndex)
@@ -88,7 +91,7 @@ export default function ArrayTreeDualRenderer({ data }) {
               if (!p) return null
               const active = hovered === n.id
               return (
-                <g key={n.id}
+                <Group key={n.id}
                   onMouseEnter={() => setHovered(n.id)}
                   onMouseLeave={() => setHovered(null)}>
                   <Circle x={p.x} y={p.y} radius={24}
@@ -96,11 +99,11 @@ export default function ArrayTreeDualRenderer({ data }) {
                     stroke={active ? highlightColor : undefined}
                     strokeWidth={active ? 4 : 0} />
                   <Text x={p.x - 20} y={p.y - 8} width={40} align="center" text={String(n.value)} fontSize={13} fill={ink} />
-                </g>
+                </Group>
               )
             })}
-          </Layer>
-        </Stage>
+          </ScaledStage>
+        </div>
       </div>
     </div>
   )

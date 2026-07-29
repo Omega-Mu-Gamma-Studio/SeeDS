@@ -1,28 +1,6 @@
-import { useMemo, useRef, useState, useLayoutEffect } from 'react'
-import { Stage, Layer, Group, Circle, Line, Text, Rect, Arrow } from 'react-konva'
-
-// Measures the wrapping element and reports its content-box size,
-// updating on resize so the Stage can be scaled to fit instead of
-// overflowing and getting auto-centered/scroll-clipped by the parent.
-function useContainerSize() {
-  const ref = useRef(null)
-  const [size, setSize] = useState({ width: 640, height: 340 })
-
-  useLayoutEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const ro = new ResizeObserver((entries) => {
-      const entry = entries[0]
-      if (!entry) return
-      const { width, height } = entry.contentRect
-      if (width > 0 && height > 0) setSize({ width, height })
-    })
-    ro.observe(el)
-    return () => ro.disconnect()
-  }, [])
-
-  return [ref, size]
-}
+import { useMemo } from 'react'
+import { Group, Circle, Line, Text, Rect, Arrow } from 'react-konva'
+import { useContainerSize, ScaledStage as SharedScaledStage } from './useScaledStage.jsx'
 
 const NODE_R = 26
 
@@ -50,25 +28,11 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
 
   const [containerRef, containerSize] = useContainerSize()
 
-  // Wraps a Stage's content in a scaled+centered Layer so diagrams shrink to
-  // fit the actual panel width instead of overflowing and getting silently
-  // scrolled (which is what was clipping the leftmost/head node before).
-  function ScaledStage({ naturalWidth, naturalHeight, children }) {
-    const scale = Math.min(
-      containerSize.width / naturalWidth,
-      containerSize.height / naturalHeight,
-      1 // never upscale past 1:1
-    ) || 1
-    const offsetX = (containerSize.width - naturalWidth * scale) / 2
-    const offsetY = (containerSize.height - naturalHeight * scale) / 2
-    return (
-      <Stage width={containerSize.width} height={containerSize.height}>
-        <Layer x={offsetX} y={offsetY} scaleX={scale} scaleY={scale}>
-          {children}
-        </Layer>
-      </Stage>
-    )
-  }
+  const ScaledStage = ({ naturalWidth, naturalHeight, children }) => (
+    <SharedScaledStage containerSize={containerSize} naturalWidth={naturalWidth} naturalHeight={naturalHeight}>
+      {children}
+    </SharedScaledStage>
+  )
 
   const nodeColor = resolveVar('--ds-node')
   const nodeInk = resolveVar('--ds-node-ink')
@@ -199,6 +163,58 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
     </ScaledStage>
   )
 
+  const renderArrayLikeView = () => {
+    const capacity = data.capacity ?? data.nodes.length
+    const slotW = 80
+    const naturalWidth = Math.max(width, 60 + capacity * slotW + 20)
+    const boxTop = 110
+    const boxHeight = 80
+
+    return (
+      <ScaledStage naturalWidth={naturalWidth} naturalHeight={height}>
+        {/* capacity bounding box, one cell per slot */}
+        {Array.from({ length: capacity }).map((_, i) => (
+          <Rect
+            key={`slot${i}`}
+            x={60 + i * slotW - slotW / 2 + 10}
+            y={boxTop}
+            width={slotW - 20}
+            height={boxHeight}
+            stroke={nullColor}
+            strokeWidth={1.5}
+            dash={i >= (data.size ?? data.nodes.length) ? [4, 4] : undefined}
+            cornerRadius={6}
+          />
+        ))}
+        {data.nodes.map((node) => {
+          const p = positions[node.id]
+          if (!p) return null
+          const highlighted = mappingHighlight === node.id
+          const fill = node.broken ? brokenColor : nodeColor
+          const marker = node.isTop ? 'TOP' : node.isFront ? 'FRONT' : node.isRear ? 'REAR' : null
+          return (
+            <Group key={node.id} onMouseEnter={() => onNodeHover && onNodeHover(node.id)} onMouseLeave={() => onNodeHover && onNodeHover(null)}>
+              <Circle
+                x={p.x} y={boxTop + boxHeight / 2} radius={NODE_R}
+                fill={fill}
+                stroke={highlighted ? highlightColor : undefined}
+                strokeWidth={highlighted ? 4 : 0}
+              />
+              <Text x={p.x - NODE_R} y={boxTop + boxHeight / 2 - 8} width={NODE_R * 2} align="center" text={String(node.value)} fontSize={14} fill={nodeInk} />
+              <Text x={p.x - 30} y={boxTop + boxHeight + 6} width={60} align="center" text={`[${node.arrayIndex}]`} fontSize={10} fill={inkMuted} />
+              {marker && (
+                <Group>
+                  <Line points={[p.x, boxTop - 22, p.x, boxTop - 4]} stroke={highlightColor} strokeWidth={2} />
+                  <Text x={p.x - 30} y={boxTop - 40} width={60} align="center" text={marker} fontSize={12} fontStyle="bold" fill={highlightColor} />
+                </Group>
+              )}
+            </Group>
+          )
+        })}
+      </ScaledStage>
+    )
+  }
+
   const renderNodeEdgeView = () => (
     <ScaledStage naturalWidth={width} naturalHeight={height}>
         {(data.edges || []).map((edge, i) => {
@@ -252,9 +268,13 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
     </ScaledStage>
   )
 
+  const isArrayLike = data.nodes && data.nodes.length > 0 &&
+    data.nodes.some((n) => 'arrayIndex' in n) &&
+    !data.nodes.some((n) => 'left' in n || 'right' in n)
+
   return (
     <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
-      {data.buckets ? renderBucketView() : data.slots ? renderSlotView() : renderNodeEdgeView()}
+      {data.buckets ? renderBucketView() : data.slots ? renderSlotView() : isArrayLike ? renderArrayLikeView() : renderNodeEdgeView()}
     </div>
   )
 }
