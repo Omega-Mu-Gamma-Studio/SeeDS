@@ -73,9 +73,19 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
     const isGraph = data.nodes.some((n) => Array.isArray(n.adjacency))
 
     if (isArrayLike) {
-      data.nodes.forEach((n) => {
-        pos[n.id] = { x: 60 + n.arrayIndex * 80, y: 150 }
-      })
+      const isStack = data.nodes.some((n) => 'isTop' in n)
+      if (isStack) {
+        const slotH = 70
+        const centerX = 140
+        const bottomY = height - 50
+        data.nodes.forEach((n) => {
+          pos[n.id] = { x: centerX, y: bottomY - n.arrayIndex * slotH }
+        })
+      } else {
+        data.nodes.forEach((n) => {
+          pos[n.id] = { x: 60 + n.arrayIndex * 80, y: 150 }
+        })
+      }
       return pos
     }
 
@@ -168,7 +178,62 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
   )
 
   const renderArrayLikeView = () => {
+    const isStack = data.nodes.some((n) => 'isTop' in n)
     const capacity = data.capacity ?? data.nodes.length
+    const size = data.size ?? data.nodes.length
+
+    if (isStack) {
+      const slotH = 70
+      const slotW = 100
+      const naturalWidth = 280
+      const centerX = naturalWidth / 2
+      const bottomY = height - 50
+      const naturalHeight = Math.max(height, 60 + capacity * slotH)
+
+      return (
+        <ScaledStage naturalWidth={naturalWidth} naturalHeight={naturalHeight}>
+          {/* capacity column, one cell per slot, index 0 at the bottom */}
+          {Array.from({ length: capacity }).map((_, i) => (
+            <Rect
+              key={`slot${i}`}
+              x={centerX - slotW / 2}
+              y={bottomY - i * slotH - slotH + 10}
+              width={slotW}
+              height={slotH - 20}
+              stroke={nullColor}
+              strokeWidth={1.5}
+              dash={i >= size ? [4, 4] : undefined}
+              cornerRadius={6}
+            />
+          ))}
+          {data.nodes.map((node) => {
+            const p = positions[node.id]
+            if (!p) return null
+            const highlighted = mappingHighlight === node.id
+            const fill = node.broken ? brokenColor : nodeColor
+            return (
+              <Group key={node.id} onMouseEnter={() => onNodeHover && onNodeHover(node.id)} onMouseLeave={() => onNodeHover && onNodeHover(null)}>
+                <Circle
+                  x={p.x} y={p.y} radius={NODE_R}
+                  fill={fill}
+                  stroke={highlighted ? highlightColor : undefined}
+                  strokeWidth={highlighted ? 4 : 0}
+                />
+                <Text x={p.x - NODE_R} y={p.y - 8} width={NODE_R * 2} align="center" text={String(node.value)} fontSize={14} fill={nodeInk} />
+                <Text x={p.x - slotW / 2 - 34} y={p.y - 7} width={28} align="center" text={`[${node.arrayIndex}]`} fontSize={10} fill={inkMuted} />
+                {node.isTop && (
+                  <Group>
+                    <Line points={[p.x + slotW / 2 + 8, p.y, p.x + slotW / 2 + 30, p.y]} stroke={highlightColor} strokeWidth={2} />
+                    <Text x={p.x + slotW / 2 + 34} y={p.y - 7} width={40} text="TOP" fontSize={12} fontStyle="bold" fill={highlightColor} />
+                  </Group>
+                )}
+              </Group>
+            )
+          })}
+        </ScaledStage>
+      )
+    }
+
     const slotW = 80
     const naturalWidth = Math.max(width, 60 + capacity * slotW + 20)
     const boxTop = 110
@@ -186,7 +251,7 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
             height={boxHeight}
             stroke={nullColor}
             strokeWidth={1.5}
-            dash={i >= (data.size ?? data.nodes.length) ? [4, 4] : undefined}
+            dash={i >= size ? [4, 4] : undefined}
             cornerRadius={6}
           />
         ))}
@@ -195,7 +260,7 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
           if (!p) return null
           const highlighted = mappingHighlight === node.id
           const fill = node.broken ? brokenColor : nodeColor
-          const marker = node.isTop ? 'TOP' : node.isFront ? 'FRONT' : node.isRear ? 'REAR' : null
+          const marker = node.isFront ? 'FRONT' : node.isRear ? 'REAR' : null
           return (
             <Group key={node.id} onMouseEnter={() => onNodeHover && onNodeHover(node.id)} onMouseLeave={() => onNodeHover && onNodeHover(null)}>
               <Circle
