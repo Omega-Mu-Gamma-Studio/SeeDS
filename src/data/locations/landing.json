@@ -3,7 +3,7 @@
   "name": "The Landing",
   "sublabel": "Dock city, SW harbor",
   "hotspot": { "x": 22, "y": 60, "width": 16, "height": 16 },
-  "art": "/campus-art/locations/landing.png",
+  "art": "/campus-art/story/landing.png",
   "flavor": "Loud, ordinary, and everyday. Where gossip about everywhere else actually circulates.",
   "npcId": "kai",
   "badge": {

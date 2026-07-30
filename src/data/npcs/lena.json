@@ -5,7 +5,7 @@
   "locationId": "ruins",
   "vibe": "Intense, curious, reckless. Archaeology student obsessed with the island's pre-university history.",
   "romanceable": true,
-  "portrait": "/portraits/npcs/lena.png",
+  "portrait": "/portraits/story/lena.png",
   "layers": [
     {
       "layer": 1,

@@ -5,7 +5,7 @@
   "locationId": "landing",
   "vibe": "Kai's grandfather, retired fisherman. Passes down wisdom and old stories.",
   "romanceable": false,
-  "portrait": "/portraits/npcs/ezra.png",
+  "portrait": "/portraits/story/ezra.png",
   "layers": [
     {
       "layer": 1,

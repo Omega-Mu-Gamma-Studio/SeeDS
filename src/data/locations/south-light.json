@@ -3,7 +3,7 @@
   "name": "South Light",
   "sublabel": "Southern coast",
   "hotspot": { "x": 48, "y": 78, "width": 10, "height": 12 },
-  "art": "/campus-art/locations/south-light.png",
+  "art": "/campus-art/story/south-light.png",
   "flavor": "Smaller than North Light, and better hidden. Its lamp is lit anyway.",
   "npcId": "elena",
   "lighthouseGroup": "triangle",

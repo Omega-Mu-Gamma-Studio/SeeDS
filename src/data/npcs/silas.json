@@ -5,7 +5,7 @@
   "locationId": "harbor-light",
   "vibe": "Playful, clever, anxious. Engineering student, works part-time maintaining the lighthouse.",
   "romanceable": true,
-  "portrait": "/portraits/npcs/silas.png",
+  "portrait": "/portraits/story/silas.png",
   "layers": [
     {
       "layer": 1,

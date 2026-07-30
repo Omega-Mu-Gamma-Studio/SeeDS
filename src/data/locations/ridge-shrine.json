@@ -3,7 +3,7 @@
   "name": "The Ridge Shrine",
   "sublabel": "Atop the mountain, apart from the University's own peak",
   "hotspot": { "x": 40, "y": 8, "width": 12, "height": 14 },
-  "art": "/campus-art/locations/ridge-shrine.png",
+  "art": "/campus-art/story/ridge-shrine.png",
   "flavor": "Small, weatherworn, deliberately unclaimed by any current religious or campus group.",
   "npcId": "woman-in-white",
   "badge": {

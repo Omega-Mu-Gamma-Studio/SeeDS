@@ -5,7 +5,7 @@
   "locationId": "north-light",
   "vibe": "Quiet, observant, secretive. Lighthouse keeper's assistant, on a gap year.",
   "romanceable": true,
-  "portrait": "/portraits/npcs/yuki.png",
+  "portrait": "/portraits/story/yuki.png",
   "layers": [
     {
       "layer": 1,

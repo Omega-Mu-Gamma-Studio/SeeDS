@@ -5,7 +5,7 @@
   "locationId": "south-light",
   "vibe": "Melancholic, romantic, grieving. Sister of the original lighthouse keeper who died.",
   "romanceable": true,
-  "portrait": "/portraits/npcs/elena.png",
+  "portrait": "/portraits/story/elena.png",
   "layers": [
     {
       "layer": 1,

@@ -5,7 +5,7 @@
   "locationId": "windmill-row",
   "vibe": "Gruff exterior, soft heart. Margit's grandson, helps on the farm, hates the university.",
   "romanceable": true,
-  "portrait": "/portraits/npcs/tommy.png",
+  "portrait": "/portraits/story/tommy.png",
   "layers": [
     {
       "layer": 1,

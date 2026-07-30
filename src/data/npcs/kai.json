@@ -5,7 +5,7 @@
   "locationId": "landing",
   "vibe": "Easygoing, warm, secretly poetic. Fisherman's apprentice and marine biology student.",
   "romanceable": true,
-  "portrait": "/portraits/npcs/kai.png",
+  "portrait": "/portraits/story/kai.png",
   "layers": [
     {
       "layer": 1,

@@ -5,7 +5,7 @@
   "locationId": "ridge-shrine",
   "vibe": "Mystical guardian of the shrine's truth. Not human — a manifestation of the island's memory.",
   "romanceable": false,
-  "portrait": "/portraits/npcs/woman-in-white.png",
+  "portrait": "/campus-art/story/woman-in-white.png",
   "layers": [
     {
       "layer": 1,

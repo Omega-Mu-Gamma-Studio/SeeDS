@@ -3,7 +3,7 @@
   "name": "The Ruins",
   "sublabel": "West-central island",
   "hotspot": { "x": 25, "y": 33, "width": 12, "height": 14 },
-  "art": "/campus-art/locations/ruins.png",
+  "art": "/campus-art/story/ruins.png",
   "flavor": "What's left isn't a house or a hall. It's shelving that forgot to stop.",
   "npcId": "lena",
   "badge": {
