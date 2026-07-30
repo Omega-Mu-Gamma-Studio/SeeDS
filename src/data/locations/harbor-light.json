@@ -2,7 +2,7 @@
   "id": "harbor-light",
   "name": "Harbor Light",
   "sublabel": "Southeast, closest to the Landing",
-  "hotspot": { "x": 30, "y": 78, "width": 10, "height": 12 },
+  "hotspot": { "x": 20, "y": 52, "width": 10, "height": 12 },
   "art": "/campus-art/locations/harbor-light.png",
   "flavor": "Close enough to the Landing that most people assume it's decorative. It isn't.",
   "npcId": "silas",

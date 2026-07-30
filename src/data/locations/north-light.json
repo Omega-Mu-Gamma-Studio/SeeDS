@@ -2,7 +2,7 @@
   "id": "north-light",
   "name": "North Light",
   "sublabel": "Northern cliff",
-  "hotspot": { "x": 48, "y": 8, "width": 10, "height": 14 },
+  "hotspot": { "x": 64, "y": 14, "width": 10, "height": 12 },
   "art": "/campus-art/locations/north-light.png",
   "flavor": "One of three lighthouses. See the Harbor Light triangle once you've visited all three.",
   "npcId": "yuki",
