@@ -92,7 +92,7 @@ Units are more than a syllabus grouping — each is split into named **landmarks
 
 ### 🎓 Learning System
 - **5-phase lesson structure** on every lesson — Understand → Code → Visual → Break → Test
-- **Konva-rendered visualizers**, dispatched per lesson by structure type: `NodeGraphRenderer` (lists, trees, graphs, hash chaining), `BarsRenderer` (comparison sorts), `BucketsRenderer` (radix sort), `ArrayTreeDualRenderer` (heaps, array + tree side by side)
+- **Konva-rendered visualizers**, dispatched per lesson by structure type: `NodeGraphRenderer` (lists, trees, graphs, hash chaining), `BarsRenderer` (comparison sorts), `BucketsRenderer` (radix sort), `ArrayTreeDualRenderer` (heaps, array + tree side by side), `GridRenderer` (number-grid view for sorting passes)
 - **Bidirectional code ↔ visual hover mapping** in Phases 3 and 4
 - A color-coding system (node blue, pointer orange, `NULL` gray, broken red, highlight yellow) applied consistently across every renderer
 
@@ -123,6 +123,17 @@ Ten tutors, each with her own nationality-flavored voice and personality, plus a
 - A flat, syllabus-ordered debug view of the same progress data (`UnitPage`, at `/campus-map/full`) still exists for quickly checking lock state without walking the scenes.
 - **The Passport** tracks a stamp per landmark on lesson completion, and **seals** (wax-crest state) once every lesson under a landmark is done — a distinct "you finished this whole place" moment on top of finishing a single lesson.
 
+### 📖 Story Mode — Ambient Island Lore
+A second, fully optional layer of hotspots sits on the same Island scene as the University — **seven explorable locations** (The Ruins, The Landing, Windmill Row, North Light, Harbor Light, South Light, the Ridge Shrine), each with its own illustrated background under `public/campus-art/story/`.
+
+- **No forced quests.** Nothing here gates a lesson, and nothing requires a "task" — it's pure texture for students who like poking around, per `Story_Mode.md`.
+- **Field Badges & Journal.** Visiting a location for the first time ever earns a Field Badge (`FieldBadgeToast`), tracked in a new "Field Badges" section of the Passport, kept visually distinct from the wax-crest landmark seals. A Journal panel appends a short, dated entry per beat as it unlocks.
+- **Paced by unit progress, not a calendar.** Each location's beats unlock at specific `unitsCompleted` thresholds (0–6) — the story paces itself across the semester automatically as a student works through the curriculum, with zero new scheduling logic.
+- **Nine NPCs**, six with a three-layer dialogue arc that ends in a "Tiny Choice" (Friendship or Romance, kept chaste and consequence-light), plus three non-romanceable supporting characters. All portraits live under `public/portraits/story/`.
+- **Fully decoupled** from the lesson/cousin systems — its own `storyStore.js` (visited locations, seen beats, NPC layer progress, NPC choices) and `storyService.js` (content loading + unlock logic), independent of `progressStore`. A student who never explores the island loses nothing functional.
+- The Unit-6 "Lighthouse Triangle" payoff at Harbor Light is the one cross-location dependency in the whole system — it only fires once the matching Unit-6 beats at North Light and South Light have also been seen.
+- Full plot, character bios, and per-location beat scripts live in `Story_Mode.md`.
+
 ---
 
 ## Current Status
@@ -131,10 +142,11 @@ So nobody wastes time wondering what's actually done versus in progress:
 
 **✅ Fully built and verified**
 - All 22 lessons, all 6 units, real content throughout (concept, C code, dialogue, visual data)
-- The 5-phase lesson engine and all four Konva visualizers
+- The 5-phase lesson engine and all five Konva visualizers, including the newer `GridRenderer` (number-grid view for Heap Sort and the Unit 6 sorting algorithms) and a hardened `NodeGraphRenderer` (Stack ADT rendering fixes)
 - The neutral-default dialogue fallback chain, tutor selection/onboarding gate, and all 220 cousin dialogue files
 - The Passport/landmark progress system, with sealing
 - The nested campus-map shell (Island → Campus → CS Block → Dorm) with working locks, the Staff Room advisor switcher, and the Passport-from-Dorm hotspot
+- **Story Mode** — all 7 island locations, all 9 NPCs, the Field Badges/Journal system, and the Tiny Choice arcs are implemented and live, with matching illustrated art wired in for every location and NPC (see [Features](#-story-mode--ambient-island-lore))
 - **Illustrated backgrounds for all four campus-map scenes** (`public/campus-art/`) — these replaced the earlier CSS-gradient placeholders and are live in the app today
 - **Illustrated portraits for all 10 Gamma Cousins** (`public/portraits/cousins/`), wired into `CousinAvatar` with a graceful fallback for anyone without one
 - `npm run build` and `npm run lint` both run clean — zero errors, zero lint warnings
@@ -153,33 +165,42 @@ If you're picking a task off this list: dialogue is done, sprite art and audio a
 SeeDS/
 ├── public/
 │   ├── campus-art/          ← island / campus / cs-block / dorm illustrations (done)
-│   ├── portraits/cousins/   ← 10 cousin portraits (done)
+│   │   └── story/           ← 7 Story Mode location backgrounds (done)
+│   ├── portraits/
+│   │   ├── cousins/         ← 10 cousin portraits (done)
+│   │   └── story/           ← Story Mode NPC portraits (done)
 │   ├── sprites/             ← per-expression sprite folders (not started, .gitkeep only)
 │   └── audio/                ← (empty, not started)
 ├── src/
 │   ├── pages/                ← Home, Island, Campus, CSBlock, Dorm, LessonPage,
-│   │                            Settings, UnitPage (legacy flat debug map)
+│   │                            Settings, UnitPage (legacy flat debug map),
+│   │                            LocationScene (Story Mode location + NPC scenes)
 │   ├── components/
 │   │   ├── layout/
 │   │   ├── campus/           ← SceneFrame, Hotspot, art.js (nested campus-map scenes)
 │   │   ├── cousin/           ← CousinAvatar, CousinPicker, SpeechBubble
 │   │   ├── lesson/            ← Phase1Understand … Phase5Test, PhaseContainer, CodeBlock
 │   │   ├── visualizers/       ← NodeGraphRenderer, BarsRenderer, BucketsRenderer,
-│   │   │                         ArrayTreeDualRenderer, VisualizerDispatch
+│   │   │                         ArrayTreeDualRenderer, GridRenderer, VisualizerDispatch
 │   │   ├── passport/          ← PassportButton, PassportPanel, LandmarkSealToast
+│   │   ├── story/             ← FieldBadgeToast (Story Mode badge celebration)
 │   │   └── ui/
 │   ├── data/
 │   │   ├── lessons/unit{1-6}/ ← 22 lesson files (core content + neutral dialogue)
 │   │   ├── units/             ← per-unit metadata + landmark definitions
 │   │   ├── cousins/           ← tutor identity files (palette, catchphrase, portrait path)
-│   │   └── dialogue/{cousinId}/ ← 220 per-lesson voiced dialogue overrides
+│   │   ├── dialogue/{cousinId}/ ← 220 per-lesson voiced dialogue overrides
+│   │   ├── locations/         ← 7 Story Mode location files (hotspot coords + beats)
+│   │   └── npcs/               ← 9 Story Mode NPC files (dialogue layers, Tiny Choice text)
 │   ├── hooks/
-│   ├── services/               ← lessonService.js, dialogueService.js (fallback chain)
-│   ├── store/                  ← lessonStore, progressStore, cousinStore, uiStore
+│   ├── services/               ← lessonService.js, dialogueService.js (fallback chain),
+│   │                              storyService.js (Story Mode content + unlock logic)
+│   ├── store/                  ← lessonStore, progressStore, cousinStore, uiStore, storyStore
 │   ├── utils/                  ← cHighlighter.js, rendererDispatch.js, xpCalculator.js
 │   └── styles/                 ← tokens.css (the color-coding system)
 ├── PRD.md
 ├── GAMMA_COUSINS.md
+├── Story_Mode.md
 └── (standard repo files: package.json, vite.config.js, LICENSE, etc.)
 ```
 
@@ -221,6 +242,7 @@ No CSS framework (plain CSS + CSS Modules), no cloud backend (`localStorage` via
 - **New unit:** define its `landmarks` array (`PRD.md` §8.6) and make sure every lesson is assigned to exactly one landmark — a unit without this silently produces no Passport progress.
 - **New tutor dialogue:** open `src/data/dialogue/{cousinId}/`, add the file for that lesson ID if it doesn't exist yet, and write only the phase-level overrides — never touch the lesson's core file.
 - **New tutor art:** cousin identity (including the `portrait` path) lives in `src/data/cousins/{id}.json`; sprite folders for the not-yet-started expression art already exist at `public/sprites/cousins/{id}/`, ready to receive the 6 expression PNGs when that art is produced.
+- **New Story Mode beat or location:** add/edit a file in `src/data/locations/{id}.json` following the shape in `Story_Mode.md` §1 — no code change needed, `storyService.js` picks it up via `import.meta.glob`. New NPC dialogue layers or Tiny Choice text go in `src/data/npcs/{id}.json`.
 
 Never hardcode a specific cousin's assets or dialogue path anywhere outside `services/dialogueService.js` and the sprite/portrait resolution logic in `components/cousin/CousinAvatar.jsx`.
 

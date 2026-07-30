@@ -1,6 +1,6 @@
 # Story Mode Proposal — "Everything Has Its Place"
 
-**Status:** Design proposal, not yet implemented
+**Status:** Implemented — all 7 locations, all 9 NPCs, Field Badges, Journal, and the Tiny Choice system are live. This doc remains the authoritative source for plot, character bios, and per-beat scripts.
 **Scope:** Ambient background lore layered on top of the existing Island → Campus → CS Block → Dorm hierarchy
 **Depends on:** Existing Passport/Landmark system (`PRD.md` §6.1), existing `Island.jsx` hotspot pattern
 **Tone:** YA gothic-mystery with warmth. Grief, obsession, and disappearance are on the table thematically — nothing graphic, nothing requiring a content warning beyond "this is a little sad and a little eerie on purpose." Suitable for the existing student audience; written to feel like the campus ghost story everyone half-believes, not a horror set piece.
