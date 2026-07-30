@@ -1,0 +1,16 @@
+{
+  "id": "woman-in-white",
+  "name": "The Woman in White",
+  "age": "Ageless",
+  "locationId": "ridge-shrine",
+  "vibe": "Mystical guardian of the shrine's truth. Not human — a manifestation of the island's memory.",
+  "romanceable": false,
+  "portrait": "/portraits/npcs/woman-in-white.png",
+  "layers": [
+    {
+      "layer": 1,
+      "text": "She's just... there, at the shrine, like she always has been. She doesn't introduce herself. She doesn't need to."
+    }
+  ],
+  "note": "Full arc (the three carvings + final revelation choice) is intentionally not scripted here -- see shrineFinale in ridge-shrine.json."
+}

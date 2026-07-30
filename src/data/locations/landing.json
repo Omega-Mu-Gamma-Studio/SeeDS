@@ -1,0 +1,41 @@
+{
+  "id": "landing",
+  "name": "The Landing",
+  "sublabel": "Dock city, SW harbor",
+  "hotspot": { "x": 12, "y": 74, "width": 16, "height": 16 },
+  "art": "/campus-art/locations/landing.png",
+  "flavor": "Loud, ordinary, and everyday. Where gossip about everywhere else actually circulates.",
+  "npcId": "kai",
+  "badge": {
+    "id": "salt-air",
+    "name": "Salt Air",
+    "icon": "anchor",
+    "unlockLabel": "The Hum's Keeper"
+  },
+  "beats": [
+    {
+      "id": "landing-01",
+      "unlocksAtUnit": 0,
+      "title": "An Address That Isn't There",
+      "body": "A crate on the pier has a delivery address stamped on it that doesn't match anywhere on the current island map. The shipping company says it's a printing error. It's been a printing error for as long as anyone remembers."
+    },
+    {
+      "id": "landing-02",
+      "unlocksAtUnit": 2,
+      "title": "The Quiet Pier",
+      "body": "Dockhands have a superstition about not whistling near the third pier from the east. Nobody working there now can say why — it's just what you do, the way you don't walk under a ladder."
+    },
+    {
+      "id": "landing-03",
+      "unlocksAtUnit": 4,
+      "title": "A Column for Something Else",
+      "body": "An old harbormaster's ledger, mostly cargo tallies, has one column labeled with a word that isn't a cargo type. It's never filled in past the first few pages."
+    },
+    {
+      "id": "landing-04",
+      "unlocksAtUnit": 6,
+      "title": "Directions to a Building That Isn't There",
+      "body": "A new arrival this week asked directions to a building by a name nobody's used in living memory — and one of the oldest dockhands, without thinking about it, pointed the right way anyway."
+    }
+  ]
+}

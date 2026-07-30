@@ -1,0 +1,15 @@
+{
+  "id": "margit",
+  "name": "Margit",
+  "age": "50s",
+  "locationId": "windmill-row",
+  "vibe": "Tommy's grandmother, farmer. Her arc is about grief, forgiveness, and family secrets.",
+  "romanceable": false,
+  "portrait": "/portraits/npcs/margit.png",
+  "layers": [
+    {
+      "layer": 1,
+      "text": "Margit is drying herbs on the porch. \"You're the one Tommy's been talking to. Good. He needs someone his own age asking questions instead of just me telling him to let it go.\""
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "ezra",
+  "name": "Ezra",
+  "age": "60s",
+  "locationId": "landing",
+  "vibe": "Kai's grandfather, retired fisherman. Passes down wisdom and old stories.",
+  "romanceable": false,
+  "portrait": "/portraits/npcs/ezra.png",
+  "layers": [
+    {
+      "layer": 1,
+      "text": "Ezra mends a net without looking up. \"You're the one Kai's been showing around. Careful with that boy's stories — half of them are mine, and I never told them the same way twice on purpose.\""
+    }
+  ]
+}

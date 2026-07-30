@@ -1,0 +1,47 @@
+{
+  "id": "ridge-shrine",
+  "name": "The Ridge Shrine",
+  "sublabel": "Atop the mountain, apart from the University's own peak",
+  "hotspot": { "x": 58, "y": 30, "width": 12, "height": 14 },
+  "art": "/campus-art/locations/ridge-shrine.png",
+  "flavor": "Small, weatherworn, deliberately unclaimed by any current religious or campus group.",
+  "npcId": "woman-in-white",
+  "badge": {
+    "id": "left-something-behind",
+    "name": "Left Something Behind",
+    "icon": "carved-stone",
+    "unlockLabel": "The Shrine's Witness"
+  },
+  "beats": [
+    {
+      "id": "ridge-shrine-01",
+      "unlocksAtUnit": 0,
+      "title": "Practical Offerings",
+      "body": "Whatever's left here is never decorative — a coil of rope, a sealed jar, a pair of gloves. Never flowers, never trinkets. Someone's need, not a tribute."
+    },
+    {
+      "id": "ridge-shrine-02",
+      "unlocksAtUnit": 2,
+      "title": "The Scratched Name",
+      "body": "A name carved into the base has been scratched out — the same rough, deliberate gouge as the wall at the Ruins. Whether it's the same name is impossible to tell."
+    },
+    {
+      "id": "ridge-shrine-03",
+      "unlocksAtUnit": 4,
+      "title": "Facing the Wrong Way",
+      "body": "The shrine faces inland, directly toward the Ruins, not out toward the sea the way every other shrine on this kind of island usually does."
+    },
+    {
+      "id": "ridge-shrine-04",
+      "unlocksAtUnit": 6,
+      "title": "Fresh Flowers",
+      "body": "For the first time on record, there are flowers here instead of a practical object — recent, not yet wilted. Nobody on staff will admit to leaving them."
+    }
+  ],
+  "shrineFinale": {
+    "note": "Design placeholder -- Story_Mode.md §4.8 specifies three 500+ word metaphorical carvings (Ada Lovelace / Charles Babbage / Alan Turing) plus a 3-way ending choice with the Woman in White, unlocked once all seven Field Badges are collected. That vision-text is called out in the doc's own §7 next steps as a later writing pass, so it isn't authored here -- this object is the hook Phase 2 hangs off of.",
+    "unlocksAfterAllBadges": true,
+    "carvings": [],
+    "revelationChoices": []
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "silas",
+  "name": "Silas",
+  "age": 21,
+  "locationId": "harbor-light",
+  "vibe": "Playful, clever, anxious. Engineering student, works part-time maintaining the lighthouse.",
+  "romanceable": true,
+  "portrait": "/portraits/npcs/silas.png",
+  "layers": [
+    {
+      "layer": 1,
+      "text": "Silas is painting the lighthouse a terrible shade of pink. \"Beautiful, right? I call it 'Sunset Panic.' I'm Silas. Engineering student. Lighthouse maintainer. Chaos agent.\""
+    },
+    {
+      "layer": 2,
+      "text": "Silas shows you a maintenance hatch: \"I found this. It's not on any blueprint. I think it leads... down. Like, way down.\""
+    },
+    {
+      "layer": 3,
+      "text": "Silas cracks the hatch. He looks at you: \"I'm scared, honestly. But I can't do this alone. Will you come with me?\" Inside: an old terminal, still humming.",
+      "tinyChoice": {
+        "friendship": "\"I'm glad you trusted me. That's what friends are for.\"",
+        "romance": "\"I feel like I've known you forever. I don't want this to just be friendship.\""
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "north-light",
+  "name": "North Light",
+  "sublabel": "Northern cliff",
+  "hotspot": { "x": 48, "y": 8, "width": 10, "height": 14 },
+  "art": "/campus-art/locations/north-light.png",
+  "flavor": "One of three lighthouses. See the Harbor Light triangle once you've visited all three.",
+  "npcId": "yuki",
+  "lighthouseGroup": "triangle",
+  "badge": {
+    "id": "kept-the-light-north",
+    "name": "Kept the Light (North)",
+    "icon": "beam-north",
+    "unlockLabel": "The Light's Keeper"
+  },
+  "beats": [
+    {
+      "id": "north-light-01",
+      "unlocksAtUnit": 0,
+      "title": "No Keeper on the Roster",
+      "body": "The light works — bulb changed, glass clean — but no one on the current campus staff list is assigned to it, and nobody's claiming the job."
+    },
+    {
+      "id": "north-light-02",
+      "unlocksAtUnit": 3,
+      "title": "The Logbook",
+      "body": "A logbook by the door has entries going back further than anyone currently enrolled. One page lists ships turned back 'before the collapse' — not shipwrecks avoided. Ships turned away from something."
+    },
+    {
+      "id": "north-light-03",
+      "unlocksAtUnit": 6,
+      "title": "Longer Than It Needs To",
+      "body": "The most recent entry, dated this week, just notes that the light's been staying on a little longer than it needs to lately. It doesn't sound worried. It sounds like an old habit being kept up."
+    }
+  ]
+}

@@ -1,8 +1,10 @@
 import { useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { lessonService } from '../../services/lessonService.js'
+import { storyService } from '../../services/storyService.js'
 import { useProgress } from '../../hooks/useProgress.js'
 import { useCousin } from '../../hooks/useCousin.js'
+import { useStoryStore } from '../../store/storyStore.js'
 import CousinAvatar from '../cousin/CousinAvatar.jsx'
 import { rankTitleForLevel, nextRankAt } from '../../utils/rankTitles.js'
 import './Passport.css'
@@ -28,6 +30,8 @@ export default function PassportPanel({ open, onClose }) {
   const { stamps, totalXP, levelInfo, streak } = useProgress()
   const { currentCousin } = useCousin()
   const units = lessonService.getAllUnits()
+  const visitedLocations = useStoryStore((s) => s.visitedLocations)
+  const storyLocations = useMemo(() => storyService.getAllLocations(), [])
 
   const [page, setPage] = useState(0)
   const lastPage = units.length
@@ -152,6 +156,31 @@ export default function PassportPanel({ open, onClose }) {
                         <div className="passport-record__tile">
                           <span className="passport-record__tile-value">{sealedCount}/{totalLandmarks}</span>
                           <span className="passport-record__tile-label">Landmarks sealed</span>
+                        </div>
+                      </div>
+
+                      <div className="passport-field-badges">
+                        <span className="passport-field-badges__eyebrow">
+                          Field Badges &middot; {visitedLocations.length}/{storyLocations.length}
+                        </span>
+                        <div className="passport-field-badges__grid">
+                          {storyLocations.map((loc) => {
+                            const earned = visitedLocations.includes(loc.id)
+                            return (
+                              <div
+                                key={loc.id}
+                                className={`passport-field-badges__chip${earned ? ' passport-field-badges__chip--earned' : ''}`}
+                                title={earned ? loc.badge.name : `${loc.name} -- not yet visited`}
+                              >
+                                <span className="passport-field-badges__chip-icon" aria-hidden="true">
+                                  {earned ? '\u2726' : '\u2727'}
+                                </span>
+                                <span className="passport-field-badges__chip-label">
+                                  {earned ? loc.badge.name : loc.name}
+                                </span>
+                              </div>
+                            )
+                          })}
                         </div>
                       </div>
                     </div>

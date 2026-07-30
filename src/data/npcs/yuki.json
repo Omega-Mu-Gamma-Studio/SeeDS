@@ -1,0 +1,27 @@
+{
+  "id": "yuki",
+  "name": "Yuki",
+  "age": 20,
+  "locationId": "north-light",
+  "vibe": "Quiet, observant, secretive. Lighthouse keeper's assistant, on a gap year.",
+  "romanceable": true,
+  "portrait": "/portraits/npcs/yuki.png",
+  "layers": [
+    {
+      "layer": 1,
+      "text": "Yuki is sitting on the cliff, journal in hand. She startles: \"Oh! Sorry. I'm Yuki. I help with the light. It's... quiet here. I like that. You?\""
+    },
+    {
+      "layer": 2,
+      "text": "Yuki shows you her journal: \"I've been mapping the island's energy patterns. The lighthouse — it's not just for ships. It's... a focus point. Something under the island responds to it.\""
+    },
+    {
+      "layer": 3,
+      "text": "Yuki is crying softly. She hands you a letter: \"I found this in the cottage. It's from the original keeper — a man named Elias. He wrote about 'the Loom.' And then he disappeared.\"",
+      "tinyChoice": {
+        "friendship": "\"I'm glad you trusted me. That's what friends are for.\"",
+        "romance": "\"I feel like I've known you forever. I don't want this to just be friendship.\""
+      }
+    }
+  ]
+}

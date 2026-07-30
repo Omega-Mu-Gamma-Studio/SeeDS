@@ -4,6 +4,7 @@ import AppLayout from './components/layout/AppLayout.jsx'
 import CousinPicker from './components/cousin/CousinPicker.jsx'
 import Home from './pages/Home.jsx'
 import Island from './pages/Island.jsx'
+import LocationScene from './pages/LocationScene.jsx'
 import Campus from './pages/Campus.jsx'
 import CSBlock from './pages/CSBlock.jsx'
 import Dorm from './pages/Dorm.jsx'
@@ -42,6 +43,7 @@ function App() {
             element={justOnboarded ? <Navigate to="/island" replace /> : <Home />}
           />
           <Route path="/island" element={<Island />} />
+          <Route path="/island/:locationId" element={<LocationScene />} />
           <Route path="/campus" element={<Campus />} />
           <Route path="/campus/cs" element={<CSBlock />} />
           <Route path="/campus/dorm" element={<Dorm />} />

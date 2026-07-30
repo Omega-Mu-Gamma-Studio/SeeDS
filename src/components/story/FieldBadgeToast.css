@@ -1,0 +1,65 @@
+/* Deliberately its own accent (indigo, not --accent-primary) -- Story_Mode.md
+   §1 asks Field Badges to be "kept visually distinct from the wax-crest
+   landmark seals," and the celebration toast is the clearest place to make
+   that read instantly, independent of whichever cousin theme is active. */
+.field-badge-toast {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--bg-elevated);
+  border: 1px solid #6B5FA8;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-elevated);
+  z-index: 50;
+}
+
+.field-badge-toast__icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #6B5FA8;
+  color: #FFFFFF;
+  font-size: 1.1rem;
+}
+
+.field-badge-toast__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.field-badge-toast__eyebrow {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.field-badge-toast__name {
+  font-weight: 800;
+  font-size: 1.02rem;
+  color: #6B5FA8;
+}
+
+.field-badge-toast__location {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+}
+
+.field-badge-toast__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-muted);
+  font-size: 1rem;
+  margin-left: 0.25rem;
+}

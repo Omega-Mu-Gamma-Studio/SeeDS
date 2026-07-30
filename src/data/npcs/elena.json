@@ -1,0 +1,27 @@
+{
+  "id": "elena",
+  "name": "Elena",
+  "age": 22,
+  "locationId": "south-light",
+  "vibe": "Melancholic, romantic, grieving. Sister of the original lighthouse keeper who died.",
+  "romanceable": true,
+  "portrait": "/portraits/npcs/elena.png",
+  "layers": [
+    {
+      "layer": 1,
+      "text": "Elena is sitting on the rocks, staring at the water. \"I'm Elena. My brother kept this light, before me. He died a few years back — a fall, they said. I keep the light now. Seemed like it needed someone.\""
+    },
+    {
+      "layer": 2,
+      "text": "Elena shows you her brother's logbook — same obsessive, minute-by-minute logging as North and Harbor Light's keepers. \"Near the end he was writing pages a night. Then it just stops. No last entry, no goodbye. Just stops.\""
+    },
+    {
+      "layer": 3,
+      "text": "Elena finds a small cache he'd hidden — photos, notes, a ring that was never hers or his. \"I used to want it to mean something happened to him. Some answer I could be angry at.\" She turns the ring over once. \"Lately I think he just went looking for something and didn't stop in time to notice he'd gone too far out. I don't need it to be more than that anymore.\"",
+      "tinyChoice": {
+        "friendship": "\"I'm glad you trusted me. That's what friends are for.\"",
+        "romance": "\"I feel like I've known you forever. I don't want this to just be friendship.\""
+      }
+    }
+  ]
+}

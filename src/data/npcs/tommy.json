@@ -1,0 +1,27 @@
+{
+  "id": "tommy",
+  "name": "Tommy",
+  "age": 19,
+  "locationId": "windmill-row",
+  "vibe": "Gruff exterior, soft heart. Margit's grandson, helps on the farm, hates the university.",
+  "romanceable": true,
+  "portrait": "/portraits/npcs/tommy.png",
+  "layers": [
+    {
+      "layer": 1,
+      "text": "Tommy is fixing a fence, looking annoyed. \"Another student. Great. If you're here for 'authentic island photos,' the wheat field is that way.\" But his tone softens: \"Look, I just... this place is all I've known. My family's been here forever.\""
+    },
+    {
+      "layer": 2,
+      "text": "Tommy is burning papers — but he stops when he sees you. \"They're from my grandfather. He worked for some company before the university.\" He hands you a singed photograph."
+    },
+    {
+      "layer": 3,
+      "text": "Tommy is at the edge of the field, looking at the ruins. \"I used to hate this place. But now... I just want to know the truth. Will you come with me?\"",
+      "tinyChoice": {
+        "friendship": "\"I'm glad you trusted me. That's what friends are for.\"",
+        "romance": "\"I feel like I've known you forever. I don't want this to just be friendship.\""
+      }
+    }
+  ]
+}

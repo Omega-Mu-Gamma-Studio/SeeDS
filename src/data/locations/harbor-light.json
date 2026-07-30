@@ -1,0 +1,37 @@
+{
+  "id": "harbor-light",
+  "name": "Harbor Light",
+  "sublabel": "Southeast, closest to the Landing",
+  "hotspot": { "x": 30, "y": 78, "width": 10, "height": 12 },
+  "art": "/campus-art/locations/harbor-light.png",
+  "flavor": "Close enough to the Landing that most people assume it's decorative. It isn't.",
+  "npcId": "silas",
+  "lighthouseGroup": "triangle",
+  "badge": {
+    "id": "kept-the-light-harbor",
+    "name": "Kept the Light (Harbor)",
+    "icon": "beam-harbor",
+    "unlockLabel": "The Hidden Hatch"
+  },
+  "beats": [
+    {
+      "id": "harbor-light-01",
+      "unlocksAtUnit": 0,
+      "title": "Everyone Assumes It's Decorative",
+      "body": "Close enough to the Landing's noise and lights that most people assume Harbor Light is purely ornamental at this point. It isn't. It's on a working schedule, same as the other two."
+    },
+    {
+      "id": "harbor-light-02",
+      "unlocksAtUnit": 3,
+      "title": "Not Built for Ships",
+      "body": "A faded builder's plaque gives a construction date that lines up, almost exactly, with the Archive's collapse — not before it, as a warning system would be, but after."
+    },
+    {
+      "id": "harbor-light-03",
+      "unlocksAtUnit": 6,
+      "title": "The Triangle",
+      "body": "Lay the three towers out on any map of the island and they don't point out to sea at all — they point inward, to the same spot. The Ruins sit dead center of the three.",
+      "requiresAllLighthouses": true
+    }
+  ]
+}

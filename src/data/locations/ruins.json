@@ -1,0 +1,41 @@
+{
+  "id": "ruins",
+  "name": "The Ruins",
+  "sublabel": "West-central island",
+  "hotspot": { "x": 22, "y": 52, "width": 14, "height": 16 },
+  "art": "/campus-art/locations/ruins.png",
+  "flavor": "What's left isn't a house or a hall. It's shelving that forgot to stop.",
+  "npcId": "lena",
+  "badge": {
+    "id": "trespasser-technically",
+    "name": "Trespasser (Technically)",
+    "icon": "ivy-archway",
+    "unlockLabel": "The Ruin's Secret"
+  },
+  "beats": [
+    {
+      "id": "ruins-01",
+      "unlocksAtUnit": 0,
+      "title": "Shelving, Not a House",
+      "body": "What's left isn't a house or a hall — it's shelving, room after room of it, stone rows still standing in some places, collapsed into rubble in others. Even the rubble looks like it fell in a pattern."
+    },
+    {
+      "id": "ruins-02",
+      "unlocksAtUnit": 2,
+      "title": "The Directory",
+      "body": "A surviving wall has a carved directory of some kind — location names and numbers, clearly a system, completely undecipherable now. One line has been scratched out hard enough to gouge the stone."
+    },
+    {
+      "id": "ruins-03",
+      "unlocksAtUnit": 4,
+      "title": "Four Doors, All Shut",
+      "body": "A chamber deep in that must once have connected to at least four other rooms — archways in every wall — and every archway is bricked shut from this side, not the other."
+    },
+    {
+      "id": "ruins-04",
+      "unlocksAtUnit": 6,
+      "title": "Someone's Been Digging",
+      "body": "A patch of rubble has been cleared recently. Tool marks, a stacked pile of stones set aside deliberately. Grounds crew swears it isn't them. Nobody's filed a report either way."
+    }
+  ]
+}

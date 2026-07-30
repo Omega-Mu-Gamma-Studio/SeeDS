@@ -1,0 +1,27 @@
+{
+  "id": "lena",
+  "name": "Lena",
+  "age": 20,
+  "locationId": "ruins",
+  "vibe": "Intense, curious, reckless. Archaeology student obsessed with the island's pre-university history.",
+  "romanceable": true,
+  "portrait": "/portraits/npcs/lena.png",
+  "layers": [
+    {
+      "layer": 1,
+      "text": "Lena is crouched by a collapsed archway, brushing dirt off a stone. \"Oh! You're not a professor, are you? Thank god. They'd yell at me for being here. I'm trying to figure out what this place actually was — before the university.\""
+    },
+    {
+      "layer": 2,
+      "text": "Lena has a theory. She spreads out sketches: \"Look — the layout of the ruins matches the street plan of something a lot more organized than a farm. But the university records just call it 'prior land use, unspecified.' Nobody writes it that vague by accident.\""
+    },
+    {
+      "layer": 3,
+      "text": "Lena finds a data slate, mostly corroded, one line still legible. \"It's a note-to-self. Not even signed. Just: 'catalogued everything except what mattered.'\" She sits back. \"I don't think anyone buried anything, exactly. I think somebody just... stopped being able to finish. And nobody after them wanted to pick it back up.\"",
+      "tinyChoice": {
+        "friendship": "\"I'm glad you trusted me. That's what friends are for.\"",
+        "romance": "\"I feel like I've known you forever. I don't want this to just be friendship.\""
+      }
+    }
+  ]
+}

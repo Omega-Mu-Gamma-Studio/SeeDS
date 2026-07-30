@@ -1,0 +1,27 @@
+{
+  "id": "kai",
+  "name": "Kai",
+  "age": 21,
+  "locationId": "landing",
+  "vibe": "Easygoing, warm, secretly poetic. Fisherman's apprentice and marine biology student.",
+  "romanceable": true,
+  "portrait": "/portraits/npcs/kai.png",
+  "layers": [
+    {
+      "layer": 1,
+      "text": "Kai is untangling a net, whistling. \"New face! You look lost. Or just curious. Both are good.\" He offers you dried fish. \"I'm Kai. I work here, study marine bio, and occasionally fall into the water. Want a tour?\""
+    },
+    {
+      "layer": 2,
+      "text": "Kai is staring at the water. \"My grandfather — Ezra — he used to tell me stories about the island. About a 'hum' in the water. I thought it was just old man talk. But lately... I've been hearing it too.\""
+    },
+    {
+      "layer": 3,
+      "text": "Kai takes you to a hidden tide pool at low tide — old stonework just visible under the water. \"I used to think it was just current against the rocks. Now I'm not so sure it's nothing.\" He shrugs, half-embarrassed. \"Grandpa's never once told it the same way twice. Maybe that's the actual answer — some things you just keep telling, instead of solving.\"",
+      "tinyChoice": {
+        "friendship": "\"I'm glad you trusted me. That's what friends are for.\"",
+        "romance": "\"I feel like I've known you forever. I don't want this to just be friendship.\""
+      }
+    }
+  ]
+}

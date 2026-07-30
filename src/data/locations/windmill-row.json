@@ -1,0 +1,41 @@
+{
+  "id": "windmill-row",
+  "name": "Windmill Row",
+  "sublabel": "Coastal farming village, east",
+  "hotspot": { "x": 72, "y": 66, "width": 15, "height": 16 },
+  "art": "/campus-art/locations/windmill-row.png",
+  "flavor": "Quiet fields and a working windmill. Deliberately the calmest place on the island, until it isn't.",
+  "npcId": "tommy",
+  "badge": {
+    "id": "field-notes",
+    "name": "Field Notes",
+    "icon": "wheat-stalk",
+    "unlockLabel": "The Burned Photograph"
+  },
+  "beats": [
+    {
+      "id": "windmill-01",
+      "unlocksAtUnit": 0,
+      "title": "Turning Anyway",
+      "body": "The windmill turns steadily even on days with no wind worth mentioning. Locals call it 'just how it's built.' Nobody's opened it up to check in decades."
+    },
+    {
+      "id": "windmill-02",
+      "unlocksAtUnit": 2,
+      "title": "Too Precise for the Land",
+      "body": "The crop rows here are laid out in a grid too exact for the actual slope of the land — like the fields were planned before anyone looked at the ground they'd be planted on."
+    },
+    {
+      "id": "windmill-03",
+      "unlocksAtUnit": 4,
+      "title": "The Private Shrine",
+      "body": "One of the older villagers keeps a small, private shrine behind her house — not for any holiday anyone recognizes, dedicated to 'whoever kept the lights.' She won't say more than that."
+    },
+    {
+      "id": "windmill-04",
+      "unlocksAtUnit": 6,
+      "title": "The Cancelled Festival",
+      "body": "This year's harvest festival was quietly called off, no explanation given, no date rescheduled. Everyone seems relieved rather than disappointed, which is its own kind of answer."
+    }
+  ]
+}

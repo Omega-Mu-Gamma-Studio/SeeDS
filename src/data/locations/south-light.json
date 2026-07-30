@@ -1,0 +1,36 @@
+{
+  "id": "south-light",
+  "name": "South Light",
+  "sublabel": "Southern coast",
+  "hotspot": { "x": 40, "y": 86, "width": 10, "height": 12 },
+  "art": "/campus-art/locations/south-light.png",
+  "flavor": "Smaller than North Light, and better hidden. Its lamp is lit anyway.",
+  "npcId": "elena",
+  "lighthouseGroup": "triangle",
+  "badge": {
+    "id": "kept-the-light-south",
+    "name": "Kept the Light (South)",
+    "icon": "beam-south",
+    "unlockLabel": "The Sister's Ring"
+  },
+  "beats": [
+    {
+      "id": "south-light-01",
+      "unlocksAtUnit": 0,
+      "title": "The Other Tower",
+      "body": "Smaller than North Light, and better hidden — you'd walk past the path to it twice before noticing. Its lamp is lit anyway."
+    },
+    {
+      "id": "south-light-02",
+      "unlocksAtUnit": 3,
+      "title": "A Different Hand",
+      "body": "This logbook's handwriting changes partway through — a second author, decades later, with the same obsessive habit of logging everything down to the minute. They never sign a full name. Only initials."
+    },
+    {
+      "id": "south-light-03",
+      "unlocksAtUnit": 6,
+      "title": "The Initials Again",
+      "body": "The same initials from South Light's logbook turn up, once, carved small into a beam at the Ruins — easy to miss, in exactly the spot where a fourth archway would have opened onto open air."
+    }
+  ]
+}
