@@ -7,7 +7,7 @@ import VisualizerDispatch from '../visualizers/VisualizerDispatch.jsx'
  * color (Master Doc §6.3) — the glitch texture is purely visual chrome; the
  * broken diagram itself keeps --ds-broken red regardless of cousin.
  */
-export default function Phase4Break({ phase }) {
+export default function Phase4Break({ phase, lessonId }) {
   if (!phase) return null
   return (
     <motion.div
@@ -22,7 +22,7 @@ export default function Phase4Break({ phase }) {
         </div>
         {phase.brokenVisual && (
           <div className="phase-content__col phase-content__col--visual">
-            <VisualizerDispatch visual={phase.brokenVisual} />
+            <VisualizerDispatch visual={phase.brokenVisual} lessonId={lessonId} />
           </div>
         )}
       </div>

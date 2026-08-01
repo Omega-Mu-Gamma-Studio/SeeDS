@@ -13,12 +13,12 @@
     "1": {
       "concept": [
         "Radix sort sorts integers without ever comparing two elements directly.",
-        "Instead, it processes one digit position at a time (starting from the least significant digit), distributing numbers into 10 buckets by that digit's value, then collecting them back in bucket order \u2014 repeating for each digit position.",
-        "That gives it O(nk) time, where k is the number of digits \u2014 which can beat the O(n log n) lower bound that applies to any sort based on comparisons, because radix sort simply isn't playing that game; it's exploiting the structure of the numbers themselves instead of comparing pairs of them.",
-        "The trade-off is that it only works on data with that kind of structure \u2014 numbers, or fixed-length strings \u2014 not on arbitrary comparable objects."
+        "Instead, it processes one digit position at a time (starting from the least significant digit), distributing numbers into 10 buckets by that digit's value, then collecting them back in bucket order — repeating for each digit position.",
+        "That gives it O(nk) time, where k is the number of digits — which can beat the O(n log n) lower bound that applies to any sort based on comparisons, because radix sort simply isn't playing that game; it's exploiting the structure of the numbers themselves instead of comparing pairs of them.",
+        "The trade-off is that it only works on data with that kind of structure — numbers, or fixed-length strings — not on arbitrary comparable objects."
       ],
-      "analogy": "Sorting mail by zip code one digit at a time: first sort every letter into 10 bins by the last digit, gather them back up in bin order, then re-sort that whole stack by the second-to-last digit, and so on \u2014 never once comparing two zip codes directly to each other.",
-      "mascotDialogue": "No comparisons anywhere in this algorithm \u2014 just repeatedly asking 'which bucket does this digit belong in' and gathering the buckets back up in order, digit by digit."
+      "analogy": "Sorting mail by zip code one digit at a time: first sort every letter into 10 bins by the last digit, gather them back up in bin order, then re-sort that whole stack by the second-to-last digit, and so on — never once comparing two zip codes directly to each other.",
+      "mascotDialogue": "No comparisons anywhere in this algorithm — just repeatedly asking 'which bucket does this digit belong in' and gathering the buckets back up in order, digit by digit."
     },
     "2": {
       "code": "void countingSortByDigit(int arr[], int n, int exp) {\n    int output[n];\n    int count[10] = {0};\n    for (int i = 0; i < n; i++)\n        count[(arr[i] / exp) % 10]++;\n    for (int i = 1; i < 10; i++)\n        count[i] += count[i - 1]; // running total -> final positions\n    for (int i = n - 1; i >= 0; i--) {\n        int digit = (arr[i] / exp) % 10;\n        output[--count[digit]] = arr[i]; // process from the back to stay stable\n    }\n    for (int i = 0; i < n; i++) arr[i] = output[i];\n}",
@@ -32,61 +32,143 @@
         10,
         11
       ],
-      "mascotDialogue": "Line 10's backward loop is what keeps radix sort stable \u2014 processing the original array from the end preserves the relative order of elements that share the same digit."
+      "mascotDialogue": "Line 10's backward loop is what keeps radix sort stable — processing the original array from the end preserves the relative order of elements that share the same digit."
     },
     "3": {
-      "code": "int arr[4] = {170, 45, 75, 90};\n// pass exp=1 (ones digit): buckets by 0,5,5,0\n// pass exp=10 (tens digit): buckets by 7,4,7,9",
+      "code": "int arr[4] = {170, 45, 75, 90};\n// pass exp=1   (ones digit):     buckets by 0,5,5,0\n// pass exp=10  (tens digit):     buckets by 7,4,7,9\n// pass exp=100 (hundreds digit): buckets by 1,0,0,0",
       "visual": {
         "rendererType": "buckets",
         "data": {
           "values": [
-            170,
-            45,
-            75,
-            90
-          ],
-          "passes": [
             {
+              "id": "v1",
+              "value": 170
+            },
+            {
+              "id": "v2",
+              "value": 45
+            },
+            {
+              "id": "v3",
+              "value": 75
+            },
+            {
+              "id": "v4",
+              "value": 90
+            }
+          ],
+          "steps": [
+            {
+              "type": "initial",
+              "digitPosition": null,
+              "description": "Unsorted input array",
+              "order": [
+                "v1",
+                "v2",
+                "v3",
+                "v4"
+              ]
+            },
+            {
+              "type": "distribute",
               "digitPosition": "ones",
+              "pass": 1,
+              "description": "Distributing by the ones digit",
               "buckets": {
                 "0": [
-                  170,
-                  90
+                  "v1",
+                  "v4"
                 ],
                 "5": [
-                  45,
-                  75
+                  "v2",
+                  "v3"
                 ]
               }
             },
             {
+              "type": "collect",
+              "digitPosition": "ones",
+              "pass": 1,
+              "description": "Collecting buckets 0–9 back into the array",
+              "order": [
+                "v1",
+                "v4",
+                "v2",
+                "v3"
+              ]
+            },
+            {
+              "type": "distribute",
               "digitPosition": "tens",
+              "pass": 2,
+              "description": "Distributing by the tens digit",
               "buckets": {
                 "7": [
-                  170,
-                  75
+                  "v1",
+                  "v3"
                 ],
                 "4": [
-                  45
+                  "v2"
                 ],
                 "9": [
-                  90
+                  "v4"
                 ]
               }
+            },
+            {
+              "type": "collect",
+              "digitPosition": "tens",
+              "pass": 2,
+              "description": "Collecting buckets 0–9 back into the array",
+              "order": [
+                "v2",
+                "v1",
+                "v3",
+                "v4"
+              ]
+            },
+            {
+              "type": "distribute",
+              "digitPosition": "hundreds",
+              "pass": 3,
+              "description": "Distributing by the hundreds digit",
+              "buckets": {
+                "0": [
+                  "v2",
+                  "v3",
+                  "v4"
+                ],
+                "1": [
+                  "v1"
+                ]
+              }
+            },
+            {
+              "type": "collect",
+              "digitPosition": "hundreds",
+              "pass": 3,
+              "description": "Collecting buckets 0–9 back into the array — fully sorted",
+              "order": [
+                "v2",
+                "v3",
+                "v4",
+                "v1"
+              ]
             }
           ]
         }
       },
-      "mascotDialogue": "170 and 90 both land in bucket 0 on the ones-digit pass, and their relative order (170 before 90) survives into the tens-digit pass below \u2014 that's stability doing its job across passes.",
+      "mascotDialogue": "170 and 90 both land in bucket 0 on the ones-digit pass, and their relative order (170 before 90) survives all the way through the hundreds-digit pass below — that's stability doing its job across every pass, not just one.",
       "mapping": {
         "line2": "p1-bucket0",
-        "line3": "p2-bucket7"
+        "line3": "p2-bucket7",
+        "line4": "p3-bucket1"
       }
     },
     "4": {
       "brokenCode": "void countingSortByDigit(int arr[], int n, int exp) {\n    int output[n];\n    int count[10] = {0};\n    for (int i = 0; i < n; i++)\n        count[(arr[i] / exp) % 10]++;\n    for (int i = 1; i < 10; i++)\n        count[i] += count[i - 1];\n    for (int i = 0; i < n; i++) { // BUG: forward loop breaks stability\n        int digit = (arr[i] / exp) % 10;\n        output[--count[digit]] = arr[i];\n    }\n    for (int i = 0; i < n; i++) arr[i] = output[i];\n}",
-      "bugDescription": "Processing the original array front-to-back instead of back-to-front still produces a numerically correct single-digit distribution, but it silently reverses the relative order of elements that land in the same bucket \u2014 breaking the stability that later digit passes depend on to produce a correctly fully-sorted result.",
-      "mascotDialogue": "This is why the loop direction matters even though it looks like a harmless stylistic choice \u2014 radix sort's correctness across multiple passes depends on each individual pass being stable, not just correct in isolation."
+      "bugDescription": "Processing the original array front-to-back instead of back-to-front still produces a numerically correct single-digit distribution, but it silently reverses the relative order of elements that land in the same bucket — breaking the stability that later digit passes depend on to produce a correctly fully-sorted result.",
+      "mascotDialogue": "This is why the loop direction matters even though it looks like a harmless stylistic choice — radix sort's correctness across multiple passes depends on each individual pass being stable, not just correct in isolation."
     },
     "5": {
       "challengeType": "multiple-choice",

@@ -32,8 +32,8 @@ export default function PhaseContainer({ lesson, currentPhase, onSelectPhase, on
           <div key={currentPhase}>
             {currentPhase === 1 && <Phase1Understand phase={phaseData} />}
             {currentPhase === 2 && <Phase2Code phase={phaseData} />}
-            {currentPhase === 3 && <Phase3Visual phase={phaseData} />}
-            {currentPhase === 4 && phaseData && <Phase4Break phase={phaseData} />}
+            {currentPhase === 3 && <Phase3Visual phase={phaseData} lessonId={lesson.id} />}
+            {currentPhase === 4 && phaseData && <Phase4Break phase={phaseData} lessonId={lesson.id} />}
             {currentPhase === 5 && <Phase5Test phase={phaseData} onComplete={onTestComplete} />}
           </div>
         </AnimatePresence>

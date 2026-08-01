@@ -1,8 +1,19 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Group, Circle, Line, Text, Rect, Arrow } from 'react-konva'
 import { useContainerSize, ScaledStage as SharedScaledStage } from './useScaledStage.jsx'
+import { useNodeTween, useExitingGhosts } from './useNodeTween.js'
 
 const NODE_R = 26
+
+// Box-split geometry (ANIMATION_ADDENDUM.md §5.1) — a linked-list node
+// rendered as a struct layout instead of an anonymous circle, so
+// `struct Node { int value; struct Node* next; }` is legible straight off
+// the canvas instead of needing the code panel to explain what's hidden
+// inside the dot. Singly nodes get two cells (DATA | NEXT); doubly nodes
+// (any node with a `prev` field, per PRD §8.2) get three (PREV | DATA | NEXT).
+const BOX_W = 96
+const BOX_H = 46
+const BOX_GAP = 40
 
 // Resolve CSS custom properties to actual color values Konva can use,
 // since Konva can't read var(--x) directly.
@@ -10,6 +21,70 @@ function resolveVar(name) {
   if (typeof window === 'undefined') return '#4A90D9'
   const val = getComputedStyle(document.documentElement).getPropertyValue(name)
   return val?.trim() || '#4A90D9'
+}
+
+// One struct-layout node in a chain (§5.1). Split into its own component
+// (rather than inlined in a .map()) specifically so it can call
+// useNodeTween — a hook can't be called conditionally per loop iteration
+// inside its parent's render, but a dedicated child component mounted once
+// per node.id can call it every time *that instance* renders, which is
+// what actually lets an existing node glide to a new x/y instead of
+// snapping, and a removed node fade out instead of vanishing (via
+// `isGhost`, set by the caller for nodes held post-removal by
+// useExitingGhosts).
+function ChainNodeBox({ node, target, highlighted, isGhost, colors, onHover }) {
+  const isDoubly = 'prev' in node
+  const cells = isDoubly
+    ? [
+        { key: 'prev', label: 'prev', w: BOX_W * 0.3 },
+        { key: 'value', label: null, w: BOX_W * 0.4 },
+        { key: 'next', label: 'next', w: BOX_W * 0.3 },
+      ]
+    : [
+        { key: 'value', label: null, w: BOX_W * 0.6 },
+        { key: 'next', label: 'next', w: BOX_W * 0.4 },
+      ]
+
+  const enterFrom = !isGhost ? { x: target.x - (BOX_W + BOX_GAP), y: target.y, opacity: 0 } : undefined
+  const tweenTarget = isGhost ? { x: target.x, y: target.y - 20, opacity: 0 } : { x: target.x, y: target.y, opacity: 1 }
+  const groupRef = useNodeTween(tweenTarget, { enterFrom })
+
+  const fill = node.broken ? colors.brokenColor : colors.nodeColor
+  let cellX = -BOX_W / 2
+
+  return (
+    <Group
+      ref={groupRef}
+      listening={!isGhost}
+      onMouseEnter={() => onHover && onHover(node.id)}
+      onMouseLeave={() => onHover && onHover(null)}
+    >
+      {node.address && (
+        <Text x={-BOX_W / 2} y={-BOX_H / 2 - 18} width={BOX_W} align="center"
+          text={node.address} fontSize={10} fontFamily="monospace" fill={colors.inkMuted} />
+      )}
+      <Rect x={-BOX_W / 2} y={-BOX_H / 2} width={BOX_W} height={BOX_H}
+        fill={fill} stroke={highlighted ? colors.highlightColor : undefined}
+        strokeWidth={highlighted ? 3 : 0} cornerRadius={4} />
+      {cells.map((cell, i) => {
+        const x = cellX
+        cellX += cell.w
+        const isValueCell = cell.key === 'value'
+        return (
+          <Group key={cell.key}>
+            {i > 0 && <Line points={[x, -BOX_H / 2, x, BOX_H / 2]} stroke={colors.nodeInk} strokeWidth={1} opacity={0.4} />}
+            <Text x={x} y={isValueCell ? -6 : -BOX_H / 2 + 4} width={cell.w} align="center"
+              text={isValueCell ? String(node.value) : '•'}
+              fontSize={isValueCell ? 15 : 13} fill={colors.nodeInk} />
+            {cell.label && (
+              <Text x={x} y={BOX_H / 2 + 3} width={cell.w} align="center"
+                text={cell.label} fontSize={9} fill={colors.inkMuted} />
+            )}
+          </Group>
+        )
+      })}
+    </Group>
+  )
 }
 
 /**
@@ -119,14 +194,34 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
       return pos
     }
 
-    // linear chain (linked list)
+    // linear chain (linked list) — center-to-center spacing sized for the
+    // box-split layout (§5.1) instead of the old circle-node spacing.
     data.nodes.forEach((n, i) => {
-      pos[n.id] = { x: 60 + i * 110, y: 150 }
+      pos[n.id] = { x: 70 + i * (BOX_W + BOX_GAP), y: 150 }
     })
     return pos
   }, [data, width, height])
 
+  // Caches every position ever computed (not just this render's), so a node
+  // that just got removed — and is therefore no longer in `positions` at
+  // all — still has somewhere to animate FROM while it's held as an exiting
+  // ghost. Render-phase derived state (comparing `positions`' own memoized
+  // reference against last render's) rather than a ref, since `positions`
+  // only changes identity when its useMemo deps actually change.
+  const [seenPositions, setSeenPositions] = useState(positions)
+  const [positionsHistory, setPositionsHistory] = useState(positions)
+  if (positions !== seenPositions) {
+    setSeenPositions(positions)
+    setPositionsHistory((prev) => ({ ...prev, ...positions }))
+  }
+  const chainGhosts = useExitingGhosts(data?.nodes || [], { holdMs: 500 })
+
   if (!data) return <div style={{ padding: '1rem', color: 'var(--ink-muted)' }}>No visual data.</div>
+
+  const isChain = data.nodes && data.nodes.length > 0 &&
+    !data.nodes.some((n) => 'left' in n || 'right' in n) &&
+    !data.nodes.some((n) => 'arrayIndex' in n) &&
+    !data.nodes.some((n) => Array.isArray(n.adjacency))
 
   const renderBucketView = () => (
     <ScaledStage naturalWidth={width} naturalHeight={Math.max(height, 40 + data.buckets.length * 42)}>
@@ -284,6 +379,68 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
     )
   }
 
+  const renderChainBoxView = () => {
+    const colors = { nodeColor, nodeInk, inkMuted, highlightColor, brokenColor }
+    const naturalWidth = Math.max(width, 70 + data.nodes.length * (BOX_W + BOX_GAP))
+
+    const edgeEls = (data.edges || []).map((edge, i) => {
+      const from = positions[edge.from]
+      if (!from) return null
+      const isBroken = edge.type === 'cyclic-bug' || edge.type === 'null-unexpected' || edge.type === 'violation'
+      const isCircular = edge.type === 'next-circular'
+      const isPrev = edge.type === 'prev'
+      const stroke = isBroken ? brokenColor : isCircular ? circularColor : pointerColor
+      // 'next' arrows ride a row above box-center; 'prev' arrows ride a row
+      // below, so a doubly-linked list's two pointer directions don't
+      // overlap into one illegible line (standard DLL-diagram convention).
+      const rowY = from.y + (isPrev ? 14 : -14)
+      const fromX = isPrev ? from.x - BOX_W / 2 : from.x + BOX_W / 2
+
+      if (!edge.to) {
+        // NULL terminator — next's off the last node, or prev's off the first.
+        const dir = isPrev ? -1 : 1
+        return (
+          <Group key={i}>
+            <Line points={[fromX, rowY, fromX + dir * 34, rowY]} stroke={stroke} strokeWidth={2} dash={[4, 4]} />
+            <Text x={dir > 0 ? fromX + 6 : fromX - 46} y={rowY - 16} width={40} align="center" text="NULL" fontSize={11} fill={nullColor} fontStyle="bold" />
+          </Group>
+        )
+      }
+      const to = positions[edge.to]
+      if (!to) return null
+      const toX = isPrev ? to.x + BOX_W / 2 : to.x - BOX_W / 2
+      return (
+        <Arrow key={i} points={[fromX, rowY, toX, rowY]} stroke={stroke} fill={stroke}
+          strokeWidth={2} pointerLength={7} pointerWidth={7} />
+      )
+    })
+
+    const realNodes = data.nodes.map((node) => {
+      const p = positions[node.id]
+      if (!p) return null
+      return (
+        <ChainNodeBox key={node.id} node={node} target={p}
+          highlighted={mappingHighlight === node.id} colors={colors} onHover={onNodeHover} />
+      )
+    })
+
+    const ghostNodes = chainGhosts
+      .filter((g) => !data.nodes.some((n) => n.id === g.id))
+      .map((g) => {
+        const p = positionsHistory[g.id]
+        if (!p) return null
+        return <ChainNodeBox key={g.id} node={g} target={p} isGhost colors={colors} />
+      })
+
+    return (
+      <ScaledStage naturalWidth={naturalWidth} naturalHeight={height}>
+        {edgeEls}
+        {realNodes}
+        {ghostNodes}
+      </ScaledStage>
+    )
+  }
+
   const renderNodeEdgeView = () => (
     <ScaledStage naturalWidth={width} naturalHeight={height}>
         {(data.edges || []).map((edge, i) => {
@@ -343,7 +500,11 @@ export default function NodeGraphRenderer({ data, mappingHighlight, onNodeHover 
 
   return (
     <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
-      {data.buckets ? renderBucketView() : data.slots ? renderSlotView() : isArrayLike ? renderArrayLikeView() : renderNodeEdgeView()}
+      {data.buckets ? renderBucketView()
+        : data.slots ? renderSlotView()
+        : isArrayLike ? renderArrayLikeView()
+        : isChain ? renderChainBoxView()
+        : renderNodeEdgeView()}
     </div>
   )
 }
