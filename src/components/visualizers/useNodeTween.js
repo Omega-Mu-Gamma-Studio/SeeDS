@@ -43,11 +43,28 @@ export function useNodeTween(target, { duration, easing = Konva.Easings.EaseInOu
   // identity — callers rebuild the target object every render.
   const depKey = JSON.stringify(target)
 
+  // Konva.Tween.destroy() isn't safe to call twice on the same instance —
+  // its second call reads Tween.attrs[nodeId], which the first call already
+  // deleted, and throws trying to `delete undefined[thisId]`. Nulling the
+  // ref out right after destroying makes a stray extra call a harmless
+  // no-op instead of a crash.
+  function destroyTween() {
+    if (tweenRef.current) {
+      tweenRef.current.destroy()
+      tweenRef.current = null
+    }
+  }
+
   useLayoutEffect(() => {
     const node = nodeRef.current
     if (!node) return undefined
 
-    tweenRef.current?.destroy()
+    // Only reached on a genuine leftover: the `disabled` branch below skips
+    // returning a cleanup, so a tween created before `disabled` flipped true
+    // is destroyed here instead, on the next run. In every other case
+    // React's own cleanup-before-next-effect already destroyed it, and this
+    // is a no-op.
+    destroyTween()
 
     if (!mountedRef.current) {
       mountedRef.current = true
@@ -58,7 +75,7 @@ export function useNodeTween(target, { duration, easing = Konva.Easings.EaseInOu
       } else {
         node.setAttrs(target)
       }
-      return () => tweenRef.current?.destroy()
+      return destroyTween
     }
 
     if (disabled) {
@@ -69,7 +86,7 @@ export function useNodeTween(target, { duration, easing = Konva.Easings.EaseInOu
     tweenRef.current = new Konva.Tween({ node, duration: resolvedDuration, easing, ...target })
     tweenRef.current.play()
 
-    return () => tweenRef.current?.destroy()
+    return destroyTween
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [depKey, disabled])
 
