@@ -13,10 +13,10 @@
       "concept": [
         "Shell sort generalizes insertion sort by first comparing and swapping elements that are far apart (a 'gap'), gradually shrinking the gap down to 1.",
         "This moves far-out-of-place elements toward their correct position faster than plain insertion sort, which only ever compares immediate neighbors.",
-        "Unusually for a sorting algorithm, shell sort's complexity isn't a single fixed value \u2014 it depends entirely on the gap sequence chosen.",
-        "The simplest sequence (halving the gap each pass) gives O(n\u00b2) worst case, no better than plain insertion sort, but sequences like Hibbard's or Sedgewick's push it down toward O(n^1.5) or better, which is part of why shell sort is still an active area of analysis rather than a fully solved problem."
+        "Unusually for a sorting algorithm, shell sort's complexity isn't a single fixed value — it depends entirely on the gap sequence chosen.",
+        "The simplest sequence (halving the gap each pass) gives O(n²) worst case, no better than plain insertion sort, but sequences like Hibbard's or Sedgewick's push it down toward O(n^1.5) or better, which is part of why shell sort is still an active area of analysis rather than a fully solved problem."
       ],
-      "analogy": "Combing tangled hair by first working out the big knots with wide strokes, then switching to finer and finer strokes \u2014 starting fine on badly tangled hair wastes a lot of effort re-checking things that are still far from where they belong.",
+      "analogy": "Combing tangled hair by first working out the big knots with wide strokes, then switching to finer and finer strokes — starting fine on badly tangled hair wastes a lot of effort re-checking things that are still far from where they belong.",
       "mascotDialogue": "It's insertion sort, just given permission to take big steps first. Shrink the gap enough times and it collapses into ordinary insertion sort for the final, finest pass."
     },
     "2": {
@@ -35,43 +35,472 @@
     "3": {
       "code": "int arr[6] = {9, 8, 3, 7, 5, 6};\n// gap=3: compares (9,7),(8,5),(3,6)\n// gap=1: standard insertion sort finishes the job",
       "visual": {
-        "rendererType": "number-grid",
+        "rendererType": "bars",
         "data": {
           "values": [
-            9,
-            8,
-            3,
-            7,
-            5,
-            6
-          ],
-          "passes": [
             {
-              "label": "Gap = 3",
-              "values": [
-                7,
-                5,
-                3,
-                9,
-                8,
-                6
-              ]
+              "id": "v1",
+              "value": 9
             },
             {
-              "label": "Gap = 1",
-              "values": [
-                3,
-                5,
-                6,
-                7,
-                8,
-                9
-              ]
+              "id": "v2",
+              "value": 8
+            },
+            {
+              "id": "v3",
+              "value": 3
+            },
+            {
+              "id": "v4",
+              "value": 7
+            },
+            {
+              "id": "v5",
+              "value": 5
+            },
+            {
+              "id": "v6",
+              "value": 6
+            }
+          ],
+          "steps": [
+            {
+              "type": "init",
+              "order": [
+                "v1",
+                "v2",
+                "v3",
+                "v4",
+                "v5",
+                "v6"
+              ],
+              "roles": {},
+              "pass": null,
+              "gap": null,
+              "description": "Unsorted input array."
+            },
+            {
+              "type": "gap-compare",
+              "order": [
+                "v1",
+                "v2",
+                "v3",
+                "v4",
+                "v5",
+                "v6"
+              ],
+              "roles": {
+                "v1": "gap-a",
+                "v4": "gap-b"
+              },
+              "pass": 1,
+              "gap": 3,
+              "description": "Gap 3: comparing 9 and 7."
+            },
+            {
+              "type": "gap-swap",
+              "order": [
+                "v4",
+                "v2",
+                "v3",
+                "v1",
+                "v5",
+                "v6"
+              ],
+              "roles": {
+                "v1": "swap",
+                "v4": "swap"
+              },
+              "pass": 1,
+              "gap": 3,
+              "description": "Gap 3: 9 > 7, swapping across the gap."
+            },
+            {
+              "type": "gap-compare",
+              "order": [
+                "v4",
+                "v2",
+                "v3",
+                "v1",
+                "v5",
+                "v6"
+              ],
+              "roles": {
+                "v2": "gap-a",
+                "v5": "gap-b"
+              },
+              "pass": 1,
+              "gap": 3,
+              "description": "Gap 3: comparing 8 and 5."
+            },
+            {
+              "type": "gap-swap",
+              "order": [
+                "v4",
+                "v5",
+                "v3",
+                "v1",
+                "v2",
+                "v6"
+              ],
+              "roles": {
+                "v2": "swap",
+                "v5": "swap"
+              },
+              "pass": 1,
+              "gap": 3,
+              "description": "Gap 3: 8 > 5, swapping across the gap."
+            },
+            {
+              "type": "gap-compare",
+              "order": [
+                "v4",
+                "v5",
+                "v3",
+                "v1",
+                "v2",
+                "v6"
+              ],
+              "roles": {
+                "v3": "gap-a",
+                "v6": "gap-b"
+              },
+              "pass": 1,
+              "gap": 3,
+              "description": "Gap 3: comparing 3 and 6."
+            },
+            {
+              "type": "gap-compare",
+              "order": [
+                "v4",
+                "v5",
+                "v3",
+                "v1",
+                "v2",
+                "v6"
+              ],
+              "roles": {
+                "v4": "gap-a",
+                "v5": "gap-b"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: comparing 7 and 5."
+            },
+            {
+              "type": "gap-swap",
+              "order": [
+                "v5",
+                "v4",
+                "v3",
+                "v1",
+                "v2",
+                "v6"
+              ],
+              "roles": {
+                "v4": "swap",
+                "v5": "swap"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: 7 > 5, swapping across the gap."
+            },
+            {
+              "type": "gap-compare",
+              "order": [
+                "v5",
+                "v4",
+                "v3",
+                "v1",
+                "v2",
+                "v6"
+              ],
+              "roles": {
+                "v4": "gap-a",
+                "v3": "gap-b"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: comparing 7 and 3."
+            },
+            {
+              "type": "gap-swap",
+              "order": [
+                "v5",
+                "v3",
+                "v4",
+                "v1",
+                "v2",
+                "v6"
+              ],
+              "roles": {
+                "v4": "swap",
+                "v3": "swap"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: 7 > 3, swapping across the gap."
+            },
+            {
+              "type": "gap-compare",
+              "order": [
+                "v5",
+                "v3",
+                "v4",
+                "v1",
+                "v2",
+                "v6"
+              ],
+              "roles": {
+                "v5": "gap-a",
+                "v3": "gap-b"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: comparing 5 and 3."
+            },
+            {
+              "type": "gap-swap",
+              "order": [
+                "v3",
+                "v5",
+                "v4",
+                "v1",
+                "v2",
+                "v6"
+              ],
+              "roles": {
+                "v5": "swap",
+                "v3": "swap"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: 5 > 3, swapping across the gap."
+            },
+            {
+              "type": "gap-compare",
+              "order": [
+                "v3",
+                "v5",
+                "v4",
+                "v1",
+                "v2",
+                "v6"
+              ],
+              "roles": {
+                "v4": "gap-a",
+                "v1": "gap-b"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: comparing 7 and 9."
+            },
+            {
+              "type": "gap-compare",
+              "order": [
+                "v3",
+                "v5",
+                "v4",
+                "v1",
+                "v2",
+                "v6"
+              ],
+              "roles": {
+                "v1": "gap-a",
+                "v2": "gap-b"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: comparing 9 and 8."
+            },
+            {
+              "type": "gap-swap",
+              "order": [
+                "v3",
+                "v5",
+                "v4",
+                "v2",
+                "v1",
+                "v6"
+              ],
+              "roles": {
+                "v1": "swap",
+                "v2": "swap"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: 9 > 8, swapping across the gap."
+            },
+            {
+              "type": "gap-compare",
+              "order": [
+                "v3",
+                "v5",
+                "v4",
+                "v2",
+                "v1",
+                "v6"
+              ],
+              "roles": {
+                "v4": "gap-a",
+                "v2": "gap-b"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: comparing 7 and 8."
+            },
+            {
+              "type": "gap-compare",
+              "order": [
+                "v3",
+                "v5",
+                "v4",
+                "v2",
+                "v1",
+                "v6"
+              ],
+              "roles": {
+                "v1": "gap-a",
+                "v6": "gap-b"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: comparing 9 and 6."
+            },
+            {
+              "type": "gap-swap",
+              "order": [
+                "v3",
+                "v5",
+                "v4",
+                "v2",
+                "v6",
+                "v1"
+              ],
+              "roles": {
+                "v1": "swap",
+                "v6": "swap"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: 9 > 6, swapping across the gap."
+            },
+            {
+              "type": "gap-compare",
+              "order": [
+                "v3",
+                "v5",
+                "v4",
+                "v2",
+                "v6",
+                "v1"
+              ],
+              "roles": {
+                "v2": "gap-a",
+                "v6": "gap-b"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: comparing 8 and 6."
+            },
+            {
+              "type": "gap-swap",
+              "order": [
+                "v3",
+                "v5",
+                "v4",
+                "v6",
+                "v2",
+                "v1"
+              ],
+              "roles": {
+                "v2": "swap",
+                "v6": "swap"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: 8 > 6, swapping across the gap."
+            },
+            {
+              "type": "gap-compare",
+              "order": [
+                "v3",
+                "v5",
+                "v4",
+                "v6",
+                "v2",
+                "v1"
+              ],
+              "roles": {
+                "v4": "gap-a",
+                "v6": "gap-b"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: comparing 7 and 6."
+            },
+            {
+              "type": "gap-swap",
+              "order": [
+                "v3",
+                "v5",
+                "v6",
+                "v4",
+                "v2",
+                "v1"
+              ],
+              "roles": {
+                "v4": "swap",
+                "v6": "swap"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: 7 > 6, swapping across the gap."
+            },
+            {
+              "type": "gap-compare",
+              "order": [
+                "v3",
+                "v5",
+                "v6",
+                "v4",
+                "v2",
+                "v1"
+              ],
+              "roles": {
+                "v5": "gap-a",
+                "v6": "gap-b"
+              },
+              "pass": 2,
+              "gap": 1,
+              "description": "Gap 1: comparing 5 and 6."
+            },
+            {
+              "type": "done",
+              "order": [
+                "v3",
+                "v5",
+                "v6",
+                "v4",
+                "v2",
+                "v1"
+              ],
+              "roles": {
+                "v3": "sorted",
+                "v5": "sorted",
+                "v6": "sorted",
+                "v4": "sorted",
+                "v2": "sorted",
+                "v1": "sorted"
+              },
+              "pass": null,
+              "gap": null,
+              "description": "Gap has shrunk to 0 — array fully sorted."
             }
           ]
         }
       },
-      "mascotDialogue": "Watch these first comparisons skip across three positions at a time \u2014 that's a gap of 3 doing long-distance corrections before the finer gap=1 pass even starts.",
+      "mascotDialogue": "Watch these first comparisons skip across three positions at a time — that's a gap of 3 doing long-distance corrections before the finer gap=1 pass even starts.",
       "mapping": {
         "line1": "start",
         "line2": "pass1",
@@ -80,8 +509,8 @@
     },
     "4": {
       "brokenCode": "void shellSort(int arr[], int n) {\n    // BUG: gap fixed at 1 instead of starting from n/2 and shrinking\n    int gap = 1;\n    for (int i = gap; i < n; i++) {\n        int temp = arr[i];\n        int j = i;\n        while (j >= gap && arr[j - gap] > temp) {\n            arr[j] = arr[j - gap];\n            j -= gap;\n        }\n        arr[j] = temp;\n    }\n}",
-      "bugDescription": "Hard-coding gap = 1 with no outer shrinking loop means this function still sorts correctly (it's now identical to plain insertion sort), but it loses shell sort's entire performance advantage \u2014 the whole point of the gap sequence was to move far-apart elements quickly before falling back to fine-grained comparisons.",
-      "mascotDialogue": "This is a subtle kind of bug: the output is correct, but the algorithm quietly stopped being the algorithm it claims to be. Not every bug crashes \u2014 some just quietly throw away the reason you chose this approach."
+      "bugDescription": "Hard-coding gap = 1 with no outer shrinking loop means this function still sorts correctly (it's now identical to plain insertion sort), but it loses shell sort's entire performance advantage — the whole point of the gap sequence was to move far-apart elements quickly before falling back to fine-grained comparisons.",
+      "mascotDialogue": "This is a subtle kind of bug: the output is correct, but the algorithm quietly stopped being the algorithm it claims to be. Not every bug crashes — some just quietly throw away the reason you chose this approach."
     },
     "5": {
       "challengeType": "multiple-choice",
@@ -91,7 +520,7 @@
         "Look at the inner loop's structure with gap=1.",
         "arr[j - gap] with gap=1 is just arr[j - 1]."
       ],
-      "solution": "With gap = 1, the inner loop's comparison arr[j - gap] becomes arr[j - 1] \u2014 exactly standard insertion sort's comparison, which is why shell sort is described as a generalization of it."
+      "solution": "With gap = 1, the inner loop's comparison arr[j - gap] becomes arr[j - 1] — exactly standard insertion sort's comparison, which is why shell sort is described as a generalization of it."
     }
   }
 }

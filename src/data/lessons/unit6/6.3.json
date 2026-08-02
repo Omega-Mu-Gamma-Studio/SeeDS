@@ -13,12 +13,12 @@
     "1": {
       "concept": [
         "Merge sort splits the array in half recursively until each piece has just one element (trivially sorted), then merges pairs of sorted pieces back together in order. The merge step is where all the actual comparison work happens.",
-        "Unlike quick sort, merge sort's O(n log n) runtime holds in every case \u2014 best, average, and worst \u2014 because the split is always exactly in half regardless of the data's order.",
+        "Unlike quick sort, merge sort's O(n log n) runtime holds in every case — best, average, and worst — because the split is always exactly in half regardless of the data's order.",
         "That guarantee costs memory: merging needs a temporary array, so merge sort uses O(n) extra space, where quick sort sorts in place.",
         "Merge sort is also stable, meaning equal elements keep their original relative order, which is why it's often preferred for sorting records where ties should stay in their original order."
       ],
-      "analogy": "Two people each holding a sorted stack of numbered cards, combining them into one sorted stack by always taking whichever visible card is smaller \u2014 repeat that same trick going up the chain until it's one single sorted stack.",
-      "mascotDialogue": "All the splitting is just bookkeeping \u2014 the real sorting work happens entirely in the merge step, comparing two already-sorted halves and interleaving them correctly."
+      "analogy": "Two people each holding a sorted stack of numbered cards, combining them into one sorted stack by always taking whichever visible card is smaller — repeat that same trick going up the chain until it's one single sorted stack.",
+      "mascotDialogue": "All the splitting is just bookkeeping — the real sorting work happens entirely in the merge step, comparing two already-sorted halves and interleaving them correctly."
     },
     "2": {
       "code": "void merge(int arr[], int l, int m, int r) {\n    int n1 = m - l + 1, n2 = r - m;\n    int L[n1], R[n2];\n    for (int i = 0; i < n1; i++) L[i] = arr[l + i];\n    for (int j = 0; j < n2; j++) R[j] = arr[m + 1 + j];\n\n    int i = 0, j = 0, k = l;\n    while (i < n1 && j < n2) {\n        if (L[i] <= R[j]) arr[k++] = L[i++];\n        else arr[k++] = R[j++];\n    }\n    while (i < n1) arr[k++] = L[i++];\n    while (j < n2) arr[k++] = R[j++];\n}",
@@ -37,32 +37,554 @@
     "3": {
       "code": "// Merging L=[2,5,8] and R=[1,3,9]\n// Step by step: 1, 2, 3, 5, 8, 9",
       "visual": {
-        "rendererType": "number-grid",
+        "rendererType": "bars",
         "data": {
           "values": [
-            2,
-            5,
-            8,
-            1,
-            3,
-            9
-          ],
-          "passes": [
             {
-              "label": "After Merge",
-              "values": [
-                1,
-                2,
-                3,
-                5,
-                8,
-                9
-              ]
+              "id": "v1",
+              "value": 2
+            },
+            {
+              "id": "v2",
+              "value": 5
+            },
+            {
+              "id": "v3",
+              "value": 8
+            },
+            {
+              "id": "v4",
+              "value": 1
+            },
+            {
+              "id": "v5",
+              "value": 3
+            },
+            {
+              "id": "v6",
+              "value": 9
+            }
+          ],
+          "steps": [
+            {
+              "type": "init",
+              "positions": {
+                "v1": {
+                  "lane": 0,
+                  "index": 0
+                },
+                "v2": {
+                  "lane": 0,
+                  "index": 1
+                },
+                "v3": {
+                  "lane": 0,
+                  "index": 2
+                },
+                "v4": {
+                  "lane": 1,
+                  "index": 0
+                },
+                "v5": {
+                  "lane": 1,
+                  "index": 1
+                },
+                "v6": {
+                  "lane": 1,
+                  "index": 2
+                }
+              },
+              "roles": {},
+              "pass": null,
+              "laneLabels": [
+                "Left run",
+                "Right run",
+                "Merged"
+              ],
+              "description": "Two already-sorted runs waiting to merge: L=[2,5,8], R=[1,3,9]."
+            },
+            {
+              "type": "merge-compare",
+              "positions": {
+                "v1": {
+                  "lane": 0,
+                  "index": 0
+                },
+                "v2": {
+                  "lane": 0,
+                  "index": 1
+                },
+                "v3": {
+                  "lane": 0,
+                  "index": 2
+                },
+                "v4": {
+                  "lane": 1,
+                  "index": 0
+                },
+                "v5": {
+                  "lane": 1,
+                  "index": 1
+                },
+                "v6": {
+                  "lane": 1,
+                  "index": 2
+                }
+              },
+              "roles": {
+                "v1": "merge-left",
+                "v4": "merge-right"
+              },
+              "pass": 1,
+              "laneLabels": [
+                "Left run",
+                "Right run",
+                "Merged"
+              ],
+              "description": "Comparing heads: 2 (L) vs 1 (R)."
+            },
+            {
+              "type": "merge-write",
+              "positions": {
+                "v1": {
+                  "lane": 0,
+                  "index": 0
+                },
+                "v2": {
+                  "lane": 0,
+                  "index": 1
+                },
+                "v3": {
+                  "lane": 0,
+                  "index": 2
+                },
+                "v4": {
+                  "lane": 2,
+                  "index": 0
+                },
+                "v5": {
+                  "lane": 1,
+                  "index": 1
+                },
+                "v6": {
+                  "lane": 1,
+                  "index": 2
+                }
+              },
+              "roles": {
+                "v4": "sorted"
+              },
+              "pass": 1,
+              "laneLabels": [
+                "Left run",
+                "Right run",
+                "Merged"
+              ],
+              "description": "1 is smaller — written to the merged output."
+            },
+            {
+              "type": "merge-compare",
+              "positions": {
+                "v1": {
+                  "lane": 0,
+                  "index": 0
+                },
+                "v2": {
+                  "lane": 0,
+                  "index": 1
+                },
+                "v3": {
+                  "lane": 0,
+                  "index": 2
+                },
+                "v4": {
+                  "lane": 2,
+                  "index": 0
+                },
+                "v5": {
+                  "lane": 1,
+                  "index": 1
+                },
+                "v6": {
+                  "lane": 1,
+                  "index": 2
+                }
+              },
+              "roles": {
+                "v1": "merge-left",
+                "v5": "merge-right"
+              },
+              "pass": 1,
+              "laneLabels": [
+                "Left run",
+                "Right run",
+                "Merged"
+              ],
+              "description": "Comparing heads: 2 (L) vs 3 (R)."
+            },
+            {
+              "type": "merge-write",
+              "positions": {
+                "v1": {
+                  "lane": 2,
+                  "index": 1
+                },
+                "v2": {
+                  "lane": 0,
+                  "index": 1
+                },
+                "v3": {
+                  "lane": 0,
+                  "index": 2
+                },
+                "v4": {
+                  "lane": 2,
+                  "index": 0
+                },
+                "v5": {
+                  "lane": 1,
+                  "index": 1
+                },
+                "v6": {
+                  "lane": 1,
+                  "index": 2
+                }
+              },
+              "roles": {
+                "v1": "sorted"
+              },
+              "pass": 1,
+              "laneLabels": [
+                "Left run",
+                "Right run",
+                "Merged"
+              ],
+              "description": "2 is smaller — written to the merged output."
+            },
+            {
+              "type": "merge-compare",
+              "positions": {
+                "v1": {
+                  "lane": 2,
+                  "index": 1
+                },
+                "v2": {
+                  "lane": 0,
+                  "index": 1
+                },
+                "v3": {
+                  "lane": 0,
+                  "index": 2
+                },
+                "v4": {
+                  "lane": 2,
+                  "index": 0
+                },
+                "v5": {
+                  "lane": 1,
+                  "index": 1
+                },
+                "v6": {
+                  "lane": 1,
+                  "index": 2
+                }
+              },
+              "roles": {
+                "v2": "merge-left",
+                "v5": "merge-right"
+              },
+              "pass": 1,
+              "laneLabels": [
+                "Left run",
+                "Right run",
+                "Merged"
+              ],
+              "description": "Comparing heads: 5 (L) vs 3 (R)."
+            },
+            {
+              "type": "merge-write",
+              "positions": {
+                "v1": {
+                  "lane": 2,
+                  "index": 1
+                },
+                "v2": {
+                  "lane": 0,
+                  "index": 1
+                },
+                "v3": {
+                  "lane": 0,
+                  "index": 2
+                },
+                "v4": {
+                  "lane": 2,
+                  "index": 0
+                },
+                "v5": {
+                  "lane": 2,
+                  "index": 2
+                },
+                "v6": {
+                  "lane": 1,
+                  "index": 2
+                }
+              },
+              "roles": {
+                "v5": "sorted"
+              },
+              "pass": 1,
+              "laneLabels": [
+                "Left run",
+                "Right run",
+                "Merged"
+              ],
+              "description": "3 is smaller — written to the merged output."
+            },
+            {
+              "type": "merge-compare",
+              "positions": {
+                "v1": {
+                  "lane": 2,
+                  "index": 1
+                },
+                "v2": {
+                  "lane": 0,
+                  "index": 1
+                },
+                "v3": {
+                  "lane": 0,
+                  "index": 2
+                },
+                "v4": {
+                  "lane": 2,
+                  "index": 0
+                },
+                "v5": {
+                  "lane": 2,
+                  "index": 2
+                },
+                "v6": {
+                  "lane": 1,
+                  "index": 2
+                }
+              },
+              "roles": {
+                "v2": "merge-left",
+                "v6": "merge-right"
+              },
+              "pass": 1,
+              "laneLabels": [
+                "Left run",
+                "Right run",
+                "Merged"
+              ],
+              "description": "Comparing heads: 5 (L) vs 9 (R)."
+            },
+            {
+              "type": "merge-write",
+              "positions": {
+                "v1": {
+                  "lane": 2,
+                  "index": 1
+                },
+                "v2": {
+                  "lane": 2,
+                  "index": 3
+                },
+                "v3": {
+                  "lane": 0,
+                  "index": 2
+                },
+                "v4": {
+                  "lane": 2,
+                  "index": 0
+                },
+                "v5": {
+                  "lane": 2,
+                  "index": 2
+                },
+                "v6": {
+                  "lane": 1,
+                  "index": 2
+                }
+              },
+              "roles": {
+                "v2": "sorted"
+              },
+              "pass": 1,
+              "laneLabels": [
+                "Left run",
+                "Right run",
+                "Merged"
+              ],
+              "description": "5 is smaller — written to the merged output."
+            },
+            {
+              "type": "merge-compare",
+              "positions": {
+                "v1": {
+                  "lane": 2,
+                  "index": 1
+                },
+                "v2": {
+                  "lane": 2,
+                  "index": 3
+                },
+                "v3": {
+                  "lane": 0,
+                  "index": 2
+                },
+                "v4": {
+                  "lane": 2,
+                  "index": 0
+                },
+                "v5": {
+                  "lane": 2,
+                  "index": 2
+                },
+                "v6": {
+                  "lane": 1,
+                  "index": 2
+                }
+              },
+              "roles": {
+                "v3": "merge-left",
+                "v6": "merge-right"
+              },
+              "pass": 1,
+              "laneLabels": [
+                "Left run",
+                "Right run",
+                "Merged"
+              ],
+              "description": "Comparing heads: 8 (L) vs 9 (R)."
+            },
+            {
+              "type": "merge-write",
+              "positions": {
+                "v1": {
+                  "lane": 2,
+                  "index": 1
+                },
+                "v2": {
+                  "lane": 2,
+                  "index": 3
+                },
+                "v3": {
+                  "lane": 2,
+                  "index": 4
+                },
+                "v4": {
+                  "lane": 2,
+                  "index": 0
+                },
+                "v5": {
+                  "lane": 2,
+                  "index": 2
+                },
+                "v6": {
+                  "lane": 1,
+                  "index": 2
+                }
+              },
+              "roles": {
+                "v3": "sorted"
+              },
+              "pass": 1,
+              "laneLabels": [
+                "Left run",
+                "Right run",
+                "Merged"
+              ],
+              "description": "8 is smaller — written to the merged output."
+            },
+            {
+              "type": "merge-write",
+              "positions": {
+                "v1": {
+                  "lane": 2,
+                  "index": 1
+                },
+                "v2": {
+                  "lane": 2,
+                  "index": 3
+                },
+                "v3": {
+                  "lane": 2,
+                  "index": 4
+                },
+                "v4": {
+                  "lane": 2,
+                  "index": 0
+                },
+                "v5": {
+                  "lane": 2,
+                  "index": 2
+                },
+                "v6": {
+                  "lane": 2,
+                  "index": 5
+                }
+              },
+              "roles": {
+                "v6": "sorted"
+              },
+              "pass": 1,
+              "laneLabels": [
+                "Left run",
+                "Right run",
+                "Merged"
+              ],
+              "description": "Right run has leftovers — 9 flushed straight to the output."
+            },
+            {
+              "type": "done",
+              "positions": {
+                "v1": {
+                  "lane": 2,
+                  "index": 1
+                },
+                "v2": {
+                  "lane": 2,
+                  "index": 3
+                },
+                "v3": {
+                  "lane": 2,
+                  "index": 4
+                },
+                "v4": {
+                  "lane": 2,
+                  "index": 0
+                },
+                "v5": {
+                  "lane": 2,
+                  "index": 2
+                },
+                "v6": {
+                  "lane": 2,
+                  "index": 5
+                }
+              },
+              "roles": {
+                "v4": "sorted",
+                "v1": "sorted",
+                "v5": "sorted",
+                "v2": "sorted",
+                "v3": "sorted",
+                "v6": "sorted"
+              },
+              "pass": null,
+              "laneLabels": [
+                "Left run",
+                "Right run",
+                "Merged"
+              ],
+              "description": "Both runs fully merged into one sorted sequence."
             }
           ]
         }
       },
-      "mascotDialogue": "Notice there's no in-place swapping here \u2014 merge sort compares the fronts of the two halves and writes whichever is smaller into a fresh output position each time.",
+      "mascotDialogue": "Notice there's no in-place swapping here — merge sort compares the fronts of the two halves and writes whichever is smaller into a fresh output position each time.",
       "mapping": {
         "line1": "start",
         "line2": "pass1"
@@ -70,8 +592,8 @@
     },
     "4": {
       "brokenCode": "int i = 0, j = 0, k = l;\nwhile (i < n1 && j < n2) {\n    if (L[i] <= R[j]) arr[k++] = L[i++];\n    else arr[k++] = R[j++];\n}\n// BUG: missing the two leftover-copying while loops entirely",
-      "bugDescription": "Once one of L or R is fully consumed, the main merge loop exits \u2014 but without the two follow-up while loops copying any remaining elements from whichever side wasn't exhausted, those trailing elements are simply never written back into arr, leaving stale or garbage values in the tail of the merged range.",
-      "mascotDialogue": "It's easy to think the merge is 'done' once the main comparison loop ends \u2014 but one side almost always finishes before the other, and forgetting to drain the leftovers loses real data, silently."
+      "bugDescription": "Once one of L or R is fully consumed, the main merge loop exits — but without the two follow-up while loops copying any remaining elements from whichever side wasn't exhausted, those trailing elements are simply never written back into arr, leaving stale or garbage values in the tail of the merged range.",
+      "mascotDialogue": "It's easy to think the merge is 'done' once the main comparison loop ends — but one side almost always finishes before the other, and forgetting to drain the leftovers loses real data, silently."
     },
     "5": {
       "challengeType": "multiple-choice",
@@ -81,7 +603,7 @@
         "Look at the comparison operator in the merge step.",
         "Stability depends on which side wins when elements are equal."
       ],
-      "solution": "Yes \u2014 because the merge condition uses <= and always favors the left half on a tie, elements that were equal and originally on the left retain their relative order in the output."
+      "solution": "Yes — because the merge condition uses <= and always favors the left half on a tie, elements that were equal and originally on the left retain their relative order in the output."
     }
   }
 }

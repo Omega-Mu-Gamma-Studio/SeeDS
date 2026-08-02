@@ -1,6 +1,7 @@
 import NodeGraphRenderer from './NodeGraphRenderer.jsx'
 import GridRenderer from './GridRenderer.jsx'
 import BucketsRenderer from './BucketsRenderer.jsx'
+import BarsRenderer from './BarsRenderer.jsx'
 import ArrayTreeDualRenderer from './ArrayTreeDualRenderer.jsx'
 import './VisualizerDispatch.css'
 
@@ -32,6 +33,8 @@ export default function VisualizerDispatch({ visual, lessonId, ...rest }) {
       return <GridRenderer key={key} data={visual.data} {...rest} />
     case 'buckets':
       return <BucketsRenderer key={key} data={visual.data} {...rest} />
+    case 'bars':
+      return <BarsRenderer key={key} data={visual.data} {...rest} />
     case 'array-tree-dual':
       return <ArrayTreeDualRenderer key={key} data={visual.data} {...rest} />
     case 'node-graph':

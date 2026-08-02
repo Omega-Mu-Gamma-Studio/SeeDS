@@ -13,10 +13,10 @@
       "concept": [
         "Bubble sort repeatedly steps through the array, comparing each pair of adjacent elements and swapping them if they're in the wrong order.",
         "Each full pass 'bubbles' the largest remaining unsorted value to its correct position at the end.",
-        "That's n passes each doing up to n comparisons, so it's O(n\u00b2) in the average and worst case \u2014 the reason it's a teaching tool rather than a production sort.",
+        "That's n passes each doing up to n comparisons, so it's O(n²) in the average and worst case — the reason it's a teaching tool rather than a production sort.",
         "It is stable, though (equal elements never swap past each other), and a version that exits early once a full pass makes zero swaps drops to O(n) on already-sorted input."
       ],
-      "analogy": "Bubbles rising in a glass of soda \u2014 the biggest ones drift to the top fastest, and repeating the pass keeps pushing the next-biggest one up as well.",
+      "analogy": "Bubbles rising in a glass of soda — the biggest ones drift to the top fastest, and repeating the pass keeps pushing the next-biggest one up as well.",
       "mascotDialogue": "Nothing fancy here: just compare your neighbor, swap if you're bigger, and repeat the whole sweep until nothing needs swapping anymore."
     },
     "2": {
@@ -30,55 +30,358 @@
         6,
         7
       ],
-      "mascotDialogue": "`n - i - 1` on line 3 shrinks the inner loop's range each pass \u2014 the last i elements are already sorted, so there's no need to keep re-checking them."
+      "mascotDialogue": "`n - i - 1` on line 3 shrinks the inner loop's range each pass — the last i elements are already sorted, so there's no need to keep re-checking them."
     },
     "3": {
       "code": "int arr[5] = {5, 2, 4, 1, 3};\n// pass 1: {2, 4, 1, 3, 5}\n// pass 2: {2, 1, 3, 4, 5}\n// pass 3: {1, 2, 3, 4, 5}",
       "visual": {
-        "rendererType": "number-grid",
+        "rendererType": "bars",
         "data": {
           "values": [
-            5,
-            2,
-            4,
-            1,
-            3
+            {
+              "id": "v1",
+              "value": 5
+            },
+            {
+              "id": "v2",
+              "value": 2
+            },
+            {
+              "id": "v3",
+              "value": 4
+            },
+            {
+              "id": "v4",
+              "value": 1
+            },
+            {
+              "id": "v5",
+              "value": 3
+            }
           ],
-          "passes": [
+          "steps": [
             {
-              "label": "Pass 1",
-              "values": [
-                2,
-                4,
-                1,
-                3,
-                5
-              ]
+              "type": "init",
+              "order": [
+                "v1",
+                "v2",
+                "v3",
+                "v4",
+                "v5"
+              ],
+              "roles": {},
+              "pass": null,
+              "description": "Unsorted input array."
             },
             {
-              "label": "Pass 2",
-              "values": [
-                2,
-                1,
-                3,
-                4,
-                5
-              ]
+              "type": "compare",
+              "order": [
+                "v1",
+                "v2",
+                "v3",
+                "v4",
+                "v5"
+              ],
+              "roles": {
+                "v1": "compare",
+                "v2": "compare"
+              },
+              "pass": 1,
+              "description": "Pass 1: comparing 5 and 2."
             },
             {
-              "label": "Pass 3",
-              "values": [
-                1,
-                2,
-                3,
-                4,
-                5
-              ]
+              "type": "swap",
+              "order": [
+                "v2",
+                "v1",
+                "v3",
+                "v4",
+                "v5"
+              ],
+              "roles": {
+                "v1": "swap",
+                "v2": "swap"
+              },
+              "pass": 1,
+              "description": "Pass 1: 5 > 2, swapping."
+            },
+            {
+              "type": "compare",
+              "order": [
+                "v2",
+                "v1",
+                "v3",
+                "v4",
+                "v5"
+              ],
+              "roles": {
+                "v1": "compare",
+                "v3": "compare"
+              },
+              "pass": 1,
+              "description": "Pass 1: comparing 5 and 4."
+            },
+            {
+              "type": "swap",
+              "order": [
+                "v2",
+                "v3",
+                "v1",
+                "v4",
+                "v5"
+              ],
+              "roles": {
+                "v1": "swap",
+                "v3": "swap"
+              },
+              "pass": 1,
+              "description": "Pass 1: 5 > 4, swapping."
+            },
+            {
+              "type": "compare",
+              "order": [
+                "v2",
+                "v3",
+                "v1",
+                "v4",
+                "v5"
+              ],
+              "roles": {
+                "v1": "compare",
+                "v4": "compare"
+              },
+              "pass": 1,
+              "description": "Pass 1: comparing 5 and 1."
+            },
+            {
+              "type": "swap",
+              "order": [
+                "v2",
+                "v3",
+                "v4",
+                "v1",
+                "v5"
+              ],
+              "roles": {
+                "v1": "swap",
+                "v4": "swap"
+              },
+              "pass": 1,
+              "description": "Pass 1: 5 > 1, swapping."
+            },
+            {
+              "type": "compare",
+              "order": [
+                "v2",
+                "v3",
+                "v4",
+                "v1",
+                "v5"
+              ],
+              "roles": {
+                "v1": "compare",
+                "v5": "compare"
+              },
+              "pass": 1,
+              "description": "Pass 1: comparing 5 and 3."
+            },
+            {
+              "type": "swap",
+              "order": [
+                "v2",
+                "v3",
+                "v4",
+                "v5",
+                "v1"
+              ],
+              "roles": {
+                "v1": "swap",
+                "v5": "swap"
+              },
+              "pass": 1,
+              "description": "Pass 1: 5 > 3, swapping."
+            },
+            {
+              "type": "compare",
+              "order": [
+                "v2",
+                "v3",
+                "v4",
+                "v5",
+                "v1"
+              ],
+              "roles": {
+                "v1": "sorted",
+                "v2": "compare",
+                "v3": "compare"
+              },
+              "pass": 2,
+              "description": "Pass 2: comparing 2 and 4."
+            },
+            {
+              "type": "compare",
+              "order": [
+                "v2",
+                "v3",
+                "v4",
+                "v5",
+                "v1"
+              ],
+              "roles": {
+                "v1": "sorted",
+                "v3": "compare",
+                "v4": "compare"
+              },
+              "pass": 2,
+              "description": "Pass 2: comparing 4 and 1."
+            },
+            {
+              "type": "swap",
+              "order": [
+                "v2",
+                "v4",
+                "v3",
+                "v5",
+                "v1"
+              ],
+              "roles": {
+                "v1": "sorted",
+                "v3": "swap",
+                "v4": "swap"
+              },
+              "pass": 2,
+              "description": "Pass 2: 4 > 1, swapping."
+            },
+            {
+              "type": "compare",
+              "order": [
+                "v2",
+                "v4",
+                "v3",
+                "v5",
+                "v1"
+              ],
+              "roles": {
+                "v1": "sorted",
+                "v3": "compare",
+                "v5": "compare"
+              },
+              "pass": 2,
+              "description": "Pass 2: comparing 4 and 3."
+            },
+            {
+              "type": "swap",
+              "order": [
+                "v2",
+                "v4",
+                "v5",
+                "v3",
+                "v1"
+              ],
+              "roles": {
+                "v1": "sorted",
+                "v3": "swap",
+                "v5": "swap"
+              },
+              "pass": 2,
+              "description": "Pass 2: 4 > 3, swapping."
+            },
+            {
+              "type": "compare",
+              "order": [
+                "v2",
+                "v4",
+                "v5",
+                "v3",
+                "v1"
+              ],
+              "roles": {
+                "v1": "sorted",
+                "v3": "sorted",
+                "v2": "compare",
+                "v4": "compare"
+              },
+              "pass": 3,
+              "description": "Pass 3: comparing 2 and 1."
+            },
+            {
+              "type": "swap",
+              "order": [
+                "v4",
+                "v2",
+                "v5",
+                "v3",
+                "v1"
+              ],
+              "roles": {
+                "v1": "sorted",
+                "v3": "sorted",
+                "v2": "swap",
+                "v4": "swap"
+              },
+              "pass": 3,
+              "description": "Pass 3: 2 > 1, swapping."
+            },
+            {
+              "type": "compare",
+              "order": [
+                "v4",
+                "v2",
+                "v5",
+                "v3",
+                "v1"
+              ],
+              "roles": {
+                "v1": "sorted",
+                "v3": "sorted",
+                "v2": "compare",
+                "v5": "compare"
+              },
+              "pass": 3,
+              "description": "Pass 3: comparing 2 and 3."
+            },
+            {
+              "type": "compare",
+              "order": [
+                "v4",
+                "v2",
+                "v5",
+                "v3",
+                "v1"
+              ],
+              "roles": {
+                "v1": "sorted",
+                "v5": "sorted",
+                "v3": "sorted",
+                "v4": "compare",
+                "v2": "compare"
+              },
+              "pass": 4,
+              "description": "Pass 4: comparing 1 and 2."
+            },
+            {
+              "type": "done",
+              "order": [
+                "v4",
+                "v2",
+                "v5",
+                "v3",
+                "v1"
+              ],
+              "roles": {
+                "v4": "sorted",
+                "v2": "sorted",
+                "v5": "sorted",
+                "v3": "sorted",
+                "v1": "sorted"
+              },
+              "pass": null,
+              "description": "Array fully sorted."
             }
           ]
         }
       },
-      "mascotDialogue": "Watch the 5 creep one box right each pass as it loses every comparison along the way \u2014 that's the 'bubbling' the algorithm's named after, made literal.",
+      "mascotDialogue": "Watch the 5 creep one box right each pass as it loses every comparison along the way — that's the 'bubbling' the algorithm's named after, made literal.",
       "mapping": {
         "line1": "start",
         "line2": "pass1",
@@ -87,19 +390,19 @@
       }
     },
     "4": {
-      "bugDescription": "A common bubble sort bug: the inner loop bound is written as `j < n - i` instead of `j < n - i - 1`, causing arr[j+1] to read one index past the array's last valid element on the final pass \u2014 undefined behavior reading whatever memory happens to sit there.",
+      "bugDescription": "A common bubble sort bug: the inner loop bound is written as `j < n - i` instead of `j < n - i - 1`, causing arr[j+1] to read one index past the array's last valid element on the final pass — undefined behavior reading whatever memory happens to sit there.",
       "brokenCode": "for (int i = 0; i < n - 1; i++) {\n    for (int j = 0; j < n - i; j++) { // BUG: off-by-one, should be n - i - 1\n        if (arr[j] > arr[j+1]) { /* swap */ }\n    }\n}",
-      "mascotDialogue": "This one won't crash every time \u2014 it'll just occasionally read garbage past the array, which is exactly the kind of bug that's easy to miss because it doesn't always announce itself."
+      "mascotDialogue": "This one won't crash every time — it'll just occasionally read garbage past the array, which is exactly the kind of bug that's easy to miss because it doesn't always announce itself."
     },
     "5": {
       "challengeType": "multiple-choice",
       "question": "What is bubble sort's worst-case time complexity?",
-      "answer": "O(n\u00b2)",
+      "answer": "O(n²)",
       "hints": [
         "There are two nested loops, each roughly proportional to n.",
         "This is why bubble sort isn't used for large datasets in practice."
       ],
-      "solution": "O(n\u00b2) \u2014 in the worst case (reverse-sorted input), every pair of adjacent elements needs a comparison and swap across roughly n passes over roughly n elements each."
+      "solution": "O(n²) — in the worst case (reverse-sorted input), every pair of adjacent elements needs a comparison and swap across roughly n passes over roughly n elements each."
     }
   }
 }
