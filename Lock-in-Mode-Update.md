@@ -137,3 +137,231 @@ New store (`drillStore.js`, alongside `lessonStore.js`) tracks per-routine attem
 - Exact split of Unit 3's tree content into individual lessons (BST/AVL/Threaded/B-Tree as separate lessons, or grouped?).
 - Whether the representation-conversion widget is worth building generally, or scoped just to graphs for now.
 - Confirming whether Boss Round should be gated behind Passport/Landmarks progress or purely attempt-count-based.
+
+# Data Structures - Question Bank
+
+## Unit-3: Trees
+
+### Part-A (2 Marks)
+
+1. Define a tree. [2 ReCO3]
+2. How will you implement a tree with its node declaration? [2 UnCO3]
+3. What are the applications of Trees? [2 ReCO3]
+4. Define binary tree. [2 ReCO3]
+5. Write the implementation of a binary tree with its node declarations. [2 ReCO3]
+6. Construct a binary tree from the following tree traversals:
+   - Inorder traversal: 3,1,4,0,5,2
+   - Preorder traversal: 0,1,3,4,2,5
+   - Postorder traversal: 3,4,1,5,2,0
+   
+   [2 ApCO3]
+
+7. What do you mean by an expression tree? [2 UnCO3]
+8. Draw the expression tree for (2x + y)(5a – b). [2 UnCO3]
+9. Write the routine for retrieve in a binary search tree. [2 ReCO3]
+10. How will you compute the Balancing Factor for an Adelson-Velsky and Landis tree? [2 ReCO3]
+11. What is the minimum number of nodes in an AVL tree of height 15? [2 UnCO3]
+12. What is the advantage of using threaded trees? [2 UnCO3]
+13. Differentiate percolate up and percolate down operations. [2 UnCO3]
+14. Differentiate structure property and heap order property. [2 UnCO3]
+15. Give the basic model of a Priority Queue (Heaps). [2 ReCO3]
+16. What are the several ways to implement a priority queue? [2 ReCO3]
+17. What are the applications of Priority queue? [2 ReCO3]
+
+---
+
+### Part-B (16 Marks)
+
+**1.** What are the various types of trees along with definition and applications? Discuss the preliminaries of a tree with an example. [16 UnCO3]
+
+**2.** Find the following tree preliminaries:
+   - (i) Root node
+   - (ii) Parent for the Node E and its children
+   - (iii) Leaves in the tree
+   - (iv) Possible siblings level-by-level
+   - (v) Depth of the tree
+   - (vi) Height of the tree
+   - (vii) Height of the Node B
+   - (viii) Depth of the Node C
+   - (ix) Number of edges in the tree
+   - (x) Internal Nodes
+   - (xi) Degree of F
+   - (xii) Path between A and M
+   - (xiii) Children of A
+   - (xiv) Depth of C
+   - (xv) Height of B
+   - (xvi) Number of the nodes in the tree
+
+[16 UnCO3]
+
+**3.** Discuss Tree Traversals with its algorithm. By applying the algorithm, find the sequence of nodes by the various tree traversals. [16 ApCO3]
+
+**4.** Illustrate the step-wise algorithm and construction of an expression tree for:
+   `a + b * c – d / e ^ f % g`
+   
+   [16 ApCO3]
+
+**5.** Explain the implementation of Binary Search Tree (BST) ADT. [16 UnCO3]
+
+**6.** By applying the concept of BST, show the step-by-step result of inserting:
+   `D, A, T, A, S, T, R, U, C, T, U, R, E, S`
+   into an initially empty binary search tree.
+   
+   [16 ApCO3]
+
+**7.** (i) Show the result of inserting `3, 1, 4, 6, 9, 2, 5, 7` into an initially empty binary search tree. (12 Marks)
+   (ii) Show the result of deleting the root. (4 Marks)
+   
+   [16 ApCO3]
+
+**8.** Explain the implementation of Adelson-Velsky and Landis Trees. [16 UnCO3]
+
+**9.** Show the step-by-step result of inserting:
+   `1, 3, 5, 7, 19, 17, 15, 13, 11, 9, 0`
+   into an initially empty AVL tree.
+   
+   [16 ApCO3]
+
+**10.** Discuss Threaded Trees in detail. [16 UnCO3]
+
+**11.** Discuss the implementation of Binary Heap. [16 UnCO3]
+
+**12.** Show the result of inserting (Building/Heapify):
+   `10, 12, 1, 14, 6, 5, 8, 15, 3, 9, 7, 4, 11, 13, and 2`
+   one at a time, into an initially empty binary heap.
+   
+   [16 ApCO3]
+
+**13.** (i) For the perfect binary tree of height h containing `2^(h+1) – 1` nodes, prove that the sum of the heights of the nodes is `2^(h+1) – 1 – (h+1)`. (8 Marks)
+   
+   (ii) For the binary heap (H) (shown below), show the results for the following operations:
+   - (a) DecreaseKey (2,11,H)
+   - (b) IncreaseKey(3,65,H)
+   - (c) Delete(1,H)
+   
+   (8 Marks) [16 ApCO3]
+
+**14.** Perform the following operations in sequence with relevant illustrations for the input sequence:
+   `31, 41, 59, 26, 53, 58, 97`
+   
+   (i) BuildHeap (H)
+   (ii) DeleteMin (H)
+   (iii) DecreaseKey (6,39,H)
+   (iv) IncreaseKey (2,10,H)
+   (v) DecreaseKey (6,1,H)
+   (vi) Delete (5,H)
+   (vii) Insert (100,H)
+   
+   [16 ApCO3]
+
+**15.** Discuss the implementation of B-Tree with a suitable example. [16 UnCO3]
+
+---
+
+## Unit-4: Graphs
+
+### Part-A (2 Marks)
+
+1. Define graph. [2 ReCO4]
+2. Differentiate the types of Graph. [2 UnCO4]
+3. Write the adjacency matrix for the following graph. [2 UnCO4]
+4. Write the adjacency matrix for the following graph. [2 UnCO4]
+5. Write the adjacency list representation for the following graph. [2 UnCO4]
+6. Write the incidence matrix for the graph. [2 UnCO4]
+7. Write the edge list representation for the graph. [2 UnCO4]
+8. Find out the in-degree and out-degree of each node in the given graph. [2 UnCO4]
+9. What do you mean by undirected graph? [2 UnCO4]
+10. What do you mean by biconnected graph? [2 UnCO4]
+11. What do you mean by Euler Circuits? [2 UnCO4]
+12. What do you mean by directed graph? [2 UnCO4]
+13. How will you test whether a directed graph is strongly connected or not? [2 UnCO4]
+14. Differentiate Breadth-first traversal and Depth-first traversal. [2 UnCO4]
+15. What are the applications of Graph? [2 ReCO4]
+16. Which algorithm is notable for its parallelizability with respect to Minimum Spanning Tree? [2 UnCO4]
+
+---
+
+### Part-B (16 Marks)
+
+**1.** Discuss the graph terminologies and representation of graphs. [16 UnCO4]
+
+**2.** Discuss Breadth-first traversal and Depth-first traversal with its algorithm and example. [16 UnCO4]
+
+**3.** Discuss the applications of Depth First Search. [16 UnCO4]
+
+**4.** Explain Topological Sort with its algorithm, routine and example. [16 UnCO4]
+
+**5.** Explain Shortest path algorithms in detail. [16 UnCO4]
+
+**6.** Apply an appropriate algorithm to find the shortest path from "v1" to all other vertices for the graph given below. [16 ApCO4]
+
+**7.** Discuss Dijkstra's algorithm with its routine and example. [16 UnCO4]
+
+**8.** Explain Minimum Spanning Tree in detail. [16 UnCO4]
+
+**9.** Find a minimum spanning tree for the graph using both Prim's and Kruskal's algorithms. [16 ApCO4]
+
+**10.** How will you apply Depth-First Search to find all the articulation points in a connected graph (given below)? [16 ApCO4]
+
+---
+
+## Unit-5: Searching, Sorting & Hashing
+
+### Part-A (2 Marks)
+
+1. Define Searching. [2 ReCO5]
+2. Differentiate Linear Search and Binary Search. [2 UnCO5]
+3. Which searching algorithm is best suited to find a student inside a classroom? Why? [2 UnCO5]
+4. Which searching algorithm is best suited to find a student inside a exam hall? Why? [2 UnCO5]
+5. What are the various factors to be considered in deciding a sorting algorithm? [2 UnCO5]
+6. Differentiate internal sorting and external sorting. [2 UnCO5]
+7. Define hashing. [2 ReCO5]
+8. Define hash function. [2 ReCO5]
+9. How will you choose a hash function? [2 UnCO5]
+10. Give any four real-world applications of hash functions. [2 UnCO5]
+11. What are the applications of hashing? [2 ReCO5]
+12. What are the collision resolution strategies? [2 ReCO5]
+13. Define load factor. [2 ReCO5]
+14. Consider a double hashing scheme in which the primary hash function is `h1(k) = k mod 23`, and the secondary hash function is `h2(k) = 1 + (k mod 19)`. Assume that the table size is 23. Then the address returned by probe 1 in the probe sequence (assume that the probe sequence begins at probe 0) for key value `k = 90` is _______. [2 ApCO5]
+15. Differentiate primary clustering and secondary clustering. [2 UnCO5]
+16. Show the result of inserting the keys:
+   `10111101, 00000010, 10011011, 10111110, 01111111, 01010001, 10010110, 00001011, 11001111, 10011110, 11011011, 00101011, 01100001, 11110000, 01101111`
+   into an initially empty extendible hashing data structure with M = 4.
+   
+   [2 ApCO5]
+
+---
+
+### Part-B (16 Marks)
+
+**1.** Discuss the algorithm, program and verify the results for Linear Search. [16 UnCO5]
+
+**2.** Discuss the algorithm, program and verify the results for Binary Search. [16 UnCO5]
+
+**3.** Discuss the algorithm, routine, analysis, program and result verification for Bubble sort. [16 UnCO5]
+
+**4.** Discuss the algorithm, routine, analysis, program and result verification for Selection sort. [16 UnCO5]
+
+**5.** Discuss the algorithm, routine, analysis, program and result verification for Insertion sort. [16 UnCO5]
+
+**6.** Discuss the algorithm, routine, analysis, program and result verification for Shell sort. [16 UnCO5]
+
+**7.** Discuss the algorithm, routine, analysis, program and result verification for Merge Sort. [16 UnCO5]
+
+**8.** Explain Separate Chaining with its routines and example. [16 UnCO5]
+
+**9.** Explain Open Addressing with its routines and example. [16 UnCO5]
+
+**10.** (i) How will you implement Rehashing with an example? (08 Marks)
+   (ii) How will you implement Extendible Hashing with an example? (08 Marks)
+   
+   [16 UnCO5]
+
+**11.** Given input `{4371, 1323, 6173, 4199, 4344, 9679, 1989}` and a hash function `h(x) = x(mod 10)`, show the result of using:
+   - a. Separate chaining hash table
+   - b. Open addressing hash table using linear probing
+   - c. Open addressing hash table using quadratic probing
+   - d. Open addressing hash table with second hash function `h2(x) = 7 - (x mod 7)`
+   - e. Rehashing the hash tables
+   
+   [16 ApCO5]
