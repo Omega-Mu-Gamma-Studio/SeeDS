@@ -1,0 +1,65 @@
+{
+  "id": "linkedlist-circular",
+  "title": "Circular Linked List",
+  "lessonRef": "1.3",
+  "dsType": "circular-linked-list",
+  "operations": [
+    {
+      "id": "cll-concept",
+      "displayName": "Circular vs Singly — Key Difference",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "What distinguishes a circular linked list from a singly linked list?",
+          "options": [
+            "Each node has two pointers",
+            "The last node's next pointer points back to the head",
+            "Nodes are allocated in contiguous memory",
+            "The head node stores the list size"
+          ],
+          "answer": "The last node's next pointer points back to the head",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the makeCircular routine that takes a tail node and a head node and closes the circular link.",
+          "scaffoldCode": "void makeCircular(Node* tail, Node* head) {\n    // one line\n}",
+          "canonicalCode": "void makeCircular(Node* tail, Node* head) {\n    tail->next = head;\n}",
+          "commonMistakes": [
+            { "line": "tail->next = head;", "description": "The only change needed — tail->next = NULL would leave it as a regular singly linked list" }
+          ],
+          "timeLimitSeconds": 60
+        }
+      }
+    },
+    {
+      "id": "cll-traversal",
+      "displayName": "Traversal (do-while)",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "Why must circular list traversal use a do-while loop rather than a regular while loop?",
+          "options": [
+            "while loops don't support pointer arithmetic",
+            "A while loop checking curr != head would never enter if starting from head",
+            "do-while is faster for pointer-based structures",
+            "The compiler requires do-while for cyclic data"
+          ],
+          "answer": "A while loop checking curr != head would never enter if starting from head",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write traverseOnce — visit every node exactly once in a circular linked list, starting from head.",
+          "scaffoldCode": "void traverseOnce(Node* head) {\n    Node* curr = head;\n    // use do-while so head is visited before checking\n}",
+          "canonicalCode": "void traverseOnce(Node* head) {\n    Node* curr = head;\n    do {\n        printf(\"%d \", curr->value);\n        curr = curr->next;\n    } while (curr != head);\n}",
+          "commonMistakes": [
+            { "line": "do {", "description": "Must be do-while — a while (curr != head) check before visiting skips head entirely" },
+            { "line": "} while (curr != head);", "description": "Termination condition is curr == head (back to start), not curr == NULL (which never happens)" }
+          ],
+          "timeLimitSeconds": 120
+        }
+      }
+    }
+  ]
+}

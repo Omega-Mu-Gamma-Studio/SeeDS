@@ -1,0 +1,140 @@
+{
+  "id": "bst",
+  "title": "Binary Search Tree",
+  "lessonRef": "2.1",
+  "dsType": "bst",
+  "operations": [
+    {
+      "id": "bst-node-decl",
+      "displayName": "Node Declaration",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "A BST node has two child pointers. What are they called?",
+          "options": ["next and prev", "left and right", "parent and child", "head and tail"],
+          "answer": "left and right",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the node declaration for a Binary Search Tree in C.",
+          "scaffoldCode": "typedef struct TNode {\n    // your fields here\n} TNode;",
+          "canonicalCode": "typedef struct TNode {\n    int value;\n    struct TNode* left;\n    struct TNode* right;\n} TNode;",
+          "commonMistakes": [
+            { "line": "struct TNode* left;", "description": "Both left and right must be typed struct TNode* — not int or void*" },
+            { "line": "struct TNode* right;", "description": "A BST node does NOT have a parent pointer in the basic implementation" }
+          ],
+          "timeLimitSeconds": 90
+        }
+      }
+    },
+    {
+      "id": "bst-insert",
+      "displayName": "Insert",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "When inserting into a BST, a value smaller than the current node goes to the:",
+          "options": ["Left subtree", "Right subtree", "Root", "A new separate tree"],
+          "answer": "Left subtree",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the recursive insert routine for a BST. The function returns the (possibly new) root.",
+          "scaffoldCode": "TNode* insert(TNode* root, int value) {\n    // base case: empty spot found\n    // recursive case: go left or right\n    // return root\n}",
+          "canonicalCode": "TNode* insert(TNode* root, int value) {\n    if (root == NULL) {\n        TNode* n = (TNode*)malloc(sizeof(TNode));\n        n->value = value; n->left = n->right = NULL;\n        return n;\n    }\n    if (value < root->value) root->left = insert(root->left, value);\n    else if (value > root->value) root->right = insert(root->right, value);\n    return root;\n}",
+          "commonMistakes": [
+            { "line": "if (root == NULL)", "description": "Base case is NULL root — this is where the new node is created" },
+            { "line": "n->left = n->right = NULL;", "description": "New leaf has no children — both pointers must be NULL" },
+            { "line": "root->left = insert(root->left, value);", "description": "Must reassign root->left with the return value — the recursive call may create a new node" },
+            { "line": "return root;", "description": "Always return root — callers need the (possibly unchanged) subtree root to relink" }
+          ],
+          "timeLimitSeconds": 180
+        },
+        "fullTrace": {
+          "questionText": "Show the BST built by inserting D, A, T, A, S, T, R, U, C, T, U, R, E, S into an initially empty BST (use character values; duplicates are ignored).",
+          "note": "This is a direct Part-B question from the exam bank. Key result: D is root, A goes left, T goes right. Duplicates (second A, second T, etc.) are skipped. Final unique sequence: D, A, T, S, R, U, C, E.",
+          "steps": [
+            { "operation": "insert('D')", "note": "D becomes root" },
+            { "operation": "insert('A')", "note": "A < D → goes left of D" },
+            { "operation": "insert('T')", "note": "T > D → goes right of D" },
+            { "operation": "insert('A')", "note": "Duplicate — ignored (already exists)" },
+            { "operation": "insert('S')", "note": "S > D, S < T → goes left of T" },
+            { "operation": "insert('T')", "note": "Duplicate — ignored" },
+            { "operation": "insert('R')", "note": "R > D, R < T, R < S → goes left of S" },
+            { "operation": "insert('U')", "note": "U > D, U > T → goes right of T" },
+            { "operation": "insert('C')", "note": "C > A, C < D → goes right of A" },
+            { "operation": "insert('T')", "note": "Duplicate — ignored" },
+            { "operation": "insert('U')", "note": "Duplicate — ignored" },
+            { "operation": "insert('R')", "note": "Duplicate — ignored" },
+            { "operation": "insert('E')", "note": "E > A, E < D → right of A... E > C → goes right of C" },
+            { "operation": "insert('S')", "note": "Duplicate — ignored" }
+          ],
+          "timeLimitSeconds": 420
+        }
+      }
+    },
+    {
+      "id": "bst-retrieve",
+      "displayName": "Retrieve (Search)",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "Searching for a value in a BST that doesn't exist terminates when:",
+          "options": [
+            "root->value == 0",
+            "root == NULL",
+            "left == right == NULL",
+            "The stack overflows"
+          ],
+          "answer": "root == NULL",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the routine for retrieve (search) in a binary search tree. The bank explicitly names this question: 'Write the routine for retrieve in a binary search tree.' Return the node if found, NULL otherwise.",
+          "scaffoldCode": "TNode* retrieve(TNode* root, int value) {\n    // base cases: not found, or found\n    // recursive: go left or right\n}",
+          "canonicalCode": "TNode* retrieve(TNode* root, int value) {\n    if (root == NULL) return NULL;\n    if (value == root->value) return root;\n    if (value < root->value) return retrieve(root->left, value);\n    return retrieve(root->right, value);\n}",
+          "commonMistakes": [
+            { "line": "if (root == NULL) return NULL;", "description": "First base case: reached a dead end — value not in the tree" },
+            { "line": "if (value == root->value) return root;", "description": "Second base case: found — return the node, not just 1 or true" },
+            { "line": "if (value < root->value) return retrieve(root->left, value);", "description": "Return the recursive result — omitting return discards the found node" }
+          ],
+          "timeLimitSeconds": 150
+        }
+      }
+    },
+    {
+      "id": "bst-delete",
+      "displayName": "Delete",
+      "markTier": 16,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "When deleting a BST node that has two children, which node replaces it?",
+          "options": [
+            "The root node",
+            "The inorder successor (smallest in right subtree)",
+            "The inorder predecessor (largest in left subtree) — either works",
+            "Both B and C are correct"
+          ],
+          "answer": "Both B and C are correct",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the delete routine for a BST. Handle all three cases: leaf node, one child, two children. Use the inorder successor strategy for the two-children case.",
+          "scaffoldCode": "TNode* deleteNode(TNode* root, int value) {\n    // find the node (recurse left/right)\n    // case 1: leaf\n    // case 2: one child\n    // case 3: two children — replace with inorder successor\n}",
+          "canonicalCode": "TNode* findMin(TNode* root) {\n    while (root->left != NULL) root = root->left;\n    return root;\n}\n\nTNode* deleteNode(TNode* root, int value) {\n    if (root == NULL) return NULL;\n    if (value < root->value) root->left = deleteNode(root->left, value);\n    else if (value > root->value) root->right = deleteNode(root->right, value);\n    else {\n        if (root->left == NULL) {\n            TNode* tmp = root->right;\n            free(root); return tmp;\n        }\n        if (root->right == NULL) {\n            TNode* tmp = root->left;\n            free(root); return tmp;\n        }\n        TNode* successor = findMin(root->right);\n        root->value = successor->value;\n        root->right = deleteNode(root->right, successor->value);\n    }\n    return root;\n}",
+          "commonMistakes": [
+            { "line": "TNode* tmp = root->right; free(root); return tmp;", "description": "One-child case: return the surviving child so the parent can relink" },
+            { "line": "TNode* successor = findMin(root->right);", "description": "Inorder successor is the leftmost node of the right subtree" },
+            { "line": "root->value = successor->value;", "description": "Copy successor's value up, then delete the successor from the right subtree — do not swap nodes" },
+            { "line": "root->right = deleteNode(root->right, successor->value);", "description": "Must delete the successor from the right subtree after copying its value up" }
+          ],
+          "timeLimitSeconds": 300
+        }
+      }
+    }
+  ]
+}

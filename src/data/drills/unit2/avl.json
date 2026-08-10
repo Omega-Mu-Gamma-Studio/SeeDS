@@ -1,0 +1,111 @@
+{
+  "id": "avl",
+  "title": "AVL Tree",
+  "lessonRef": "2.2",
+  "dsType": "avl-tree",
+  "operations": [
+    {
+      "id": "avl-balance-factor",
+      "displayName": "Balance Factor",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "The balance factor of an AVL node is defined as: height(_____ subtree) − height(right subtree)",
+          "answer": "left",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the balanceFactor routine for an AVL tree node. Return the difference of left and right subtree heights. Handle NULL nodes.",
+          "scaffoldCode": "int balanceFactor(AVLNode* n) {\n    // return height(left) - height(right)\n    // handle NULL n\n}",
+          "canonicalCode": "int balanceFactor(AVLNode* n) {\n    if (!n) return 0;\n    return height(n->left) - height(n->right);\n}",
+          "commonMistakes": [
+            { "line": "if (!n) return 0;", "description": "NULL node has balance factor 0 — omitting this causes null-dereference on the height call" },
+            { "line": "return height(n->left) - height(n->right);", "description": "Always left minus right — reversing the order gives wrong rotation direction" }
+          ],
+          "timeLimitSeconds": 90
+        }
+      }
+    },
+    {
+      "id": "avl-min-nodes",
+      "displayName": "Minimum Nodes at Height h",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "The minimum number of nodes in an AVL tree of height h follows the recurrence N(h) = N(h-1) + N(h-2) + _____",
+          "answer": "1",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "The question bank asks: 'What is the minimum number of nodes in an AVL tree of height 15?' Use the recurrence N(h) = N(h-1) + N(h-2) + 1 with N(0)=1, N(1)=2. Compute N(15). Show the recurrence reasoning — you won't be expected to compute by hand beyond understanding the pattern.",
+          "scaffoldCode": "/* Show the recurrence pattern:\n   N(0) = 1\n   N(1) = 2\n   N(2) = N(1) + N(0) + 1 = ?\n   ...\n   N(h) = N(h-1) + N(h-2) + 1\n   Compute N(15) step by step */",
+          "canonicalCode": "/* N(0)=1, N(1)=2\n   N(2)=4, N(3)=7, N(4)=12, N(5)=20\n   N(6)=33, N(7)=54, N(8)=88, N(9)=143\n   N(10)=232, N(11)=376, N(12)=609, N(13)=986\n   N(14)=1596, N(15)=2583\n   Answer: minimum nodes in AVL tree of height 15 = 2583 */",
+          "commonMistakes": [
+            { "line": "N(h) = N(h-1) + N(h-2) + 1", "description": "The +1 accounts for the root itself — forgetting it gives Fibonacci numbers, not AVL minimum nodes" },
+            { "line": "N(0)=1, N(1)=2", "description": "Base cases: height-0 tree has 1 node (root only); height-1 tree has 2 nodes (root + one child)" }
+          ],
+          "timeLimitSeconds": 180
+        }
+      }
+    },
+    {
+      "id": "avl-rotate-right",
+      "displayName": "Right Rotation",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "A right rotation on node Y promotes which node to become the new subtree root?",
+          "options": ["Y's right child", "Y's left child", "Y's parent", "Y itself"],
+          "answer": "Y's left child",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the rotateRight routine for an AVL tree. Y is the current subtree root, X is Y's left child.",
+          "scaffoldCode": "AVLNode* rotateRight(AVLNode* y) {\n    // x = y's left child\n    // T2 = x's right child\n    // perform rotation (3 pointer swaps)\n    // return new root\n}",
+          "canonicalCode": "AVLNode* rotateRight(AVLNode* y) {\n    AVLNode* x = y->left;\n    AVLNode* T2 = x->right;\n    x->right = y;\n    y->left = T2;\n    return x;\n}",
+          "commonMistakes": [
+            { "line": "AVLNode* T2 = x->right;", "description": "Save x->right before overwriting — it becomes y's new left child" },
+            { "line": "x->right = y;", "description": "x takes y's place as root, so y becomes x's right child" },
+            { "line": "y->left = T2;", "description": "y's left must be T2 (x's old right subtree) — it was the only subtree that needs rehoming" },
+            { "line": "return x;", "description": "Return the new root (x) so the parent can relink" }
+          ],
+          "timeLimitSeconds": 150
+        }
+      }
+    },
+    {
+      "id": "avl-insert-sequence",
+      "displayName": "Step-by-step Insertion with Rebalancing",
+      "markTier": 16,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "Inserting 1, 2, 3 into an empty AVL tree causes which rotation at node 1?",
+          "options": ["Right-Right case → single Left rotation", "Left-Left case → single Right rotation", "Left-Right case → double rotation", "No rotation needed"],
+          "answer": "Right-Right case → single Left rotation",
+          "timeLimitSeconds": 45
+        },
+        "fullTrace": {
+          "questionText": "Show the step-by-step result of inserting 1, 3, 5, 7, 19, 17, 15, 13, 11, 9, 0 into an initially empty AVL tree (direct Part-B Q9 from the question bank).",
+          "steps": [
+            { "operation": "insert(1)", "note": "1 becomes root. BF=0. Balanced." },
+            { "operation": "insert(3)", "note": "3 > 1 → right of 1. Root BF = -1. Still balanced." },
+            { "operation": "insert(5)", "note": "5 > 1, 5 > 3 → right of 3. Root BF = -2 (RR case). Left-rotate at 1. New root = 3 (1 left, 5 right)." },
+            { "operation": "insert(7)", "note": "7 > 3, 7 > 5 → right of 5. BF at 3 = -2 (RR case). Left-rotate at 3. New root = 5 (3 left, 7 right), 1 left of 3." },
+            { "operation": "insert(19)", "note": "19 > 5, 19 > 7 → right of 7. BF at 5 = -2 (RR). Left-rotate at 5... cascades up. New structure: 7 root (5 left, 19 right); 5 has 3 left; 3 has 1 left." },
+            { "operation": "insert(17)", "note": "17 goes between 7 and 19. BF at 19 = 1 (left-heavy). 7's right subtree: 17 left of 19. No rotation yet." },
+            { "operation": "insert(15)", "note": "15 goes right of 17... RL case at 19. Right-rotate at 17 then left-rotate at 19. 17 becomes parent of 15 and 19." },
+            { "operation": "insert(13)", "note": "13 < 17, 13 > 7... left of 17, right of 7? Trace carefully. No rotation if balanced." },
+            { "operation": "insert(11)", "note": "Causes rebalancing — trace balance factors bottom-up to find first unbalanced ancestor." },
+            { "operation": "insert(9)", "note": "Causes rebalancing — LL or LR case depending on position." },
+            { "operation": "insert(0)", "note": "0 < 1 → leftmost insertion. May cause rebalancing up the left spine." }
+          ],
+          "timeLimitSeconds": 600
+        }
+      }
+    }
+  ]
+}

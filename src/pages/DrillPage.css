@@ -1,0 +1,110 @@
+.drill-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.drill-page__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.drill-page__back {
+  background: none;
+  border: none;
+  color: var(--ink-muted);
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.drill-page__back:hover { color: var(--accent-primary); }
+
+.drill-page__header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: var(--ink);
+}
+
+.drill-page__layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 680px) {
+  .drill-page__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.drill-page__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.drill-page__sidebar-title {
+  margin: 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  font-weight: 700;
+}
+
+.drill-page__boss-btn {
+  margin-top: 0.5rem;
+  padding: 0.7rem 1rem;
+  border: 2px solid var(--ds-pointer);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.drill-page__boss-btn:hover {
+  background: rgba(245, 166, 35, 0.1);
+}
+
+.drill-page__main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.drill-page__track-tabs {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.drill-page__tab {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--bg-sunken);
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.drill-page__tab:hover {
+  background: var(--accent-secondary);
+  color: var(--ink);
+}
+
+.drill-page__tab--active {
+  background: var(--accent-primary);
+  color: var(--accent-primary-ink);
+  border-color: var(--accent-primary);
+}

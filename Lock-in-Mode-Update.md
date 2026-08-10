@@ -1,6 +1,6 @@
 # SeeDS — Next Major Update: Content Audit + Lock-In Mode
 
-**Status:** Planning / pre-development
+**Status:** Phase 2 (Lock-In Mode) — Units 1 & 2 implementation complete, Units 3–6 pending Phase 1 content fill
 **Source material:** CS22302 – Data Structures, official Question Bank (Units 1–5, all Parts A & B), St. Xavier's Catholic College of Engineering
 **Driving idea:** SeeDS teaches concepts well. It doesn't yet train students to *reproduce* what the exam actually asks for — specific routines, written cold, under time pressure, with the edge cases graders dock marks for. This update closes that gap in two phases.
 
@@ -365,3 +365,108 @@ New store (`drillStore.js`, alongside `lessonStore.js`) tracks per-routine attem
    - e. Rehashing the hash tables
    
    [16 ApCO5]
+
+---
+
+## Lock-In Mode — Implementation Progress
+
+### Units 1 & 2: ✅ Complete
+
+All files are authored, wired, and ready. No further work needed before these can ship.
+
+#### New files created
+
+**Data — drill JSON (maps directly to question bank)**
+```
+src/data/drills/
+  unit1/
+    linkedlist-singly.json   — node decl, insertAtEnd (w/ fullTrace), delete, traversal
+    linkedlist-doubly.json   — node decl, insertAfter (4-pointer wiring), delete
+    linkedlist-circular.json — makeCircular, do-while traversal
+    stack.json               — push, pop, balancing-symbols routine (Part-B Q3)
+    queue.json               — enqueue, dequeue, deque concept
+  unit2/
+    bst.json                 — node decl, insert, retrieve (Part-A Q9), delete, DATASTRS trace (Part-B Q6)
+    avl.json                 — balance factor, min nodes at height 15 (Part-A Q11), rotateRight, insert sequence (Part-B Q9)
+    expression-tree.json     — concept, traversal→notation, evaluate routine, construct from infix (Part-B Q4)
+```
+
+**Store**
+```
+src/store/drillStore.js
+```
+Zustand store, persisted under `seeds:drills`. Tracks per-operation attempt count, clean reps, best time, lock-in status (3 clean reps), Boss Round unlock and completion per drill.
+
+**Service**
+```
+src/services/drillService.js
+```
+Mirrors lessonService.js — `import.meta.glob` over `src/data/drills/*/*.json`. Zero code changes needed to add a new drill file.
+
+**UI components**
+```
+src/components/drill/
+  QuickfireCard.jsx      — MCQ + fill-in, timed, self-reporting
+  RoutineWriter.jsx      — code textarea + checklist diff against canonicalCode/commonMistakes
+  FullTrace.jsx          — step-by-step reveal, self-assessed, progress bar
+  DrillProgress.jsx      — per-operation pip indicators + lock-in status
+  BossRound.jsx          — all quickfire + routineWriter tasks back-to-back, timed globally
+  DrillComponents.css    — all component styles, uses SeeDS design tokens
+```
+
+**Pages**
+```
+src/pages/DrillHub.jsx / DrillHub.css   — entry screen, drills by unit, Boss Round status
+src/pages/DrillPage.jsx / DrillPage.css — drill session: operation picker (left), track tabs + card (right)
+```
+
+**Wiring**
+- `src/App.jsx` — routes `/drill` → DrillHub, `/drill/:drillId` → DrillPage
+- `src/pages/CSBlock.jsx` — "Lock-In Mode" hotspot added alongside Staff Room
+
+#### Lock-in mechanics
+
+| Threshold | Effect |
+|---|---|
+| 3 clean reps on one operation | Operation marked 🔒 locked in |
+| All operations locked in for a drill | Boss Round unlocked for that drill |
+| Boss Round finished | Drill marked 🏆 complete |
+
+"Clean" for Quickfire = correct answer within time limit. For RoutineWriter = all `commonMistakes` key lines present, within time limit. For FullTrace = self-assessed (always clean if finished within time).
+
+---
+
+### Next steps — in order
+
+**1. Phase 1 content fill (Units 3–6)** — prerequisite before Lock-In Mode can extend beyond Units 1–2.
+
+Priority order given question bank coverage:
+- **Unit 3 — Trees** (~6–8 new lessons): general tree node/anatomy, binary tree traversals + reconstruct-from-two-traversals, BST ADT (lesson exists in Unit 2 app but needs to move/extend), AVL full implementation, threaded trees, B-trees
+- **Unit 5 — Searching/Sorting/Hashing** (~8 new lessons): linear + binary search, selection sort, insertion sort, double hashing, rehashing, extendible hashing
+- **Unit 4 — Graphs** (~6–7 new lessons): adjacency matrix / incidence matrix / edge list representations, topological sort routine, Dijkstra's routine, Prim's + Kruskal's, articulation points
+
+**2. Extend Lock-In Mode per unit as content clears**
+
+Once Unit 3 lessons are authored, add `src/data/drills/unit3/` — same drill JSON schema, zero new code needed. Same for Units 4–5.
+
+Drill files to author for Unit 3 (when content clears):
+```
+unit3/
+  binary-tree.json         — node decl, inorder/preorder/postorder traversal routines, reconstruct-from-traversals
+  bst-unit3.json           — retrieve routine (Part-A Q9 is explicitly this), insert/delete, DATASTRS trace
+  avl-unit3.json           — balance factor, min-nodes-at-h, rotateRight/rotateLeft, insert-with-rebalance trace
+  expression-tree.json     — already authored ✅ (lives in unit2/, is Unit 3 content by bank — move or alias)
+  heap.json                — percolateUp, percolateDown, buildHeap, deleteMin, the 15-element insertion trace (Part-B Q12)
+```
+
+**3. Representation-conversion widget** (Unit 4 graphs)
+
+The adjacency matrix / adjacency list / incidence matrix / edge list Part-A questions require a fill-the-grid input widget — not covered by any existing drill track. Needs a new `GridFill` component alongside the existing three tracks. Low priority until Unit 4 content fill is done.
+
+**4. Boss Round — consider Passport gating**
+
+Currently Boss Round is purely attempt-count-based (all ops locked in). The open question from the original spec — whether to also require the corresponding Passport landmark to be sealed — is still open. Recommend keeping attempt-count-only for now and revisiting once Boss Round has been tested.
+
+**5. FullTrace — address-level fidelity**
+
+The linked-list Part-B question in the question bank allocates marks to correct memory address bookkeeping (e.g. addresses 888/526/362...). The current FullTrace step schema has an `expectedVisual` field that can carry address data, but the renderer doesn't check it — it's self-assessed. Making addresses checkable fields is future work if exam fidelity at that level becomes a priority.

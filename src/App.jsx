@@ -11,6 +11,8 @@ import Dorm from './pages/Dorm.jsx'
 import UnitPage from './pages/UnitPage.jsx'
 import LessonPage from './pages/LessonPage.jsx'
 import Settings from './pages/Settings.jsx'
+import DrillHub from './pages/DrillHub.jsx'
+import DrillPage from './pages/DrillPage.jsx'
 
 function OnboardingGate() {
   const setCousin = useCousinStore((s) => s.setCousin)
@@ -52,6 +54,8 @@ function App() {
           <Route path="/campus-map/full" element={<UnitPage />} />
           <Route path="/lesson/:lessonId" element={<LessonPage />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/drill" element={<DrillHub />} />
+          <Route path="/drill/:drillId" element={<DrillPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AppLayout>

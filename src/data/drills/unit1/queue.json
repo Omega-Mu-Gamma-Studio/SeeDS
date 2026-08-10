@@ -1,0 +1,75 @@
+{
+  "id": "queue",
+  "title": "Queue",
+  "lessonRef": "1.5",
+  "dsType": "queue",
+  "operations": [
+    {
+      "id": "queue-enqueue",
+      "displayName": "Enqueue",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "In a circular array queue, after inserting at rear, the new rear index is: (q->rear + 1) _____ MAX",
+          "answer": "% MAX",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the enqueue routine for a circular array-based queue.",
+          "scaffoldCode": "int enqueue(Queue* q, int value) {\n    // overflow check\n    // insert at rear\n    // advance rear (circular)\n    // update size\n    // return 1 on success, 0 on overflow\n}",
+          "canonicalCode": "int enqueue(Queue* q, int value) {\n    if (q->size == MAX) return 0; // overflow\n    q->items[q->rear] = value;\n    q->rear = (q->rear + 1) % MAX;\n    q->size++;\n    return 1;\n}",
+          "commonMistakes": [
+            { "line": "if (q->size == MAX) return 0;", "description": "Overflow check must use size, not rear — a circular queue's rear can wrap to 0 even when full" },
+            { "line": "q->rear = (q->rear + 1) % MAX;", "description": "Modulo wraps rear around — omitting % MAX causes rear to go out of bounds" },
+            { "line": "q->size++;", "description": "Size must be tracked separately — front/rear positions alone cannot distinguish empty from full in circular queues" }
+          ],
+          "timeLimitSeconds": 120
+        }
+      }
+    },
+    {
+      "id": "queue-dequeue",
+      "displayName": "Dequeue",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "In a circular queue dequeue, after removing from front, the new front index is: (q->front + 1) _____ MAX",
+          "answer": "% MAX",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the dequeue routine for a circular array-based queue.",
+          "scaffoldCode": "int dequeue(Queue* q, int* out) {\n    // underflow check\n    // retrieve front value into *out\n    // advance front (circular)\n    // update size\n    // return 1 on success, 0 on underflow\n}",
+          "canonicalCode": "int dequeue(Queue* q, int* out) {\n    if (q->size == 0) return 0; // underflow\n    *out = q->items[q->front];\n    q->front = (q->front + 1) % MAX;\n    q->size--;\n    return 1;\n}",
+          "commonMistakes": [
+            { "line": "if (q->size == 0) return 0;", "description": "Underflow guard uses size — front == rear is ambiguous (could be empty or full)" },
+            { "line": "*out = q->items[q->front];", "description": "Read from front BEFORE advancing it — advancing first reads the wrong element" },
+            { "line": "q->front = (q->front + 1) % MAX;", "description": "Circular advance — same modulo pattern as enqueue's rear advance" }
+          ],
+          "timeLimitSeconds": 120
+        }
+      }
+    },
+    {
+      "id": "queue-deque",
+      "displayName": "Deque Concept",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "A deque (double-ended queue) differs from a regular queue because:",
+          "options": [
+            "It stores values in sorted order",
+            "Insertion and deletion can happen at both ends",
+            "It uses two stacks internally",
+            "It cannot store duplicate values"
+          ],
+          "answer": "Insertion and deletion can happen at both ends",
+          "timeLimitSeconds": 30
+        }
+      }
+    }
+  ]
+}

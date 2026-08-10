@@ -1,0 +1,82 @@
+{
+  "id": "linkedlist-doubly",
+  "title": "Doubly Linked List",
+  "lessonRef": "1.2",
+  "dsType": "doubly-linked-list",
+  "operations": [
+    {
+      "id": "dll-node-decl",
+      "displayName": "Node Declaration",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "A doubly linked list node has two pointers. What do they point to?",
+          "options": ["head and tail", "next node and previous node", "first child and second child", "left subtree and right subtree"],
+          "answer": "next node and previous node",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the node declaration for a doubly linked list in C.",
+          "scaffoldCode": "typedef struct DNode {\n    // your fields here\n} DNode;",
+          "canonicalCode": "typedef struct DNode {\n    int value;\n    struct DNode* next;\n    struct DNode* prev;\n} DNode;",
+          "commonMistakes": [
+            { "line": "struct DNode* prev;", "description": "The prev pointer is what distinguishes doubly from singly — must not be forgotten" },
+            { "line": "struct DNode* next;", "description": "Both pointers must be typed struct DNode*, not int or void*" }
+          ],
+          "timeLimitSeconds": 120
+        }
+      }
+    },
+    {
+      "id": "dll-insert-after",
+      "displayName": "Insert After a Node",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "When inserting a new node N after target T in a doubly linked list, N->prev must be set to _____.",
+          "answer": "target",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the routine for insertAfter in a doubly linked list. The function receives a pointer to the target node and the value to insert after it.",
+          "scaffoldCode": "void insertAfter(DNode* target, int value) {\n    DNode* n = (DNode*)malloc(sizeof(DNode));\n    n->value = value;\n    // wire n's next and prev\n    // update target->next->prev if successor exists\n    // update target->next\n}",
+          "canonicalCode": "void insertAfter(DNode* target, int value) {\n    DNode* n = (DNode*)malloc(sizeof(DNode));\n    n->value = value;\n    n->next = target->next;\n    n->prev = target;\n    if (target->next != NULL) {\n        target->next->prev = n;\n    }\n    target->next = n;\n}",
+          "commonMistakes": [
+            { "line": "n->prev = target;", "description": "New node's prev must point back to the target — this is the extra link that makes it doubly" },
+            { "line": "if (target->next != NULL)", "description": "Guard before updating successor's prev — target may be the last node" },
+            { "line": "target->next->prev = n;", "description": "Successor's prev must be updated to point to the new node, not the old predecessor" },
+            { "line": "target->next = n;", "description": "This line must come LAST — updating it before saves n->next correctly" }
+          ],
+          "timeLimitSeconds": 180
+        }
+      }
+    },
+    {
+      "id": "dll-delete",
+      "displayName": "Delete a Node",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "Deleting a middle node from a doubly linked list requires updating how many pointers (not counting the deleted node itself)?",
+          "options": ["1", "2", "3", "4"],
+          "answer": "2",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the routine to delete a given node from a doubly linked list. The node to delete is passed directly (not searched by value).",
+          "scaffoldCode": "void deleteNode(DNode** head, DNode* target) {\n    // update predecessor\n    // update successor\n    // handle head case\n    // free\n}",
+          "canonicalCode": "void deleteNode(DNode** head, DNode* target) {\n    if (target->prev != NULL) {\n        target->prev->next = target->next;\n    } else {\n        *head = target->next;\n    }\n    if (target->next != NULL) {\n        target->next->prev = target->prev;\n    }\n    free(target);\n}",
+          "commonMistakes": [
+            { "line": "*head = target->next;", "description": "If target is the head (prev is NULL), head pointer itself must be updated" },
+            { "line": "target->next->prev = target->prev;", "description": "Successor's prev must skip over the deleted node" },
+            { "line": "free(target);", "description": "Must free after relinking — freeing first corrupts the pointer reads" }
+          ],
+          "timeLimitSeconds": 180
+        }
+      }
+    }
+  ]
+}

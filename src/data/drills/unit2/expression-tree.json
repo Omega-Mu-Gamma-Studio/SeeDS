@@ -1,0 +1,93 @@
+{
+  "id": "expression-tree",
+  "title": "Expression Tree",
+  "lessonRef": "2.3",
+  "dsType": "expression-tree",
+  "operations": [
+    {
+      "id": "expr-concept",
+      "displayName": "Expression Tree Definition",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "In an expression tree, what do the leaf nodes represent?",
+          "options": ["Operators (+, -, *, /)", "Operands (numbers or variables)", "Parentheses", "The result of the expression"],
+          "answer": "Operands (numbers or variables)",
+          "timeLimitSeconds": 30
+        }
+      }
+    },
+    {
+      "id": "expr-traversals",
+      "displayName": "Traversals → Notation",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "Inorder traversal of an expression tree produces:",
+          "options": ["Prefix (Polish) notation", "Postfix (Reverse Polish) notation", "Infix notation", "Level-order notation"],
+          "answer": "Infix notation",
+          "timeLimitSeconds": 30
+        }
+      }
+    },
+    {
+      "id": "expr-evaluate",
+      "displayName": "Evaluate Routine",
+      "markTier": 2,
+      "tracks": {
+        "routineWriter": {
+          "questionText": "Write the recursive evaluate routine for an expression tree. Each node is either an operator (isOperator=1) or a digit leaf (isOperator=0, symbol stores the char '0'-'9').",
+          "scaffoldCode": "int evaluate(ExprNode* node) {\n    // base case: leaf node\n    // recursive: evaluate left and right, apply operator\n}",
+          "canonicalCode": "int evaluate(ExprNode* node) {\n    if (!node->isOperator) return node->symbol - '0';\n    int l = evaluate(node->left);\n    int r = evaluate(node->right);\n    if (node->symbol == '+') return l + r;\n    if (node->symbol == '-') return l - r;\n    if (node->symbol == '*') return l * r;\n    if (node->symbol == '/') return l / r;\n    return 0;\n}",
+          "commonMistakes": [
+            { "line": "if (!node->isOperator) return node->symbol - '0';", "description": "Leaf base case: convert char digit to int with - '0'" },
+            { "line": "int l = evaluate(node->left);", "description": "Evaluate both subtrees before applying the operator — order matters for - and /" },
+            { "line": "if (node->symbol == '/') return l / r;", "description": "Integer division — handle the operator cases exhaustively" }
+          ],
+          "timeLimitSeconds": 180
+        }
+      }
+    },
+    {
+      "id": "expr-construct",
+      "displayName": "Construct Expression Tree",
+      "markTier": 16,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "To build an expression tree from a postfix expression, when you encounter an operator you:",
+          "options": [
+            "Push it onto the stack immediately",
+            "Pop two operand trees, make them children of a new operator node, push result",
+            "Pop one tree, make it the right child of the operator",
+            "Clear the stack and start a new subtree"
+          ],
+          "answer": "Pop two operand trees, make them children of a new operator node, push result",
+          "timeLimitSeconds": 45
+        },
+        "fullTrace": {
+          "questionText": "Construct the expression tree for: a + b * c − d / e ^ f % g (direct Part-B Q4 from exam bank). Show the step-by-step algorithm — convert to postfix first, then build the tree using a stack.",
+          "steps": [
+            { "operation": "Parse: a + b * c − d / e ^ f % g", "note": "Precedence: ^ > * / % > + -. Right-associativity of ^." },
+            { "operation": "Convert to postfix", "note": "Result: a b c * + d e f ^ / g % -. (Apply operator-precedence algorithm with a stack)" },
+            { "operation": "Build tree — read 'a'", "note": "Create leaf node 'a', push onto stack." },
+            { "operation": "Build tree — read 'b'", "note": "Create leaf node 'b', push." },
+            { "operation": "Build tree — read 'c'", "note": "Create leaf node 'c', push." },
+            { "operation": "Build tree — read '*'", "note": "Pop c (right) and b (left). Create '*' node with b left, c right. Push subtree." },
+            { "operation": "Build tree — read '+'", "note": "Pop *-subtree (right) and a (left). Create '+' node. Push." },
+            { "operation": "Build tree — read 'd','e','f'", "note": "Push leaf nodes d, e, f." },
+            { "operation": "Build tree — read '^'", "note": "Pop f (right), e (left). Create '^' node. Push." },
+            { "operation": "Build tree — read '/'", "note": "Pop ^-subtree (right), d (left). Create '/' node. Push." },
+            { "operation": "Build tree — read 'g'", "note": "Push leaf g." },
+            { "operation": "Build tree — read '%'", "note": "Pop g (right), /-subtree (left). Create '%' node. Push." },
+            { "operation": "Build tree — read '-'", "note": "Pop %-subtree (right), +-subtree (left). Create '-' as root." },
+            { "operation": "Final tree", "note": "Root is '-'. Left subtree: a + (b*c). Right subtree: (d / e^f) % g." }
+          ],
+          "timeLimitSeconds": 480
+        }
+      }
+    }
+  ]
+}

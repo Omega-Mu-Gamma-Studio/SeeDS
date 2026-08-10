@@ -1,0 +1,84 @@
+{
+  "id": "stack",
+  "title": "Stack",
+  "lessonRef": "1.4",
+  "dsType": "stack",
+  "operations": [
+    {
+      "id": "stack-push",
+      "displayName": "Push",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "In an array-based stack, the overflow condition (cannot push) is: s->top == _____",
+          "answer": "MAX - 1",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the push routine for an array-based stack (MAX capacity defined).",
+          "scaffoldCode": "int push(Stack* s, int value) {\n    // overflow check\n    // insert\n    // return 1 on success, 0 on overflow\n}",
+          "canonicalCode": "int push(Stack* s, int value) {\n    if (s->top == MAX - 1) return 0; // overflow\n    s->items[++(s->top)] = value;\n    return 1;\n}",
+          "commonMistakes": [
+            { "line": "if (s->top == MAX - 1) return 0;", "description": "Overflow guard — top reaches MAX-1 when full (0-indexed), not MAX" },
+            { "line": "s->items[++(s->top)] = value;", "description": "Pre-increment top THEN assign — post-increment would overwrite the current top element" }
+          ],
+          "timeLimitSeconds": 120
+        }
+      }
+    },
+    {
+      "id": "stack-pop",
+      "displayName": "Pop",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "In an array-based stack, the underflow condition (cannot pop) is: s->top == _____",
+          "answer": "-1",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the pop routine for an array-based stack.",
+          "scaffoldCode": "int pop(Stack* s, int* out) {\n    // underflow check\n    // retrieve top value into *out\n    // decrement top\n    // return 1 on success, 0 on underflow\n}",
+          "canonicalCode": "int pop(Stack* s, int* out) {\n    if (s->top == -1) return 0; // underflow\n    *out = s->items[(s->top)--];\n    return 1;\n}",
+          "commonMistakes": [
+            { "line": "if (s->top == -1) return 0;", "description": "Underflow guard — top is -1 for empty stack (initialized value)" },
+            { "line": "*out = s->items[(s->top)--];", "description": "Read THEN decrement (post-decrement) — pre-decrement reads the wrong index" }
+          ],
+          "timeLimitSeconds": 120
+        }
+      }
+    },
+    {
+      "id": "stack-balance",
+      "displayName": "Balancing Symbols",
+      "markTier": 16,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "Using a stack to check balanced parentheses: when you encounter a closing bracket, you should:",
+          "options": [
+            "Push it onto the stack",
+            "Pop and check if top matches the opening bracket",
+            "Clear the stack",
+            "Compare it with the bottom of the stack"
+          ],
+          "answer": "Pop and check if top matches the opening bracket",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write a routine isBalanced(char* expr) that returns 1 if all parentheses/brackets/braces in expr are balanced, 0 otherwise. Use a character stack.",
+          "scaffoldCode": "int isBalanced(char* expr) {\n    char stack[100];\n    int top = -1;\n    // iterate over expr\n    // push on open bracket, pop+check on close\n    // return result\n}",
+          "canonicalCode": "int isBalanced(char* expr) {\n    char stack[100];\n    int top = -1;\n    for (int i = 0; expr[i] != '\\0'; i++) {\n        char c = expr[i];\n        if (c == '(' || c == '[' || c == '{') {\n            stack[++top] = c;\n        } else if (c == ')' || c == ']' || c == '}') {\n            if (top == -1) return 0;\n            char open = stack[top--];\n            if ((c == ')' && open != '(') ||\n                (c == ']' && open != '[') ||\n                (c == '}' && open != '{')) return 0;\n        }\n    }\n    return top == -1;\n}",
+          "commonMistakes": [
+            { "line": "if (top == -1) return 0;", "description": "Closing bracket with empty stack means unmatched — must return 0 immediately" },
+            { "line": "return top == -1;", "description": "Stack must be empty at end — leftover opening brackets mean unbalanced" },
+            { "line": "if ((c == ')' && open != '(')", "description": "Must check that the matching type corresponds — ) must pair with (, not [ or {" }
+          ],
+          "timeLimitSeconds": 300
+        }
+      }
+    }
+  ]
+}

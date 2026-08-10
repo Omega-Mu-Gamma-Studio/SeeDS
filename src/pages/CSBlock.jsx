@@ -76,6 +76,16 @@ export default function CSBlock() {
           sublabel="Switch advisor"
           onClick={() => setStaffRoomOpen(true)}
         />
+
+        <Hotspot
+          x={60}
+          y={5}
+          width={18}
+          height={67}
+          label="Lock-In Mode"
+          sublabel="Exam drills — Units 1 & 2"
+          onClick={() => navigate('/drill')}
+        />
       </SceneFrame>
 
       {lectureHallOpen && (

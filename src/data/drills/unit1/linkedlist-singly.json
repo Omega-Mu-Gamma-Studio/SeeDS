@@ -1,0 +1,155 @@
+{
+  "id": "linkedlist-singly",
+  "title": "Singly Linked List",
+  "lessonRef": "1.1",
+  "dsType": "singly-linked-list",
+  "operations": [
+    {
+      "id": "sll-node-decl",
+      "displayName": "Node Declaration",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "Which field is required in every singly linked list node declaration?",
+          "options": ["A pointer to the previous node", "A pointer to the next node", "A size counter", "A tail pointer"],
+          "answer": "A pointer to the next node",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the node declaration (struct) for a singly linked list in C.",
+          "scaffoldCode": "typedef struct Node {\n    // your fields here\n} Node;",
+          "canonicalCode": "typedef struct Node {\n    int value;\n    struct Node* next;\n} Node;",
+          "commonMistakes": [
+            { "line": "struct Node* next;", "description": "next must be a pointer to struct Node — a value type creates infinite recursion" },
+            { "line": "int value;", "description": "The data field — omitting it is incomplete" }
+          ],
+          "timeLimitSeconds": 120
+        }
+      }
+    },
+    {
+      "id": "sll-insert-end",
+      "displayName": "Insert at End",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "In insertAtEnd, the while-loop condition that walks to the last node is: while (curr->next _____ NULL)",
+          "answer": "!=",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the routine for insertAtEnd in a singly linked list.",
+          "scaffoldCode": "void insertAtEnd(Node** head, int value) {\n    Node* newNode = createNode(value);\n    // handle empty list\n    // walk to last node\n    // attach\n}",
+          "canonicalCode": "void insertAtEnd(Node** head, int value) {\n    Node* newNode = createNode(value);\n    if (*head == NULL) {\n        *head = newNode;\n        return;\n    }\n    Node* curr = *head;\n    while (curr->next != NULL) {\n        curr = curr->next;\n    }\n    curr->next = newNode;\n}",
+          "commonMistakes": [
+            { "line": "if (*head == NULL)", "description": "Empty-list guard — missing this causes a null-dereference on the traversal" },
+            { "line": "while (curr->next != NULL)", "description": "Stop at last node (curr->next is NULL), not at NULL itself" },
+            { "line": "curr->next = newNode;", "description": "Attach new node — using curr = newNode instead leaves the list unchanged" }
+          ],
+          "timeLimitSeconds": 180
+        },
+        "fullTrace": {
+          "questionText": "Show the step-by-step state after inserting 10, 20, 30 into an initially empty singly linked list.",
+          "steps": [
+            {
+              "operation": "insertAtEnd(10)",
+              "expectedVisual": {
+                "rendererType": "node-graph",
+                "data": {
+                  "nodes": [{ "id": "n1", "value": 10, "next": null, "address": "0x100" }],
+                  "edges": [{ "from": "n1", "to": null, "type": "next" }]
+                }
+              }
+            },
+            {
+              "operation": "insertAtEnd(20)",
+              "expectedVisual": {
+                "rendererType": "node-graph",
+                "data": {
+                  "nodes": [
+                    { "id": "n1", "value": 10, "next": "n2", "address": "0x100" },
+                    { "id": "n2", "value": 20, "next": null, "address": "0x104" }
+                  ],
+                  "edges": [
+                    { "from": "n1", "to": "n2", "type": "next" },
+                    { "from": "n2", "to": null, "type": "next" }
+                  ]
+                }
+              }
+            },
+            {
+              "operation": "insertAtEnd(30)",
+              "expectedVisual": {
+                "rendererType": "node-graph",
+                "data": {
+                  "nodes": [
+                    { "id": "n1", "value": 10, "next": "n2", "address": "0x100" },
+                    { "id": "n2", "value": 20, "next": "n3", "address": "0x104" },
+                    { "id": "n3", "value": 30, "next": null, "address": "0x108" }
+                  ],
+                  "edges": [
+                    { "from": "n1", "to": "n2", "type": "next" },
+                    { "from": "n2", "to": "n3", "type": "next" },
+                    { "from": "n3", "to": null, "type": "next" }
+                  ]
+                }
+              }
+            }
+          ],
+          "timeLimitSeconds": 300
+        }
+      }
+    },
+    {
+      "id": "sll-delete",
+      "displayName": "Delete a Node",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "When deleting a node from a singly linked list, which pointer must be updated?",
+          "options": ["The deleted node's next pointer", "The previous node's next pointer", "The head pointer always", "The tail pointer always"],
+          "answer": "The previous node's next pointer",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the routine for delete (by value) in a singly linked list.",
+          "scaffoldCode": "void deleteNode(Node** head, int value) {\n    // handle empty list or head match\n    // find predecessor\n    // unlink\n    // free\n}",
+          "canonicalCode": "void deleteNode(Node** head, int value) {\n    if (*head == NULL) return;\n    if ((*head)->value == value) {\n        Node* tmp = *head;\n        *head = (*head)->next;\n        free(tmp);\n        return;\n    }\n    Node* curr = *head;\n    while (curr->next != NULL && curr->next->value != value) {\n        curr = curr->next;\n    }\n    if (curr->next == NULL) return;\n    Node* tmp = curr->next;\n    curr->next = tmp->next;\n    free(tmp);\n}",
+          "commonMistakes": [
+            { "line": "if ((*head)->value == value)", "description": "Head-node special case — deleting head requires updating *head itself" },
+            { "line": "curr->next = tmp->next;", "description": "Bypass the deleted node by pointing predecessor to successor" },
+            { "line": "free(tmp);", "description": "Must free — omitting causes a memory leak" }
+          ],
+          "timeLimitSeconds": 180
+        }
+      }
+    },
+    {
+      "id": "sll-traversal",
+      "displayName": "Traversal",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "What is the time complexity of finding the k-th node in a singly linked list?",
+          "options": ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+          "answer": "O(n)",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write a routine to traverse and print every value in a singly linked list.",
+          "scaffoldCode": "void traverse(Node* head) {\n    // walk from head to NULL\n}",
+          "canonicalCode": "void traverse(Node* head) {\n    Node* curr = head;\n    while (curr != NULL) {\n        printf(\"%d \", curr->value);\n        curr = curr->next;\n    }\n}",
+          "commonMistakes": [
+            { "line": "Node* curr = head;", "description": "Use a separate pointer — never mutate head during traversal" },
+            { "line": "while (curr != NULL)", "description": "Loop terminates when curr is NULL, not curr->next" }
+          ],
+          "timeLimitSeconds": 120
+        }
+      }
+    }
+  ]
+}

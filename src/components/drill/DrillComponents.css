@@ -1,0 +1,428 @@
+/* ============================================================
+   Drill Components — Lock-In Mode
+   Uses SeeDS design tokens from tokens.css
+   ============================================================ */
+
+/* ---- Shared card shell ---- */
+.drill-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-elevated);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.drill-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drill-card__track-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+
+.drill-card__timer {
+  font-family: var(--font-code);
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  transition: color 0.2s;
+}
+
+.drill-card__timer--urgent {
+  color: var(--ds-broken);
+  font-weight: 700;
+}
+
+.drill-card__question {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* ---- Multiple choice ---- */
+.drill-card__options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.drill-card__option {
+  width: 100%;
+  text-align: left;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--bg-sunken);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.drill-card__option:hover:not(:disabled) {
+  background: var(--accent-secondary);
+  border-color: var(--accent-primary);
+}
+
+.drill-card__option--selected {
+  border-color: var(--accent-primary);
+  background: var(--accent-secondary);
+}
+
+.drill-card__option--correct {
+  border-color: var(--ds-circular-intentional);
+  background: rgba(60, 160, 90, 0.12);
+  font-weight: 600;
+}
+
+.drill-card__option--wrong {
+  border-color: var(--ds-broken);
+  background: rgba(231, 76, 60, 0.1);
+}
+
+/* ---- Fill-in ---- */
+.drill-card__fill-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.drill-card__fill-input {
+  flex: 1;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--bg-sunken);
+  color: var(--ink);
+  font-family: var(--font-code);
+  font-size: 0.95rem;
+}
+
+.drill-card__fill-input:focus {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 1px;
+}
+
+/* ---- Buttons ---- */
+.drill-card__submit-btn,
+.drill-card__next-btn {
+  padding: 0.6rem 1.25rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--accent-primary);
+  color: var(--accent-primary-ink);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.drill-card__submit-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.drill-card__reveal-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--bg-sunken);
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  align-self: flex-start;
+}
+
+.drill-card__reveal-btn:hover {
+  background: var(--accent-secondary);
+}
+
+/* ---- Feedback ---- */
+.drill-card__feedback {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.drill-card__feedback--correct { color: var(--ds-circular-intentional); }
+.drill-card__feedback--wrong   { color: var(--ds-broken); }
+.drill-card__feedback--timeout { color: var(--ds-pointer); }
+
+.drill-card__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ---- Routine Writer ---- */
+.drill-card__code-editor {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--bg-sunken);
+  color: var(--ink);
+  font-family: var(--font-code);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.drill-card__code-editor:focus {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 1px;
+}
+
+.drill-card__checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.drill-card__checklist-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ink-muted);
+  margin: 0;
+}
+
+.drill-card__checklist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.drill-card__check-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  font-size: 0.9rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.drill-card__check-item--ok {
+  background: rgba(60, 160, 90, 0.08);
+  color: var(--ink);
+}
+
+.drill-card__check-item--missing {
+  background: rgba(231, 76, 60, 0.08);
+  color: var(--ds-broken);
+}
+
+.drill-card__check-icon {
+  font-weight: 700;
+  min-width: 1rem;
+}
+
+.drill-card__check-note {
+  color: var(--ink-muted);
+  font-size: 0.82rem;
+}
+
+.drill-card__canonical {
+  background: var(--bg-sunken);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+}
+
+.drill-card__canonical h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.drill-card__code-pre {
+  font-family: var(--font-code);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* ---- Full Trace ---- */
+.drill-card__step-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.drill-card__step-bar {
+  height: 4px;
+  background: var(--bg-sunken);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.drill-card__step-fill {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.drill-card__step {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.drill-card__step-op {
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-sunken);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-code);
+  font-size: 0.95rem;
+}
+
+.drill-card__step-prompt {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.drill-card__step-hint {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+}
+
+.drill-card__step-reveal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.drill-card__step-note {
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--bg-sunken);
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-sm);
+  margin: 0;
+  border-left: 3px solid var(--accent-primary);
+}
+
+.drill-card__step-visual-note {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+.drill-card__done {
+  text-align: center;
+  color: var(--ds-circular-intentional);
+  font-weight: 600;
+  padding: 0.5rem 0;
+}
+
+/* ---- DrillProgress ---- */
+.drill-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.drill-progress__op {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--bg-sunken);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s;
+  font-size: 0.9rem;
+}
+
+.drill-progress__op:hover {
+  background: var(--accent-secondary);
+  border-color: var(--accent-primary);
+}
+
+.drill-progress__op--active {
+  border-color: var(--accent-primary);
+  background: var(--accent-secondary);
+  font-weight: 600;
+}
+
+.drill-progress__op--locked-in {
+  border-color: var(--ds-circular-intentional);
+  background: rgba(60, 160, 90, 0.08);
+}
+
+.drill-progress__op-name {
+  flex: 1;
+}
+
+.drill-progress__pips {
+  display: flex;
+  gap: 3px;
+}
+
+.drill-progress__pip {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-subtle);
+  border: 1px solid var(--border-subtle);
+}
+
+.drill-progress__pip--filled {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.drill-progress__lock {
+  font-size: 0.75rem;
+}
+
+.drill-progress__best {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  font-family: var(--font-code);
+}
+
+/* ---- Boss Round ---- */
+.drill-card--boss {
+  border-color: var(--ds-pointer);
+  border-width: 2px;
+}
+
+.drill-card__boss-subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+}
+
+.drill-card__boss-complete {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.drill-card__boss-complete h3 {
+  margin: 0 0 0.5rem;
+  color: var(--ds-pointer);
+}
