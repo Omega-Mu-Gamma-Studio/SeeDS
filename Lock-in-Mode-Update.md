@@ -22,8 +22,12 @@ Legend: 🟢 already built and question-bank-aligned · 🟡 built but incomplet
 ### Unit 1 — Lists — 🟢 complete
 Singly/doubly/circular linked lists, array vs. linked-list tradeoffs, all core routines. Fully matches question bank Unit-1 Part-A/B (headers, polynomial representation, `Insert`/`Delete`/`FindPrevious`-style routines). No action needed.
 
+**2026-08-11 update:** original "complete" call was at the operation-*category* level (insert/delete/traverse existed), but routine *granularity* was thin against Weiss ch.3 — audited against the actual textbook chapter and closed the gap on singly linked list: added `is_empty`, `find`, `find_previous`, `insert_after` (position-based, distinct from the existing `insertAtEnd`), and `delete_list` (with the free-before-saving-next use-after-free bug as a `commonMistakes` trap on Routine Writer — this is Weiss's own "incorrect way to delete a list" example). Doubly/circular left as-is: Weiss ch.3 doesn't give concrete routine code for those, only the concept, and the existing insertAfter/delete/traversal ops already cover the concrete side.
+
 ### Unit 2 — Stacks & Queues — 🟢 complete
 Stack/queue ADTs, array + linked implementations. Matches question bank Unit-2 (balancing symbols, infix↔postfix↔prefix conversion, circular queues, deques). No action needed.
+
+**2026-08-11 update:** same routine-depth audit as Unit 1, against Weiss ch.3 stack/queue sections. Added `is_empty`/`top` to stack and `is_empty`/`is_full` to queue (all previously missing despite being named in the question bank's Part-A list). Bigger gap: `evaluatePostfix` and `infixToPostfix` were entirely absent as routines even though Weiss's own worked examples for both (`6 5 2 3 + 8 * + 3 + *` and `a + b * c + ( d * e + f ) * g`) are exactly Part-B-shaped — added both as 16-mark ops with Routine Writer + Full Trace tracks, the trace steps mirroring Weiss's worked examples stack-state-by-stack-state so they're gradeable against the textbook's own answer. Not yet done: prefix conversion/evaluation, and a dedicated array/stack visual renderer (Full Trace currently falls back to text `note` per step for these two since `VisualizerDispatch` has no stack-shaped renderer — `node-graph`/`array-tree-dual` would misrepresent a stack; flagging as a future renderer gap rather than faking one in).
 
 ### Unit 3 — Trees — 🔴 major gaps
 Currently built: **Min Heap / Max Heap / Heap Sort only** (3 lessons, "The Heap Observatory").

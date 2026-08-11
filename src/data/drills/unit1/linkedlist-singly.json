@@ -12,7 +12,12 @@
         "quickfire": {
           "type": "multiple-choice",
           "question": "Which field is required in every singly linked list node declaration?",
-          "options": ["A pointer to the previous node", "A pointer to the next node", "A size counter", "A tail pointer"],
+          "options": [
+            "A pointer to the previous node",
+            "A pointer to the next node",
+            "A size counter",
+            "A tail pointer"
+          ],
           "answer": "A pointer to the next node",
           "timeLimitSeconds": 30
         },
@@ -21,8 +26,14 @@
           "scaffoldCode": "typedef struct Node {\n    // your fields here\n} Node;",
           "canonicalCode": "typedef struct Node {\n    int value;\n    struct Node* next;\n} Node;",
           "commonMistakes": [
-            { "line": "struct Node* next;", "description": "next must be a pointer to struct Node — a value type creates infinite recursion" },
-            { "line": "int value;", "description": "The data field — omitting it is incomplete" }
+            {
+              "line": "struct Node* next;",
+              "description": "next must be a pointer to struct Node \u2014 a value type creates infinite recursion"
+            },
+            {
+              "line": "int value;",
+              "description": "The data field \u2014 omitting it is incomplete"
+            }
           ],
           "timeLimitSeconds": 120
         }
@@ -44,9 +55,18 @@
           "scaffoldCode": "void insertAtEnd(Node** head, int value) {\n    Node* newNode = createNode(value);\n    // handle empty list\n    // walk to last node\n    // attach\n}",
           "canonicalCode": "void insertAtEnd(Node** head, int value) {\n    Node* newNode = createNode(value);\n    if (*head == NULL) {\n        *head = newNode;\n        return;\n    }\n    Node* curr = *head;\n    while (curr->next != NULL) {\n        curr = curr->next;\n    }\n    curr->next = newNode;\n}",
           "commonMistakes": [
-            { "line": "if (*head == NULL)", "description": "Empty-list guard — missing this causes a null-dereference on the traversal" },
-            { "line": "while (curr->next != NULL)", "description": "Stop at last node (curr->next is NULL), not at NULL itself" },
-            { "line": "curr->next = newNode;", "description": "Attach new node — using curr = newNode instead leaves the list unchanged" }
+            {
+              "line": "if (*head == NULL)",
+              "description": "Empty-list guard \u2014 missing this causes a null-dereference on the traversal"
+            },
+            {
+              "line": "while (curr->next != NULL)",
+              "description": "Stop at last node (curr->next is NULL), not at NULL itself"
+            },
+            {
+              "line": "curr->next = newNode;",
+              "description": "Attach new node \u2014 using curr = newNode instead leaves the list unchanged"
+            }
           ],
           "timeLimitSeconds": 180
         },
@@ -58,8 +78,21 @@
               "expectedVisual": {
                 "rendererType": "node-graph",
                 "data": {
-                  "nodes": [{ "id": "n1", "value": 10, "next": null, "address": "0x100" }],
-                  "edges": [{ "from": "n1", "to": null, "type": "next" }]
+                  "nodes": [
+                    {
+                      "id": "n1",
+                      "value": 10,
+                      "next": null,
+                      "address": "0x100"
+                    }
+                  ],
+                  "edges": [
+                    {
+                      "from": "n1",
+                      "to": null,
+                      "type": "next"
+                    }
+                  ]
                 }
               }
             },
@@ -69,12 +102,30 @@
                 "rendererType": "node-graph",
                 "data": {
                   "nodes": [
-                    { "id": "n1", "value": 10, "next": "n2", "address": "0x100" },
-                    { "id": "n2", "value": 20, "next": null, "address": "0x104" }
+                    {
+                      "id": "n1",
+                      "value": 10,
+                      "next": "n2",
+                      "address": "0x100"
+                    },
+                    {
+                      "id": "n2",
+                      "value": 20,
+                      "next": null,
+                      "address": "0x104"
+                    }
                   ],
                   "edges": [
-                    { "from": "n1", "to": "n2", "type": "next" },
-                    { "from": "n2", "to": null, "type": "next" }
+                    {
+                      "from": "n1",
+                      "to": "n2",
+                      "type": "next"
+                    },
+                    {
+                      "from": "n2",
+                      "to": null,
+                      "type": "next"
+                    }
                   ]
                 }
               }
@@ -85,14 +136,41 @@
                 "rendererType": "node-graph",
                 "data": {
                   "nodes": [
-                    { "id": "n1", "value": 10, "next": "n2", "address": "0x100" },
-                    { "id": "n2", "value": 20, "next": "n3", "address": "0x104" },
-                    { "id": "n3", "value": 30, "next": null, "address": "0x108" }
+                    {
+                      "id": "n1",
+                      "value": 10,
+                      "next": "n2",
+                      "address": "0x100"
+                    },
+                    {
+                      "id": "n2",
+                      "value": 20,
+                      "next": "n3",
+                      "address": "0x104"
+                    },
+                    {
+                      "id": "n3",
+                      "value": 30,
+                      "next": null,
+                      "address": "0x108"
+                    }
                   ],
                   "edges": [
-                    { "from": "n1", "to": "n2", "type": "next" },
-                    { "from": "n2", "to": "n3", "type": "next" },
-                    { "from": "n3", "to": null, "type": "next" }
+                    {
+                      "from": "n1",
+                      "to": "n2",
+                      "type": "next"
+                    },
+                    {
+                      "from": "n2",
+                      "to": "n3",
+                      "type": "next"
+                    },
+                    {
+                      "from": "n3",
+                      "to": null,
+                      "type": "next"
+                    }
                   ]
                 }
               }
@@ -110,7 +188,12 @@
         "quickfire": {
           "type": "multiple-choice",
           "question": "When deleting a node from a singly linked list, which pointer must be updated?",
-          "options": ["The deleted node's next pointer", "The previous node's next pointer", "The head pointer always", "The tail pointer always"],
+          "options": [
+            "The deleted node's next pointer",
+            "The previous node's next pointer",
+            "The head pointer always",
+            "The tail pointer always"
+          ],
           "answer": "The previous node's next pointer",
           "timeLimitSeconds": 30
         },
@@ -119,9 +202,18 @@
           "scaffoldCode": "void deleteNode(Node** head, int value) {\n    // handle empty list or head match\n    // find predecessor\n    // unlink\n    // free\n}",
           "canonicalCode": "void deleteNode(Node** head, int value) {\n    if (*head == NULL) return;\n    if ((*head)->value == value) {\n        Node* tmp = *head;\n        *head = (*head)->next;\n        free(tmp);\n        return;\n    }\n    Node* curr = *head;\n    while (curr->next != NULL && curr->next->value != value) {\n        curr = curr->next;\n    }\n    if (curr->next == NULL) return;\n    Node* tmp = curr->next;\n    curr->next = tmp->next;\n    free(tmp);\n}",
           "commonMistakes": [
-            { "line": "if ((*head)->value == value)", "description": "Head-node special case — deleting head requires updating *head itself" },
-            { "line": "curr->next = tmp->next;", "description": "Bypass the deleted node by pointing predecessor to successor" },
-            { "line": "free(tmp);", "description": "Must free — omitting causes a memory leak" }
+            {
+              "line": "if ((*head)->value == value)",
+              "description": "Head-node special case \u2014 deleting head requires updating *head itself"
+            },
+            {
+              "line": "curr->next = tmp->next;",
+              "description": "Bypass the deleted node by pointing predecessor to successor"
+            },
+            {
+              "line": "free(tmp);",
+              "description": "Must free \u2014 omitting causes a memory leak"
+            }
           ],
           "timeLimitSeconds": 180
         }
@@ -135,7 +227,12 @@
         "quickfire": {
           "type": "multiple-choice",
           "question": "What is the time complexity of finding the k-th node in a singly linked list?",
-          "options": ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+          "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n\u00b2)"
+          ],
           "answer": "O(n)",
           "timeLimitSeconds": 30
         },
@@ -144,10 +241,181 @@
           "scaffoldCode": "void traverse(Node* head) {\n    // walk from head to NULL\n}",
           "canonicalCode": "void traverse(Node* head) {\n    Node* curr = head;\n    while (curr != NULL) {\n        printf(\"%d \", curr->value);\n        curr = curr->next;\n    }\n}",
           "commonMistakes": [
-            { "line": "Node* curr = head;", "description": "Use a separate pointer — never mutate head during traversal" },
-            { "line": "while (curr != NULL)", "description": "Loop terminates when curr is NULL, not curr->next" }
+            {
+              "line": "Node* curr = head;",
+              "description": "Use a separate pointer \u2014 never mutate head during traversal"
+            },
+            {
+              "line": "while (curr != NULL)",
+              "description": "Loop terminates when curr is NULL, not curr->next"
+            }
           ],
           "timeLimitSeconds": 120
+        }
+      }
+    },
+    {
+      "id": "sll-is-empty",
+      "displayName": "Is Empty",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "For a headerless singly linked list, is_empty(head) returns true when head _____ NULL.",
+          "answer": "==",
+          "timeLimitSeconds": 20
+        },
+        "routineWriter": {
+          "questionText": "Write the routine is_empty for a singly linked list (no header node, head pointer passed directly).",
+          "scaffoldCode": "int is_empty(Node* head) {\n    // one line\n}",
+          "canonicalCode": "int is_empty(Node* head) {\n    return head == NULL;\n}",
+          "commonMistakes": [
+            {
+              "line": "return head == NULL;",
+              "description": "An empty list is simply a NULL head pointer \u2014 no traversal needed"
+            }
+          ],
+          "timeLimitSeconds": 60
+        }
+      }
+    },
+    {
+      "id": "sll-find",
+      "displayName": "Find",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "In find, the while-loop condition uses short-circuit _____ so p->element is never read once p is NULL: while (p != NULL && p->value _____ x)",
+          "answer": "!=",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write the routine find(head, x) that returns a pointer to the node containing x, or NULL if not found.",
+          "scaffoldCode": "Node* find(Node* head, int x) {\n    Node* p = head;\n    // walk while not found and not past the end\n    return p;\n}",
+          "canonicalCode": "Node* find(Node* head, int x) {\n    Node* p = head;\n    while (p != NULL && p->value != x) {\n        p = p->next;\n    }\n    return p;\n}",
+          "commonMistakes": [
+            {
+              "line": "while (p != NULL && p->value != x)",
+              "description": "p != NULL must come first \u2014 && short-circuits so p->value is never dereferenced on a NULL p"
+            },
+            {
+              "line": "return p;",
+              "description": "Returns NULL naturally when the loop runs off the end \u2014 no separate not-found branch needed"
+            }
+          ],
+          "timeLimitSeconds": 120
+        }
+      }
+    },
+    {
+      "id": "sll-find-previous",
+      "displayName": "Find Previous",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "find_previous(head, x) is mainly used to support which other operation?",
+          "options": [
+            "traverse",
+            "is_empty",
+            "delete",
+            "is_last"
+          ],
+          "answer": "delete",
+          "timeLimitSeconds": 20
+        },
+        "routineWriter": {
+          "questionText": "Write find_previous(head, x) for a headerless singly linked list: return a pointer to the node whose next field contains x, or NULL if x is the head's value or not found at all.",
+          "scaffoldCode": "Node* find_previous(Node* head, int x) {\n    // handle head-value special case\n    // walk pairs (curr, curr->next)\n}",
+          "canonicalCode": "Node* find_previous(Node* head, int x) {\n    if (head == NULL || head->value == x) return NULL;\n    Node* p = head;\n    while (p->next != NULL && p->next->value != x) {\n        p = p->next;\n    }\n    if (p->next == NULL) return NULL;\n    return p;\n}",
+          "commonMistakes": [
+            {
+              "line": "if (head == NULL || head->value == x) return NULL;",
+              "description": "Headerless-list edge case: x at the head has no predecessor node \u2014 must return NULL, not head"
+            },
+            {
+              "line": "while (p->next != NULL && p->next->value != x)",
+              "description": "Look one node ahead (p->next), since we want the node BEFORE the match"
+            },
+            {
+              "line": "if (p->next == NULL) return NULL;",
+              "description": "Ran off the end without finding x \u2014 distinguish this from a real predecessor"
+            }
+          ],
+          "timeLimitSeconds": 150
+        }
+      }
+    },
+    {
+      "id": "sll-insert-after",
+      "displayName": "Insert After Position",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "insert_after(p, value) wires the new node's next BEFORE updating p->next. The new node's next is set to: p->_____",
+          "answer": "next",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write insert_after(p, value): insert a new node containing value immediately after position p (p is guaranteed non-NULL).",
+          "scaffoldCode": "void insert_after(Node* p, int value) {\n    Node* tmp = (Node*)malloc(sizeof(Node));\n    // wire tmp\n    // splice in\n}",
+          "canonicalCode": "void insert_after(Node* p, int value) {\n    Node* tmp = (Node*)malloc(sizeof(Node));\n    if (tmp == NULL) return; // out of space\n    tmp->value = value;\n    tmp->next = p->next;\n    p->next = tmp;\n}",
+          "commonMistakes": [
+            {
+              "line": "tmp->next = p->next;",
+              "description": "Must save p->next into the new node FIRST \u2014 doing p->next = tmp before this loses the rest of the list"
+            },
+            {
+              "line": "p->next = tmp;",
+              "description": "This splice-in step must come after tmp->next is wired, not before"
+            },
+            {
+              "line": "if (tmp == NULL) return;",
+              "description": "malloc can fail \u2014 an unchecked NULL dereference on tmp->value is a common exam deduction"
+            }
+          ],
+          "timeLimitSeconds": 150
+        }
+      }
+    },
+    {
+      "id": "sll-delete-list",
+      "displayName": "Delete Entire List",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "Why is `while (p != NULL) { free(p); p = p->next; }` wrong for deleting an entire list?",
+          "options": [
+            "free() doesn't exist in C",
+            "p->next is read AFTER p has already been freed \u2014 undefined behavior",
+            "It leaks memory",
+            "It only works for circular lists"
+          ],
+          "answer": "p->next is read AFTER p has already been freed \u2014 undefined behavior",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write delete_list(headPtr): free every node in the list and set *headPtr to NULL. Must be safe (no use-after-free).",
+          "scaffoldCode": "void delete_list(Node** headPtr) {\n    Node* p = *headPtr;\n    *headPtr = NULL;\n    // free every node WITHOUT reading a freed node's fields\n}",
+          "canonicalCode": "void delete_list(Node** headPtr) {\n    Node* p = *headPtr;\n    *headPtr = NULL;\n    while (p != NULL) {\n        Node* tmp = p->next;\n        free(p);\n        p = tmp;\n    }\n}",
+          "commonMistakes": [
+            {
+              "line": "Node* tmp = p->next;",
+              "description": "Save next BEFORE freeing p \u2014 this is the whole point of the routine; skipping it is the classic wrong version (free(p); p = p->next;)"
+            },
+            {
+              "line": "free(p);",
+              "description": "Free only after tmp has safely captured the next pointer"
+            },
+            {
+              "line": "*headPtr = NULL;",
+              "description": "Caller's head pointer must be cleared too, or it dangles"
+            }
+          ],
+          "timeLimitSeconds": 150
         }
       }
     }

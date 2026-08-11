@@ -20,9 +20,18 @@
           "scaffoldCode": "int enqueue(Queue* q, int value) {\n    // overflow check\n    // insert at rear\n    // advance rear (circular)\n    // update size\n    // return 1 on success, 0 on overflow\n}",
           "canonicalCode": "int enqueue(Queue* q, int value) {\n    if (q->size == MAX) return 0; // overflow\n    q->items[q->rear] = value;\n    q->rear = (q->rear + 1) % MAX;\n    q->size++;\n    return 1;\n}",
           "commonMistakes": [
-            { "line": "if (q->size == MAX) return 0;", "description": "Overflow check must use size, not rear — a circular queue's rear can wrap to 0 even when full" },
-            { "line": "q->rear = (q->rear + 1) % MAX;", "description": "Modulo wraps rear around — omitting % MAX causes rear to go out of bounds" },
-            { "line": "q->size++;", "description": "Size must be tracked separately — front/rear positions alone cannot distinguish empty from full in circular queues" }
+            {
+              "line": "if (q->size == MAX) return 0;",
+              "description": "Overflow check must use size, not rear \u2014 a circular queue's rear can wrap to 0 even when full"
+            },
+            {
+              "line": "q->rear = (q->rear + 1) % MAX;",
+              "description": "Modulo wraps rear around \u2014 omitting % MAX causes rear to go out of bounds"
+            },
+            {
+              "line": "q->size++;",
+              "description": "Size must be tracked separately \u2014 front/rear positions alone cannot distinguish empty from full in circular queues"
+            }
           ],
           "timeLimitSeconds": 120
         }
@@ -44,9 +53,18 @@
           "scaffoldCode": "int dequeue(Queue* q, int* out) {\n    // underflow check\n    // retrieve front value into *out\n    // advance front (circular)\n    // update size\n    // return 1 on success, 0 on underflow\n}",
           "canonicalCode": "int dequeue(Queue* q, int* out) {\n    if (q->size == 0) return 0; // underflow\n    *out = q->items[q->front];\n    q->front = (q->front + 1) % MAX;\n    q->size--;\n    return 1;\n}",
           "commonMistakes": [
-            { "line": "if (q->size == 0) return 0;", "description": "Underflow guard uses size — front == rear is ambiguous (could be empty or full)" },
-            { "line": "*out = q->items[q->front];", "description": "Read from front BEFORE advancing it — advancing first reads the wrong element" },
-            { "line": "q->front = (q->front + 1) % MAX;", "description": "Circular advance — same modulo pattern as enqueue's rear advance" }
+            {
+              "line": "if (q->size == 0) return 0;",
+              "description": "Underflow guard uses size \u2014 front == rear is ambiguous (could be empty or full)"
+            },
+            {
+              "line": "*out = q->items[q->front];",
+              "description": "Read from front BEFORE advancing it \u2014 advancing first reads the wrong element"
+            },
+            {
+              "line": "q->front = (q->front + 1) % MAX;",
+              "description": "Circular advance \u2014 same modulo pattern as enqueue's rear advance"
+            }
           ],
           "timeLimitSeconds": 120
         }
@@ -68,6 +86,56 @@
           ],
           "answer": "Insertion and deletion can happen at both ends",
           "timeLimitSeconds": 30
+        }
+      }
+    },
+    {
+      "id": "queue-is-empty",
+      "displayName": "Is Empty",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "For a circular array queue tracking size explicitly, is_empty(q) returns true when q->size == _____",
+          "answer": "0",
+          "timeLimitSeconds": 20
+        },
+        "routineWriter": {
+          "questionText": "Write is_empty for a circular array-based queue that tracks size explicitly.",
+          "scaffoldCode": "int is_empty(Queue* q) {\n    // one line\n}",
+          "canonicalCode": "int is_empty(Queue* q) {\n    return q->size == 0;\n}",
+          "commonMistakes": [
+            {
+              "line": "return q->size == 0;",
+              "description": "With an explicit size field, checking front == rear is ambiguous (also true when full) \u2014 size is unambiguous"
+            }
+          ],
+          "timeLimitSeconds": 60
+        }
+      }
+    },
+    {
+      "id": "queue-is-full",
+      "displayName": "Is Full",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "For a circular array queue of capacity MAX tracking size explicitly, is_full(q) returns true when q->size == _____",
+          "answer": "MAX",
+          "timeLimitSeconds": 20
+        },
+        "routineWriter": {
+          "questionText": "Write is_full for a circular array-based queue that tracks size explicitly.",
+          "scaffoldCode": "int is_full(Queue* q) {\n    // one line\n}",
+          "canonicalCode": "int is_full(Queue* q) {\n    return q->size == MAX;\n}",
+          "commonMistakes": [
+            {
+              "line": "return q->size == MAX;",
+              "description": "Without a size field, rear reaching the array end doesn't necessarily mean full \u2014 it may have already wrapped around; size makes this trivial and correct"
+            }
+          ],
+          "timeLimitSeconds": 60
         }
       }
     }

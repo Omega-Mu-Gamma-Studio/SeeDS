@@ -20,8 +20,14 @@
           "scaffoldCode": "int push(Stack* s, int value) {\n    // overflow check\n    // insert\n    // return 1 on success, 0 on overflow\n}",
           "canonicalCode": "int push(Stack* s, int value) {\n    if (s->top == MAX - 1) return 0; // overflow\n    s->items[++(s->top)] = value;\n    return 1;\n}",
           "commonMistakes": [
-            { "line": "if (s->top == MAX - 1) return 0;", "description": "Overflow guard — top reaches MAX-1 when full (0-indexed), not MAX" },
-            { "line": "s->items[++(s->top)] = value;", "description": "Pre-increment top THEN assign — post-increment would overwrite the current top element" }
+            {
+              "line": "if (s->top == MAX - 1) return 0;",
+              "description": "Overflow guard \u2014 top reaches MAX-1 when full (0-indexed), not MAX"
+            },
+            {
+              "line": "s->items[++(s->top)] = value;",
+              "description": "Pre-increment top THEN assign \u2014 post-increment would overwrite the current top element"
+            }
           ],
           "timeLimitSeconds": 120
         }
@@ -43,8 +49,14 @@
           "scaffoldCode": "int pop(Stack* s, int* out) {\n    // underflow check\n    // retrieve top value into *out\n    // decrement top\n    // return 1 on success, 0 on underflow\n}",
           "canonicalCode": "int pop(Stack* s, int* out) {\n    if (s->top == -1) return 0; // underflow\n    *out = s->items[(s->top)--];\n    return 1;\n}",
           "commonMistakes": [
-            { "line": "if (s->top == -1) return 0;", "description": "Underflow guard — top is -1 for empty stack (initialized value)" },
-            { "line": "*out = s->items[(s->top)--];", "description": "Read THEN decrement (post-decrement) — pre-decrement reads the wrong index" }
+            {
+              "line": "if (s->top == -1) return 0;",
+              "description": "Underflow guard \u2014 top is -1 for empty stack (initialized value)"
+            },
+            {
+              "line": "*out = s->items[(s->top)--];",
+              "description": "Read THEN decrement (post-decrement) \u2014 pre-decrement reads the wrong index"
+            }
           ],
           "timeLimitSeconds": 120
         }
@@ -72,11 +84,274 @@
           "scaffoldCode": "int isBalanced(char* expr) {\n    char stack[100];\n    int top = -1;\n    // iterate over expr\n    // push on open bracket, pop+check on close\n    // return result\n}",
           "canonicalCode": "int isBalanced(char* expr) {\n    char stack[100];\n    int top = -1;\n    for (int i = 0; expr[i] != '\\0'; i++) {\n        char c = expr[i];\n        if (c == '(' || c == '[' || c == '{') {\n            stack[++top] = c;\n        } else if (c == ')' || c == ']' || c == '}') {\n            if (top == -1) return 0;\n            char open = stack[top--];\n            if ((c == ')' && open != '(') ||\n                (c == ']' && open != '[') ||\n                (c == '}' && open != '{')) return 0;\n        }\n    }\n    return top == -1;\n}",
           "commonMistakes": [
-            { "line": "if (top == -1) return 0;", "description": "Closing bracket with empty stack means unmatched — must return 0 immediately" },
-            { "line": "return top == -1;", "description": "Stack must be empty at end — leftover opening brackets mean unbalanced" },
-            { "line": "if ((c == ')' && open != '(')", "description": "Must check that the matching type corresponds — ) must pair with (, not [ or {" }
+            {
+              "line": "if (top == -1) return 0;",
+              "description": "Closing bracket with empty stack means unmatched \u2014 must return 0 immediately"
+            },
+            {
+              "line": "return top == -1;",
+              "description": "Stack must be empty at end \u2014 leftover opening brackets mean unbalanced"
+            },
+            {
+              "line": "if ((c == ')' && open != '(')",
+              "description": "Must check that the matching type corresponds \u2014 ) must pair with (, not [ or {"
+            }
           ],
           "timeLimitSeconds": 300
+        }
+      }
+    },
+    {
+      "id": "stack-is-empty",
+      "displayName": "Is Empty",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "fill",
+          "question": "For an array-based stack, is_empty(s) returns true when s->top == _____",
+          "answer": "-1",
+          "timeLimitSeconds": 20
+        },
+        "routineWriter": {
+          "questionText": "Write is_empty for an array-based stack.",
+          "scaffoldCode": "int is_empty(Stack* s) {\n    // one line\n}",
+          "canonicalCode": "int is_empty(Stack* s) {\n    return s->top == -1;\n}",
+          "commonMistakes": [
+            {
+              "line": "return s->top == -1;",
+              "description": "top is initialized to -1 for an empty stack \u2014 this is the whole check"
+            }
+          ],
+          "timeLimitSeconds": 60
+        }
+      }
+    },
+    {
+      "id": "stack-top",
+      "displayName": "Top (Peek)",
+      "markTier": 2,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "top(s) differs from pop(s) because top:",
+          "options": [
+            "Removes the top element and returns it",
+            "Examines the top element without removing it",
+            "Adds a new element to the top",
+            "Clears the whole stack"
+          ],
+          "answer": "Examines the top element without removing it",
+          "timeLimitSeconds": 20
+        },
+        "routineWriter": {
+          "questionText": "Write the top routine for an array-based stack: return the top element without removing it. Assume error() reports an empty-stack access.",
+          "scaffoldCode": "int top(Stack* s) {\n    // underflow check\n    // return top element (do NOT modify s->top)\n}",
+          "canonicalCode": "int top(Stack* s) {\n    if (is_empty(s)) {\n        error(\"Empty stack\");\n    }\n    return s->items[s->top];\n}",
+          "commonMistakes": [
+            {
+              "line": "if (is_empty(s)) {",
+              "description": "top on an empty stack is an ADT error and must be checked, same as pop"
+            },
+            {
+              "line": "return s->items[s->top];",
+              "description": "top must NOT decrement s->top \u2014 that's what makes it different from pop"
+            }
+          ],
+          "timeLimitSeconds": 90
+        }
+      }
+    },
+    {
+      "id": "stack-postfix-eval",
+      "displayName": "Evaluate Postfix Expression",
+      "markTier": 16,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "While evaluating a postfix expression left to right, when an operator is read you should:",
+          "options": [
+            "Push the operator onto the stack",
+            "Pop two operands, apply the operator, push the result",
+            "Pop one operand and print it",
+            "Skip the operator"
+          ],
+          "answer": "Pop two operands, apply the operator, push the result",
+          "timeLimitSeconds": 30
+        },
+        "routineWriter": {
+          "questionText": "Write evaluatePostfix(char* expr) for single-digit operands and the operators + - * /. Return the final integer result.",
+          "scaffoldCode": "int evaluatePostfix(char* expr) {\n    int stack[100], top = -1;\n    // for each char: digit -> push; operator -> pop two, apply, push\n    // return final popped value\n}",
+          "canonicalCode": "int evaluatePostfix(char* expr) {\n    int stack[100], top = -1;\n    for (int i = 0; expr[i] != '\\0'; i++) {\n        char c = expr[i];\n        if (c == ' ') continue;\n        if (isdigit(c)) {\n            stack[++top] = c - '0';\n        } else {\n            int b = stack[top--];\n            int a = stack[top--];\n            int result;\n            if (c == '+') result = a + b;\n            else if (c == '-') result = a - b;\n            else if (c == '*') result = a * b;\n            else result = a / b;\n            stack[++top] = result;\n        }\n    }\n    return stack[top];\n}",
+          "commonMistakes": [
+            {
+              "line": "int b = stack[top--];",
+              "description": "Pop the SECOND operand first \u2014 it's on top of the stack (pushed most recently)"
+            },
+            {
+              "line": "int a = stack[top--];",
+              "description": "Then pop the first operand \u2014 order matters for non-commutative ops like - and /"
+            },
+            {
+              "line": "if (c == '-') result = a - b;",
+              "description": "Operand order is a OP b, not b OP a \u2014 swapping breaks subtraction and division"
+            },
+            {
+              "line": "stack[++top] = result;",
+              "description": "Push the result back \u2014 the stack always ends with exactly one value, the final answer"
+            }
+          ],
+          "timeLimitSeconds": 300
+        },
+        "fullTrace": {
+          "questionText": "Evaluate the postfix expression 6 5 2 3 + 8 * + 3 + * step by step, showing the stack contents after each token.",
+          "steps": [
+            {
+              "operation": "push 6, 5, 2, 3",
+              "note": "Operands are pushed as read. Stack (bottom\u2192top): 6 5 2 3"
+            },
+            {
+              "operation": "read '+'",
+              "note": "Pop 3 and 2, compute 2+3=5, push. Stack: 6 5 5"
+            },
+            {
+              "operation": "push 8",
+              "note": "Operand pushed. Stack: 6 5 5 8"
+            },
+            {
+              "operation": "read '*'",
+              "note": "Pop 8 and 5, compute 5*8=40, push. Stack: 6 5 40"
+            },
+            {
+              "operation": "read '+'",
+              "note": "Pop 40 and 5, compute 5+40=45, push. Stack: 6 45"
+            },
+            {
+              "operation": "push 3",
+              "note": "Operand pushed. Stack: 6 45 3"
+            },
+            {
+              "operation": "read '+'",
+              "note": "Pop 3 and 45, compute 45+3=48, push. Stack: 6 48"
+            },
+            {
+              "operation": "read '*'",
+              "note": "Pop 48 and 6, compute 6*48=288, push. Stack: 288 \u2014 final answer."
+            }
+          ],
+          "timeLimitSeconds": 240
+        }
+      }
+    },
+    {
+      "id": "stack-infix-to-postfix",
+      "displayName": "Infix to Postfix Conversion",
+      "markTier": 16,
+      "tracks": {
+        "quickfire": {
+          "type": "multiple-choice",
+          "question": "When converting infix to postfix, an operand (like a variable or digit) is:",
+          "options": [
+            "Pushed onto the operator stack",
+            "Sent straight to the output",
+            "Discarded",
+            "Held until a matching parenthesis appears"
+          ],
+          "answer": "Sent straight to the output",
+          "timeLimitSeconds": 20
+        },
+        "routineWriter": {
+          "questionText": "Write infixToPostfix(char* expr) supporting single-letter operands and + - * ( ). Append to an output buffer and use a char stack for operators, popping lower-or-equal precedence before pushing a new operator, and emptying the stack to output at the end.",
+          "scaffoldCode": "void infixToPostfix(char* expr, char* out) {\n    char stack[100]; int top = -1; int oi = 0;\n    // operand -> output\n    // '(' -> push\n    // ')' -> pop to output until '('\n    // operator -> pop while stack top has >= precedence, then push\n    // at end: pop remaining stack to output\n}",
+          "canonicalCode": "int precedence(char op) {\n    if (op == '(') return 3;\n    if (op == '*') return 2;\n    if (op == '+') return 1;\n    return 0;\n}\n\nvoid infixToPostfix(char* expr, char* out) {\n    char stack[100]; int top = -1; int oi = 0;\n    for (int i = 0; expr[i] != '\\0'; i++) {\n        char c = expr[i];\n        if (isalnum(c)) {\n            out[oi++] = c;\n        } else if (c == '(') {\n            stack[++top] = c;\n        } else if (c == ')') {\n            while (top >= 0 && stack[top] != '(') {\n                out[oi++] = stack[top--];\n            }\n            top--; // discard the '('\n        } else {\n            while (top >= 0 && stack[top] != '(' && precedence(stack[top]) >= precedence(c)) {\n                out[oi++] = stack[top--];\n            }\n            stack[++top] = c;\n        }\n    }\n    while (top >= 0) {\n        out[oi++] = stack[top--];\n    }\n    out[oi] = '\\0';\n}",
+          "commonMistakes": [
+            {
+              "line": "if (isalnum(c)) {",
+              "description": "Operands go straight to output \u2014 never onto the stack"
+            },
+            {
+              "line": "while (top >= 0 && stack[top] != '(' && precedence(stack[top]) >= precedence(c))",
+              "description": "The '(' check must come first \u2014 '(' is never popped except by a matching ')'"
+            },
+            {
+              "line": "top--; // discard the '('",
+              "description": "The matched '(' is popped and discarded, never written to output"
+            },
+            {
+              "line": "while (top >= 0) {",
+              "description": "At end of input, empty the remaining stack to output \u2014 a common miss that drops trailing operators"
+            }
+          ],
+          "timeLimitSeconds": 360
+        },
+        "fullTrace": {
+          "questionText": "Convert a + b * c + ( d * e + f ) * g to postfix step by step, showing output and operator-stack contents after each token.",
+          "steps": [
+            {
+              "operation": "read 'a'",
+              "note": "Operand -> output. Output: a | Stack: (empty)"
+            },
+            {
+              "operation": "read '+'",
+              "note": "Operator, stack empty -> push. Output: a | Stack: +"
+            },
+            {
+              "operation": "read 'b'",
+              "note": "Operand -> output. Output: a b | Stack: +"
+            },
+            {
+              "operation": "read '*'",
+              "note": "Top of stack '+' has lower precedence than '*' -> push without popping. Output: a b | Stack: + *"
+            },
+            {
+              "operation": "read 'c'",
+              "note": "Operand -> output. Output: a b c | Stack: + *"
+            },
+            {
+              "operation": "read '+' (2nd)",
+              "note": "Pop '*' (higher) to output, pop '+' (equal) to output, then push new '+'. Output: a b c * + | Stack: +"
+            },
+            {
+              "operation": "read '('",
+              "note": "Always pushed, highest priority. Output: a b c * + | Stack: + ("
+            },
+            {
+              "operation": "read 'd'",
+              "note": "Operand -> output. Output: a b c * + d | Stack: + ("
+            },
+            {
+              "operation": "read '*' (2nd)",
+              "note": "Top is '(' -> never popped except by ')' -> push. Output: a b c * + d | Stack: + ( *"
+            },
+            {
+              "operation": "read 'e'",
+              "note": "Operand -> output. Output: a b c * + d e | Stack: + ( *"
+            },
+            {
+              "operation": "read '+' (3rd)",
+              "note": "Pop '*' to output, then push '+'. Output: a b c * + d e * | Stack: + ( +"
+            },
+            {
+              "operation": "read 'f'",
+              "note": "Operand -> output. Output: a b c * + d e * f | Stack: + ( +"
+            },
+            {
+              "operation": "read ')'",
+              "note": "Pop to output until '(' is found; pop '+' to output, discard the '('. Output: a b c * + d e * f + | Stack: +"
+            },
+            {
+              "operation": "read '*' (3rd)",
+              "note": "Top '+' has lower precedence -> push. Output: a b c * + d e * f + | Stack: + *"
+            },
+            {
+              "operation": "read 'g'",
+              "note": "Operand -> output. Output: a b c * + d e * f + g | Stack: + *"
+            },
+            {
+              "operation": "end of input",
+              "note": "Pop remaining stack to output: '*' then '+'. Final output: a b c * + d e * f + g * +"
+            }
+          ],
+          "timeLimitSeconds": 360
         }
       }
     }
